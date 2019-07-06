@@ -43,6 +43,7 @@
 			isa = PBXGroup;
 			children = (
 				4353B8D022CF51F6004BD807 /* MyAirbnb */,
+				4353B8E922D085D0004BD807 /* Extension */,
 				4353B8CF22CF51F6004BD807 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -59,15 +60,46 @@
 			isa = PBXGroup;
 			children = (
 				4353B8D122CF51F6004BD807 /* AppDelegate.swift */,
-				4353B8E322D0797E004BD807 /* MainViewController.swift */,
-				8D0D786D22D07C9300F61F0B /* TripViewController.swift */,
-				8D0D786F22D07DE600F61F0B /* TripIntroTableViewCell.swift */,
-				8D0D787122D0810300F61F0B /* SpecialTripTableViewCell.swift */,
+				4353B8EC22D085D5004BD807 /* Model */,
+				4353B8EB22D085D3004BD807 /* View */,
+				4353B8EA22D085D2004BD807 /* Controller */,
 				4353B8D822CF51F9004BD807 /* Assets.xcassets */,
 				4353B8DA22CF51F9004BD807 /* LaunchScreen.storyboard */,
 				4353B8DD22CF51F9004BD807 /* Info.plist */,
 			);
 			path = MyAirbnb;
+			sourceTree = "<group>";
+		};
+		4353B8E922D085D0004BD807 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		4353B8EA22D085D2004BD807 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				4353B8E322D0797E004BD807 /* MainViewController.swift */,
+				8D0D786D22D07C9300F61F0B /* TripViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		4353B8EB22D085D3004BD807 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8D0D786F22D07DE600F61F0B /* TripIntroTableViewCell.swift */,
+				8D0D787122D0810300F61F0B /* SpecialTripTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4353B8EC22D085D5004BD807 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
