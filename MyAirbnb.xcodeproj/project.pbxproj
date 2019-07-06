@@ -8,20 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		4353B8D222CF51F6004BD807 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353B8D122CF51F6004BD807 /* AppDelegate.swift */; };
-		4353B8D722CF51F6004BD807 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4353B8D522CF51F6004BD807 /* Main.storyboard */; };
 		4353B8D922CF51F9004BD807 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4353B8D822CF51F9004BD807 /* Assets.xcassets */; };
 		4353B8DC22CF51F9004BD807 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4353B8DA22CF51F9004BD807 /* LaunchScreen.storyboard */; };
 		4353B8E422D0797E004BD807 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353B8E322D0797E004BD807 /* MainViewController.swift */; };
+		8D0D786E22D07C9300F61F0B /* TripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D786D22D07C9300F61F0B /* TripViewController.swift */; };
+		8D0D787022D07DE600F61F0B /* TripIntroTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D786F22D07DE600F61F0B /* TripIntroTableViewCell.swift */; };
+		8D0D787222D0810300F61F0B /* SpecialTripTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D787122D0810300F61F0B /* SpecialTripTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4353B8CE22CF51F6004BD807 /* MyAirbnb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyAirbnb.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4353B8D122CF51F6004BD807 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4353B8D622CF51F6004BD807 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4353B8D822CF51F9004BD807 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4353B8DB22CF51F9004BD807 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4353B8DD22CF51F9004BD807 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4353B8E322D0797E004BD807 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		8D0D786D22D07C9300F61F0B /* TripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripViewController.swift; sourceTree = "<group>"; };
+		8D0D786F22D07DE600F61F0B /* TripIntroTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripIntroTableViewCell.swift; sourceTree = "<group>"; };
+		8D0D787122D0810300F61F0B /* SpecialTripTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialTripTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,7 +60,9 @@
 			children = (
 				4353B8D122CF51F6004BD807 /* AppDelegate.swift */,
 				4353B8E322D0797E004BD807 /* MainViewController.swift */,
-				4353B8D522CF51F6004BD807 /* Main.storyboard */,
+				8D0D786D22D07C9300F61F0B /* TripViewController.swift */,
+				8D0D786F22D07DE600F61F0B /* TripIntroTableViewCell.swift */,
+				8D0D787122D0810300F61F0B /* SpecialTripTableViewCell.swift */,
 				4353B8D822CF51F9004BD807 /* Assets.xcassets */,
 				4353B8DA22CF51F9004BD807 /* LaunchScreen.storyboard */,
 				4353B8DD22CF51F9004BD807 /* Info.plist */,
@@ -124,7 +130,6 @@
 			files = (
 				4353B8DC22CF51F9004BD807 /* LaunchScreen.storyboard in Resources */,
 				4353B8D922CF51F9004BD807 /* Assets.xcassets in Resources */,
-				4353B8D722CF51F6004BD807 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,6 +140,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D0D787222D0810300F61F0B /* SpecialTripTableViewCell.swift in Sources */,
+				8D0D786E22D07C9300F61F0B /* TripViewController.swift in Sources */,
+				8D0D787022D07DE600F61F0B /* TripIntroTableViewCell.swift in Sources */,
 				4353B8E422D0797E004BD807 /* MainViewController.swift in Sources */,
 				4353B8D222CF51F6004BD807 /* AppDelegate.swift in Sources */,
 			);
@@ -143,14 +151,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		4353B8D522CF51F6004BD807 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4353B8D622CF51F6004BD807 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		4353B8DA22CF51F9004BD807 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -289,7 +289,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "-0705.MyAirbnb";
+				PRODUCT_BUNDLE_IDENTIFIER = kr.doyeong.myairbnb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -307,7 +307,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "-0705.MyAirbnb";
+				PRODUCT_BUNDLE_IDENTIFIER = kr.doyeong.myairbnb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
