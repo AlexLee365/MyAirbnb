@@ -140,6 +140,8 @@ extension TripViewController: UITableViewDelegate {
         if scrollView.contentOffset.y > becomeWhiteStartPoint {
             let opacity = ( scrollView.contentOffset.y - becomeWhiteStartPoint ) / (becomeWhiteEndPoint - becomeWhiteStartPoint)
             searchBarBackgroundView.layer.opacity = Float(opacity)
+        } else {
+            searchBarBackgroundView.layer.opacity = 0
         }
     }
 }
