@@ -129,8 +129,16 @@ extension TripViewController: UITableViewDataSource {
 extension TripViewController: UITableViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        if scrollView.contentOffset.y > 300 {
-            let opacity = ( scrollView.contentOffset.y - 300 ) / 245
+        
+        // scrollView offset이 (cell.height - backgroundview.height) 일때 opacity가 1이되야함
+        // scrollView offset이 대략 200전부터 opacity가 변하기 시작하도록 함
+        
+        let becomeWhiteEndPoint = 545 - searchBarBackgroundView.frame.height
+        let becomeWhiteStartPoint = becomeWhiteEndPoint - 100
+        print("becomeWhiteEndPoint: ", becomeWhiteEndPoint, "/ becomeWhiteStartPoint: ", becomeWhiteStartPoint )
+        
+        if scrollView.contentOffset.y > becomeWhiteStartPoint {
+            let opacity = ( scrollView.contentOffset.y - becomeWhiteStartPoint ) / (becomeWhiteEndPoint - becomeWhiteStartPoint)
             searchBarBackgroundView.layer.opacity = Float(opacity)
         }
     }
