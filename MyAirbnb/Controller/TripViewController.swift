@@ -12,6 +12,12 @@ class TripViewController: UIViewController {
 
     let tableView = UITableView()
     
+    let searchBarView: SearchBarView = {
+        let searchBarView = SearchBarView()
+        searchBarView.searchImageView.image = UIImage(named: "<#T##String#>")
+        return searchBarView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -20,6 +26,10 @@ class TripViewController: UIViewController {
     }
     
     private func configure() {
+        
+        
+        view.addSubview(searchBarView)
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none

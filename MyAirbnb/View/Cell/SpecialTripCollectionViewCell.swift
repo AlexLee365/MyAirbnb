@@ -58,6 +58,7 @@ class SpecialTripCollectionViewCell: UICollectionViewCell {
         self.layer.shadowOpacity = 0.2
         self.layer.masksToBounds = false
         
+        imageView.clipsToBounds = true
         contentView.addSubview(imageView)
         contentView.addSubview(titleLabel)
         contentView.addSubview(descLabel)
