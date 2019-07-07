@@ -22,8 +22,10 @@ class TripViewController: UIViewController {
     private func configure() {
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.separatorStyle = .none
         tableView.register(TripIntroTableViewCell.self, forCellReuseIdentifier: TripIntroTableViewCell.identifier)
         tableView.register(SpecialTripTableViewCell.self, forCellReuseIdentifier: SpecialTripTableViewCell.identifier)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         view.addSubview(tableView)
     }
     
@@ -52,14 +54,23 @@ extension TripViewController: UITableViewDataSource {
             let introCell = tableView.dequeueReusableCell(withIdentifier: TripIntroTableViewCell.identifier, for: indexPath) as! TripIntroTableViewCell
             
             introCell.backgroundColor = .black
+            introCell.selectionStyle = .none
+            
             return introCell
             
-        } else {
-            tableView.rowHeight = 500
+        } else if indexPath.row == 1 {
+            tableView.rowHeight = 530
             
             let specialTripCell = tableView.dequeueReusableCell(withIdentifier: SpecialTripTableViewCell.identifier, for: indexPath) as! SpecialTripTableViewCell
+            specialTripCell.selectionStyle = .none
             
             return specialTripCell
+        } else {
+            tableView.rowHeight = 510
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+            
+            return cell
         }
     }
 }
