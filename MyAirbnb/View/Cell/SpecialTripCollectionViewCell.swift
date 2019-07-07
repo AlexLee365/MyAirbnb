@@ -50,7 +50,7 @@ class SpecialTripCollectionViewCell: UICollectionViewCell {
         
         self.contentView.backgroundColor = .white
         self.contentView.clipsToBounds = true
-        self.contentView.layer.cornerRadius = 5
+        self.contentView.layer.cornerRadius = 8
         
         self.layer.shadowColor = UIColor.gray.cgColor
         self.layer.shadowOffset = CGSize(width: 0, height: 2.5)

@@ -20,6 +20,8 @@
 		8D0D788722D20A0200F61F0B /* AirbnbCereal-Book.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D0D788422D209FB00F61F0B /* AirbnbCereal-Book.ttf */; };
 		8D0D788822D20A0400F61F0B /* AirbnbCereal-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D0D788522D209FB00F61F0B /* AirbnbCereal-Medium.ttf */; };
 		8D0D788A22D20B9100F61F0B /* SpecialTripCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D788922D20B9100F61F0B /* SpecialTripCollectionViewCell.swift */; };
+		8D0D788C22D2220700F61F0B /* SeoulRecommenedTripTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D788B22D2220700F61F0B /* SeoulRecommenedTripTableViewCell.swift */; };
+		8D0D788E22D222A400F61F0B /* TripInfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D788D22D222A400F61F0B /* TripInfoCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +40,8 @@
 		8D0D788422D209FB00F61F0B /* AirbnbCereal-Book.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AirbnbCereal-Book.ttf"; sourceTree = "<group>"; };
 		8D0D788522D209FB00F61F0B /* AirbnbCereal-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AirbnbCereal-Medium.ttf"; sourceTree = "<group>"; };
 		8D0D788922D20B9100F61F0B /* SpecialTripCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialTripCollectionViewCell.swift; sourceTree = "<group>"; };
+		8D0D788B22D2220700F61F0B /* SeoulRecommenedTripTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeoulRecommenedTripTableViewCell.swift; sourceTree = "<group>"; };
+		8D0D788D22D222A400F61F0B /* TripInfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripInfoCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +126,8 @@
 				8D0D787422D089AD00F61F0B /* TripIntroCollectionViewCell.swift */,
 				8D0D787122D0810300F61F0B /* SpecialTripTableViewCell.swift */,
 				8D0D788922D20B9100F61F0B /* SpecialTripCollectionViewCell.swift */,
+				8D0D788B22D2220700F61F0B /* SeoulRecommenedTripTableViewCell.swift */,
+				8D0D788D22D222A400F61F0B /* TripInfoCollectionViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -211,7 +217,9 @@
 			files = (
 				8D0D787222D0810300F61F0B /* SpecialTripTableViewCell.swift in Sources */,
 				4353B8EE22D088A3004BD807 /* TabbarController.swift in Sources */,
+				8D0D788E22D222A400F61F0B /* TripInfoCollectionViewCell.swift in Sources */,
 				8D0D786E22D07C9300F61F0B /* TripViewController.swift in Sources */,
+				8D0D788C22D2220700F61F0B /* SeoulRecommenedTripTableViewCell.swift in Sources */,
 				8D0D787522D089AD00F61F0B /* TripIntroCollectionViewCell.swift in Sources */,
 				8D0D787022D07DE600F61F0B /* TripIntroTableViewCell.swift in Sources */,
 				8D0D788A22D20B9100F61F0B /* SpecialTripCollectionViewCell.swift in Sources */,
