@@ -47,14 +47,15 @@ extension TripViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.row == 0 {
-            tableView.rowHeight = 400
+            tableView.rowHeight = 545
 
             let introCell = tableView.dequeueReusableCell(withIdentifier: TripIntroTableViewCell.identifier, for: indexPath) as! TripIntroTableViewCell
             
+            introCell.backgroundColor = .black
             return introCell
             
         } else {
-            tableView.rowHeight = 400
+            tableView.rowHeight = 500
             
             let specialTripCell = tableView.dequeueReusableCell(withIdentifier: SpecialTripTableViewCell.identifier, for: indexPath) as! SpecialTripTableViewCell
             
