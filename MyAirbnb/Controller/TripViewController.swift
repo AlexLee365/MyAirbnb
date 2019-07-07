@@ -12,6 +12,22 @@ class TripViewController: UIViewController {
 
     let tableView = UITableView()
     
+    let searchBarBackgroundView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.layer.opacity = 0
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    let searchBarView: SearchBarView = {
+        let searchBarView = SearchBarView()
+        searchBarView.searchImageView.image = UIImage(named: "back32")
+        searchBarView.backgroundColor = .clear
+//        searchBarView.layer.opacity = 0
+        return searchBarView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -20,6 +36,7 @@ class TripViewController: UIViewController {
     }
     
     private func configure() {
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
@@ -28,14 +45,34 @@ class TripViewController: UIViewController {
         tableView.register(SeoulRecommenedTripTableViewCell.self, forCellReuseIdentifier: SeoulRecommenedTripTableViewCell.identifier)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         view.addSubview(tableView)
+        
+        view.addSubview(searchBarView)
+
+        view.addSubview(searchBarBackgroundView)
+        
+        view.bringSubviewToFront(searchBarView)
     }
     
     private func setAutolayout() {
+        
+        let safeGuide = view.safeAreaLayoutGuide
+        
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+
+        searchBarView.translatesAutoresizingMaskIntoConstraints = false
+        searchBarView.topAnchor.constraint(equalTo: safeGuide.topAnchor).isActive = true
+        searchBarView.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor).isActive = true
+        searchBarView.trailingAnchor.constraint(equalTo: safeGuide.trailingAnchor).isActive = true
+        searchBarView.heightAnchor.constraint(equalToConstant: 70).isActive = true
+       
+        searchBarBackgroundView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        searchBarBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        searchBarBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        searchBarBackgroundView.bottomAnchor.constraint(equalTo: searchBarView.bottomAnchor, constant: 10).isActive = true
     }
 }
 
@@ -90,5 +127,11 @@ extension TripViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 
 extension TripViewController: UITableViewDelegate {
-    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        if scrollView.contentOffset.y > 300 {
+            let opacity = ( scrollView.contentOffset.y - 300 ) / 245
+            searchBarBackgroundView.layer.opacity = Float(opacity)
+        }
+    }
 }

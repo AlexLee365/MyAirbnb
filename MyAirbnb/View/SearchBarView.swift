@@ -64,7 +64,7 @@ class SearchBarView: UIView {
     }
     
     private func configureViewsOptions() {
-        self.backgroundColor = .white
+        self.backgroundColor = .clear
         
         searchContainerView.backgroundColor = .white
         searchContainerView.layer.shadowColor = UIColor.black.cgColor
