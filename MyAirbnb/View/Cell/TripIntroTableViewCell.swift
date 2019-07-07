@@ -13,11 +13,11 @@ class TripIntroTableViewCell: UITableViewCell {
     private enum UI {
         static let itemsInLine: CGFloat = 1
         static let linesOnScreen: CGFloat = 2
-        static let lineSpacing: CGFloat = 20.0
+        static let lineSpacing: CGFloat = 13.0
         static let itemSpacing: CGFloat = 0.0
         static let edgeInsets = UIEdgeInsets(top: 20, left: 20, bottom: 30, right: 20)
         
-        static let nextOffset: CGFloat = 10
+        static let nextOffset: CGFloat = 8
     }
     
     static let identifier = "tripIntroTableViewCell"
