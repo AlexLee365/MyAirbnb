@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         
-        let firstVC = TripViewController()
+        let firstVC = TabbarController()
         
         window?.rootViewController = firstVC
         window?.makeKeyAndVisible()
