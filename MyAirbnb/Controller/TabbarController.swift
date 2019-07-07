@@ -21,20 +21,17 @@ class TabbarController: UITabBarController {
         
         setSeparateLine()
         setTabbarItems()
-        print("tabbar frame: ", tabBar.frame)
-        print("view frame: ", view.frame)
-        
     }
     
     private func setSeparateLine() {
         view.addSubview(separateLine)
         separateLine.translatesAutoresizingMaskIntoConstraints = false
         separateLine.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        separateLine.topAnchor.constraint(equalTo: view.topAnchor, constant:  10).isActive = true
+//        separateLine.topAnchor.constraint(equalTo: tabBar.topAnchor, constant:  0).isActive = true  // layoutSubview에서 설정 (tabbar frame을 받아오기위함)
         separateLine.heightAnchor.constraint(equalToConstant: 1).isActive = true
         separateLine.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         
-        separateLine.backgroundColor = .lightGray
+        separateLine.backgroundColor = #colorLiteral(red: 0.6363541484, green: 0.6325739026, blue: 0.639261663, alpha: 0.5090699914)
     }
     
     private func setTabbarItems() {
@@ -61,11 +58,7 @@ class TabbarController: UITabBarController {
         profileVC.tabBarItem = UITabBarItem(title: "프로필", image: UIImage(named: "tabbarIcon_Profile")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), tag: 1)
         profileVC.tabBarItem.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -5)
         
-        
-        
-        
-        
-        self.view.backgroundColor = .orange
+
         viewControllers = [mainVC, saveListVC, tripVC, messageVC, profileVC]
     }
     
@@ -99,11 +92,17 @@ class TabbarController: UITabBarController {
         
     }
     
+    var frameSet = false
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+        print("viewWillLayoutSubview tabbar frame: ", tabBar.frame)
         
-//        tabBar.frame = CGRect(x: tabBar.frame.origin.x, y: tabBar.frame.origin.y, width: tabBar.frame.width, height: tabBar.frame.height)
-        tabBar.sizeThatFits(tabBar.frame.size)
+        if frameSet == false {
+            tabBar.sizeThatFits(tabBar.frame.size)
+            separateLine.topAnchor.constraint(equalTo: tabBar.topAnchor, constant:  0).isActive = true
+            frameSet = true
+        }
+        
         
     }
     
@@ -115,7 +114,7 @@ class TabbarController: UITabBarController {
 
 extension UITabBar {
     
-    override open func sizeThatFits(_ size: CGSize) -> CGSize {
+    override open func sizeThatFits(_ size: CGSize) -> CGSize {     // 탭바 높이 조정 (코드 다시 이해할것)
         super.sizeThatFits(size)
         guard let window = UIApplication.shared.keyWindow else {
             return super.sizeThatFits(size)
