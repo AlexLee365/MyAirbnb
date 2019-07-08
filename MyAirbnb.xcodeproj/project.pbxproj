@@ -13,6 +13,9 @@
 		4353B8E422D0797E004BD807 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353B8E322D0797E004BD807 /* MainViewController.swift */; };
 		4353B8EE22D088A3004BD807 /* TabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353B8ED22D088A3004BD807 /* TabbarController.swift */; };
 		4353B8F022D22782004BD807 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353B8EF22D22782004BD807 /* SearchBarView.swift */; };
+		4353B8F222D319F2004BD807 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353B8F122D319F2004BD807 /* MainView.swift */; };
+		4353B8F422D31D68004BD807 /* MainCategoryTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353B8F322D31D68004BD807 /* MainCategoryTableCell.swift */; };
+		4353B8F822D327C2004BD807 /* MainCategoryCollectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353B8F622D327C2004BD807 /* MainCategoryCollectCell.swift */; };
 		8D0D786E22D07C9300F61F0B /* TripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D786D22D07C9300F61F0B /* TripViewController.swift */; };
 		8D0D787022D07DE600F61F0B /* TripIntroTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D786F22D07DE600F61F0B /* TripIntroTableViewCell.swift */; };
 		8D0D787222D0810300F61F0B /* SpecialTripTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D787122D0810300F61F0B /* SpecialTripTableViewCell.swift */; };
@@ -34,6 +37,9 @@
 		4353B8E322D0797E004BD807 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		4353B8ED22D088A3004BD807 /* TabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarController.swift; sourceTree = "<group>"; };
 		4353B8EF22D22782004BD807 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
+		4353B8F122D319F2004BD807 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		4353B8F322D31D68004BD807 /* MainCategoryTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCategoryTableCell.swift; sourceTree = "<group>"; };
+		4353B8F622D327C2004BD807 /* MainCategoryCollectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCategoryCollectCell.swift; sourceTree = "<group>"; };
 		8D0D786D22D07C9300F61F0B /* TripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripViewController.swift; sourceTree = "<group>"; };
 		8D0D786F22D07DE600F61F0B /* TripIntroTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripIntroTableViewCell.swift; sourceTree = "<group>"; };
 		8D0D787122D0810300F61F0B /* SpecialTripTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialTripTableViewCell.swift; sourceTree = "<group>"; };
@@ -109,6 +115,7 @@
 		4353B8EB22D085D3004BD807 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4353B8F522D3274E004BD807 /* Main */,
 				8D0D787322D0898200F61F0B /* Cell */,
 				4353B8EF22D22782004BD807 /* SearchBarView.swift */,
 			);
@@ -120,6 +127,16 @@
 			children = (
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		4353B8F522D3274E004BD807 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				4353B8F122D319F2004BD807 /* MainView.swift */,
+				4353B8F322D31D68004BD807 /* MainCategoryTableCell.swift */,
+				4353B8F622D327C2004BD807 /* MainCategoryCollectCell.swift */,
+			);
+			path = Main;
 			sourceTree = "<group>";
 		};
 		8D0D787322D0898200F61F0B /* Cell */ = {
@@ -219,10 +236,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D0D787222D0810300F61F0B /* SpecialTripTableViewCell.swift in Sources */,
+				4353B8F222D319F2004BD807 /* MainView.swift in Sources */,
 				4353B8EE22D088A3004BD807 /* TabbarController.swift in Sources */,
 				8D0D788E22D222A400F61F0B /* TripInfoCollectionViewCell.swift in Sources */,
 				8D0D786E22D07C9300F61F0B /* TripViewController.swift in Sources */,
+				4353B8F822D327C2004BD807 /* MainCategoryCollectCell.swift in Sources */,
 				8D0D788C22D2220700F61F0B /* SeoulRecommenedTripTableViewCell.swift in Sources */,
+				4353B8F422D31D68004BD807 /* MainCategoryTableCell.swift in Sources */,
 				8D0D787522D089AD00F61F0B /* TripIntroCollectionViewCell.swift in Sources */,
 				4353B8F022D22782004BD807 /* SearchBarView.swift in Sources */,
 				8D0D787022D07DE600F61F0B /* TripIntroTableViewCell.swift in Sources */,

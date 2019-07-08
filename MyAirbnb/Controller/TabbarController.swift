@@ -16,9 +16,7 @@ class TabbarController: UITabBarController {
         super.viewDidLoad()
         
        
-        
-        
-        
+
         setSeparateLine()
         setTabbarItems()
     }
@@ -27,7 +25,7 @@ class TabbarController: UITabBarController {
         view.addSubview(separateLine)
         separateLine.translatesAutoresizingMaskIntoConstraints = false
         separateLine.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-//        separateLine.topAnchor.constraint(equalTo: tabBar.topAnchor, constant:  0).isActive = true  // layoutSubview에서 설정 (tabbar frame을 받아오기위함)
+        separateLine.topAnchor.constraint(equalTo: tabBar.topAnchor, constant:  0).isActive = true  // layoutSubview에서 설정 (tabbar frame을 받아오기위함)
         separateLine.heightAnchor.constraint(equalToConstant: 1).isActive = true
         separateLine.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         
@@ -67,7 +65,7 @@ class TabbarController: UITabBarController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("viewWillAppear")
-        
+        tabBar.backgroundColor = .white
         tabBar.barTintColor = .white
         tabBar.barStyle = .black
         tabBar.tintColor = .yellow
@@ -98,8 +96,8 @@ class TabbarController: UITabBarController {
         print("viewWillLayoutSubview tabbar frame: ", tabBar.frame)
         
         if frameSet == false {
-            tabBar.sizeThatFits(tabBar.frame.size)
-            separateLine.topAnchor.constraint(equalTo: tabBar.topAnchor, constant:  0).isActive = true
+//            tabBar.sizeThatFits(tabBar.frame.size)
+//            separateLine.topAnchor.constraint(equalTo: tabBar.topAnchor, constant:  0).isActive = true
             frameSet = true
         }
         

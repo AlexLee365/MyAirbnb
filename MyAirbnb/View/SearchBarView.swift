@@ -9,7 +9,7 @@
 import UIKit
 
 class SearchBarView: UIView {
-
+    
     // MARK: - UI Properties
     let searchContainerView = UIView()
     let searchImageView = UIImageView()
@@ -31,7 +31,7 @@ class SearchBarView: UIView {
     }
     
     private func setAutoLayout() {
-
+        
         self.addSubview(searchContainerView)
         let searchMargin: CGFloat = 20
         searchContainerView.translatesAutoresizingMaskIntoConstraints = false
@@ -40,6 +40,12 @@ class SearchBarView: UIView {
         let searchContainerTrailing = searchContainerView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -searchMargin)
         searchContainerTrailing.priority = UILayoutPriority(rawValue: 500)
         searchContainerTrailing.isActive = true
+        
+        //        let widthConst = searchContainerView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.8)
+        //        widthConst.priority = UILayoutPriority(rawValue: 500)
+        //        widthConst.isActive = true
+        
+        
         searchContainerView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -searchMargin/2).isActive = true
         
         searchContainerView.addSubview(searchImageView)
@@ -96,7 +102,7 @@ class SearchBarView: UIView {
         searchTF.resignFirstResponder()
         searchTF.text = ""
     }
-   
+    
     
     
     
@@ -107,38 +113,52 @@ class SearchBarView: UIView {
     }
     
     
-
+    
 }
 
 
 extension SearchBarView: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        print("tf Did Begin")
         
         self.searchContainerTrailingInSearch = self.searchContainerView.trailingAnchor.constraint(equalTo: self.searchCancelBtn.leadingAnchor, constant: -20)
-        UIView.animate(withDuration: 0.4) {
-            self.searchCancelBtn.layer.opacity = 1
+     
+        
+        UIView.animate(withDuration: 0.2) {
+            self.searchTF.transform = CGAffineTransform(translationX: -self.searchImageView.frame.width-15, y: 0)
+            self.searchImageView.layer.opacity = 0
+            self.layoutIfNeeded()
+        }
+        
+        UIView.animate(withDuration: 0.3, delay: 0.3, usingSpringWithDamping: 1, initialSpringVelocity: 0.5, options: [.curveEaseIn], animations: {
             self.searchContainerTrailingInSearch?.priority = .defaultHigh
             self.searchContainerTrailingInSearch?.isActive = true
             
-            
-            self.searchTF.transform = CGAffineTransform(translationX: -self.searchImageView.frame.width-15, y: 0)
-            self.searchImageView.layer.opacity = 0
+            self.layoutIfNeeded()
+        })
+        
+        UIView.animate(withDuration: 0.5, delay: 0.4, options: [], animations: {
+            self.searchCancelBtn.layer.opacity = 1
+        }) { (_) in
+            self.searchImageView.isHidden = true
         }
-        self.searchImageView.isHidden = true
-        self.layoutIfNeeded()
+        
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        print("tf did end")
-        UIView.animate(withDuration: 0.4) {
-            self.searchCancelBtn.layer.opacity = 0
-            self.searchContainerTrailingInSearch?.priority = .defaultLow
-            
-            self.searchTF.transform = CGAffineTransform.identity
-            self.searchImageView.isHidden = false
-            self.searchImageView.layer.opacity = 1
-        }
-        self.layoutIfNeeded()
+
+        UIView.animateKeyframes(withDuration: 0.6, delay: 0, options: [], animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.3, animations: {
+                self.searchCancelBtn.layer.opacity = 0
+
+            })
+            UIView.addKeyframe(withRelativeStartTime: 0.2, relativeDuration: 0.6, animations: {
+                self.searchContainerTrailingInSearch?.priority = .defaultLow
+
+                self.searchTF.transform = CGAffineTransform.identity
+                self.searchImageView.isHidden = false
+                self.searchImageView.layer.opacity = 1
+                self.layoutIfNeeded()
+            })
+        })
     }
 }
