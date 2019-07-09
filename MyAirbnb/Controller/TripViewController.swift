@@ -24,7 +24,6 @@ class TripViewController: UIViewController {
         let searchBarView = SearchBarView()
         searchBarView.searchImageView.image = UIImage(named: "back32")
         searchBarView.backgroundColor = .clear
-//        searchBarView.layer.opacity = 0
         return searchBarView
     }()
     
@@ -35,14 +34,26 @@ class TripViewController: UIViewController {
         setAutolayout()
     }
     
+    var isStatusBarWhite = true
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        if isStatusBarWhite {
+            return .lightContent
+        } else {
+            return .default
+        }
+    }
+    
     private func configure() {
         
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.backgroundColor = .black
         tableView.separatorStyle = .none
         tableView.register(TripIntroTableViewCell.self, forCellReuseIdentifier: TripIntroTableViewCell.identifier)
         tableView.register(SpecialTripTableViewCell.self, forCellReuseIdentifier: SpecialTripTableViewCell.identifier)
         tableView.register(SeoulRecommenedTripTableViewCell.self, forCellReuseIdentifier: SeoulRecommenedTripTableViewCell.identifier)
+        tableView.register(TodaySeoulExperienceTableViewCell.self, forCellReuseIdentifier: TodaySeoulExperienceTableViewCell.identifier)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         view.addSubview(tableView)
         
@@ -111,8 +122,18 @@ extension TripViewController: UITableViewDataSource {
             let seoulRecommendedTripCell = tableView.dequeueReusableCell(withIdentifier: SeoulRecommenedTripTableViewCell.identifier, for: indexPath) as! SeoulRecommenedTripTableViewCell
             
             seoulRecommendedTripCell.selectionStyle = .none
+            seoulRecommendedTripCell.delegate = self
             
             return seoulRecommendedTripCell
+            
+        } else if indexPath.row == 3 {
+            tableView.rowHeight = 900
+            
+            let todaySeoulExperienceCell = tableView.dequeueReusableCell(withIdentifier: TodaySeoulExperienceTableViewCell.identifier, for: indexPath) as! TodaySeoulExperienceTableViewCell
+            
+            todaySeoulExperienceCell.selectionStyle = .none
+            
+            return todaySeoulExperienceCell
             
         } else {
             tableView.rowHeight = 510
@@ -140,8 +161,18 @@ extension TripViewController: UITableViewDelegate {
         if scrollView.contentOffset.y > becomeWhiteStartPoint {
             let opacity = ( scrollView.contentOffset.y - becomeWhiteStartPoint ) / (becomeWhiteEndPoint - becomeWhiteStartPoint)
             searchBarBackgroundView.layer.opacity = Float(opacity)
+            isStatusBarWhite = false
         } else {
             searchBarBackgroundView.layer.opacity = 0
+            isStatusBarWhite = true
         }
+        setNeedsStatusBarAppearanceUpdate()
+    }
+}
+
+extension TripViewController: SeoulRecommenedTripTableViewCellDelegate {
+    func viewpresent() {
+        let vc = SeoulRecommendedDetailViewController()
+        present(vc, animated: false)
     }
 }
