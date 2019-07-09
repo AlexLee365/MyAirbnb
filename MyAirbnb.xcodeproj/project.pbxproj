@@ -26,13 +26,13 @@
 		8D0D788A22D20B9100F61F0B /* SpecialTripCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D788922D20B9100F61F0B /* SpecialTripCollectionViewCell.swift */; };
 		8D0D788C22D2220700F61F0B /* SeoulRecommenedTripTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D788B22D2220700F61F0B /* SeoulRecommenedTripTableViewCell.swift */; };
 		8D0D788E22D222A400F61F0B /* TripInfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D788D22D222A400F61F0B /* TripInfoCollectionViewCell.swift */; };
-		8D0D789022D31E0B00F61F0B /* SeoulRecommendedTripData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D788F22D31E0B00F61F0B /* SeoulRecommendedTripData.swift */; };
 		8D0D789222D333BF00F61F0B /* TodaySeoulExperienceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D789122D333BF00F61F0B /* TodaySeoulExperienceTableViewCell.swift */; };
-		8D0D789422D336F400F61F0B /* TodaySeoulExperienceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D789322D336F400F61F0B /* TodaySeoulExperienceData.swift */; };
-		8D0D789622D33F9A00F61F0B /* TripIntroData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D789522D33F9A00F61F0B /* TripIntroData.swift */; };
-		8D0D789822D33FAC00F61F0B /* SpecialTripData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D789722D33FAC00F61F0B /* SpecialTripData.swift */; };
 		8D0D789A22D3610C00F61F0B /* SeoulRecommendedDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D789922D3610C00F61F0B /* SeoulRecommendedDetailViewController.swift */; };
 		8D0D789D22D3729000F61F0B /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D789C22D3729000F61F0B /* Protocols.swift */; };
+		8D0D78A122D4598200F61F0B /* TripIntroData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D78A022D4598200F61F0B /* TripIntroData.swift */; };
+		8D0D78A322D459AC00F61F0B /* SpecialTripData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D78A222D459AC00F61F0B /* SpecialTripData.swift */; };
+		8D0D78A522D459C900F61F0B /* SeoulRecommendedTripData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D78A422D459C900F61F0B /* SeoulRecommendedTripData.swift */; };
+		8D0D78A722D459E200F61F0B /* TodaySeoulExperienceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D78A622D459E200F61F0B /* TodaySeoulExperienceData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,13 +57,13 @@
 		8D0D788922D20B9100F61F0B /* SpecialTripCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialTripCollectionViewCell.swift; sourceTree = "<group>"; };
 		8D0D788B22D2220700F61F0B /* SeoulRecommenedTripTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeoulRecommenedTripTableViewCell.swift; sourceTree = "<group>"; };
 		8D0D788D22D222A400F61F0B /* TripInfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripInfoCollectionViewCell.swift; sourceTree = "<group>"; };
-		8D0D788F22D31E0B00F61F0B /* SeoulRecommendedTripData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SeoulRecommendedTripData.swift; path = MyAirbnb/View/Cell/SeoulRecommendedTripData.swift; sourceTree = SOURCE_ROOT; };
 		8D0D789122D333BF00F61F0B /* TodaySeoulExperienceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaySeoulExperienceTableViewCell.swift; sourceTree = "<group>"; };
-		8D0D789322D336F400F61F0B /* TodaySeoulExperienceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TodaySeoulExperienceData.swift; path = MyAirbnb/View/Cell/TodaySeoulExperienceData.swift; sourceTree = SOURCE_ROOT; };
-		8D0D789522D33F9A00F61F0B /* TripIntroData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TripIntroData.swift; path = MyAirbnb/View/Cell/TripIntroData.swift; sourceTree = SOURCE_ROOT; };
-		8D0D789722D33FAC00F61F0B /* SpecialTripData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SpecialTripData.swift; path = MyAirbnb/View/Cell/SpecialTripData.swift; sourceTree = SOURCE_ROOT; };
 		8D0D789922D3610C00F61F0B /* SeoulRecommendedDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeoulRecommendedDetailViewController.swift; sourceTree = "<group>"; };
 		8D0D789C22D3729000F61F0B /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Protocols.swift; path = MyAirbnb/Controller/Protocols.swift; sourceTree = SOURCE_ROOT; };
+		8D0D78A022D4598200F61F0B /* TripIntroData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripIntroData.swift; sourceTree = "<group>"; };
+		8D0D78A222D459AC00F61F0B /* SpecialTripData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialTripData.swift; sourceTree = "<group>"; };
+		8D0D78A422D459C900F61F0B /* SeoulRecommendedTripData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeoulRecommendedTripData.swift; sourceTree = "<group>"; };
+		8D0D78A622D459E200F61F0B /* TodaySeoulExperienceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaySeoulExperienceData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,7 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				4353B8F522D3274E004BD807 /* Main */,
-				8D0D787322D0898200F61F0B /* Cell */,
+				8D0D787322D0898200F61F0B /* Trip */,
 				4353B8EF22D22782004BD807 /* SearchBarView.swift */,
 			);
 			path = View;
@@ -141,10 +141,10 @@
 		4353B8EC22D085D5004BD807 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				8D0D789522D33F9A00F61F0B /* TripIntroData.swift */,
-				8D0D789722D33FAC00F61F0B /* SpecialTripData.swift */,
-				8D0D788F22D31E0B00F61F0B /* SeoulRecommendedTripData.swift */,
-				8D0D789322D336F400F61F0B /* TodaySeoulExperienceData.swift */,
+				8D0D78A022D4598200F61F0B /* TripIntroData.swift */,
+				8D0D78A222D459AC00F61F0B /* SpecialTripData.swift */,
+				8D0D78A422D459C900F61F0B /* SeoulRecommendedTripData.swift */,
+				8D0D78A622D459E200F61F0B /* TodaySeoulExperienceData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -159,7 +159,7 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
-		8D0D787322D0898200F61F0B /* Cell */ = {
+		8D0D787322D0898200F61F0B /* Trip */ = {
 			isa = PBXGroup;
 			children = (
 				8D0D786F22D07DE600F61F0B /* TripIntroTableViewCell.swift */,
@@ -170,7 +170,7 @@
 				8D0D789122D333BF00F61F0B /* TodaySeoulExperienceTableViewCell.swift */,
 				8D0D788D22D222A400F61F0B /* TripInfoCollectionViewCell.swift */,
 			);
-			path = Cell;
+			path = Trip;
 			sourceTree = "<group>";
 		};
 		8D0D788222D209AB00F61F0B /* Font */ = {
@@ -266,26 +266,33 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D0D787222D0810300F61F0B /* SpecialTripTableViewCell.swift in Sources */,
+<<<<<<< HEAD
+=======
+				8D0D78A322D459AC00F61F0B /* SpecialTripData.swift in Sources */,
+>>>>>>> b496911ae01f097944a98bca3247ef91dc6ea1eb
 				8D0D789222D333BF00F61F0B /* TodaySeoulExperienceTableViewCell.swift in Sources */,
 				4353B8F222D319F2004BD807 /* MainView.swift in Sources */,
 				4353B8EE22D088A3004BD807 /* TabbarController.swift in Sources */,
+				8D0D78A722D459E200F61F0B /* TodaySeoulExperienceData.swift in Sources */,
+				8D0D78A522D459C900F61F0B /* SeoulRecommendedTripData.swift in Sources */,
 				8D0D789D22D3729000F61F0B /* Protocols.swift in Sources */,
+				8D0D78A122D4598200F61F0B /* TripIntroData.swift in Sources */,
 				8D0D788E22D222A400F61F0B /* TripInfoCollectionViewCell.swift in Sources */,
 				8D0D786E22D07C9300F61F0B /* TripViewController.swift in Sources */,
 				4353B8F822D327C2004BD807 /* MainCategoryCollectCell.swift in Sources */,
 				8D0D788C22D2220700F61F0B /* SeoulRecommenedTripTableViewCell.swift in Sources */,
+<<<<<<< HEAD
 				8D0D789022D31E0B00F61F0B /* SeoulRecommendedTripData.swift in Sources */,
+=======
+>>>>>>> b496911ae01f097944a98bca3247ef91dc6ea1eb
 				4353B8F422D31D68004BD807 /* MainCategoryTableCell.swift in Sources */,
 				8D0D787522D089AD00F61F0B /* TripIntroCollectionViewCell.swift in Sources */,
 				4353B8F022D22782004BD807 /* SearchBarView.swift in Sources */,
 				8D0D787022D07DE600F61F0B /* TripIntroTableViewCell.swift in Sources */,
-				8D0D789822D33FAC00F61F0B /* SpecialTripData.swift in Sources */,
 				8D0D788A22D20B9100F61F0B /* SpecialTripCollectionViewCell.swift in Sources */,
 				4353B8E422D0797E004BD807 /* MainViewController.swift in Sources */,
-				8D0D789422D336F400F61F0B /* TodaySeoulExperienceData.swift in Sources */,
 				8D0D789A22D3610C00F61F0B /* SeoulRecommendedDetailViewController.swift in Sources */,
 				4353B8D222CF51F6004BD807 /* AppDelegate.swift in Sources */,
-				8D0D789622D33F9A00F61F0B /* TripIntroData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
