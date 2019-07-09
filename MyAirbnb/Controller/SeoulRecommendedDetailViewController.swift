@@ -169,7 +169,7 @@ extension SeoulRecommendedDetailViewController: UITableViewDelegate {
         
         let cell = tableView.indexPath(for: SeoulRecommendTableViewCell())
         
-        let becomeWhiteEndPoint = height - topView.frame.height
+        let becomeWhiteEndPoint = 500 - topView.frame.height
         let becomeWhiteStartPoint = becomeWhiteEndPoint - 100
         print("becomeWhiteEndPoint: ", becomeWhiteEndPoint, "/ becomeWhiteStartPoint: ", becomeWhiteStartPoint )
         
