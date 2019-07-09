@@ -48,7 +48,7 @@ class TripViewController: UIViewController {
         
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.backgroundColor = .black
+        tableView.contentInsetAdjustmentBehavior = .never
         tableView.separatorStyle = .none
         tableView.register(TripIntroTableViewCell.self, forCellReuseIdentifier: TripIntroTableViewCell.identifier)
         tableView.register(SpecialTripTableViewCell.self, forCellReuseIdentifier: SpecialTripTableViewCell.identifier)
