@@ -37,6 +37,9 @@
 		8D0D78A722D459E200F61F0B /* TodaySeoulExperienceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D78A622D459E200F61F0B /* TodaySeoulExperienceData.swift */; };
 		8D0D78AA22D4754200F61F0B /* SeoulRecommendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D78A922D4754200F61F0B /* SeoulRecommendTableViewCell.swift */; };
 		8D0D78AC22D47AA700F61F0B /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D78AB22D47AA700F61F0B /* InfoView.swift */; };
+		8D0D78AE22D485B000F61F0B /* SeoulRecommendDetailData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D78AD22D485B000F61F0B /* SeoulRecommendDetailData.swift */; };
+		8D0D78B022D48AE500F61F0B /* TopScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D78AF22D48AE500F61F0B /* TopScrollView.swift */; };
+		8D0D78B222D4B71500F61F0B /* TableviewTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D78B122D4B71500F61F0B /* TableviewTopView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +75,9 @@
 		8D0D78A622D459E200F61F0B /* TodaySeoulExperienceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaySeoulExperienceData.swift; sourceTree = "<group>"; };
 		8D0D78A922D4754200F61F0B /* SeoulRecommendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeoulRecommendTableViewCell.swift; sourceTree = "<group>"; };
 		8D0D78AB22D47AA700F61F0B /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
+		8D0D78AD22D485B000F61F0B /* SeoulRecommendDetailData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeoulRecommendDetailData.swift; sourceTree = "<group>"; };
+		8D0D78AF22D48AE500F61F0B /* TopScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopScrollView.swift; sourceTree = "<group>"; };
+		8D0D78B122D4B71500F61F0B /* TableviewTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableviewTopView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,11 +146,9 @@
 		4353B8EB22D085D3004BD807 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				8D0D78A822D474FE00F61F0B /* SeoulRecommendTrip */,
 				4353B8F522D3274E004BD807 /* Main */,
 				8D0D787322D0898200F61F0B /* Trip */,
 				4353B8EF22D22782004BD807 /* SearchBarView.swift */,
-				8D0D78AB22D47AA700F61F0B /* InfoView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -155,6 +159,7 @@
 				8D0D78A022D4598200F61F0B /* TripIntroData.swift */,
 				8D0D78A222D459AC00F61F0B /* SpecialTripData.swift */,
 				8D0D78A422D459C900F61F0B /* SeoulRecommendedTripData.swift */,
+				8D0D78AD22D485B000F61F0B /* SeoulRecommendDetailData.swift */,
 				8D0D78A622D459E200F61F0B /* TodaySeoulExperienceData.swift */,
 			);
 			path = Model;
@@ -181,6 +186,7 @@
 				8D0D788B22D2220700F61F0B /* SeoulRecommenedTripTableViewCell.swift */,
 				8D0D789122D333BF00F61F0B /* TodaySeoulExperienceTableViewCell.swift */,
 				8D0D788D22D222A400F61F0B /* TripInfoCollectionViewCell.swift */,
+				8D0D78A822D474FE00F61F0B /* SeoulRecommendTrip */,
 			);
 			path = Trip;
 			sourceTree = "<group>";
@@ -207,6 +213,9 @@
 		8D0D78A822D474FE00F61F0B /* SeoulRecommendTrip */ = {
 			isa = PBXGroup;
 			children = (
+				8D0D78B122D4B71500F61F0B /* TableviewTopView.swift */,
+				8D0D78AF22D48AE500F61F0B /* TopScrollView.swift */,
+				8D0D78AB22D47AA700F61F0B /* InfoView.swift */,
 				8D0D78A922D4754200F61F0B /* SeoulRecommendTableViewCell.swift */,
 			);
 			path = SeoulRecommendTrip;
@@ -285,6 +294,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D0D78B022D48AE500F61F0B /* TopScrollView.swift in Sources */,
 				8D0D787222D0810300F61F0B /* SpecialTripTableViewCell.swift in Sources */,
 				8D0D78A322D459AC00F61F0B /* SpecialTripData.swift in Sources */,
 				8D0D789222D333BF00F61F0B /* TodaySeoulExperienceTableViewCell.swift in Sources */,
@@ -294,7 +304,9 @@
 				4353B8FD22D47C02004BD807 /* UIExtension.swift in Sources */,
 				8D0D78A722D459E200F61F0B /* TodaySeoulExperienceData.swift in Sources */,
 				8D0D78A522D459C900F61F0B /* SeoulRecommendedTripData.swift in Sources */,
+				8D0D78B222D4B71500F61F0B /* TableviewTopView.swift in Sources */,
 				8D0D789D22D3729000F61F0B /* Protocols.swift in Sources */,
+				8D0D78AE22D485B000F61F0B /* SeoulRecommendDetailData.swift in Sources */,
 				8D0D78A122D4598200F61F0B /* TripIntroData.swift in Sources */,
 				8D0D788E22D222A400F61F0B /* TripInfoCollectionViewCell.swift in Sources */,
 				8D0D786E22D07C9300F61F0B /* TripViewController.swift in Sources */,
@@ -448,13 +460,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5AVJM299X4;
+				DEVELOPMENT_TEAM = G4MM77V7NH;
 				INFOPLIST_FILE = MyAirbnb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = kr.AlexLee0427.MyAirbnb;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.doyeong.MyAirbnb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -466,13 +478,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5AVJM299X4;
+				DEVELOPMENT_TEAM = G4MM77V7NH;
 				INFOPLIST_FILE = MyAirbnb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = kr.AlexLee0427.MyAirbnb;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.doyeong.MyAirbnb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

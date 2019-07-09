@@ -17,73 +17,19 @@ class SeoulRecommendedDetailViewController: UIViewController {
         return tableView
     }()
     
-    let topView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .white
-        view.layer.opacity = 0
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+//    let topView: UIView = {
+//        let view = UIView()
+//        view.backgroundColor = .white
+//        view.layer.opacity = 0
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        return view
+//    }()
     
-    let imageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        return imageView
-    }()
-    
-    let categotyLabel: UILabel = {
-        let label = UILabel()
-        return label
-    }()
-    
-    let titleLabel: UILabel = {
-        let label = UILabel()
-        return label
-    }()
-    
-    let locationImage: UIImageView = {
-        let imageView = UIImageView()
-        return imageView
-    }()
-    
-    let locationLabel: UILabel = {
-        let label = UILabel()
-        return label
-    }()
-    
-    let timeImage: UIImageView = {
-        let imageView = UIImageView()
-        return imageView
-    }()
-    
-    let timeLabel: UILabel = {
-        let label = UILabel()
-        return label
-    }()
-    
-    let provideImage: UIImageView = {
-        let imageView = UIImageView()
-        return imageView
-    }()
-    
-    let provideLabel: UILabel = {
-        let label = UILabel()
-        return label
-    }()
-    
-    let langImage: UIImageView = {
-        let imageView = UIImageView()
-        return imageView
-    }()
-    
-    let langLabel: UILabel = {
-        let label = UILabel()
-        return label
-    }()
+    let topView = TableviewTopView()
     
     let bottomView: UIView = {
         let view = UIView()
+        view.backgroundColor = .white
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -115,6 +61,7 @@ class SeoulRecommendedDetailViewController: UIViewController {
         view.addSubview(tableView)
         
         view.addSubview(topView)
+//        topView.backgroundColor = .blue
         
         view.addSubview(bottomView)
     }
@@ -124,17 +71,20 @@ class SeoulRecommendedDetailViewController: UIViewController {
         tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: bottomView.topAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         
+        topView.translatesAutoresizingMaskIntoConstraints = false
         topView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         topView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         topView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         topView.heightAnchor.constraint(equalToConstant: 60).isActive = true
         
-        bottomView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        bottomView.heightAnchor.constraint(equalToConstant: 80).isActive = true
         bottomView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         bottomView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        bottomView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        bottomView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
+        view.bringSubviewToFront(topView)
     }
 }
 
@@ -151,6 +101,7 @@ extension SeoulRecommendedDetailViewController: UITableViewDataSource {
         if indexPath.row == 0 {
             let seoulRecommendCell = tableView.dequeueReusableCell(withIdentifier: SeoulRecommendTableViewCell.identifier, for: indexPath) as! SeoulRecommendTableViewCell
             seoulRecommendCell.backgroundColor = .black
+            seoulRecommendCell.selectionStyle = .none
             return seoulRecommendCell
             
         } else {
@@ -164,23 +115,29 @@ extension SeoulRecommendedDetailViewController: UITableViewDataSource {
 
 extension SeoulRecommendedDetailViewController: UITableViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) else { return }
         
-        
-        
-        let cell = tableView.indexPath(for: SeoulRecommendTableViewCell())
-        
-        let becomeWhiteEndPoint = 500 - topView.frame.height
+        let becomeWhiteEndPoint = cell.frame.height - topView.frame.height
         let becomeWhiteStartPoint = becomeWhiteEndPoint - 100
-        print("becomeWhiteEndPoint: ", becomeWhiteEndPoint, "/ becomeWhiteStartPoint: ", becomeWhiteStartPoint )
         
         if scrollView.contentOffset.y > becomeWhiteStartPoint {
             let opacity = ( scrollView.contentOffset.y - becomeWhiteStartPoint ) / (becomeWhiteEndPoint - becomeWhiteStartPoint)
             topView.layer.opacity = Float(opacity)
+            topView.backButton.setImage(UIImage(named: "backBlack"), for: .normal)
+            topView.heartButton.setImage(UIImage(named: "heartBlack"), for: .normal)
+            topView.shareButton.setImage(UIImage(named: "shareBlack"), for: .normal)
             isStatusBarWhite = false
         } else {
             topView.layer.opacity = 0
+//            topView.backgroundColor = .white
             isStatusBarWhite = true
         }
         setNeedsStatusBarAppearanceUpdate()
+    }
+}
+
+extension SeoulRecommendedDetailViewController: TableviewTopViewDelegate {
+    func viewDismiss() {
+        dismiss(animated: false, completion: nil)
     }
 }
