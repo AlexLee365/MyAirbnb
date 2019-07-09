@@ -1,22 +1,22 @@
 //
-//  MainCategoryTableCell.swift
+//  MainRecommendHouseTableCell.swift
 //  MyAirbnb
 //
-//  Created by 행복한 개발자 on 08/07/2019.
+//  Created by 행복한 개발자 on 09/07/2019.
 //  Copyright © 2019 Alex Lee. All rights reserved.
 //
 
 import UIKit
 
-class MainCategoryTableCell: UITableViewCell {
-    static let identifier = "mainCategoryTableCell"
+class MainRecommendHouseTableCell: UITableViewCell {
+    static let identifier = "MainRecommendHouseTableCell"
     
     let titleLabel = UILabel()
     let layout = UICollectionViewFlowLayout()
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-    
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: MainCategoryTableCell.identifier)
+        super.init(style: style, reuseIdentifier: MainRecommendHouseTableCell.identifier)
         
         setAutoLayout()
         configureViewsOptions()
@@ -26,10 +26,14 @@ class MainCategoryTableCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+    }
+    
     private func setAutoLayout() {
         let topBottomMargin: CGFloat = 30
         let sideMargin: CGFloat = 20
-
+        
         contentView.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: topBottomMargin).isActive = true
@@ -45,57 +49,27 @@ class MainCategoryTableCell: UITableViewCell {
     }
     
     private func configureViewsOptions() {
-        
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(MainCategoryCollectCell.self, forCellWithReuseIdentifier: MainCategoryCollectCell.identifier)
+        collectionView.register(MainCategoryCollectCell.self, forCellWithReuseIdentifier: "")
         collectionView.backgroundColor = .white
         collectionView.showsHorizontalScrollIndicator = false
-        
-        layout.minimumInteritemSpacing = 10
-//        layout.minimumLineSpacing = 10
-        layout.scrollDirection = .horizontal
-        
-        titleLabel.configureMainTableViewCellsTitle()
-        titleLabel.font = .systemFont(ofSize: 21, weight: .bold)
     }
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
+    
 
 }
 
-extension MainCategoryTableCell: UICollectionViewDataSource, UICollectionViewDelegate {
+extension MainRecommendHouseTableCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 5
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainCategoryCollectCell.identifier, for: indexPath) as! MainCategoryCollectCell
-        
-        cell.imageView.image = UIImage(named: "categoryImage")
-        cell.titleLabel.text = "숙소"
-        cell.detailLabel.text = "숙소"
-//        cell.layer.borderWidth = 1
-//        cell.layer.borderColor
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "", for: indexPath)
         
         return cell
     }
     
     
-}
-
-extension MainCategoryTableCell: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let width = collectionView.frame.width * 0.35
-        let height = width
-        let cellSize = CGSize(width: width, height: height)
-        print("⭐️⭐️ \(#file)-\(#function)-\(#line) [cellsize] \n: ", cellSize)
-        
-        return cellSize
-    }
 }
