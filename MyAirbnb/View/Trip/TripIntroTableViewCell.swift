@@ -5,7 +5,6 @@
 //  Created by Solji Kim on 06/07/2019.
 //  Copyright © 2019 Alex Lee. All rights reserved.
 //
-
 import UIKit
 
 class TripIntroTableViewCell: UITableViewCell {
@@ -47,12 +46,12 @@ class TripIntroTableViewCell: UITableViewCell {
         return collectionView
     }()
     
-//    let images = ["adventure", "kayak", "boxer", "concert", "lp"]
-//    let categories = ["어드벤처", "어드벤처", "복싱", "콘서트", "역사 투어"]
-//    let titles = ["갈라파고스 슬로푸드 사파리", "카약을 타고 만나는 스웨덴의 다양한 섬", "세계 챔피언 '파이어'와 함께 권투하기", "워털루의 숨겨진 재즈 클럽", "LP판의 마스터"]
-//    let hostNames = ["Jill & Javier", "Helena", "Keisher", "Theo And Jannine", "DJ Jigüe"]
+    //    let images = ["adventure", "kayak", "boxer", "concert", "lp"]
+    //    let categories = ["어드벤처", "어드벤처", "복싱", "콘서트", "역사 투어"]
+    //    let titles = ["갈라파고스 슬로푸드 사파리", "카약을 타고 만나는 스웨덴의 다양한 섬", "세계 챔피언 '파이어'와 함께 권투하기", "워털루의 숨겨진 재즈 클럽", "LP판의 마스터"]
+    //    let hostNames = ["Jill & Javier", "Helena", "Keisher", "Theo And Jannine", "DJ Jigüe"]
     
-//    let gradientLayer = CAGradientLayer()
+    //    let gradientLayer = CAGradientLayer()
     
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -66,19 +65,19 @@ class TripIntroTableViewCell: UITableViewCell {
         super.init(coder: aDecoder)
     }
     
-//    override func layoutSublayers(of layer: CALayer) {
-//        super.layoutSublayers(of: self.layer)
-//        gradientLayer.frame = yourView.bounds
-//    }
+    //    override func layoutSublayers(of layer: CALayer) {
+    //        super.layoutSublayers(of: self.layer)
+    //        gradientLayer.frame = yourView.bounds
+    //    }
     
     private func configure() {
         
         contentView.addSubview(redTitleLabel)
         contentView.addSubview(introTitleLabel)
         
-//        self.layer.insertSublayer(gradient(frame: self.bounds), at: 0)
-//        self.layer.addSublayer(gradient(frame: self.bounds))
-//        (gradient(frame: self.bounds), at: 0)
+        //        self.layer.insertSublayer(gradient(frame: self.bounds), at: 0)
+        //        self.layer.addSublayer(gradient(frame: self.bounds))
+        //        (gradient(frame: self.bounds), at: 0)
         
         collectionView.dataSource = self
         collectionView.register(TripIntroCollectionViewCell.self, forCellWithReuseIdentifier: TripIntroCollectionViewCell.identifier)
@@ -109,19 +108,18 @@ class TripIntroTableViewCell: UITableViewCell {
         collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
     }
     
-//    func gradient(frame: CGRect) -> CAGradientLayer {
-//        let layer = CAGradientLayer()
-//        layer.frame = frame
-//        layer.startPoint = CGPoint(x: 0, y: 0)
-//        layer.endPoint = CGPoint(x: 0, y: 1)
-//        layer.colors = [UIColor.black.cgColor, UIColor.darkGray.cgColor]
-//        return layer
-//    }
+    //    func gradient(frame: CGRect) -> CAGradientLayer {
+    //        let layer = CAGradientLayer()
+    //        layer.frame = frame
+    //        layer.startPoint = CGPoint(x: 0, y: 0)
+    //        layer.endPoint = CGPoint(x: 0, y: 1)
+    //        layer.colors = [UIColor.black.cgColor, UIColor.darkGray.cgColor]
+    //        return layer
+    //    }
 }
 
 
 // MARK: - UICollectionViewDataSource
-
 extension TripIntroTableViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 5
@@ -157,4 +155,5 @@ extension TripIntroTableViewCell: UICollectionViewDelegateFlowLayout {
         return CGSize(width: roundedWidth, height: roundedHeight)
     }
 }
+
 

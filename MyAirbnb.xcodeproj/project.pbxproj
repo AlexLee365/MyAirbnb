@@ -266,10 +266,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D0D787222D0810300F61F0B /* SpecialTripTableViewCell.swift in Sources */,
-<<<<<<< HEAD
-=======
+
 				8D0D78A322D459AC00F61F0B /* SpecialTripData.swift in Sources */,
->>>>>>> b496911ae01f097944a98bca3247ef91dc6ea1eb
+
 				8D0D789222D333BF00F61F0B /* TodaySeoulExperienceTableViewCell.swift in Sources */,
 				4353B8F222D319F2004BD807 /* MainView.swift in Sources */,
 				4353B8EE22D088A3004BD807 /* TabbarController.swift in Sources */,
@@ -281,10 +280,8 @@
 				8D0D786E22D07C9300F61F0B /* TripViewController.swift in Sources */,
 				4353B8F822D327C2004BD807 /* MainCategoryCollectCell.swift in Sources */,
 				8D0D788C22D2220700F61F0B /* SeoulRecommenedTripTableViewCell.swift in Sources */,
-<<<<<<< HEAD
-				8D0D789022D31E0B00F61F0B /* SeoulRecommendedTripData.swift in Sources */,
-=======
->>>>>>> b496911ae01f097944a98bca3247ef91dc6ea1eb
+
+
 				4353B8F422D31D68004BD807 /* MainCategoryTableCell.swift in Sources */,
 				8D0D787522D089AD00F61F0B /* TripIntroCollectionViewCell.swift in Sources */,
 				4353B8F022D22782004BD807 /* SearchBarView.swift in Sources */,
