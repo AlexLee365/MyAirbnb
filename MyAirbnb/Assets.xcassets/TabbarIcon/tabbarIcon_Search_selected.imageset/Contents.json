@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "tabbarIcon1_selected.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "AirBnB_Logo.png",
       "scale" : "2x"
     },
     {

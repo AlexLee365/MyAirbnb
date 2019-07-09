@@ -40,6 +40,7 @@ class MainView: UIView {
         mainTableView.delegate = self
         mainTableView.dataSource = self
         mainTableView.register(MainCategoryTableCell.self, forCellReuseIdentifier: MainCategoryTableCell.identifier)
+        mainTableView.register(MainRecommendHouseTableCell.self, forCellReuseIdentifier: MainRecommendHouseTableCell.identifier)
         
         
         mainTableView.rowHeight = 280
@@ -56,14 +57,29 @@ class MainView: UIView {
 extension MainView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print("numberofrow")
-        return 1
+        return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: MainCategoryTableCell.identifier, for: indexPath) as! MainCategoryTableCell
         
-        cell.titleLabel.text = "Jung Jin Alex님, 무엇을 찾고 계신가요?"
+        switch indexPath.row {
+        case 0 :
+            let CategoryCell = tableView.dequeueReusableCell(withIdentifier: MainCategoryTableCell.identifier, for: indexPath) as! MainCategoryTableCell
+            
+            CategoryCell.titleLabel.text = "Jung Jin Alex님, 무엇을 찾고 계신가요?"
+            
+            return CategoryCell
+        case 1 :
+            let RecommendHoseCell = tableView.dequeueReusableCell(withIdentifier: MainRecommendHouseTableCell.identifier, for: indexPath) as! MainRecommendHouseTableCell
+            
+            RecommendHoseCell.titleLabel.text = "여행 예약을 완료하세요"
+
+            return RecommendHoseCell
         
+        default :break
+        }
+    
+        let cell = tableView.dequeueReusableCell(withIdentifier: MainCategoryTableCell.identifier, for: indexPath)
         return cell
     }
     

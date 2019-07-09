@@ -55,7 +55,6 @@ class MainCategoryTableCell: UITableViewCell {
         collectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 15).isActive = true
         collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-//        collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -topBottomMargin).isActive = true
         collectionView.heightAnchor.constraint(equalToConstant: collectionViewWidth).isActive = true
     }
     
@@ -94,7 +93,7 @@ extension MainCategoryTableCell: UICollectionViewDataSource, UICollectionViewDel
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainCategoryCollectCell.identifier, for: indexPath) as! MainCategoryCollectCell
         
-        cell.imageView.image = UIImage(named: "categoryImage")
+        cell.mainImageView.image = UIImage(named: "categoryImage")
         cell.titleLabel.text = "숙소"
         cell.detailLabel.text = "숙소"
 //        cell.layer.borderWidth = 1

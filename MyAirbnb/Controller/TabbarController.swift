@@ -40,7 +40,7 @@ class TabbarController: UITabBarController {
         let profileVC = MainViewController()
         
         //        mainVC.tabBarItem = UITabBarItem(title: "탐색하기", image: UIImage(named: "tabbarIcon_Search")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), tag: 0)
-        mainVC.tabBarItem = UITabBarItem(title: "탐색하기", image: UIImage(named: "tabbarIcon_Search")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), selectedImage: UIImage(named: "tabbarIcon_Search")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal))
+        mainVC.tabBarItem = UITabBarItem(title: "탐색하기", image: UIImage(named: "tabbarIcon_Search")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), selectedImage: UIImage(named: "tabbarIcon_Search_selected")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal))
         mainVC.tabBarItem.imageInsets = UIEdgeInsets(top: 0, left: -5, bottom: 0, right: 5)
         mainVC.tabBarItem.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -5)
         

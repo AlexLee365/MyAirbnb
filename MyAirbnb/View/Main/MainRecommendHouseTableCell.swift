@@ -16,7 +16,7 @@ class MainRecommendHouseTableCell: UITableViewCell {
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     
     let collectionViewWidth: CGFloat = UIScreen.main.bounds.width * 0.45
-
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: MainRecommendHouseTableCell.identifier)
         
@@ -45,27 +45,30 @@ class MainRecommendHouseTableCell: UITableViewCell {
         contentView.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 25).isActive = true
-        collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: sideMargin).isActive = true
+        collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -topBottomMargin).isActive = true
+        collectionView.heightAnchor.constraint(equalToConstant: collectionViewWidth * 1.25).isActive = true
     }
     
     private func configureViewsOptions() {
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(MainCategoryCollectCell.self, forCellWithReuseIdentifier: "")
-        collectionView.backgroundColor = .white
+        collectionView.register(MainRecommendHouseCollectCell.self, forCellWithReuseIdentifier: MainRecommendHouseCollectCell.identifier)
         collectionView.showsHorizontalScrollIndicator = false
+        collectionView.backgroundColor = .white
+        
         
         
         collectionView.register(MainCollectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: MainCollectionHeaderView.identifier)
         layout.headerReferenceSize = CGSize(width: StandardUIValue.shared.mainViewSideMargin, height: collectionViewWidth * 1.25)
+        layout.minimumInteritemSpacing = 10
+        layout.scrollDirection = .horizontal
         
         titleLabel.configureMainTableViewCellsTitle()
     }
     
     
-
+    
 }
 
 extension MainRecommendHouseTableCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -74,7 +77,9 @@ extension MainRecommendHouseTableCell: UICollectionViewDelegate, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainRecommendHouseCollectCell.identifier, for: indexPath) as! MainRecommendHouseCollectCell
+
+        cell.mainImageView.image = UIImage(named: "houseSample")
         
         return cell
     }
@@ -87,7 +92,7 @@ extension MainRecommendHouseTableCell: UICollectionViewDelegate, UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let cellSize = CGSize(width: 0, height: 0)
+        let cellSize = CGSize(width: collectionViewWidth, height: collectionViewWidth * 1.25)
         
         return cellSize
     }
