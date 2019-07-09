@@ -12,14 +12,16 @@ class SeoulRecommendedDetailViewController: UIViewController {
     
     let tableView: UITableView = {
         let tableView = UITableView()
+        tableView.contentInsetAdjustmentBehavior = .never
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
-
-    let headerView: UIView = {
+    
+    let topView: UIView = {
         let view = UIView()
-        view.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 600)
-        view.backgroundColor = .blue
+        view.backgroundColor = .white
+        view.layer.opacity = 0
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -94,21 +96,27 @@ class SeoulRecommendedDetailViewController: UIViewController {
         setAutolayout()
     }
     
+    var isStatusBarWhite = true
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        if isStatusBarWhite {
+            return .lightContent
+        } else {
+            return .default
+        }
+    }
+    
     private func configure() {
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.register(SeoulRecommendTableViewCell.self, forCellReuseIdentifier: SeoulRecommendTableViewCell.identifier)
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 100
         view.addSubview(tableView)
         
-        tableView.tableHeaderView = headerView
+        view.addSubview(topView)
         
         view.addSubview(bottomView)
-        
-//        headerView.addSubview(categotyLabel)
-//        headerView.addSubview(titleLabel)
-//        headerView.addSubview(<#T##view: UIView##UIView#>)
-//        headerView.addSubview(<#T##view: UIView##UIView#>)
-//        headerView.addSubview(<#T##view: UIView##UIView#>)
-//        headerView.addSubview(<#T##view: UIView##UIView#>)
     }
     
     private func setAutolayout() {
@@ -118,8 +126,12 @@ class SeoulRecommendedDetailViewController: UIViewController {
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: bottomView.topAnchor).isActive = true
         
-//        bottomView.topAnchor.constraint(equalTo: tableView.bottomAnchor).isActive = true
-        bottomView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        topView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        topView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        topView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        topView.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        
+        bottomView.heightAnchor.constraint(equalToConstant: 100).isActive = true
         bottomView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         bottomView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         bottomView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
@@ -135,14 +147,40 @@ extension SeoulRecommendedDetailViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        
+        if indexPath.row == 0 {
+            let seoulRecommendCell = tableView.dequeueReusableCell(withIdentifier: SeoulRecommendTableViewCell.identifier, for: indexPath) as! SeoulRecommendTableViewCell
+            seoulRecommendCell.backgroundColor = .black
+            return seoulRecommendCell
+            
+        } else {
+            return UITableViewCell()
+        }
+        
     }
-    
-    
 }
 
 // MARK: - UITableViewDelegate
 
 extension SeoulRecommendedDetailViewController: UITableViewDelegate {
-    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        
+        
+        let cell = tableView.indexPath(for: SeoulRecommendTableViewCell())
+        
+        let becomeWhiteEndPoint = height - topView.frame.height
+        let becomeWhiteStartPoint = becomeWhiteEndPoint - 100
+        print("becomeWhiteEndPoint: ", becomeWhiteEndPoint, "/ becomeWhiteStartPoint: ", becomeWhiteStartPoint )
+        
+        if scrollView.contentOffset.y > becomeWhiteStartPoint {
+            let opacity = ( scrollView.contentOffset.y - becomeWhiteStartPoint ) / (becomeWhiteEndPoint - becomeWhiteStartPoint)
+            topView.layer.opacity = Float(opacity)
+            isStatusBarWhite = false
+        } else {
+            topView.layer.opacity = 0
+            isStatusBarWhite = true
+        }
+        setNeedsStatusBarAppearanceUpdate()
+    }
 }

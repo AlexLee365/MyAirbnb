@@ -33,6 +33,8 @@
 		8D0D78A322D459AC00F61F0B /* SpecialTripData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D78A222D459AC00F61F0B /* SpecialTripData.swift */; };
 		8D0D78A522D459C900F61F0B /* SeoulRecommendedTripData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D78A422D459C900F61F0B /* SeoulRecommendedTripData.swift */; };
 		8D0D78A722D459E200F61F0B /* TodaySeoulExperienceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D78A622D459E200F61F0B /* TodaySeoulExperienceData.swift */; };
+		8D0D78AA22D4754200F61F0B /* SeoulRecommendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D78A922D4754200F61F0B /* SeoulRecommendTableViewCell.swift */; };
+		8D0D78AC22D47AA700F61F0B /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D78AB22D47AA700F61F0B /* InfoView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +66,8 @@
 		8D0D78A222D459AC00F61F0B /* SpecialTripData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialTripData.swift; sourceTree = "<group>"; };
 		8D0D78A422D459C900F61F0B /* SeoulRecommendedTripData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeoulRecommendedTripData.swift; sourceTree = "<group>"; };
 		8D0D78A622D459E200F61F0B /* TodaySeoulExperienceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaySeoulExperienceData.swift; sourceTree = "<group>"; };
+		8D0D78A922D4754200F61F0B /* SeoulRecommendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeoulRecommendTableViewCell.swift; sourceTree = "<group>"; };
+		8D0D78AB22D47AA700F61F0B /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,9 +135,11 @@
 		4353B8EB22D085D3004BD807 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8D0D78A822D474FE00F61F0B /* SeoulRecommendTrip */,
 				4353B8F522D3274E004BD807 /* Main */,
 				8D0D787322D0898200F61F0B /* Trip */,
 				4353B8EF22D22782004BD807 /* SearchBarView.swift */,
+				8D0D78AB22D47AA700F61F0B /* InfoView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -190,6 +196,14 @@
 			);
 			name = Protocol;
 			path = Model/MyAirbnb/Model/Protocol;
+			sourceTree = "<group>";
+		};
+		8D0D78A822D474FE00F61F0B /* SeoulRecommendTrip */ = {
+			isa = PBXGroup;
+			children = (
+				8D0D78A922D4754200F61F0B /* SeoulRecommendTableViewCell.swift */,
+			);
+			path = SeoulRecommendTrip;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -276,9 +290,11 @@
 				8D0D78A122D4598200F61F0B /* TripIntroData.swift in Sources */,
 				8D0D788E22D222A400F61F0B /* TripInfoCollectionViewCell.swift in Sources */,
 				8D0D786E22D07C9300F61F0B /* TripViewController.swift in Sources */,
+				8D0D78AA22D4754200F61F0B /* SeoulRecommendTableViewCell.swift in Sources */,
 				4353B8F822D327C2004BD807 /* MainCategoryCollectCell.swift in Sources */,
 				8D0D788C22D2220700F61F0B /* SeoulRecommenedTripTableViewCell.swift in Sources */,
 				4353B8F422D31D68004BD807 /* MainCategoryTableCell.swift in Sources */,
+				8D0D78AC22D47AA700F61F0B /* InfoView.swift in Sources */,
 				8D0D787522D089AD00F61F0B /* TripIntroCollectionViewCell.swift in Sources */,
 				4353B8F022D22782004BD807 /* SearchBarView.swift in Sources */,
 				8D0D787022D07DE600F61F0B /* TripIntroTableViewCell.swift in Sources */,
