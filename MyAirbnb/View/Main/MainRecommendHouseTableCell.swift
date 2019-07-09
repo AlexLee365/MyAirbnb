@@ -14,6 +14,8 @@ class MainRecommendHouseTableCell: UITableViewCell {
     let titleLabel = UILabel()
     let layout = UICollectionViewFlowLayout()
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+    
+    let collectionViewWidth: CGFloat = UIScreen.main.bounds.width * 0.45
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: MainRecommendHouseTableCell.identifier)
@@ -54,6 +56,12 @@ class MainRecommendHouseTableCell: UITableViewCell {
         collectionView.register(MainCategoryCollectCell.self, forCellWithReuseIdentifier: "")
         collectionView.backgroundColor = .white
         collectionView.showsHorizontalScrollIndicator = false
+        
+        
+        collectionView.register(MainCollectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: MainCollectionHeaderView.identifier)
+        layout.headerReferenceSize = CGSize(width: StandardUIValue.shared.mainViewSideMargin, height: collectionViewWidth * 1.25)
+        
+        titleLabel.configureMainTableViewCellsTitle()
     }
     
     
@@ -69,6 +77,19 @@ extension MainRecommendHouseTableCell: UICollectionViewDelegate, UICollectionVie
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "", for: indexPath)
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: MainCollectionHeaderView.identifier, for: indexPath) as! MainCollectionHeaderView
+        
+        return header
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let cellSize = CGSize(width: 0, height: 0)
+        
+        return cellSize
     }
     
     

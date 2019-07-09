@@ -33,20 +33,16 @@ class SearchBarView: UIView {
     private func setAutoLayout() {
         
         self.addSubview(searchContainerView)
-        let searchMargin: CGFloat = 20
+        let searchMargin = StandardUIValue.shared.mainViewSideMargin
+        let bottomMargin = StandardUIValue.shared.mainTableViewCellsTopBottomPadding
+        
         searchContainerView.translatesAutoresizingMaskIntoConstraints = false
         searchContainerView.topAnchor.constraint(equalTo: self.topAnchor, constant: searchMargin/2).isActive = true
         searchContainerView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: searchMargin).isActive = true
         let searchContainerTrailing = searchContainerView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -searchMargin)
         searchContainerTrailing.priority = UILayoutPriority(rawValue: 500)
         searchContainerTrailing.isActive = true
-        
-        //        let widthConst = searchContainerView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.8)
-        //        widthConst.priority = UILayoutPriority(rawValue: 500)
-        //        widthConst.isActive = true
-        
-        
-        searchContainerView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -searchMargin/2).isActive = true
+        searchContainerView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -15).isActive = true
         
         searchContainerView.addSubview(searchImageView)
         searchImageView.translatesAutoresizingMaskIntoConstraints = false

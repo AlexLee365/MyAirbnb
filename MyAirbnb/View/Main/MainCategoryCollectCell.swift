@@ -11,7 +11,7 @@ import UIKit
 class MainCategoryCollectCell: UICollectionViewCell {
     static let identifier = "mainCategoryCollectCell"
     
-    let imageView = UIImageView()
+    let mainImageView = UIImageView()
     let titleLabel = UILabel()
     let detailLabel = UILabel()
 
@@ -27,17 +27,17 @@ class MainCategoryCollectCell: UICollectionViewCell {
     }
     
     private func setAutoLayout() {
-        contentView.addSubview(imageView)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-        imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        imageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.6).isActive = true
+        contentView.addSubview(mainImageView)
+        mainImageView.translatesAutoresizingMaskIntoConstraints = false
+        mainImageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        mainImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        mainImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        mainImageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.6).isActive = true
         
         let leftMargin: CGFloat = 10
         contentView.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: mainImageView.bottomAnchor, constant: 10).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: leftMargin).isActive = true
         
         contentView.addSubview(detailLabel)
@@ -59,8 +59,8 @@ class MainCategoryCollectCell: UICollectionViewCell {
         self.layer.shadowRadius = 0.3
     
         
-        imageView.contentMode = .scaleAspectFill
-        imageView.layer.masksToBounds = true
+        mainImageView.contentMode = .scaleAspectFill
+        mainImageView.layer.masksToBounds = true
         
         titleLabel.font = .systemFont(ofSize: 12, weight: .bold)
         titleLabel.textColor = .black

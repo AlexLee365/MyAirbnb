@@ -11,10 +11,16 @@ import UIKit
 class MainCategoryTableCell: UITableViewCell {
     static let identifier = "mainCategoryTableCell"
     
+    
+    // MARK: - UI Properties
     let titleLabel = UILabel()
     let layout = UICollectionViewFlowLayout()
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     
+    // MARK: - Properties
+    let collectionViewWidth: CGFloat = UIScreen.main.bounds.width * 0.35
+    
+    // MARK: - LifeCycle
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: MainCategoryTableCell.identifier)
         
@@ -26,9 +32,17 @@ class MainCategoryTableCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    var setLayout = false
+    override func layoutSubviews() {
+        if setLayout == false {
+            layout.headerReferenceSize = CGSize(width: StandardUIValue.shared.mainViewSideMargin, height: collectionView.frame.height)
+            setLayout = true
+        }
+    }
+    
     private func setAutoLayout() {
-        let topBottomMargin: CGFloat = 30
-        let sideMargin: CGFloat = 20
+        let topBottomMargin = StandardUIValue.shared.mainTableViewCellsTopBottomPadding
+        let sideMargin = StandardUIValue.shared.mainViewSideMargin
 
         contentView.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -38,10 +52,11 @@ class MainCategoryTableCell: UITableViewCell {
         
         contentView.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 25).isActive = true
-        collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: sideMargin).isActive = true
+        collectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 15).isActive = true
+        collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -topBottomMargin).isActive = true
+//        collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -topBottomMargin).isActive = true
+        collectionView.heightAnchor.constraint(equalToConstant: collectionViewWidth).isActive = true
     }
     
     private func configureViewsOptions() {
@@ -49,6 +64,7 @@ class MainCategoryTableCell: UITableViewCell {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(MainCategoryCollectCell.self, forCellWithReuseIdentifier: MainCategoryCollectCell.identifier)
+        collectionView.register(MainCollectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: MainCollectionHeaderView.identifier)
         collectionView.backgroundColor = .white
         collectionView.showsHorizontalScrollIndicator = false
         
@@ -65,10 +81,12 @@ class MainCategoryTableCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    
 
 }
 
-extension MainCategoryTableCell: UICollectionViewDataSource, UICollectionViewDelegate {
+extension MainCategoryTableCell: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 5
     }
@@ -85,16 +103,16 @@ extension MainCategoryTableCell: UICollectionViewDataSource, UICollectionViewDel
         return cell
     }
     
-    
-}
-
-extension MainCategoryTableCell: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: MainCollectionHeaderView.identifier, for: indexPath) as! MainCollectionHeaderView
         
-        let width = collectionView.frame.width * 0.35
-        let height = width
-        let cellSize = CGSize(width: width, height: height)
-        print("⭐️⭐️ \(#file)-\(#function)-\(#line) [cellsize] \n: ", cellSize)
+        return header
+    }
+    
+    
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let cellSize = CGSize(width: collectionViewWidth, height: collectionViewWidth)
         
         return cellSize
     }

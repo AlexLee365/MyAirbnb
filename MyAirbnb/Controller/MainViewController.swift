@@ -46,14 +46,18 @@ class MainViewController: UIViewController {
         
     }
     
+    var setLayout = false
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        let tabbarHeight = self.tabBarController!.tabBar.frame.height
-        mainView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -tabbarHeight).isActive = true
+        if setLayout == false {
+            let tabbarHeight = self.tabBarController!.tabBar.frame.height
+            mainView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -tabbarHeight).isActive = true
+            setLayout = true
+        }
+       
         print("*** ", self.tabBarController?.tabBar.frame.height)
         print("🔵🔵🔵 : ", view.safeAreaInsets)
         print(UIScreen.main.bounds)
-
     }
     
     

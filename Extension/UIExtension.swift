@@ -15,4 +15,11 @@ extension UILabel {
         self.numberOfLines = 0
         self.textColor = #colorLiteral(red: 0.3221844435, green: 0.3202747703, blue: 0.3236560524, alpha: 1)
     }
+    
+    func configureMainTableViewCellsTitleDetails() {
+        self.font = .systemFont(ofSize: 16, weight: .regular)
+        self.textAlignment = .left
+        self.numberOfLines = 0
+        self.textColor = #colorLiteral(red: 0.3221844435, green: 0.3202747703, blue: 0.3236560524, alpha: 1)
+    }
 }
