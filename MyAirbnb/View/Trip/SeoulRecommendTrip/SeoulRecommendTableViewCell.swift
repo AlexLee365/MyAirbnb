@@ -27,6 +27,8 @@ class SeoulRecommendTableViewCell: UITableViewCell {
         return scrollView
     }()
     
+    let tempHeight = UIScreen.main.bounds.height * 0.8
+    
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -51,7 +53,7 @@ class SeoulRecommendTableViewCell: UITableViewCell {
         scrollView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         scrollView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         scrollView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        scrollView.heightAnchor.constraint(equalToConstant: 520).isActive = true
+        scrollView.heightAnchor.constraint(equalToConstant: tempHeight).isActive = true
     }
 
     private func createScrollViews() {
@@ -59,7 +61,7 @@ class SeoulRecommendTableViewCell: UITableViewCell {
         
         for i in 0..<images.count {
             let tempPoint = CGPoint(x: (frame.width * CGFloat(i)), y: 0)
-            let tempSize = CGSize(width: frame.width, height: 520)
+            let tempSize = CGSize(width: frame.width, height: tempHeight)
             
             let tempFrame = CGRect(origin: tempPoint, size: tempSize)
             
@@ -74,9 +76,8 @@ class SeoulRecommendTableViewCell: UITableViewCell {
                 uiView.titleLabel.text = titles[i]
             }
             scrollView.addSubview(uiView)
-            contentView.bringSubviewToFront(uiView)
         }
-        scrollView.contentSize = CGSize(width: frame.size.width * CGFloat(images.count), height: 520)
+        scrollView.contentSize = CGSize(width: frame.size.width * CGFloat(images.count), height: tempHeight-5)
     }
     
     private func createInfoViews() {
@@ -95,7 +96,6 @@ class SeoulRecommendTableViewCell: UITableViewCell {
             tempView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
             tempView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20).isActive = true
             tempView.heightAnchor.constraint(equalToConstant: 20).isActive = true
-            
         }
         
         for (index, value) in infoViewArray.enumerated() {
