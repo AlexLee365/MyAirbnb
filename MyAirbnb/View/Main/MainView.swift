@@ -42,6 +42,7 @@ class MainView: UIView {
         mainTableView.register(MainCategoryTableCell.self, forCellReuseIdentifier: MainCategoryTableCell.identifier)
         mainTableView.register(MainRecommendHouseTableCell.self, forCellReuseIdentifier: MainRecommendHouseTableCell.identifier)
         mainTableView.register(MainFullImageTableCell.self, forCellReuseIdentifier: MainFullImageTableCell.identifier)
+        mainTableView.allowsSelection = false
         
         
         mainTableView.rowHeight = UITableView.automaticDimension

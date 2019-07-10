@@ -11,7 +11,7 @@ import UIKit
 class MainFullImageTableCell: UITableViewCell {
     static let identifier = "MainFullImageTableCell"
     
-    let fullImageView = UIImageView()
+    let fullImageView = FullImageView()
     let detailTitleLabel = UILabel()
     let titleLabel = UILabel()
     let buttonLabel = UILabel()
@@ -65,6 +65,8 @@ class MainFullImageTableCell: UITableViewCell {
         fullImageView.contentMode = .scaleAspectFill
         fullImageView.layer.cornerRadius = 10
         fullImageView.clipsToBounds = true
+        fullImageView.isUserInteractionEnabled = true
+        
         
         detailTitleLabel.text = "에어비앤비 어드벤처를 소개합니다"
         detailTitleLabel.font = .systemFont(ofSize: 11, weight: .regular)
@@ -80,7 +82,35 @@ class MainFullImageTableCell: UITableViewCell {
         buttonLabel.textColor = .white
         
     }
-  
+    
+}
+
+class FullImageView: UIImageView {
+    var location = CGPoint(x: 0, y: 0)
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        print("touches began")
+        UIView.animate(withDuration: 0.2) {
+            self.transform = CGAffineTransform.init(scaleX: 0.95, y: 0.95)
+        }
+        location = touches.first!.location(in: self)
+        print(location)
+    }
     
     
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let movedLocation = touches.first!.location(in: self)
+        if location.x - movedLocation.x != 0 || location.y - movedLocation.y != 0 {
+           print("moved")
+            UIView.animate(withDuration: 0.2) {
+                self.transform = CGAffineTransform.identity
+            }
+        }
+    }
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        print("touches ended")
+        UIView.animate(withDuration: 0.2) {
+            self.transform = CGAffineTransform.identity
+        }
+    }
 }
