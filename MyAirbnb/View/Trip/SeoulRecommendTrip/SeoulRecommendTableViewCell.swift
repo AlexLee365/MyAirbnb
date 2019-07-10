@@ -11,9 +11,13 @@ import UIKit
 class SeoulRecommendTableViewCell: UITableViewCell {
     static let identifier = "seoulRecommendTableViewCell"
     
+    var images = ["bathbomb", "designownbathbomb", "shareyourconcept", "natural", "vegantherapy", "addcolors", "variousdesign", "perfectsouvenier"]
+    var categories = ["공예 클래스", nil, nil, nil, nil, nil, nil, nil]
+    var titles = ["나만의 색과 향을 담은 배쓰밤을 만들어보세요!", "Design your own bath bomb", "Share your concepts", "Vegan & Natural Ingredients", "Vegan Therapy", "Add colors as you want", "Various design", "Perfect souvenirs from Korea:)"]
+
     let infoDict: [String: String] = ["locationIcon": "Seoul", "timeIcon": "총 2시간", "serviceIcon": "음료, 입장권 1매, 장비", "langIcon": "영어, 한국어로 진행"]
     let keysArray = ["locationIcon", "timeIcon", "serviceIcon", "langIcon"]
-    var createInfoViews = [InfoView]()
+    var infoViewArray = [InfoView]()
     
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -23,15 +27,12 @@ class SeoulRecommendTableViewCell: UITableViewCell {
         return scrollView
     }()
     
-    var images = ["bathbomb", "designownbathbomb", "shareyourconcept", "natural", "vegantherapy", "addcolors", "variousdesign", "perfectsouvenier"]
-
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         configure()
         setAutolayout()
-        
-        createView()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -41,21 +42,9 @@ class SeoulRecommendTableViewCell: UITableViewCell {
     private func configure() {
         contentView.addSubview(scrollView)
         
-        let frame = UIScreen.main.bounds
+        createScrollViews()
         
-        for i in 0..<images.count {
-            
-            let tempPoint = CGPoint(x: (frame.width * CGFloat(i)), y: 0)
-            let tempSize = CGSize(width: frame.width, height: 520)
-            
-            let tempFrame = CGRect(origin: tempPoint, size: tempSize)
-            
-            let uiView = TopScrollView(frame: tempFrame)
-            uiView.topImageView.image = UIImage(named: images[i])
-            scrollView.addSubview(uiView)
-        }
-        
-        scrollView.contentSize = CGSize(width: frame.size.width * CGFloat(images.count), height: 520)
+        createInfoViews()
     }
     
     private func setAutolayout() {
@@ -64,8 +53,33 @@ class SeoulRecommendTableViewCell: UITableViewCell {
         scrollView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         scrollView.heightAnchor.constraint(equalToConstant: 520).isActive = true
     }
+
+    private func createScrollViews() {
+        let frame = UIScreen.main.bounds
+        
+        for i in 0..<images.count {
+            let tempPoint = CGPoint(x: (frame.width * CGFloat(i)), y: 0)
+            let tempSize = CGSize(width: frame.width, height: 520)
+            
+            let tempFrame = CGRect(origin: tempPoint, size: tempSize)
+            
+            let uiView = TopScrollView(frame: tempFrame)
+            uiView.topImageView.image = UIImage(named: images[i])
+            
+            if categories[i] != nil {
+                uiView.categoryLabel.text = categories[i]
+                uiView.titleLabel.text = titles[i]
+            } else {
+                uiView.titleLabel.font = UIFont.systemFont(ofSize: 14, weight: .bold)
+                uiView.titleLabel.text = titles[i]
+            }
+            scrollView.addSubview(uiView)
+            contentView.bringSubviewToFront(uiView)
+        }
+        scrollView.contentSize = CGSize(width: frame.size.width * CGFloat(images.count), height: 520)
+    }
     
-    private func createView() {
+    private func createInfoViews() {
         for i in keysArray {
             let value = infoDict[i]
             
@@ -74,7 +88,7 @@ class SeoulRecommendTableViewCell: UITableViewCell {
             let tempView = InfoView()
             tempView.icon.image = UIImage(named: i)
             tempView.label.text = value
-            createInfoViews.append(tempView)
+            infoViewArray.append(tempView)
             contentView.addSubview(tempView)
             
             tempView.translatesAutoresizingMaskIntoConstraints = false
@@ -84,15 +98,15 @@ class SeoulRecommendTableViewCell: UITableViewCell {
             
         }
         
-        for (index, value) in createInfoViews.enumerated() {
+        for (index, value) in infoViewArray.enumerated() {
             switch index {
             case 0:
                 value.topAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 5).isActive = true
-            case (createInfoViews.count - 1):
+            case (infoViewArray.count - 1):
                 value.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20).isActive = true
                 fallthrough
             default:
-                value.topAnchor.constraint(equalTo: createInfoViews[index - 1].bottomAnchor, constant: 20).isActive = true
+                value.topAnchor.constraint(equalTo: infoViewArray[index - 1].bottomAnchor, constant: 20).isActive = true
             }
         }
     }
