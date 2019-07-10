@@ -19,13 +19,7 @@ class SeoulRecommendedDetailViewController: UIViewController {
     
     let topView = TableviewTopView()
     
-    let bottomView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .white
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
+    let bottomView = BottomView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,9 +63,11 @@ class SeoulRecommendedDetailViewController: UIViewController {
         topView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         topView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         topView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        topView.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        topView.heightAnchor.constraint(equalToConstant: 75).isActive = true
         
-        bottomView.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        let height = UIScreen.main.bounds.height * 0.13
+        bottomView.translatesAutoresizingMaskIntoConstraints = false
+        bottomView.heightAnchor.constraint(equalToConstant: height).isActive = true
         bottomView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         bottomView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         bottomView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
@@ -127,6 +123,21 @@ extension SeoulRecommendedDetailViewController: UITableViewDelegate {
             topView.shareButton.setImage(UIImage(named: "shareWhite"), for: .normal)
             isStatusBarWhite = true
         }
+        
+        let cellHeight = cell.frame.height
+        let currentY = scrollView.contentOffset.y
+        let deviceHeight = UIScreen.main.bounds.height
+        let bottomViewHeight = bottomView.frame.height
+        
+        if (cellHeight - currentY) <= (deviceHeight - bottomViewHeight) {
+            UIView.animate(withDuration: 0.5) {
+                self.bottomView.backgroundColor = .white
+                self.bottomView.makeShadow()
+            }
+        } else {
+            self.bottomView.backgroundColor = .black
+        }
+            
         setNeedsStatusBarAppearanceUpdate()
     }
 }

@@ -84,8 +84,8 @@ class TopScrollView: UIView {
         
         gradientView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         gradientView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        gradientView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width).isActive = true
-        gradientView.heightAnchor.constraint(equalToConstant: 400).isActive = true
+        gradientView.widthAnchor.constraint(equalToConstant: self.frame.width).isActive = true
+        gradientView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.6).isActive = true
         
         titleLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -65).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true

@@ -44,6 +44,7 @@
 		8D0D78AE22D485B000F61F0B /* SeoulRecommendDetailData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D78AD22D485B000F61F0B /* SeoulRecommendDetailData.swift */; };
 		8D0D78B022D48AE500F61F0B /* TopScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D78AF22D48AE500F61F0B /* TopScrollView.swift */; };
 		8D0D78B222D4B71500F61F0B /* TableviewTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D78B122D4B71500F61F0B /* TableviewTopView.swift */; };
+		8D0D78B422D5E5E600F61F0B /* BottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D78B322D5E5E600F61F0B /* BottomView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +87,7 @@
 		8D0D78AD22D485B000F61F0B /* SeoulRecommendDetailData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeoulRecommendDetailData.swift; sourceTree = "<group>"; };
 		8D0D78AF22D48AE500F61F0B /* TopScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopScrollView.swift; sourceTree = "<group>"; };
 		8D0D78B122D4B71500F61F0B /* TableviewTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableviewTopView.swift; sourceTree = "<group>"; };
+		8D0D78B322D5E5E600F61F0B /* BottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,6 +230,7 @@
 				8D0D78B122D4B71500F61F0B /* TableviewTopView.swift */,
 				8D0D78AF22D48AE500F61F0B /* TopScrollView.swift */,
 				8D0D78AB22D47AA700F61F0B /* InfoView.swift */,
+				8D0D78B322D5E5E600F61F0B /* BottomView.swift */,
 				8D0D78A922D4754200F61F0B /* SeoulRecommendTableViewCell.swift */,
 			);
 			path = SeoulRecommendTrip;
@@ -321,6 +324,7 @@
 				8D0D78AE22D485B000F61F0B /* SeoulRecommendDetailData.swift in Sources */,
 				8D0D78A122D4598200F61F0B /* TripIntroData.swift in Sources */,
 				8D0D788E22D222A400F61F0B /* TripInfoCollectionViewCell.swift in Sources */,
+				8D0D78B422D5E5E600F61F0B /* BottomView.swift in Sources */,
 				8D0D786E22D07C9300F61F0B /* TripViewController.swift in Sources */,
 				8D0D78AA22D4754200F61F0B /* SeoulRecommendTableViewCell.swift in Sources */,
 				4353B8F822D327C2004BD807 /* MainCategoryCollectCell.swift in Sources */,
