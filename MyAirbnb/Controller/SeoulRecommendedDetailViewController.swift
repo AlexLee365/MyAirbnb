@@ -42,8 +42,11 @@ class SeoulRecommendedDetailViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(SeoulRecommendTableViewCell.self, forCellReuseIdentifier: SeoulRecommendTableViewCell.identifier)
+        tableView.register(HostIntroTableViewCell.self, forCellReuseIdentifier: HostIntroTableViewCell.identifier)
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
+//        
+//        tableView.rowHeight = 800
         view.addSubview(tableView)
         
         topView.delegate = self
@@ -84,16 +87,23 @@ extension SeoulRecommendedDetailViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if indexPath.row == 0 {
+        switch indexPath.row {
+        case 0:
             let seoulRecommendCell = tableView.dequeueReusableCell(withIdentifier: SeoulRecommendTableViewCell.identifier, for: indexPath) as! SeoulRecommendTableViewCell
+            seoulRecommendCell.selectionStyle = .none
             seoulRecommendCell.backgroundColor = .black
             seoulRecommendCell.selectionStyle = .none
             return seoulRecommendCell
+        case 1:
+            let hostIntroCell = tableView.dequeueReusableCell(withIdentifier: HostIntroTableViewCell.identifier, for: indexPath) as! HostIntroTableViewCell
+            hostIntroCell.selectionStyle = .none
             
-        } else {
+            
+            
+            return hostIntroCell
+        default:
             return UITableViewCell()
         }
-        
     }
 }
 
