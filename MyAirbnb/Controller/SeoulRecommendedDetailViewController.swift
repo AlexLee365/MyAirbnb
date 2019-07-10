@@ -17,14 +17,6 @@ class SeoulRecommendedDetailViewController: UIViewController {
         return tableView
     }()
     
-//    let topView: UIView = {
-//        let view = UIView()
-//        view.backgroundColor = .white
-//        view.layer.opacity = 0
-//        view.translatesAutoresizingMaskIntoConstraints = false
-//        return view
-//    }()
-    
     let topView = TableviewTopView()
     
     let bottomView: UIView = {
@@ -60,8 +52,8 @@ class SeoulRecommendedDetailViewController: UIViewController {
         tableView.estimatedRowHeight = 100
         view.addSubview(tableView)
         
+        topView.delegate = self
         view.addSubview(topView)
-//        topView.backgroundColor = .blue
         
         view.addSubview(bottomView)
     }
@@ -83,8 +75,6 @@ class SeoulRecommendedDetailViewController: UIViewController {
         bottomView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         bottomView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         bottomView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        
-        view.bringSubviewToFront(topView)
     }
 }
 
@@ -118,18 +108,23 @@ extension SeoulRecommendedDetailViewController: UITableViewDelegate {
         guard let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) else { return }
         
         let becomeWhiteEndPoint = cell.frame.height - topView.frame.height
-        let becomeWhiteStartPoint = becomeWhiteEndPoint - 100
+        let becomeWhiteStartPoint = becomeWhiteEndPoint - 70
+        
+        let opacity = ( scrollView.contentOffset.y - becomeWhiteStartPoint ) / (becomeWhiteEndPoint - becomeWhiteStartPoint)
         
         if scrollView.contentOffset.y > becomeWhiteStartPoint {
-            let opacity = ( scrollView.contentOffset.y - becomeWhiteStartPoint ) / (becomeWhiteEndPoint - becomeWhiteStartPoint)
-            topView.layer.opacity = Float(opacity)
+            
+            topView.backgroundColor = UIColor.white.withAlphaComponent(opacity)
             topView.backButton.setImage(UIImage(named: "backBlack"), for: .normal)
             topView.heartButton.setImage(UIImage(named: "heartBlack"), for: .normal)
             topView.shareButton.setImage(UIImage(named: "shareBlack"), for: .normal)
+            
             isStatusBarWhite = false
         } else {
-            topView.layer.opacity = 0
-//            topView.backgroundColor = .white
+            topView.backgroundColor = UIColor.white.withAlphaComponent(opacity)
+            topView.backButton.setImage(UIImage(named: "backWhite"), for: .normal)
+            topView.heartButton.setImage(UIImage(named: "heartWhite"), for: .normal)
+            topView.shareButton.setImage(UIImage(named: "shareWhite"), for: .normal)
             isStatusBarWhite = true
         }
         setNeedsStatusBarAppearanceUpdate()

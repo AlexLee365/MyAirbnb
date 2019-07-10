@@ -46,11 +46,6 @@ class TripIntroTableViewCell: UITableViewCell {
         return collectionView
     }()
     
-    //    let images = ["adventure", "kayak", "boxer", "concert", "lp"]
-    //    let categories = ["어드벤처", "어드벤처", "복싱", "콘서트", "역사 투어"]
-    //    let titles = ["갈라파고스 슬로푸드 사파리", "카약을 타고 만나는 스웨덴의 다양한 섬", "세계 챔피언 '파이어'와 함께 권투하기", "워털루의 숨겨진 재즈 클럽", "LP판의 마스터"]
-    //    let hostNames = ["Jill & Javier", "Helena", "Keisher", "Theo And Jannine", "DJ Jigüe"]
-    
     //    let gradientLayer = CAGradientLayer()
     
     
@@ -108,14 +103,14 @@ class TripIntroTableViewCell: UITableViewCell {
         collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
     }
     
-    //    func gradient(frame: CGRect) -> CAGradientLayer {
-    //        let layer = CAGradientLayer()
-    //        layer.frame = frame
-    //        layer.startPoint = CGPoint(x: 0, y: 0)
-    //        layer.endPoint = CGPoint(x: 0, y: 1)
-    //        layer.colors = [UIColor.black.cgColor, UIColor.darkGray.cgColor]
-    //        return layer
-    //    }
+//        func gradient(frame: CGRect) -> CAGradientLayer {
+//            let layer = CAGradientLayer()
+//            layer.frame = frame
+//            layer.startPoint = CGPoint(x: 0, y: 0)
+//            layer.endPoint = CGPoint(x: 0, y: 1)
+//            layer.colors = [UIColor.black.cgColor, UIColor.darkGray.cgColor]
+//            return layer
+//        }
 }
 
 
