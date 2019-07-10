@@ -21,6 +21,7 @@
 		4353B90822D48EB8004BD807 /* MainRecommendHouseCollectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353B90722D48EB8004BD807 /* MainRecommendHouseCollectCell.swift */; };
 		4353B90A22D4A5A6004BD807 /* MainRecommendHouseTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353B90922D4A5A6004BD807 /* MainRecommendHouseTableCell.swift */; };
 		4353B90C22D4B755004BD807 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4353B90B22D4B755004BD807 /* Assets.xcassets */; };
+		4353B90E22D5AE12004BD807 /* MainFullImageTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353B90D22D5AE12004BD807 /* MainFullImageTableCell.swift */; };
 		8D0D786E22D07C9300F61F0B /* TripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D786D22D07C9300F61F0B /* TripViewController.swift */; };
 		8D0D787022D07DE600F61F0B /* TripIntroTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D786F22D07DE600F61F0B /* TripIntroTableViewCell.swift */; };
 		8D0D787222D0810300F61F0B /* SpecialTripTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D787122D0810300F61F0B /* SpecialTripTableViewCell.swift */; };
@@ -62,6 +63,7 @@
 		4353B90722D48EB8004BD807 /* MainRecommendHouseCollectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRecommendHouseCollectCell.swift; sourceTree = "<group>"; };
 		4353B90922D4A5A6004BD807 /* MainRecommendHouseTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRecommendHouseTableCell.swift; sourceTree = "<group>"; };
 		4353B90B22D4B755004BD807 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4353B90D22D5AE12004BD807 /* MainFullImageTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFullImageTableCell.swift; sourceTree = "<group>"; };
 		8D0D786D22D07C9300F61F0B /* TripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripViewController.swift; sourceTree = "<group>"; };
 		8D0D786F22D07DE600F61F0B /* TripIntroTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripIntroTableViewCell.swift; sourceTree = "<group>"; };
 		8D0D787122D0810300F61F0B /* SpecialTripTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialTripTableViewCell.swift; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 				4353B8F622D327C2004BD807 /* MainCategoryCollectCell.swift */,
 				4353B90922D4A5A6004BD807 /* MainRecommendHouseTableCell.swift */,
 				4353B90722D48EB8004BD807 /* MainRecommendHouseCollectCell.swift */,
+				4353B90D22D5AE12004BD807 /* MainFullImageTableCell.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -329,6 +332,7 @@
 				8D0D787022D07DE600F61F0B /* TripIntroTableViewCell.swift in Sources */,
 				8D0D788A22D20B9100F61F0B /* SpecialTripCollectionViewCell.swift in Sources */,
 				4353B90822D48EB8004BD807 /* MainRecommendHouseCollectCell.swift in Sources */,
+				4353B90E22D5AE12004BD807 /* MainFullImageTableCell.swift in Sources */,
 				4353B8E422D0797E004BD807 /* MainViewController.swift in Sources */,
 				8D0D789A22D3610C00F61F0B /* SeoulRecommendedDetailViewController.swift in Sources */,
 				4353B90A22D4A5A6004BD807 /* MainRecommendHouseTableCell.swift in Sources */,
