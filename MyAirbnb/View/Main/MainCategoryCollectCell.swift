@@ -47,17 +47,17 @@ class MainCategoryCollectCell: UICollectionViewCell {
     }
     
     private func configureViewsOptions() {
-        self.backgroundColor = .white
-        self.layer.borderWidth = 0.5
-        self.layer.borderColor = UIColor.lightGray.cgColor
-        self.layer.cornerRadius = 6
-        self.layer.masksToBounds = true
+        self.contentView.clipsToBounds = true
+        self.contentView.layer.cornerRadius = 3
+        self.contentView.backgroundColor = .white
+        self.contentView.layer.borderWidth = 0.5
+        self.contentView.layer.borderColor = UIColor.lightGray.cgColor
         
+        self.layer.masksToBounds = false
         self.layer.shadowColor = UIColor.gray.cgColor
-        self.layer.shadowOpacity = 0.8
-        self.layer.shadowOffset = CGSize(width: 0, height: 3)
-        self.layer.shadowRadius = 0.3
-    
+        self.layer.shadowOpacity = 0.2
+        self.layer.shadowOffset = CGSize(width: 0, height: 2)
+        self.layer.shadowRadius = 3
         
         mainImageView.contentMode = .scaleAspectFill
         mainImageView.layer.masksToBounds = true

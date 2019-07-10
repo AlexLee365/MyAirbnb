@@ -41,9 +41,11 @@ class MainView: UIView {
         mainTableView.dataSource = self
         mainTableView.register(MainCategoryTableCell.self, forCellReuseIdentifier: MainCategoryTableCell.identifier)
         mainTableView.register(MainRecommendHouseTableCell.self, forCellReuseIdentifier: MainRecommendHouseTableCell.identifier)
+        mainTableView.register(MainFullImageTableCell.self, forCellReuseIdentifier: MainFullImageTableCell.identifier)
         
         
-        mainTableView.rowHeight = 280
+        mainTableView.rowHeight = UITableView.automaticDimension
+        mainTableView.estimatedRowHeight = 100
     }
     
     
@@ -57,7 +59,7 @@ class MainView: UIView {
 extension MainView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print("numberofrow")
-        return 2
+        return 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -75,6 +77,13 @@ extension MainView: UITableViewDelegate, UITableViewDataSource {
             RecommendHoseCell.titleLabel.text = "여행 예약을 완료하세요"
 
             return RecommendHoseCell
+            
+        case 2 :
+            let fullImageCell = tableView.dequeueReusableCell(withIdentifier: MainFullImageTableCell.identifier, for: indexPath) as! MainFullImageTableCell
+            
+            fullImageCell.fullImageView.image = UIImage(named: "MainFullImage")
+            
+            return fullImageCell
         
         default :break
         }

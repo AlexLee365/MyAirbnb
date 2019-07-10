@@ -48,6 +48,7 @@ class MainRecommendHouseTableCell: UITableViewCell {
         collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         collectionView.heightAnchor.constraint(equalToConstant: collectionViewWidth * 1.25).isActive = true
+        collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
     }
     
     private func configureViewsOptions() {

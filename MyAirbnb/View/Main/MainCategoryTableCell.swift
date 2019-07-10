@@ -35,7 +35,6 @@ class MainCategoryTableCell: UITableViewCell {
     var setLayout = false
     override func layoutSubviews() {
         if setLayout == false {
-            layout.headerReferenceSize = CGSize(width: StandardUIValue.shared.mainViewSideMargin, height: collectionView.frame.height)
             setLayout = true
         }
     }
@@ -55,7 +54,8 @@ class MainCategoryTableCell: UITableViewCell {
         collectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 15).isActive = true
         collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        collectionView.heightAnchor.constraint(equalToConstant: collectionViewWidth).isActive = true
+        collectionView.heightAnchor.constraint(equalToConstant: collectionViewWidth * 1.1).isActive = true
+        collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0).isActive = true
     }
     
     private func configureViewsOptions() {
@@ -63,9 +63,9 @@ class MainCategoryTableCell: UITableViewCell {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(MainCategoryCollectCell.self, forCellWithReuseIdentifier: MainCategoryCollectCell.identifier)
-        collectionView.register(MainCollectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: MainCollectionHeaderView.identifier)
         collectionView.backgroundColor = .white
         collectionView.showsHorizontalScrollIndicator = false
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: StandardUIValue.shared.mainViewSideMargin, bottom: 0, right: 0)
         
         layout.minimumInteritemSpacing = 10
 //        layout.minimumLineSpacing = 10
@@ -96,18 +96,9 @@ extension MainCategoryTableCell: UICollectionViewDataSource, UICollectionViewDel
         cell.mainImageView.image = UIImage(named: "categoryImage")
         cell.titleLabel.text = "숙소"
         cell.detailLabel.text = "숙소"
-//        cell.layer.borderWidth = 1
-//        cell.layer.borderColor
         
         return cell
     }
-    
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: MainCollectionHeaderView.identifier, for: indexPath) as! MainCollectionHeaderView
-        
-        return header
-    }
-    
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
