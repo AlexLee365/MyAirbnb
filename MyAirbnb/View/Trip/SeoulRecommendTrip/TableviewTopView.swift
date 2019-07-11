@@ -9,7 +9,7 @@
 import UIKit
 
 protocol TableviewTopViewDelegate: class {
-    func viewDismiss()
+    func popView()
 }
 
 class TableviewTopView: UIView {
@@ -64,7 +64,7 @@ class TableviewTopView: UIView {
     }
     
     @objc private func backButtonDidTap(_ sender: UIButton) {
-        delegate?.viewDismiss()
+        delegate?.popView()
     }
     
     private func setAutolayout() {
