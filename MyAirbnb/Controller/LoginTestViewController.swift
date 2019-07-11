@@ -46,7 +46,11 @@ class LoginTestViewController: UIViewController {
     
     @objc func presentLoginTestPageBtnDidTap(_ sender: UIButton) {
         print("buttonDidTap")
-//        present()
+        
+        let signUpMainVC = SignUpMainViewController()
+        let naviController = UINavigationController(rootViewController: signUpMainVC)
+        
+        present(naviController, animated: true)
     }
     
     
