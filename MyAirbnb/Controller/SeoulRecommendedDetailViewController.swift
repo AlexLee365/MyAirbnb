@@ -80,6 +80,7 @@ class SeoulRecommendedDetailViewController: UIViewController {
         tableView.delegate = self
         tableView.register(SeoulRecommendTableViewCell.self, forCellReuseIdentifier: SeoulRecommendTableViewCell.identifier)
         tableView.register(HostIntroTableViewCell.self, forCellReuseIdentifier: HostIntroTableViewCell.identifier)
+        tableView.register(PlaceTableViewCell.self, forCellReuseIdentifier: PlaceTableViewCell.identifier)
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
         view.addSubview(tableView)
@@ -107,7 +108,7 @@ class SeoulRecommendedDetailViewController: UIViewController {
         topView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         topView.heightAnchor.constraint(equalToConstant: 75).isActive = true
         
-        let height = UIScreen.main.bounds.height * 0.18
+        let height = UIScreen.main.bounds.height * 0.175
         bottomView.translatesAutoresizingMaskIntoConstraints = false
         bottomView.heightAnchor.constraint(equalToConstant: height).isActive = true
         bottomView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -137,10 +138,11 @@ extension SeoulRecommendedDetailViewController: UITableViewDataSource {
         case 1:
             let hostIntroCell = tableView.dequeueReusableCell(withIdentifier: HostIntroTableViewCell.identifier, for: indexPath) as! HostIntroTableViewCell
             hostIntroCell.selectionStyle = .none
-            
-            
-            
             return hostIntroCell
+        case 5:
+            let placeCell = tableView.dequeueReusableCell(withIdentifier: PlaceTableViewCell.identifier, for: indexPath) as! PlaceTableViewCell
+            placeCell.selectionStyle = .none
+            return placeCell
         default:
             return UITableViewCell()
         }
@@ -153,7 +155,7 @@ extension SeoulRecommendedDetailViewController: UITableViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) else { return }
 
-        let becomeWhiteEndPoint = cell.frame.height - (navigationController?.navigationBar.frame.height)!
+        let becomeWhiteEndPoint = cell.frame.height - topView.frame.height
         let becomeWhiteStartPoint = becomeWhiteEndPoint - 70
 
         let opacity = ( scrollView.contentOffset.y - becomeWhiteStartPoint ) / (becomeWhiteEndPoint - becomeWhiteStartPoint)
@@ -182,7 +184,7 @@ extension SeoulRecommendedDetailViewController: UITableViewDelegate {
         let bottomViewHeight = bottomView.frame.height
 
         if (cellHeight - currentY) <= (deviceHeight - bottomViewHeight) {
-            UIView.animate(withDuration: 0.5) {
+            UIView.animate(withDuration: 0.3) {
                 self.bottomView.backgroundColor = .white
                 self.bottomView.makeShadow()
             }
