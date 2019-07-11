@@ -37,7 +37,8 @@ class TabbarController: UITabBarController {
         let saveListVC = MainViewController()
         let tripVC = TripViewController()
         let messageVC = MainViewController()
-        let profileVC = MainViewController()
+        let profileVC = LoginTestViewController()
+            
         
         //        mainVC.tabBarItem = UITabBarItem(title: "탐색하기", image: UIImage(named: "tabbarIcon_Search")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), tag: 0)
         mainVC.tabBarItem = UITabBarItem(title: "탐색하기", image: UIImage(named: "tabbarIcon_Search")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), selectedImage: UIImage(named: "tabbarIcon_Search_selected")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal))
