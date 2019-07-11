@@ -95,7 +95,7 @@ class HostIntroTableViewCell: UITableViewCell {
         introBody.numberOfLines = 4
         introBody.text =
         """
-        안녕하세요. 저는 비건 화장품 '멜릭서’의 대표 이하나입니다. \n멜릭서는 100% 식물성 성분만을 사용하며, 화장품 동물실험에 반대하는 비건 화장품 브랜드입니다. "내가 매일 사용하는 화장품으로도 환경에 기여할 수있을까?" 저는 지난 6년동안 화장품 회사에서 일을 하면서 수없이 생산되는 화장품들을 접했습니다. 오랜 시간에걸쳐 사람들이 조금 더 예뻐지기 위한 - 피부 미용을 위한 제품인 '화장품’의 생산 과정들을 알게 되었습니다. 그 과정에서 발생하는 많은 플라스틱으로 인한 환경 파괴와 동물 학대에 대해 알게되었고, 비거니즘을 화장품에 적용하면 어떨까라는 생각을 했습니다. 그래서 동물의 희생도 줄이고 또 동시에 피부에도 좋은 비건 화장품 브랜드를 만들게 되었습니다. 멜릭서는 비건이라는 생소한 분야를 알리고 비건 커뮤니티를 더 키워가고 싶어 이 클래스를 시작하였습니다:)
+        안녕하세요. 저는 비건 화장품 '멜릭서’의 대표 이하나입니다. \n멜릭서는 100% 식물성 성분만을 사용하며, 화장품 동물실험에 반대하는 비건 화장품 브랜드입니다.\n\n"내가 매일 사용하는 화장품으로도 환경에 기여할 수있을까?"\n\n저는 지난 6년동안 화장품 회사에서 일을 하면서 수없이 생산되는 화장품들을 접했습니다. 오랜 시간에걸쳐 사람들이 조금 더 예뻐지기 위한 - 피부 미용을 위한 제품인 '화장품’의 생산 과정들을 알게 되었습니다.\n\n그 과정에서 발생하는 많은 플라스틱으로 인한 환경 파괴와 동물 학대에 대해 알게되었고, 비거니즘을 화장품에 적용하면 어떨까라는 생각을 했습니다. 그래서 동물의 희생도 줄이고 또 동시에 피부에도 좋은 비건 화장품 브랜드를 만들게 되었습니다.\n\n멜릭서는 비건이라는 생소한 분야를 알리고 비건 커뮤니티를 더 키워가고 싶어 이 클래스를 시작하였습니다 :)
         """
         
         let readmoreFont = UIFont(name: "Helvetica-Oblique", size: 17.0)
@@ -142,9 +142,10 @@ class HostIntroTableViewCell: UITableViewCell {
 //                superTableView.reloadData()
 //            superTableView.contentOffset = CGPoint(x: 0, y: currentY)
 //            superTableView.moveRow(at: IndexPath(row: 1, section: 0), to: IndexPath(row: 1, section: 0))
-            superTableView.reloadData()
-            superTableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .fade)
-            
+//            superTableView.reloadData()
+//            superTableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .none)
+//            superTableView.scrollToRow(at: [IndexPath(row: 1, section: 0)], at: .top, animated: true)
+            superTableView.reloadSections(IndexSet.init(integer: 0), with: .none)
             
 //            }
             self.layoutIfNeeded()
