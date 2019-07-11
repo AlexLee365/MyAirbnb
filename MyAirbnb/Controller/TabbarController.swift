@@ -35,7 +35,7 @@ class TabbarController: UITabBarController {
     private func setTabbarItems() {
         let mainVC = MainViewController()
         let saveListVC = MainViewController()
-        let tripVC = TripViewController()
+        let tripNaviController = UINavigationController(rootViewController: TripViewController())
         let messageVC = MainViewController()
         let profileVC = LoginTestViewController()
             
@@ -48,8 +48,8 @@ class TabbarController: UITabBarController {
         saveListVC.tabBarItem = UITabBarItem(title: "저장 목록", image: UIImage(named: "tabbarIcon_SaveList")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), tag: 1)
         saveListVC.tabBarItem.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -5)
         
-        tripVC.tabBarItem = UITabBarItem(title: "여행", image: UIImage(named: "tabbarIcon_Travel")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), tag: 1)
-        tripVC.tabBarItem.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -5)
+        tripNaviController.tabBarItem = UITabBarItem(title: "여행", image: UIImage(named: "tabbarIcon_Travel")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), tag: 1)
+        tripNaviController.tabBarItem.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -5)
         
         messageVC.tabBarItem = UITabBarItem(title: "메세지", image: UIImage(named: "tabbarIcon_Message")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), tag: 1)
         messageVC.tabBarItem.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -5)
@@ -58,7 +58,7 @@ class TabbarController: UITabBarController {
         profileVC.tabBarItem.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -5)
         
 
-        viewControllers = [mainVC, saveListVC, tripVC, messageVC, profileVC]
+        viewControllers = [mainVC, saveListVC, tripNaviController, messageVC, profileVC]
     }
     
     

@@ -9,7 +9,7 @@
 import UIKit
 
 protocol SeoulRecommenedTripTableViewCellDelegate: class {
-    func viewpresent()
+    func pushVC()
 }
 
 class SeoulRecommenedTripTableViewCell: UITableViewCell {
@@ -137,7 +137,7 @@ extension SeoulRecommenedTripTableViewCell: UICollectionViewDataSource {
 
 extension SeoulRecommenedTripTableViewCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.viewpresent()
+        delegate?.pushVC()
         
     }
 }
