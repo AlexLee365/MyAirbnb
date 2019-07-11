@@ -42,6 +42,8 @@ class MainView: UIView {
         mainTableView.register(MainCategoryTableCell.self, forCellReuseIdentifier: MainCategoryTableCell.identifier)
         mainTableView.register(MainRecommendHouseTableCell.self, forCellReuseIdentifier: MainRecommendHouseTableCell.identifier)
         mainTableView.register(MainFullImageTableCell.self, forCellReuseIdentifier: MainFullImageTableCell.identifier)
+        mainTableView.register(MainLuxeHouseTableCell.self, forCellReuseIdentifier: MainLuxeHouseTableCell.identifier)
+        mainTableView.register(FourSquareTableCell.self, forCellReuseIdentifier: FourSquareTableCell.identifier)
         mainTableView.allowsSelection = false
         
         
@@ -59,8 +61,7 @@ class MainView: UIView {
 
 extension MainView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("numberofrow")
-        return 3
+        return 5
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -85,6 +86,17 @@ extension MainView: UITableViewDelegate, UITableViewDataSource {
             fullImageCell.fullImageView.image = UIImage(named: "MainFullImage")
             
             return fullImageCell
+            
+        case 3:
+            let luxeHouseCell = tableView.dequeueReusableCell(withIdentifier: MainLuxeHouseTableCell.identifier, for: indexPath) as! MainLuxeHouseTableCell
+            
+            return luxeHouseCell
+        case 4:
+            let allWorldsFourSquareCell = tableView.dequeueReusableCell(withIdentifier: FourSquareTableCell.identifier, for: indexPath) as! FourSquareTableCell
+            
+            allWorldsFourSquareCell.titleLabel.text = "전 세계 숙소"
+            
+            return allWorldsFourSquareCell
         
         default :break
         }

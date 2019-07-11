@@ -15,7 +15,7 @@ class MainRecommendHouseTableCell: UITableViewCell {
     let layout = UICollectionViewFlowLayout()
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     
-    let collectionViewWidth: CGFloat = UIScreen.main.bounds.width * 0.45
+    let collectionViewCellWidth: CGFloat = UIScreen.main.bounds.width * 0.4
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: MainRecommendHouseTableCell.identifier)
@@ -36,19 +36,20 @@ class MainRecommendHouseTableCell: UITableViewCell {
         let topBottomMargin: CGFloat = 30
         let sideMargin: CGFloat = 20
         
-        contentView.addSubview(titleLabel)
+        self.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: topBottomMargin).isActive = true
-        titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: sideMargin).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -sideMargin*2).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: topBottomMargin).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: sideMargin).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -sideMargin*2).isActive = true
         
-        contentView.addSubview(collectionView)
+        
+        self.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 25).isActive = true
-        collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        collectionView.heightAnchor.constraint(equalToConstant: collectionViewWidth * 1.25).isActive = true
-        collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        collectionView.heightAnchor.constraint(equalToConstant: collectionViewCellWidth * 1.25).isActive = true
+        collectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
     }
     
     private func configureViewsOptions() {
@@ -57,11 +58,10 @@ class MainRecommendHouseTableCell: UITableViewCell {
         collectionView.register(MainRecommendHouseCollectCell.self, forCellWithReuseIdentifier: MainRecommendHouseCollectCell.identifier)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = .white
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: StandardUIValue.shared.mainViewSideMargin, bottom: 0, right: 0)
         
         
-        
-        collectionView.register(MainCollectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: MainCollectionHeaderView.identifier)
-        layout.headerReferenceSize = CGSize(width: StandardUIValue.shared.mainViewSideMargin, height: collectionViewWidth * 1.25)
+       
         layout.minimumInteritemSpacing = 10
         layout.scrollDirection = .horizontal
         
@@ -85,17 +85,10 @@ extension MainRecommendHouseTableCell: UICollectionViewDelegate, UICollectionVie
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: MainCollectionHeaderView.identifier, for: indexPath) as! MainCollectionHeaderView
-        
-        return header
-    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let cellSize = CGSize(width: collectionViewWidth, height: collectionViewWidth * 1.25)
-        
-        return cellSize
+        return CGSize(width: collectionViewCellWidth, height: collectionViewCellWidth * 1.25)
     }
     
     

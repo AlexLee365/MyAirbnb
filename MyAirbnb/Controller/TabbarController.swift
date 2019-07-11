@@ -40,21 +40,30 @@ class TabbarController: UITabBarController {
         let profileVC = LoginTestViewController()
             
         
-        //        mainVC.tabBarItem = UITabBarItem(title: "탐색하기", image: UIImage(named: "tabbarIcon_Search")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), tag: 0)
-        mainVC.tabBarItem = UITabBarItem(title: "탐색하기", image: UIImage(named: "tabbarIcon_Search")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), selectedImage: UIImage(named: "tabbarIcon_Search_selected")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal))
+        mainVC.tabBarItem = UITabBarItem(title: "탐색하기",
+                                         image: UIImage(named: "tabbarIcon_Search")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal),
+                                         selectedImage: UIImage(named: "tabbarIcon_Search_selected")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal))
         mainVC.tabBarItem.imageInsets = UIEdgeInsets(top: 0, left: -5, bottom: 0, right: 5)
         mainVC.tabBarItem.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -5)
         
-        saveListVC.tabBarItem = UITabBarItem(title: "저장 목록", image: UIImage(named: "tabbarIcon_SaveList")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), tag: 1)
+        saveListVC.tabBarItem = UITabBarItem(title: "저장 목록",
+                                             image: UIImage(named: "tabbarIcon_SaveList")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal),
+                                             selectedImage: UIImage(named: "tabbarIcon_SaveList_selected")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal))
         saveListVC.tabBarItem.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -5)
         
-        tripNaviController.tabBarItem = UITabBarItem(title: "여행", image: UIImage(named: "tabbarIcon_Travel")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), tag: 1)
+        tripNaviController.tabBarItem = UITabBarItem(title: "여행",
+                                                     image: UIImage(named: "tabbarIcon_Travel")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal),
+                                                     selectedImage: UIImage(named: "tabbarIcon_Travel_selected")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal))
         tripNaviController.tabBarItem.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -5)
         
-        messageVC.tabBarItem = UITabBarItem(title: "메세지", image: UIImage(named: "tabbarIcon_Message")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), tag: 1)
+        messageVC.tabBarItem = UITabBarItem(title: "메세지",
+                                            image: UIImage(named: "tabbarIcon_Message")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal),
+                                            selectedImage: UIImage(named: "tabbarIcon_Message_selected")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal))
         messageVC.tabBarItem.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -5)
         
-        profileVC.tabBarItem = UITabBarItem(title: "프로필", image: UIImage(named: "tabbarIcon_Profile")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), tag: 1)
+        profileVC.tabBarItem = UITabBarItem(title: "프로필",
+                                            image: UIImage(named: "tabbarIcon_Profile")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal),
+                                            selectedImage: UIImage(named: "tabbarIcon_Profile_selected")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal))
         profileVC.tabBarItem.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -5)
         
 

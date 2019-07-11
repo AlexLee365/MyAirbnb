@@ -41,7 +41,7 @@ class MainFullImageTableCell: UITableViewCell {
         fullImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: StandardUIValue.shared.mainTableViewCellsTopBottomPadding).isActive = true
         fullImageView.widthAnchor.constraint(equalToConstant: imageWidth).isActive = true
         fullImageView.heightAnchor.constraint(equalTo: fullImageView.widthAnchor, multiplier: 1.25).isActive = true
-        fullImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        fullImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15).isActive = true
         
         let topPadding: CGFloat = 15
         fullImageView.addSubview(detailTitleLabel)

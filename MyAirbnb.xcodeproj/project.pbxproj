@@ -17,12 +17,15 @@
 		4353B8F822D327C2004BD807 /* MainCategoryCollectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353B8F622D327C2004BD807 /* MainCategoryCollectCell.swift */; };
 		4353B8FD22D47C02004BD807 /* UIExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353B8FC22D47C02004BD807 /* UIExtension.swift */; };
 		4353B90422D484FA004BD807 /* StandardUIValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353B90322D484FA004BD807 /* StandardUIValue.swift */; };
-		4353B90622D488AA004BD807 /* MainCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353B90522D488AA004BD807 /* MainCollectionHeaderView.swift */; };
 		4353B90822D48EB8004BD807 /* MainRecommendHouseCollectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353B90722D48EB8004BD807 /* MainRecommendHouseCollectCell.swift */; };
 		4353B90A22D4A5A6004BD807 /* MainRecommendHouseTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353B90922D4A5A6004BD807 /* MainRecommendHouseTableCell.swift */; };
 		4353B90C22D4B755004BD807 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4353B90B22D4B755004BD807 /* Assets.xcassets */; };
 		4353B90E22D5AE12004BD807 /* MainFullImageTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353B90D22D5AE12004BD807 /* MainFullImageTableCell.swift */; };
 		4353B91022D6DCCB004BD807 /* LoginTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353B90F22D6DCCB004BD807 /* LoginTestViewController.swift */; };
+		4353B91222D73B80004BD807 /* FourSquareTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353B91122D73B80004BD807 /* FourSquareTableCell.swift */; };
+		4353B91422D73E0D004BD807 /* FourSquareCollectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353B91322D73E0D004BD807 /* FourSquareCollectCell.swift */; };
+		4353B91622D755F1004BD807 /* MainLuxeHouseTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353B91522D755F1004BD807 /* MainLuxeHouseTableCell.swift */; };
+		4353B91822D75605004BD807 /* MainLuxeHouseCollectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353B91722D75605004BD807 /* MainLuxeHouseCollectCell.swift */; };
 		8D0D786E22D07C9300F61F0B /* TripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D786D22D07C9300F61F0B /* TripViewController.swift */; };
 		8D0D787022D07DE600F61F0B /* TripIntroTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D786F22D07DE600F61F0B /* TripIntroTableViewCell.swift */; };
 		8D0D787222D0810300F61F0B /* SpecialTripTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D787122D0810300F61F0B /* SpecialTripTableViewCell.swift */; };
@@ -64,12 +67,15 @@
 		4353B8F622D327C2004BD807 /* MainCategoryCollectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCategoryCollectCell.swift; sourceTree = "<group>"; };
 		4353B8FC22D47C02004BD807 /* UIExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIExtension.swift; sourceTree = "<group>"; };
 		4353B90322D484FA004BD807 /* StandardUIValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardUIValue.swift; sourceTree = "<group>"; };
-		4353B90522D488AA004BD807 /* MainCollectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionHeaderView.swift; sourceTree = "<group>"; };
 		4353B90722D48EB8004BD807 /* MainRecommendHouseCollectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRecommendHouseCollectCell.swift; sourceTree = "<group>"; };
 		4353B90922D4A5A6004BD807 /* MainRecommendHouseTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRecommendHouseTableCell.swift; sourceTree = "<group>"; };
 		4353B90B22D4B755004BD807 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4353B90D22D5AE12004BD807 /* MainFullImageTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFullImageTableCell.swift; sourceTree = "<group>"; };
 		4353B90F22D6DCCB004BD807 /* LoginTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTestViewController.swift; sourceTree = "<group>"; };
+		4353B91122D73B80004BD807 /* FourSquareTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourSquareTableCell.swift; sourceTree = "<group>"; };
+		4353B91322D73E0D004BD807 /* FourSquareCollectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourSquareCollectCell.swift; sourceTree = "<group>"; };
+		4353B91522D755F1004BD807 /* MainLuxeHouseTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainLuxeHouseTableCell.swift; sourceTree = "<group>"; };
+		4353B91722D75605004BD807 /* MainLuxeHouseCollectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainLuxeHouseCollectCell.swift; sourceTree = "<group>"; };
 		5895FA9D40FD45C305945B10 /* Pods_MyAirbnb.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyAirbnb.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D0D786D22D07C9300F61F0B /* TripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripViewController.swift; sourceTree = "<group>"; };
 		8D0D786F22D07DE600F61F0B /* TripIntroTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripIntroTableViewCell.swift; sourceTree = "<group>"; };
@@ -192,12 +198,15 @@
 			isa = PBXGroup;
 			children = (
 				4353B8F122D319F2004BD807 /* MainView.swift */,
-				4353B90522D488AA004BD807 /* MainCollectionHeaderView.swift */,
 				4353B8F322D31D68004BD807 /* MainCategoryTableCell.swift */,
 				4353B8F622D327C2004BD807 /* MainCategoryCollectCell.swift */,
 				4353B90922D4A5A6004BD807 /* MainRecommendHouseTableCell.swift */,
 				4353B90722D48EB8004BD807 /* MainRecommendHouseCollectCell.swift */,
 				4353B90D22D5AE12004BD807 /* MainFullImageTableCell.swift */,
+				4353B91522D755F1004BD807 /* MainLuxeHouseTableCell.swift */,
+				4353B91722D75605004BD807 /* MainLuxeHouseCollectCell.swift */,
+				4353B91122D73B80004BD807 /* FourSquareTableCell.swift */,
+				4353B91322D73E0D004BD807 /* FourSquareCollectCell.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -373,7 +382,6 @@
 				4353B8EE22D088A3004BD807 /* TabbarController.swift in Sources */,
 				4353B8FD22D47C02004BD807 /* UIExtension.swift in Sources */,
 				8D0D78A722D459E200F61F0B /* TodaySeoulExperienceData.swift in Sources */,
-				4353B90622D488AA004BD807 /* MainCollectionHeaderView.swift in Sources */,
 				8D0D78A522D459C900F61F0B /* SeoulRecommendedTripData.swift in Sources */,
 				8D0D78B222D4B71500F61F0B /* TableviewTopView.swift in Sources */,
 				8D0D789D22D3729000F61F0B /* Protocols.swift in Sources */,
@@ -382,11 +390,13 @@
 				8D0D788E22D222A400F61F0B /* TripInfoCollectionViewCell.swift in Sources */,
 				8D0D78B422D5E5E600F61F0B /* BottomView.swift in Sources */,
 				8D0D786E22D07C9300F61F0B /* TripViewController.swift in Sources */,
+				4353B91222D73B80004BD807 /* FourSquareTableCell.swift in Sources */,
 				8D0D78AA22D4754200F61F0B /* SeoulRecommendTableViewCell.swift in Sources */,
 				4353B8F822D327C2004BD807 /* MainCategoryCollectCell.swift in Sources */,
 				8D0D788C22D2220700F61F0B /* SeoulRecommenedTripTableViewCell.swift in Sources */,
 				4353B8F422D31D68004BD807 /* MainCategoryTableCell.swift in Sources */,
 				8D0D78AC22D47AA700F61F0B /* InfoView.swift in Sources */,
+				4353B91822D75605004BD807 /* MainLuxeHouseCollectCell.swift in Sources */,
 				8D0D787522D089AD00F61F0B /* TripIntroCollectionViewCell.swift in Sources */,
 				4353B8F022D22782004BD807 /* SearchBarView.swift in Sources */,
 				4353B91022D6DCCB004BD807 /* LoginTestViewController.swift in Sources */,
@@ -394,10 +404,12 @@
 				8D0D788A22D20B9100F61F0B /* SpecialTripCollectionViewCell.swift in Sources */,
 				4353B90822D48EB8004BD807 /* MainRecommendHouseCollectCell.swift in Sources */,
 				4353B90E22D5AE12004BD807 /* MainFullImageTableCell.swift in Sources */,
+				4353B91422D73E0D004BD807 /* FourSquareCollectCell.swift in Sources */,
 				4353B8E422D0797E004BD807 /* MainViewController.swift in Sources */,
 				8D0D789A22D3610C00F61F0B /* SeoulRecommendedDetailViewController.swift in Sources */,
 				4353B90A22D4A5A6004BD807 /* MainRecommendHouseTableCell.swift in Sources */,
 				4353B8D222CF51F6004BD807 /* AppDelegate.swift in Sources */,
+				4353B91622D755F1004BD807 /* MainLuxeHouseTableCell.swift in Sources */,
 				8D0D78B622D6060600F61F0B /* HostIntroTableViewCell.swift in Sources */,
 				4353B90422D484FA004BD807 /* StandardUIValue.swift in Sources */,
 			);

@@ -18,7 +18,7 @@ class MainCategoryTableCell: UITableViewCell {
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     
     // MARK: - Properties
-    let collectionViewWidth: CGFloat = UIScreen.main.bounds.width * 0.35
+    let collectionViewCellWidth: CGFloat = UIScreen.main.bounds.width * 0.35
     
     // MARK: - LifeCycle
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -54,7 +54,7 @@ class MainCategoryTableCell: UITableViewCell {
         collectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 15).isActive = true
         collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        collectionView.heightAnchor.constraint(equalToConstant: collectionViewWidth * 1.1).isActive = true
+        collectionView.heightAnchor.constraint(equalToConstant: collectionViewCellWidth * 1.1).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0).isActive = true
     }
     
@@ -102,8 +102,7 @@ extension MainCategoryTableCell: UICollectionViewDataSource, UICollectionViewDel
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellSize = CGSize(width: collectionViewWidth, height: collectionViewWidth)
         
-        return cellSize
+        return CGSize(width: collectionViewCellWidth, height: collectionViewCellWidth)
     }
 }
