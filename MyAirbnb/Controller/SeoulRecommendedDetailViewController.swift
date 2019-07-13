@@ -47,6 +47,8 @@ class SeoulRecommendedDetailViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
+        tabBarController?.tabBar.isHidden = true
+        
 //        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
 //        navigationController?.navigationBar.shadowImage = UIImage()
 //        navigationController?.navigationBar.isTranslucent = true
@@ -56,6 +58,7 @@ class SeoulRecommendedDetailViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.navigationBar.isHidden = true
+        tabBarController?.tabBar.isHidden = false
     }
     
     var isStatusBarWhite = true
@@ -108,7 +111,7 @@ class SeoulRecommendedDetailViewController: UIViewController {
         topView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         topView.heightAnchor.constraint(equalToConstant: 75).isActive = true
         
-        let height = UIScreen.main.bounds.height * 0.175
+        let height = UIScreen.main.bounds.height * 0.1
         bottomView.translatesAutoresizingMaskIntoConstraints = false
         bottomView.heightAnchor.constraint(equalToConstant: height).isActive = true
         bottomView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true

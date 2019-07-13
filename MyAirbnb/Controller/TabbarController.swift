@@ -22,7 +22,7 @@ class TabbarController: UITabBarController {
     }
     
     private func setSeparateLine() {
-        view.addSubview(separateLine)
+        tabBar.addSubview(separateLine)
         separateLine.translatesAutoresizingMaskIntoConstraints = false
         separateLine.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         separateLine.topAnchor.constraint(equalTo: tabBar.topAnchor, constant:  0).isActive = true  // layoutSubview에서 설정 (tabbar frame을 받아오기위함)
