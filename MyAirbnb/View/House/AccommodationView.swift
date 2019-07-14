@@ -36,7 +36,7 @@ class AccommodationView: UIView {
         tableView.register(AccommodationTopLabelTableCell.self, forCellReuseIdentifier: AccommodationTopLabelTableCell.identifier)
         tableView.register(HouseLuxeTableCell.self, forCellReuseIdentifier: HouseLuxeTableCell.identifier)
         tableView.register(HousePlusTableCell.self, forCellReuseIdentifier: HousePlusTableCell.identifier)
-        tableView.register(AllHouseTableCell.self, forCellReuseIdentifier: AllHouseTableCell.identifier)
+        tableView.register(AllHouseLabelTableCell.self, forCellReuseIdentifier: AllHouseLabelTableCell.identifier)
         self.addSubview(tableView)
     }
     
@@ -61,16 +61,19 @@ extension AccommodationView: UITableViewDataSource {
         case 0:
             let topLabelCell = tableView.dequeueReusableCell(withIdentifier: AccommodationTopLabelTableCell.identifier, for: indexPath) as! AccommodationTopLabelTableCell
             topLabelCell.topLabel.text = "여행 날짜와 게스트 인원수를 입력하면 1박당 총 요금을 확인할 수 있습니다. 관광세가 추가로 부과될 수 있습니다."
+            topLabelCell.selectionStyle = .none
             return topLabelCell
         case 1:
             let luxeHouseCell = tableView.dequeueReusableCell(withIdentifier: HouseLuxeTableCell.identifier, for: indexPath) as! HouseLuxeTableCell
+            luxeHouseCell.selectionStyle = .none
             return luxeHouseCell
         case 2:
             let plusHouseCell = tableView.dequeueReusableCell(withIdentifier: HousePlusTableCell.identifier, for: indexPath)
+            plusHouseCell.selectionStyle = .none
             return plusHouseCell
         case 3:
-            let allHouseCell = tableView.dequeueReusableCell(withIdentifier: AllHouseTableCell.identifier, for: indexPath)
-            return allHouseCell
+            let allHouseLabelCell = tableView.dequeueReusableCell(withIdentifier: AllHouseLabelTableCell.identifier, for: indexPath)
+            return allHouseLabelCell
         default:
             return UITableViewCell()
         }
