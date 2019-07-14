@@ -8,9 +8,12 @@
 
 import UIKit
 
+protocol MainCategoryTableCellDelegate: class {
+    func pushView()
+}
+
 class MainCategoryTableCell: UITableViewCell {
     static let identifier = "mainCategoryTableCell"
-    
     
     // MARK: - UI Properties
     let titleLabel = UILabel()
@@ -19,6 +22,8 @@ class MainCategoryTableCell: UITableViewCell {
     
     // MARK: - Properties
     let collectionViewCellWidth: CGFloat = UIScreen.main.bounds.width * 0.35
+    
+    weak var delegate: MainCategoryTableCellDelegate?
     
     // MARK: - LifeCycle
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -80,14 +85,11 @@ class MainCategoryTableCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
-    
-
 }
 
 extension MainCategoryTableCell: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return 6
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -96,7 +98,6 @@ extension MainCategoryTableCell: UICollectionViewDataSource, UICollectionViewDel
         cell.mainImageView.image = UIImage(named: "categoryImage")
         cell.titleLabel.text = "숙소"
         cell.detailLabel.text = "숙소"
-        
         return cell
     }
     
@@ -104,5 +105,15 @@ extension MainCategoryTableCell: UICollectionViewDataSource, UICollectionViewDel
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         return CGSize(width: collectionViewCellWidth, height: collectionViewCellWidth)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.row == 0 {
+            guard let collectCell = collectionView.cellForItem(at: indexPath) as? MainCategoryCollectCell else {
+                print("error")
+                return
+            }
+            self.delegate?.pushView()
+        }
     }
 }

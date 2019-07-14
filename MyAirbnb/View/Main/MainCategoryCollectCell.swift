@@ -8,12 +8,16 @@
 
 import UIKit
 
+
+
 class MainCategoryCollectCell: UICollectionViewCell {
     static let identifier = "mainCategoryCollectCell"
     
     let mainImageView = UIImageView()
     let titleLabel = UILabel()
     let detailLabel = UILabel()
+    
+   
 
     override init(frame: CGRect) {
         super.init(frame: frame)

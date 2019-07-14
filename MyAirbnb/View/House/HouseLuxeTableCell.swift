@@ -1,15 +1,15 @@
 //
-//  MainLuxeHouseTableCell.swift
+//  HouseLuxeTableCell.swift
 //  MyAirbnb
 //
-//  Created by 행복한 개발자 on 11/07/2019.
+//  Created by Solji Kim on 14/07/2019.
 //  Copyright © 2019 Alex Lee. All rights reserved.
 //
 
 import UIKit
 
-class MainLuxeHouseTableCell: UITableViewCell {
-    static let identifier = "MainLuxeHouseTableCell"
+class HouseLuxeTableCell: UITableViewCell {
+    static let identifier = "houseLuxeTableCell"
     
     let titleLabel = UILabel()
     let detailTitleLabel = UILabel()
@@ -19,10 +19,9 @@ class MainLuxeHouseTableCell: UITableViewCell {
     let seeMoreBtn = UIButton()
     
     
-    var collectionViewCellWidth: CGFloat = UIScreen.main.bounds.width * 0.4
-//    lazy var collectionViewCellHeight: CGFloat = collectionViewCellWidth * 1.25
-    var collectionViewCellHeight: CGFloat = (UIScreen.main.bounds.width * 0.4) * 1.25
-
+    var collectionViewCellWidth: CGFloat = UIScreen.main.bounds.width * 0.6
+    lazy var collectionViewCellHeight: CGFloat = collectionViewCellWidth * 1.2
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -36,8 +35,6 @@ class MainLuxeHouseTableCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     private func setAutoLayout() {
@@ -55,7 +52,6 @@ class MainLuxeHouseTableCell: UITableViewCell {
         detailTitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5).isActive = true
         detailTitleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: sideMargin).isActive = true
         detailTitleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -sideMargin*2).isActive = true
-        
         
         self.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -82,12 +78,12 @@ class MainLuxeHouseTableCell: UITableViewCell {
         collectionView.contentInset = UIEdgeInsets(top: 0, left: StandardUIValue.shared.mainViewSideMargin, bottom: 0, right: 0)
         
         
-        
         layout.minimumInteritemSpacing = 10
         layout.scrollDirection = .horizontal
         
         titleLabel.configureMainTableViewCellsTitle()
         titleLabel.text = "에어비앤비 Luxe를 만나보세요."
+        
         
         detailTitleLabel.configureMainTableViewCellsTitleDetails()
         detailTitleLabel.text = "모든 것이 5성급인 특별한 숙소"
@@ -100,10 +96,10 @@ class MainLuxeHouseTableCell: UITableViewCell {
         seeMoreBtn.layer.borderWidth = 1
         seeMoreBtn.layer.borderColor = #colorLiteral(red: 0.4705680609, green: 0.4677750468, blue: 0.4727178216, alpha: 0.445499786)
     }
-
+    
 }
 
-extension MainLuxeHouseTableCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension HouseLuxeTableCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 5
     }
@@ -118,5 +114,4 @@ extension MainLuxeHouseTableCell: UICollectionViewDelegate, UICollectionViewData
         
         return CGSize(width: collectionViewCellWidth, height: collectionViewCellHeight)
     }
-    
 }

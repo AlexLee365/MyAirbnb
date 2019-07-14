@@ -50,13 +50,6 @@ class MainView: UIView {
         mainTableView.rowHeight = UITableView.automaticDimension
         mainTableView.estimatedRowHeight = 100
     }
-    
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-      
-    }
-
 }
 
 extension MainView: UITableViewDelegate, UITableViewDataSource {
@@ -71,39 +64,34 @@ extension MainView: UITableViewDelegate, UITableViewDataSource {
             let CategoryCell = tableView.dequeueReusableCell(withIdentifier: MainCategoryTableCell.identifier, for: indexPath) as! MainCategoryTableCell
             
             CategoryCell.titleLabel.text = "Jung Jin Alex님, 무엇을 찾고 계신가요?"
-            
             return CategoryCell
+            
         case 1 :
             let RecommendHoseCell = tableView.dequeueReusableCell(withIdentifier: MainRecommendHouseTableCell.identifier, for: indexPath) as! MainRecommendHouseTableCell
             
             RecommendHoseCell.titleLabel.text = "여행 예약을 완료하세요"
-
             return RecommendHoseCell
             
         case 2 :
             let fullImageCell = tableView.dequeueReusableCell(withIdentifier: MainFullImageTableCell.identifier, for: indexPath) as! MainFullImageTableCell
             
             fullImageCell.fullImageView.image = UIImage(named: "MainFullImage")
-            
             return fullImageCell
             
         case 3:
             let luxeHouseCell = tableView.dequeueReusableCell(withIdentifier: MainLuxeHouseTableCell.identifier, for: indexPath) as! MainLuxeHouseTableCell
-            
             return luxeHouseCell
+            
         case 4:
             let allWorldsFourSquareCell = tableView.dequeueReusableCell(withIdentifier: FourSquareTableCell.identifier, for: indexPath) as! FourSquareTableCell
-            
+
             allWorldsFourSquareCell.titleLabel.text = "전 세계 숙소"
-            
             return allWorldsFourSquareCell
         
-        default :break
+        default : break
         }
     
         let cell = tableView.dequeueReusableCell(withIdentifier: MainCategoryTableCell.identifier, for: indexPath)
         return cell
     }
-    
-    
 }

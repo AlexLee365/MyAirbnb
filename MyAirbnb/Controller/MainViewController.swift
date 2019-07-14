@@ -20,6 +20,10 @@ class MainViewController: UIViewController {
         configureViewsOptions()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
+    }
     
     private func setAutoLayout() {
         let safeGuide = view.safeAreaLayoutGuide
@@ -36,9 +40,6 @@ class MainViewController: UIViewController {
         mainView.topAnchor.constraint(equalTo: searchBarView.bottomAnchor, constant: 5).isActive = true
         mainView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         mainView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        
-        
-        
     }
     
     private func configureViewsOptions() {
@@ -52,19 +53,22 @@ class MainViewController: UIViewController {
         if setLayout == false {
             let tabbarHeight = self.tabBarController!.tabBar.frame.height
             mainView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -tabbarHeight).isActive = true
+            
+            guard let mainTableCell = mainView.mainTableView.cellForRow(at: IndexPath(row: 0, section: 0))
+                as? MainCategoryTableCell else { return }
+            mainTableCell.delegate = self
+
             setLayout = true
         }
-       
-        print("*** ", self.tabBarController?.tabBar.frame.height)
-        print("🔵🔵🔵 : ", view.safeAreaInsets)
-        print(UIScreen.main.bounds)
     }
-    
-    
-    
-  
-    
-  
+}
+
+
+extension MainViewController: MainCategoryTableCellDelegate {
+    func pushView() {
+        let houseVC = HouseViewController()
+        navigationController?.pushViewController(houseVC, animated: false)
+    }
 }
 
 
