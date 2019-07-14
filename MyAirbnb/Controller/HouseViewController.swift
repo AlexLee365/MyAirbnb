@@ -51,7 +51,6 @@ class HouseViewController: UIViewController {
         houseView.topAnchor.constraint(equalTo: searchBarView.bottomAnchor, constant: 5).isActive = true
         houseView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         houseView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-//        houseView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
     
     var setLayout = false
