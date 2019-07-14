@@ -33,7 +33,7 @@ class TabbarController: UITabBarController {
     }
     
     private func setTabbarItems() {
-        let mainVC = MainViewController()
+        let mainVC = UINavigationController(rootViewController: MainViewController()) 
         let saveListVC = MainViewController()
         let tripNaviController = UINavigationController(rootViewController: TripViewController())
         let messageVC = MainViewController()

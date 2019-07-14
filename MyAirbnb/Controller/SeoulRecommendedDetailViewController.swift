@@ -16,22 +16,6 @@ class SeoulRecommendedDetailViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
-
-//    var backButtonImage = UIImage(named: "backWhite")?.withRenderingMode(.alwaysOriginal)
-//
-//    let heartButton: UIButton = {
-//        let button = UIButton(type: .system)
-//        button.setImage(UIImage(named: "heartWhite")?.withRenderingMode(.alwaysOriginal), for: .normal)
-//        button.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
-//        return button
-//    }()
-//
-//    let shareButton: UIButton = {
-//        let button = UIButton(type: .system)
-//        button.setImage(UIImage(named: "shareWhite")?.withRenderingMode(.alwaysOriginal), for: .normal)
-//        button.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
-//        return button
-//    }()
     
     let topView = TableviewTopView()
     
@@ -48,17 +32,11 @@ class SeoulRecommendedDetailViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
         tabBarController?.tabBar.isHidden = true
-        
-//        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-//        navigationController?.navigationBar.shadowImage = UIImage()
-//        navigationController?.navigationBar.isTranslucent = true
-//        navigationController?.view.backgroundColor = UIColor.clear
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.navigationBar.isHidden = true
-        tabBarController?.tabBar.isHidden = false
     }
     
     var isStatusBarWhite = true
@@ -72,13 +50,6 @@ class SeoulRecommendedDetailViewController: UIViewController {
     }
     
     private func configure() {
-//        navigationController?.navigationBar.backIndicatorImage = backButtonImage
-//        navigationController?.navigationBar.backIndicatorTransitionMaskImage = backButtonImage
-//        navigationController?.navigationBar.backItem?.title = ""
-//        navigationController?.navigationBar.tintColor = .clear
-        
-//        navigationItem.rightBarButtonItems = [UIBarButtonItem(customView: heartButton), UIBarButtonItem(customView: shareButton)]
-        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(SeoulRecommendTableViewCell.self, forCellReuseIdentifier: SeoulRecommendTableViewCell.identifier)

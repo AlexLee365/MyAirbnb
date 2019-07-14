@@ -1,17 +1,16 @@
 //
-//  MainRecommendHouseCollectCell.swift
+//  HousePlusCollectionCell.swift
 //  MyAirbnb
 //
-//  Created by 행복한 개발자 on 09/07/2019.
+//  Created by Solji Kim on 14/07/2019.
 //  Copyright © 2019 Alex Lee. All rights reserved.
 //
 
 import UIKit
 
-class MainRecommendHouseCollectCell: UICollectionViewCell {
-    static let identifier = "MainRecommendHouseCollectCell"
+class HousePlusCollectionCell: UICollectionViewCell {
+    static let identifier = "HousePlusCollectionCell"
     
-    // MARK: - UI Properties
     let mainImageView = UIImageView()
     let likeBtn = UIButton()
     
@@ -42,7 +41,7 @@ class MainRecommendHouseCollectCell: UICollectionViewCell {
         mainImageView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         mainImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         mainImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        mainImageView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.55).isActive = true
+        mainImageView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.6).isActive = true
         
         mainImageView.addSubview(likeBtn)
         likeBtn.translatesAutoresizingMaskIntoConstraints = false
@@ -56,7 +55,7 @@ class MainRecommendHouseCollectCell: UICollectionViewCell {
         firstStackView.topAnchor.constraint(equalTo: mainImageView.bottomAnchor, constant: 5).isActive = true
         firstStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         firstStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        firstStackView.heightAnchor.constraint(equalToConstant: 13).isActive = true
+        firstStackView.heightAnchor.constraint(equalToConstant: 15).isActive = true
         
         houseGradeImageView.centerYAnchor.constraint(equalTo: firstStackView.centerYAnchor).isActive = true
         houseGradeImageView.heightAnchor.constraint(equalTo: firstStackView.heightAnchor).isActive = true
@@ -73,7 +72,7 @@ class MainRecommendHouseCollectCell: UICollectionViewCell {
         secondStackView.topAnchor.constraint(equalTo: houseNameLabel.bottomAnchor, constant: 7).isActive = true
         secondStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         secondStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        secondStackView.heightAnchor.constraint(equalToConstant: 10).isActive = true
+        secondStackView.heightAnchor.constraint(equalToConstant: 12).isActive = true
         
         ratingImageLabel.centerYAnchor.constraint(equalTo: secondStackView.centerYAnchor).isActive = true
         ratingAndHostInfoLabel.centerYAnchor.constraint(equalTo: secondStackView.centerYAnchor).isActive = true
@@ -81,8 +80,9 @@ class MainRecommendHouseCollectCell: UICollectionViewCell {
     
     private func configureViewsOptions() {
         mainImageView.contentMode = .scaleAspectFill
+        mainImageView.image = UIImage(named: "houseSample")
         mainImageView.layer.masksToBounds = true
-        mainImageView.layer.cornerRadius = 2
+        mainImageView.layer.cornerRadius = 3
         
         likeBtn.setImage(UIImage(named: "heart"), for: .normal)
         
@@ -93,10 +93,10 @@ class MainRecommendHouseCollectCell: UICollectionViewCell {
         
         houseGradeImageView.image = UIImage(named: "houseGrade_Plus")
         houseGradeImageView.contentMode = .scaleAspectFit
-        houseGradeImageView.widthAnchor.constraint(equalToConstant: 25).isActive = true
+        houseGradeImageView.widthAnchor.constraint(equalToConstant: 30).isActive = true
         
         dateAndGuestLabel.text = "7월14일 - 7월17일 ・ 게스트 2명"
-        dateAndGuestLabel.font = .systemFont(ofSize: 8, weight: .bold)
+        dateAndGuestLabel.font = .systemFont(ofSize: 10, weight: .bold)
         dateAndGuestLabel.textColor = #colorLiteral(red: 0.386121124, green: 0.02965694666, blue: 0.2658225596, alpha: 0.7088505993)
         dateAndGuestLabel.textAlignment = .left
         
@@ -111,10 +111,11 @@ class MainRecommendHouseCollectCell: UICollectionViewCell {
         
         ratingImageLabel.text = String(repeating: "★", count: 5)
         ratingImageLabel.textColor = #colorLiteral(red: 0.386121124, green: 0.02965694666, blue: 0.2658225596, alpha: 0.7088505993)
-        ratingImageLabel.font = .systemFont(ofSize: 5, weight: .regular)
+        ratingImageLabel.font = .systemFont(ofSize: 10, weight: .regular)
         
         ratingAndHostInfoLabel.text = "215 ・ 슈퍼호스트"
-        ratingAndHostInfoLabel.font = .systemFont(ofSize: 8, weight: .regular)
+        ratingAndHostInfoLabel.font = .systemFont(ofSize: 11, weight: .regular)
         ratingAndHostInfoLabel.textColor = #colorLiteral(red: 0.3221844435, green: 0.3202747703, blue: 0.3236560524, alpha: 1)
     }
 }
+
