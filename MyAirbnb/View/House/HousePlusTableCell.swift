@@ -24,7 +24,7 @@ class HousePlusTableCell: UITableViewCell {
     let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 23, weight: .bold)
-        label.textColor = #colorLiteral(red: 0.1298420429, green: 0.1298461258, blue: 0.1298439503, alpha: 1)
+        label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
         label.text = "에어비앤비 플러스 숙소"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -32,7 +32,7 @@ class HousePlusTableCell: UITableViewCell {
     
     let subLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         label.textColor = #colorLiteral(red: 0.370555222, green: 0.3705646992, blue: 0.3705595732, alpha: 1)
         label.text = "퀄리티와 인테리어 디자인이 검증된 숙소 셀렉션"
         label.translatesAutoresizingMaskIntoConstraints = false

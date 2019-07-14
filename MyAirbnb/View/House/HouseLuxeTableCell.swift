@@ -83,18 +83,23 @@ class HouseLuxeTableCell: UITableViewCell {
         
         titleLabel.configureMainTableViewCellsTitle()
         titleLabel.text = "에어비앤비 Luxe를 만나보세요."
-        
+        titleLabel.font = UIFont.systemFont(ofSize: 23, weight: .bold)
+        titleLabel.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
         
         detailTitleLabel.configureMainTableViewCellsTitleDetails()
         detailTitleLabel.text = "모든 것이 5성급인 특별한 숙소"
+        detailTitleLabel.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        detailTitleLabel.textColor = #colorLiteral(red: 0.370555222, green: 0.3705646992, blue: 0.3705595732, alpha: 1)
         
         seeMoreBtn.setTitle("에어비앤비 Luxe숙소 모두 보기", for: .normal)
         seeMoreBtn.setTitleColor(UIColor(red:0.20, green:0.00, blue:0.47, alpha:1.0), for: .normal)
-        seeMoreBtn.titleLabel?.font = .systemFont(ofSize: 13, weight: .bold)
+        seeMoreBtn.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         seeMoreBtn.layer.cornerRadius = 2
         seeMoreBtn.clipsToBounds = true
-        seeMoreBtn.layer.borderWidth = 1
-        seeMoreBtn.layer.borderColor = #colorLiteral(red: 0.4705680609, green: 0.4677750468, blue: 0.4727178216, alpha: 0.445499786)
+        seeMoreBtn.titleLabel?.textAlignment = .center
+        seeMoreBtn.layer.borderColor = #colorLiteral(red: 0.7540688515, green: 0.7540867925, blue: 0.7540771365, alpha: 1)
+        seeMoreBtn.layer.borderWidth = 0.5
+
     }
     
 }
