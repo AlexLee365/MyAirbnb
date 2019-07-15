@@ -108,3 +108,9 @@ extension UITapGestureRecognizer {
         return NSLocationInRange(indexOfCharacter, targetRange)
     }
 }
+
+
+extension Notification.Name {
+    static let searchBarEditBegin = Notification.Name(rawValue: "SearchBarEditBegin")
+    static let searchBarEditEnd = Notification.Name(rawValue: "SearchBarEditEnd")
+}

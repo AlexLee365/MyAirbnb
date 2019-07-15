@@ -166,7 +166,8 @@ class CalenderViewController: UIViewController {
         resultBtn.translatesAutoresizingMaskIntoConstraints = false
         resultBtn.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
         resultBtn.centerYAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -20).isActive = true
-        resultBtn.widthAnchor.constraint(equalToConstant: 80).isActive = true
+//        resultBtn.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        resultBtn.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 1).isActive = true
         resultBtn.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
 
@@ -293,6 +294,12 @@ class CalenderViewController: UIViewController {
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touchLocation = touches.first!.location(in: view)
+        print(touchLocation)
+        
+        guard !containerView.frame.contains(touchLocation) else { return }
+        
+        
         UIView.animate(withDuration: 0.2, animations: {
             self.backgroundView.alpha = 0
             self.containerView.transform = CGAffineTransform.identity

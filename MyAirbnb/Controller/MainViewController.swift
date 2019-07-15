@@ -11,14 +11,17 @@ import UIKit
 class MainViewController: UIViewController {
 
     let searchBarView = SearchBarView()
-    let mainView = MainView()
+    var mainView = MainView()
     
+    let testView = UIView()
     
+    let notiCenter = NotificationCenter.default
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setAutoLayout()
         configureViewsOptions()
+        addNotificationObserver()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,12 +44,21 @@ class MainViewController: UIViewController {
         mainView.topAnchor.constraint(equalTo: searchBarView.bottomAnchor, constant: 5).isActive = true
         mainView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         mainView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        
+        
+//        testView.translatesAutoresizingMaskIntoConstraints = false
+//        testView.topAnchor.constraint(equalTo: searchBarView.bottomAnchor, constant: 5).isActive = true
+//        testView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+//        testView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+//        testView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
     }
     
     private func configureViewsOptions() {
         view.backgroundColor = .white
         
         searchBarView.delegate = self
+        testView.backgroundColor = .yellow
+        testView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
     }
     
     var setLayout = false
@@ -55,8 +67,6 @@ class MainViewController: UIViewController {
         super.viewWillLayoutSubviews()
         
     }
-    
-    
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -74,6 +84,20 @@ class MainViewController: UIViewController {
 
             
         }
+    }
+    
+    private func addNotificationObserver() {
+        notiCenter.addObserver(self, selector: #selector(receiveSearchEditBeginNotification(_:)), name: .searchBarEditBegin, object: nil)
+        notiCenter.addObserver(self, selector: #selector(receiveSearchEditEndNotification(_:)), name: .searchBarEditEnd, object: nil)
+    }
+    
+    @objc func receiveSearchEditBeginNotification(_ sender: Notification) {
+        print("receiveSearchEditBeginNotification")
+//        UIView.transition(from: mainView, to: testView, duration: 1, options: .transitionCrossDissolve, completion: nil)
+    }
+    @objc func receiveSearchEditEndNotification(_ sender: Notification) {
+        print("receiveSearchEditEndNotification")
+//        UIView.transition(from: testView, to: mainView, duration: 1, options: .transitionCrossDissolve, completion: nil)
     }
 }
 
