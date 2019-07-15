@@ -38,7 +38,7 @@ class HouseLuxeTableCell: UITableViewCell {
     }
     
     private func setAutoLayout() {
-        let topBottomMargin: CGFloat = 30
+        let topBottomMargin: CGFloat = 50
         let sideMargin: CGFloat = 20
         
         self.addSubview(titleLabel)

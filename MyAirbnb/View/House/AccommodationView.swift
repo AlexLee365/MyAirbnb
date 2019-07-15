@@ -15,6 +15,7 @@ class AccommodationView: UIView {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
         tableView.separatorStyle = .none
+        tableView.showsVerticalScrollIndicator = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -37,6 +38,7 @@ class AccommodationView: UIView {
         tableView.register(HouseLuxeTableCell.self, forCellReuseIdentifier: HouseLuxeTableCell.identifier)
         tableView.register(HousePlusTableCell.self, forCellReuseIdentifier: HousePlusTableCell.identifier)
         tableView.register(AllHouseLabelTableCell.self, forCellReuseIdentifier: AllHouseLabelTableCell.identifier)
+        tableView.register(AllHousesTableCell.self, forCellReuseIdentifier: AllHousesTableCell.identifier)
         self.addSubview(tableView)
     }
     
@@ -68,14 +70,21 @@ extension AccommodationView: UITableViewDataSource {
             luxeHouseCell.selectionStyle = .none
             return luxeHouseCell
         case 2:
-            let plusHouseCell = tableView.dequeueReusableCell(withIdentifier: HousePlusTableCell.identifier, for: indexPath)
+            let plusHouseCell = tableView.dequeueReusableCell(withIdentifier: HousePlusTableCell.identifier, for: indexPath) as! HousePlusTableCell
             plusHouseCell.selectionStyle = .none
             return plusHouseCell
         case 3:
-            let allHouseLabelCell = tableView.dequeueReusableCell(withIdentifier: AllHouseLabelTableCell.identifier, for: indexPath)
+            let allHouseLabelCell = tableView.dequeueReusableCell(withIdentifier: AllHouseLabelTableCell.identifier, for: indexPath) as! AllHouseLabelTableCell
+            allHouseLabelCell.selectionStyle = .none
             return allHouseLabelCell
         default:
-            return UITableViewCell()
+            let allHousesCell = tableView.dequeueReusableCell(withIdentifier: AllHousesTableCell.identifier, for: indexPath) as! AllHousesTableCell
+            allHousesCell.houseTypeLabel.text = "게스트용 별채 전체 • TYRINGHAM"
+            allHousesCell.houseNameLabel.text = "Charming, Cozy Casita with Desert Garden and apart. terrace"
+            allHousesCell.ratingImageLabel.text = String(repeating: "★", count: 5)
+            allHousesCell.ratingAndHostInfoLabel.text = "40 ・ 슈퍼호스트"
+            allHousesCell.selectionStyle = .none
+            return allHousesCell
         }
     }
     
