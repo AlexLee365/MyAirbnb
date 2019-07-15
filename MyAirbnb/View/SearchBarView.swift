@@ -117,14 +117,14 @@ class SearchBarView: UIView {
         filterPeopleBtn.heightAnchor.constraint(equalToConstant: 32).isActive = true
         // =================================== filterStackview end ===================================
         
-        self.addSubview(autoCompleteTableView)
-        let height: CGFloat = UIScreen.main.bounds.height - 55 - 50
-        autoCompleteTableView.translatesAutoresizingMaskIntoConstraints = false
-        autoCompleteTableView.topAnchor.constraint(equalTo: searchContainerView.bottomAnchor, constant: 0).isActive = true
-        autoCompleteTableView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        autoCompleteTableView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        autoCompleteTableView.heightAnchor.constraint(equalToConstant: height).isActive = true
-        
+//        self.addSubview(autoCompleteTableView)
+//        let height: CGFloat = UIScreen.main.bounds.height - 55 - 50
+//        autoCompleteTableView.translatesAutoresizingMaskIntoConstraints = false
+//        autoCompleteTableView.topAnchor.constraint(equalTo: filterStackView.bottomAnchor, constant: 0).isActive = true
+//        autoCompleteTableView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+//        autoCompleteTableView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+//        autoCompleteTableView.heightAnchor.constraint(equalToConstant: height).isActive = true
+//        autoCompleteTableView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
     }
     
     private func configureViewsOptions() {
@@ -178,6 +178,7 @@ class SearchBarView: UIView {
         autoCompleteTableView.dataSource = self
         autoCompleteTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         autoCompleteTableView.backgroundColor = .blue
+        autoCompleteTableView.isHidden = true
     }
     
     @objc func searchCancelBtnDidTap(_ sender: UIButton) {
