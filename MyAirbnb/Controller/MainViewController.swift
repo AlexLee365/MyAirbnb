@@ -48,17 +48,29 @@ class MainViewController: UIViewController {
     }
     
     var setLayout = false
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+    }
+    
+    
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         if setLayout == false {
+            print("MainViewController ViewDidLayoutSubviews")
             let tabbarHeight = self.tabBarController!.tabBar.frame.height
             mainView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -tabbarHeight).isActive = true
             
-            guard let mainTableCell = mainView.mainTableView.cellForRow(at: IndexPath(row: 0, section: 0))
-                as? MainCategoryTableCell else { return }
-            mainTableCell.delegate = self
-
+//            if let mainTableCell = mainView.mainTableView.cellForRow(at: IndexPath(row: 0, section: 0))
+//                as? MainCategoryTableCell {
+//                mainTableCell.delegate = self
+//            }
+            
             setLayout = true
+
+            
         }
     }
 }

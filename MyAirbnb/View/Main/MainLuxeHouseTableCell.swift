@@ -44,33 +44,33 @@ class MainLuxeHouseTableCell: UITableViewCell {
         let topBottomMargin: CGFloat = 30
         let sideMargin: CGFloat = 20
         
-        self.addSubview(titleLabel)
+        contentView.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: topBottomMargin).isActive = true
-        titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: sideMargin).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -sideMargin*2).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: topBottomMargin).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: sideMargin).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -sideMargin*2).isActive = true
         
-        self.addSubview(detailTitleLabel)
+        contentView.addSubview(detailTitleLabel)
         detailTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         detailTitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5).isActive = true
-        detailTitleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: sideMargin).isActive = true
-        detailTitleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -sideMargin*2).isActive = true
+        detailTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: sideMargin).isActive = true
+        detailTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -sideMargin*2).isActive = true
         
         
-        self.addSubview(collectionView)
+        contentView.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.topAnchor.constraint(equalTo: detailTitleLabel.bottomAnchor, constant: 25).isActive = true
-        collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         collectionView.heightAnchor.constraint(equalToConstant: collectionViewCellHeight).isActive = true
         
-        self.addSubview(seeMoreBtn)
+        contentView.addSubview(seeMoreBtn)
         seeMoreBtn.translatesAutoresizingMaskIntoConstraints = false
         seeMoreBtn.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 0).isActive = true
-        seeMoreBtn.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: sideMargin).isActive = true
-        seeMoreBtn.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -sideMargin).isActive = true
+        seeMoreBtn.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: sideMargin).isActive = true
+        seeMoreBtn.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -sideMargin).isActive = true
         seeMoreBtn.heightAnchor.constraint(equalTo: seeMoreBtn.widthAnchor, multiplier: 0.13).isActive = true
-        seeMoreBtn.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -15).isActive = true
+        seeMoreBtn.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15).isActive = true
     }
     
     private func configureViewsOptions() {
@@ -88,9 +88,11 @@ class MainLuxeHouseTableCell: UITableViewCell {
         
         titleLabel.configureMainTableViewCellsTitle()
         titleLabel.text = "에어비앤비 Luxe를 만나보세요."
+        titleLabel.sizeToFit()
         
         detailTitleLabel.configureMainTableViewCellsTitleDetails()
         detailTitleLabel.text = "모든 것이 5성급인 특별한 숙소"
+        detailTitleLabel.sizeToFit()
         
         seeMoreBtn.setTitle("에어비앤비 Luxe숙소 모두 보기", for: .normal)
         seeMoreBtn.setTitleColor(UIColor(red:0.20, green:0.00, blue:0.47, alpha:1.0), for: .normal)

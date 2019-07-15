@@ -37,12 +37,12 @@ class MainRecommendHouseCollectCell: UICollectionViewCell {
     }
     
     private func setAutoLayout() {
-        self.addSubview(mainImageView)
+        contentView.addSubview(mainImageView)
         mainImageView.translatesAutoresizingMaskIntoConstraints = false
-        mainImageView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        mainImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        mainImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        mainImageView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.55).isActive = true
+        mainImageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        mainImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        mainImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        mainImageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.55).isActive = true
         
         mainImageView.addSubview(likeBtn)
         likeBtn.translatesAutoresizingMaskIntoConstraints = false
@@ -51,28 +51,28 @@ class MainRecommendHouseCollectCell: UICollectionViewCell {
         likeBtn.widthAnchor.constraint(equalToConstant: 16).isActive = true
         likeBtn.heightAnchor.constraint(equalToConstant: 16).isActive = true
         
-        self.addSubview(firstStackView)
+        contentView.addSubview(firstStackView)
         firstStackView.translatesAutoresizingMaskIntoConstraints = false
         firstStackView.topAnchor.constraint(equalTo: mainImageView.bottomAnchor, constant: 5).isActive = true
-        firstStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        firstStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        firstStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        firstStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         firstStackView.heightAnchor.constraint(equalToConstant: 13).isActive = true
         
         houseGradeImageView.centerYAnchor.constraint(equalTo: firstStackView.centerYAnchor).isActive = true
         houseGradeImageView.heightAnchor.constraint(equalTo: firstStackView.heightAnchor).isActive = true
         dateAndGuestLabel.centerYAnchor.constraint(equalTo: firstStackView.centerYAnchor).isActive = true
         
-        self.addSubview(houseNameLabel)
+        contentView.addSubview(houseNameLabel)
         houseNameLabel.translatesAutoresizingMaskIntoConstraints = false
         houseNameLabel.topAnchor.constraint(equalTo: firstStackView.bottomAnchor, constant: 5).isActive = true
-        houseNameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        houseNameLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        houseNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        houseNameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         
-        self.addSubview(secondStackView)
+        contentView.addSubview(secondStackView)
         secondStackView.translatesAutoresizingMaskIntoConstraints = false
         secondStackView.topAnchor.constraint(equalTo: houseNameLabel.bottomAnchor, constant: 7).isActive = true
-        secondStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        secondStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        secondStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        secondStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         secondStackView.heightAnchor.constraint(equalToConstant: 10).isActive = true
         
         ratingImageLabel.centerYAnchor.constraint(equalTo: secondStackView.centerYAnchor).isActive = true

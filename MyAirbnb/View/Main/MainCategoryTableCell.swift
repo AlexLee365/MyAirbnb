@@ -48,19 +48,19 @@ class MainCategoryTableCell: UITableViewCell {
         let topBottomMargin = StandardUIValue.shared.mainTableViewCellsTopBottomPadding
         let sideMargin = StandardUIValue.shared.mainViewSideMargin
 
-        contentView.addSubview(titleLabel)
+        self.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: topBottomMargin).isActive = true
-        titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: sideMargin).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -sideMargin*2).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: topBottomMargin).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: sideMargin).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -sideMargin*2).isActive = true
         
-        contentView.addSubview(collectionView)
+        self.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 15).isActive = true
-        collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        collectionView.heightAnchor.constraint(equalToConstant: collectionViewCellWidth * 1.1).isActive = true
-        collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0).isActive = true
+        collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        collectionView.heightAnchor.constraint(equalToConstant: collectionViewCellWidth).isActive = true
+        collectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0).isActive = true
     }
     
     private func configureViewsOptions() {
@@ -70,14 +70,14 @@ class MainCategoryTableCell: UITableViewCell {
         collectionView.register(MainCategoryCollectCell.self, forCellWithReuseIdentifier: MainCategoryCollectCell.identifier)
         collectionView.backgroundColor = .white
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: StandardUIValue.shared.mainViewSideMargin, bottom: 0, right: 0)
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: StandardUIValue.shared.mainViewSideMargin, bottom: 0, right: StandardUIValue.shared.mainViewSideMargin)
         
         layout.minimumInteritemSpacing = 10
 //        layout.minimumLineSpacing = 10
         layout.scrollDirection = .horizontal
         
         titleLabel.configureMainTableViewCellsTitle()
-        titleLabel.font = .systemFont(ofSize: 21, weight: .bold)
+//        titleLabel.font = .systemFont(ofSize: 21, weight: .bold)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -89,7 +89,7 @@ class MainCategoryTableCell: UITableViewCell {
 
 extension MainCategoryTableCell: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 6
+        return 5
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -108,12 +108,12 @@ extension MainCategoryTableCell: UICollectionViewDataSource, UICollectionViewDel
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.row == 0 {
-            guard let collectCell = collectionView.cellForItem(at: indexPath) as? MainCategoryCollectCell else {
-                print("error")
-                return
-            }
+//        if indexPath.row == 0 {
+//            guard let collectCell = collectionView.cellForItem(at: indexPath) as? MainCategoryCollectCell else {
+//                print("error")
+//                return
+//            }
             self.delegate?.pushView()
-        }
+//        }
     }
 }
