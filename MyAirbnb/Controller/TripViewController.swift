@@ -113,6 +113,7 @@ extension TripViewController: UITableViewDataSource {
 
             let introCell = tableView.dequeueReusableCell(withIdentifier: TripIntroTableViewCell.identifier, for: indexPath) as! TripIntroTableViewCell
             
+            introCell.delegate = self
             introCell.backgroundColor = .black
             introCell.selectionStyle = .none
             
@@ -180,9 +181,23 @@ extension TripViewController: UITableViewDelegate {
     }
 }
 
+// MARK: - TripIntroTableViewCellDelegate
+
+extension TripViewController: TripIntroTableViewCellDelegate {
+    func presentView() {
+        let localHostingVC = TripLocalHostingViewController()
+        present(localHostingVC, animated: true)
+    }
+}
+
+
+// MARK: - SeoulRecommenedTripTableViewCellDelegate
+
 extension TripViewController: SeoulRecommenedTripTableViewCellDelegate {
     func pushVC() {
         let detailVC = SeoulRecommendedDetailViewController()
         navigationController?.pushViewController(detailVC, animated: true)
     }
 }
+
+

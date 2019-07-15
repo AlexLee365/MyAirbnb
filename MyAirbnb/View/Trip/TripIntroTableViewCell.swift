@@ -7,7 +7,12 @@
 //
 import UIKit
 
+protocol TripIntroTableViewCellDelegate: class {
+    func presentView()
+}
+
 class TripIntroTableViewCell: UITableViewCell {
+    static let identifier = "tripIntroTableViewCell"
     
     private enum UI {
         static let itemsInLine: CGFloat = 1
@@ -19,7 +24,14 @@ class TripIntroTableViewCell: UITableViewCell {
         static let nextOffset: CGFloat = 8
     }
     
-    static let identifier = "tripIntroTableViewCell"
+    
+    
+//    let gradientView: UIView = {
+//        let view = UIView()
+//        view.backgroundColor = .blue
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        return view
+//    }()
     
     let redTitleLabel: UILabel = {
         let label = UILabel()
@@ -46,7 +58,9 @@ class TripIntroTableViewCell: UITableViewCell {
         return collectionView
     }()
     
-    //    let gradientLayer = CAGradientLayer()
+//    private var gradient = CAGradientLayer()
+    
+    weak var delegate: TripIntroTableViewCellDelegate?
     
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -60,19 +74,31 @@ class TripIntroTableViewCell: UITableViewCell {
         super.init(coder: aDecoder)
     }
     
-    //    override func layoutSublayers(of layer: CALayer) {
-    //        super.layoutSublayers(of: self.layer)
-    //        gradientLayer.frame = yourView.bounds
-    //    }
+//    var setLayout = true
+//
+//    override func layoutSubviews() {
+//        super.layoutSubviews()
+//        if setLayout {
+//            createGradient()
+//            gradient.frame = gradientView.bounds
+//            setLayout = false
+//        }
+//    }
+    
+//    private func createGradient() {
+//
+//        gradient.colors = [UIColor.gray.cgColor, UIColor.red.cgColor]
+//        gradient.locations = [0.9, 1]
+//        gradientView.layer.mask = gradient
+//    }
     
     private func configure() {
         
+//        contentView.addSubview(gradientView)
+        
         contentView.addSubview(redTitleLabel)
         contentView.addSubview(introTitleLabel)
-        
-        //        self.layer.insertSublayer(gradient(frame: self.bounds), at: 0)
-        //        self.layer.addSublayer(gradient(frame: self.bounds))
-        //        (gradient(frame: self.bounds), at: 0)
+
         
         collectionView.dataSource = self
         collectionView.register(TripIntroCollectionViewCell.self, forCellWithReuseIdentifier: TripIntroCollectionViewCell.identifier)
@@ -88,6 +114,11 @@ class TripIntroTableViewCell: UITableViewCell {
     }
     
     private func setAutolayout() {
+//        gradientView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+//        gradientView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+//        gradientView.widthAnchor.constraint(equalToConstant: contentView.frame.width).isActive = true
+//        gradientView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.7).isActive = true
+        
         redTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         redTitleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 120).isActive = true
         redTitleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
@@ -102,19 +133,11 @@ class TripIntroTableViewCell: UITableViewCell {
         collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
     }
-    
-//        func gradient(frame: CGRect) -> CAGradientLayer {
-//            let layer = CAGradientLayer()
-//            layer.frame = frame
-//            layer.startPoint = CGPoint(x: 0, y: 0)
-//            layer.endPoint = CGPoint(x: 0, y: 1)
-//            layer.colors = [UIColor.black.cgColor, UIColor.darkGray.cgColor]
-//            return layer
-//        }
 }
 
 
 // MARK: - UICollectionViewDataSource
+
 extension TripIntroTableViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 5
@@ -133,6 +156,16 @@ extension TripIntroTableViewCell: UICollectionViewDataSource {
     }
     
 }
+
+// MARK: - UICollectionViewDelegate
+
+extension TripIntroTableViewCell: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        delegate?.presentView()
+    }
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
 
 extension TripIntroTableViewCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
