@@ -13,6 +13,7 @@ class MainViewController: UIViewController {
     let searchBarView = SearchBarView()
     let mainView = MainView()
     
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +34,7 @@ class MainViewController: UIViewController {
         searchBarView.topAnchor.constraint(equalTo: safeGuide.topAnchor, constant: 0).isActive = true
         searchBarView.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor).isActive = true
         searchBarView.trailingAnchor.constraint(equalTo: safeGuide.trailingAnchor).isActive = true
-        searchBarView.heightAnchor.constraint(equalToConstant: 70).isActive = true
+//        searchBarView.heightAnchor.constraint(equalToConstant: 110).isActive = true
         
         view.addSubview(mainView)
         mainView.translatesAutoresizingMaskIntoConstraints = false
@@ -45,6 +46,7 @@ class MainViewController: UIViewController {
     private func configureViewsOptions() {
         view.backgroundColor = .white
         
+        searchBarView.delegate = self
     }
     
     var setLayout = false
@@ -80,6 +82,21 @@ extension MainViewController: MainCategoryTableCellDelegate {
     func pushView() {
         let houseVC = HouseViewController()
         navigationController?.pushViewController(houseVC, animated: false)
+    }
+}
+
+extension MainViewController: CalendarDelegate {
+    func presentCalenderVC() {
+        print("presentCalendarVC")
+        
+        let calendarVC = CalenderViewController()
+        calendarVC.modalPresentationStyle = .overCurrentContext
+        if searchBarView.selectedDatesArray.count > 0 {
+            calendarVC.beginDatesArray = searchBarView.selectedDatesArray
+        }
+        
+        present(calendarVC, animated: false)
+        
     }
 }
 

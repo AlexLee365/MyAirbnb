@@ -8,7 +8,12 @@
 
 import UIKit
 
+protocol CalendarDelegate: class {
+    func presentCalenderVC()
+}
+
 class SearchBarView: UIView {
+    // SearchBarView must have a more than 120 height
     
     // MARK: - UI Properties
     let searchContainerView = UIView()
@@ -16,8 +21,36 @@ class SearchBarView: UIView {
     let searchTF = UITextField()
     let searchCancelBtn = UIButton()
     
+    let filterDateBtn = UIButton()
+    let filterPeopleBtn = UIButton()
+    lazy var filterStackView = UIStackView(arrangedSubviews: [filterDateBtn, filterPeopleBtn])
+    
+    let autoCompleteTableView = UITableView()
+    
+
     // MARK: - Properties
     var searchContainerTrailingInSearch: NSLayoutConstraint?
+    
+    var selectedDatesArray = [Date]()
+    
+    var selectedDateString = "날짜" {
+        didSet {
+            
+            filterDateBtn.setTitle("    \(selectedDateString)    ", for: .normal)
+//            let widthConst = selectedDateString.size(withAttributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 13, weight: .semibold)]).width
+//            filterDateBtn.frame.size.width = widthConst
+            
+            if selectedDateString == "날짜" {
+                filterDateBtn.setTitleColor(.black, for: .normal)
+                filterDateBtn.backgroundColor = .clear
+            } else {
+                filterDateBtn.setTitleColor(.white, for: .normal)
+                filterDateBtn.backgroundColor = StandardUIValue.shared.colorBlueGreen
+            }
+        }
+    }
+    
+    weak var delegate: CalendarDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,18 +65,19 @@ class SearchBarView: UIView {
     
     private func setAutoLayout() {
         
-        self.addSubview(searchContainerView)
-        let searchMargin = StandardUIValue.shared.mainViewSideMargin
+        self.addSubview(searchContainerView)    // 높이: 45 + 10
+        let sideMargin = StandardUIValue.shared.mainViewSideMargin
         let bottomMargin = StandardUIValue.shared.mainTableViewCellsTopBottomPadding
-        
         searchContainerView.translatesAutoresizingMaskIntoConstraints = false
-        searchContainerView.topAnchor.constraint(equalTo: self.topAnchor, constant: searchMargin/2).isActive = true
-        searchContainerView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: searchMargin).isActive = true
-        let searchContainerTrailing = searchContainerView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -searchMargin)
+        searchContainerView.topAnchor.constraint(equalTo: self.topAnchor, constant: sideMargin/2).isActive = true
+        searchContainerView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: sideMargin).isActive = true
+        let searchContainerTrailing = searchContainerView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -sideMargin)
         searchContainerTrailing.priority = UILayoutPriority(rawValue: 500)
         searchContainerTrailing.isActive = true
-        searchContainerView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -15).isActive = true
+//        searchContainerView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -15).isActive = true
+        searchContainerView.heightAnchor.constraint(equalToConstant: 45).isActive = true
         
+        // =================================== searchContainerView begin ===================================
         searchContainerView.addSubview(searchImageView)
         searchImageView.translatesAutoresizingMaskIntoConstraints = false
         searchImageView.leadingAnchor.constraint(equalTo: searchContainerView.leadingAnchor, constant: 15).isActive = true
@@ -62,7 +96,35 @@ class SearchBarView: UIView {
         self.addSubview(searchCancelBtn)
         searchCancelBtn.translatesAutoresizingMaskIntoConstraints = false
         searchCancelBtn.centerYAnchor.constraint(equalTo: searchContainerView.centerYAnchor).isActive = true
+        searchCancelBtn.heightAnchor.constraint(equalTo: searchContainerView.heightAnchor, multiplier: 1).isActive = true
         searchCancelBtn.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20).isActive = true
+        // =================================== searchContainerView end ===================================
+        
+        self.addSubview(filterStackView)    // 높이: 50
+        filterStackView.translatesAutoresizingMaskIntoConstraints = false
+        filterStackView.topAnchor.constraint(equalTo: searchContainerView.bottomAnchor).isActive = true
+        filterStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: sideMargin).isActive = true
+        filterStackView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        filterStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0).isActive = true
+        
+        // =================================== filterStackview begin ===================================
+        filterDateBtn.topAnchor.constraint(equalTo: filterStackView.topAnchor, constant: 15).isActive = true
+        filterDateBtn.heightAnchor.constraint(equalToConstant: 32).isActive = true
+//        filterDateBtn.widthAnchor.constraint(equalToConstant: widthConst).isActive = true
+        
+        filterPeopleBtn.leadingAnchor.constraint(equalTo: filterDateBtn.trailingAnchor, constant: 5).isActive = true
+        filterPeopleBtn.topAnchor.constraint(equalTo: filterStackView.topAnchor, constant: 15).isActive = true
+        filterPeopleBtn.heightAnchor.constraint(equalToConstant: 32).isActive = true
+        // =================================== filterStackview end ===================================
+        
+        self.addSubview(autoCompleteTableView)
+        let height: CGFloat = UIScreen.main.bounds.height - 55 - 50
+        autoCompleteTableView.translatesAutoresizingMaskIntoConstraints = false
+        autoCompleteTableView.topAnchor.constraint(equalTo: searchContainerView.bottomAnchor, constant: 0).isActive = true
+        autoCompleteTableView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        autoCompleteTableView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        autoCompleteTableView.heightAnchor.constraint(equalToConstant: height).isActive = true
+        
     }
     
     private func configureViewsOptions() {
@@ -92,6 +154,30 @@ class SearchBarView: UIView {
         searchCancelBtn.titleLabel?.font = .systemFont(ofSize: 14, weight: .regular)
         searchCancelBtn.addTarget(self, action: #selector(searchCancelBtnDidTap(_:)), for: .touchUpInside)
         searchCancelBtn.layer.opacity = 0
+        
+        filterStackView.axis = .horizontal
+        filterStackView.alignment = .leading
+        filterStackView.spacing = 5
+        
+        filterDateBtn.setTitle("    날짜    ", for: .normal)
+        filterDateBtn.setTitleColor(StandardUIValue.shared.colorRegularText, for: .normal)
+        filterDateBtn.titleLabel?.font = .systemFont(ofSize: 13, weight: .semibold)
+        filterDateBtn.layer.borderColor = StandardUIValue.shared.colorLineBorder.cgColor
+        filterDateBtn.layer.borderWidth = 0.5
+        filterDateBtn.layer.cornerRadius = 5
+        filterDateBtn.addTarget(self, action: #selector(filterDateBtnDidTap(_:)), for: .touchUpInside)
+        
+        filterPeopleBtn.setTitle("    인원    ", for: .normal)    // 공백 앞뒤 4개
+        filterPeopleBtn.setTitleColor(StandardUIValue.shared.colorRegularText, for: .normal)
+        filterPeopleBtn.titleLabel?.font = .systemFont(ofSize: 13, weight: .semibold)
+        filterPeopleBtn.layer.borderColor = StandardUIValue.shared.colorLineBorder.cgColor
+        filterPeopleBtn.layer.borderWidth = 0.5
+        filterPeopleBtn.layer.cornerRadius = 5
+        
+        autoCompleteTableView.delegate = self
+        autoCompleteTableView.dataSource = self
+        autoCompleteTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        autoCompleteTableView.backgroundColor = .blue
     }
     
     @objc func searchCancelBtnDidTap(_ sender: UIButton) {
@@ -99,13 +185,13 @@ class SearchBarView: UIView {
         searchTF.text = ""
     }
     
-    
-    
-    
+    @objc func filterDateBtnDidTap(_ sender: UIButton) {
+        self.delegate?.presentCalenderVC()
+    }
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-        
+        print("--------------------------[SearchBarView layoutSubviews]--------------------------")
+        print(filterDateBtn.titleLabel?.text)
     }
     
     
@@ -157,4 +243,18 @@ extension SearchBarView: UITextFieldDelegate {
             })
         })
     }
+}
+
+extension SearchBarView: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 8
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        
+        return cell
+    }
+    
+    
 }

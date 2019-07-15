@@ -77,6 +77,9 @@ class MainRecommendHouseCollectCell: UICollectionViewCell {
         
         ratingImageLabel.centerYAnchor.constraint(equalTo: secondStackView.centerYAnchor).isActive = true
         ratingAndHostInfoLabel.centerYAnchor.constraint(equalTo: secondStackView.centerYAnchor).isActive = true
+        
+//        ratingImageLabel.heightAnchor.constraint(equalTo: secondStackView.heightAnchor).isActive = true
+//        ratingAndHostInfoLabel.heightAnchor.constraint(equalTo: secondStackView.heightAnchor).isActive = true
     }
     
     private func configureViewsOptions() {
