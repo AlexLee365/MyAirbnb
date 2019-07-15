@@ -66,6 +66,8 @@
 		8D0D792722DB328900F61F0B /* HousePlusTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D792622DB328900F61F0B /* HousePlusTableCell.swift */; };
 		8D0D792922DB367800F61F0B /* HousePlusCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D792822DB367800F61F0B /* HousePlusCollectionCell.swift */; };
 		8D0D792F22DB7B2600F61F0B /* AllHouseLabelTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D792E22DB7B2600F61F0B /* AllHouseLabelTableCell.swift */; };
+		8D0D793122DB841900F61F0B /* AllHousesTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D793022DB841900F61F0B /* AllHousesTableCell.swift */; };
+		8D0D793322DB86A100F61F0B /* AllHousesScrollImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D793222DB86A100F61F0B /* AllHousesScrollImageView.swift */; };
 		9F10F3C31A75AE56BBBE8FE9 /* Pods_MyAirbnb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5895FA9D40FD45C305945B10 /* Pods_MyAirbnb.framework */; };
 /* End PBXBuildFile section */
 
@@ -133,6 +135,8 @@
 		8D0D792622DB328900F61F0B /* HousePlusTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HousePlusTableCell.swift; sourceTree = "<group>"; };
 		8D0D792822DB367800F61F0B /* HousePlusCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HousePlusCollectionCell.swift; sourceTree = "<group>"; };
 		8D0D792E22DB7B2600F61F0B /* AllHouseLabelTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllHouseLabelTableCell.swift; sourceTree = "<group>"; };
+		8D0D793022DB841900F61F0B /* AllHousesTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllHousesTableCell.swift; sourceTree = "<group>"; };
+		8D0D793222DB86A100F61F0B /* AllHousesScrollImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllHousesScrollImageView.swift; sourceTree = "<group>"; };
 		D11C85972DEC34ABFE5E5A06 /* Pods-MyAirbnb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyAirbnb.debug.xcconfig"; path = "Target Support Files/Pods-MyAirbnb/Pods-MyAirbnb.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -310,6 +314,8 @@
 				8D0D792622DB328900F61F0B /* HousePlusTableCell.swift */,
 				8D0D792822DB367800F61F0B /* HousePlusCollectionCell.swift */,
 				8D0D792E22DB7B2600F61F0B /* AllHouseLabelTableCell.swift */,
+				8D0D793022DB841900F61F0B /* AllHousesTableCell.swift */,
+				8D0D793222DB86A100F61F0B /* AllHousesScrollImageView.swift */,
 			);
 			path = House;
 			sourceTree = "<group>";
@@ -433,6 +439,7 @@
 				8D0D78B022D48AE500F61F0B /* TopScrollView.swift in Sources */,
 				8D0D787222D0810300F61F0B /* SpecialTripTableViewCell.swift in Sources */,
 				8D0D78A322D459AC00F61F0B /* SpecialTripData.swift in Sources */,
+				8D0D793122DB841900F61F0B /* AllHousesTableCell.swift in Sources */,
 				8D0D789222D333BF00F61F0B /* TodaySeoulExperienceTableViewCell.swift in Sources */,
 				2080603022D75258008672D9 /* OptionLoginPageViewController.swift in Sources */,
 				8D0D78DC22D74D2F00F61F0B /* PlaceData.swift in Sources */,
@@ -483,6 +490,7 @@
 				4353B91622D755F1004BD807 /* MainLuxeHouseTableCell.swift in Sources */,
 				8D0D78B622D6060600F61F0B /* HostIntroTableViewCell.swift in Sources */,
 				4353B90422D484FA004BD807 /* StandardUIValue.swift in Sources */,
+				8D0D793322DB86A100F61F0B /* AllHousesScrollImageView.swift in Sources */,
 				8D0D792922DB367800F61F0B /* HousePlusCollectionCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

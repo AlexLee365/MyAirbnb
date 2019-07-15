@@ -36,7 +36,7 @@ class AllHouseLabelTableCell: UITableViewCell {
     }
     
     private func setAutolayout() {
-        titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 30).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 40).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
         titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
     }
