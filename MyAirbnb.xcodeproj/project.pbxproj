@@ -88,6 +88,8 @@
 		8D0D793922DC9A2900F61F0B /* VideosDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D793822DC9A2900F61F0B /* VideosDetailViewController.swift */; };
 		8D0D793C22DCA57B00F61F0B /* VideosDetailTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D793B22DCA57B00F61F0B /* VideosDetailTableCell.swift */; };
 		8D0D793E22DD6C1600F61F0B /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D793D22DD6C1600F61F0B /* VideoView.swift */; };
+		8D0D794222DDE50900F61F0B /* AVFoundationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D794122DDE50900F61F0B /* AVFoundationViewController.swift */; };
+		8D0D794422DDE64900F61F0B /* VideoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D794322DDE64900F61F0B /* VideoCollectionViewCell.swift */; };
 		9F10F3C31A75AE56BBBE8FE9 /* Pods_MyAirbnb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5895FA9D40FD45C305945B10 /* Pods_MyAirbnb.framework */; };
 /* End PBXBuildFile section */
 
@@ -195,6 +197,8 @@
 		8D0D793822DC9A2900F61F0B /* VideosDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideosDetailViewController.swift; sourceTree = "<group>"; };
 		8D0D793B22DCA57B00F61F0B /* VideosDetailTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideosDetailTableCell.swift; sourceTree = "<group>"; };
 		8D0D793D22DD6C1600F61F0B /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
+		8D0D794122DDE50900F61F0B /* AVFoundationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVFoundationViewController.swift; sourceTree = "<group>"; };
+		8D0D794322DDE64900F61F0B /* VideoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCollectionViewCell.swift; sourceTree = "<group>"; };
 		D11C85972DEC34ABFE5E5A06 /* Pods-MyAirbnb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyAirbnb.debug.xcconfig"; path = "Target Support Files/Pods-MyAirbnb/Pods-MyAirbnb.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -266,10 +270,11 @@
 				2080602D22D751CC008672D9 /* FindPassWordPageViewController.swift */,
 				2080602F22D75258008672D9 /* OptionLoginPageViewController.swift */,
 				2080603122D75274008672D9 /* InputPhoneNumberViewController.swift */,
-				8D0D786D22D07C9300F61F0B /* TripViewController.swift */,
 				8D0D789922D3610C00F61F0B /* SeoulRecommendedDetailViewController.swift */,
 				4353B90F22D6DCCB004BD807 /* LoginTestViewController.swift */,
 				8D0D792222DB02D900F61F0B /* HouseViewController.swift */,
+				8D0D786D22D07C9300F61F0B /* TripViewController.swift */,
+				8D0D794122DDE50900F61F0B /* AVFoundationViewController.swift */,
 				8D0D793422DC5F0700F61F0B /* TripLocalHostingViewController.swift */,
 				8D0D793822DC9A2900F61F0B /* VideosDetailViewController.swift */,
 			);
@@ -427,6 +432,7 @@
 			isa = PBXGroup;
 			children = (
 				8D0D793D22DD6C1600F61F0B /* VideoView.swift */,
+				8D0D794322DDE64900F61F0B /* VideoCollectionViewCell.swift */,
 				8D0D793B22DCA57B00F61F0B /* VideosDetailTableCell.swift */,
 			);
 			path = LocalHosting;
@@ -602,10 +608,12 @@
 				2080603222D75274008672D9 /* InputPhoneNumberViewController.swift in Sources */,
 				4353B90822D48EB8004BD807 /* MainRecommendHouseCollectCell.swift in Sources */,
 				4353B90E22D5AE12004BD807 /* MainFullImageTableCell.swift in Sources */,
+				8D0D794422DDE64900F61F0B /* VideoCollectionViewCell.swift in Sources */,
 				4353BA2022DC40B5004BD807 /* FSCalendarDelegationFactory.m in Sources */,
 				8D0D792022DB009100F61F0B /* AccommodationTopLabelTableCell.swift in Sources */,
 				4353B91422D73E0D004BD807 /* FourSquareCollectCell.swift in Sources */,
 				4353B8E422D0797E004BD807 /* MainViewController.swift in Sources */,
+				8D0D794222DDE50900F61F0B /* AVFoundationViewController.swift in Sources */,
 				8D0D789A22D3610C00F61F0B /* SeoulRecommendedDetailViewController.swift in Sources */,
 				2080602C22D751B1008672D9 /* LoginPageViewController.swift in Sources */,
 				4353BA2A22DC40B5004BD807 /* FSCalendarHeaderView.m in Sources */,
@@ -763,13 +771,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5AVJM299X4;
+				DEVELOPMENT_TEAM = G4MM77V7NH;
 				INFOPLIST_FILE = MyAirbnb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = kr.AlexLee0427.MyAirbnb;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.doyeong.MyAirbnb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "./FSCalendar/Objc-Bridge-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -783,13 +791,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5AVJM299X4;
+				DEVELOPMENT_TEAM = G4MM77V7NH;
 				INFOPLIST_FILE = MyAirbnb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = kr.AlexLee0427.MyAirbnb;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.doyeong.MyAirbnb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "./FSCalendar/Objc-Bridge-Header.h";
 				SWIFT_VERSION = 5.0;
