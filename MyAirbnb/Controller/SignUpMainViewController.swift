@@ -12,7 +12,8 @@ class SignUpMainViewController: UIViewController {
     
     let mainScrollView = UIScrollView()
     
-    let loginBtn = UIBarButtonItem()
+    //    let loginBtn = UIBarButtonItem()
+    let moveToLoginVCbtn = UIButton(type: .custom)
     let signUpBtn = UIButton()
     let facebookLoginBtn = UIButton()
     let optionBtn = UIButton()
@@ -28,6 +29,8 @@ class SignUpMainViewController: UIViewController {
         
         view.backgroundColor = .init(patternImage: UIImage.init(named: "AirBnB-background")!)
         
+        navigationController?.navigationBar.isHidden = true
+        
         
         addSubViews()
         mainScrollViewLayout()
@@ -35,7 +38,7 @@ class SignUpMainViewController: UIViewController {
         btnLayout()
         btnLayoutConfigure()
         
-        loginBtnConfigure()
+        moveToLoginVCbtnConfigure()
         
         bnbLogoImageLayout()
         bnbLogoImageConfigure()
@@ -50,7 +53,6 @@ class SignUpMainViewController: UIViewController {
         
     }
     
-    // 회원가입 메인 페이지에 올라가는 모든 뷰와 컨텐츠들을 addSubview
     private func addSubViews() {
         view.addSubview(mainScrollView)
         mainScrollView.addSubview(facebookLoginBtn)
@@ -60,6 +62,7 @@ class SignUpMainViewController: UIViewController {
         mainScrollView.addSubview(secondWelcomMsgLbl)
         mainScrollView.addSubview(optionBtn)
         mainScrollView.addSubview(mainDescriptionLbl)
+        mainScrollView.addSubview(moveToLoginVCbtn)
     }
     
     // 메인 스크롤 뷰 레이아웃
@@ -84,17 +87,17 @@ class SignUpMainViewController: UIViewController {
         
     }
     
-    // 메인 에어비엔비 로고 이미지
+    // 메인 로고
     private func bnbLogoImageConfigure() {
         bnbLogoImage.image = UIImage(named: "AirBnB_Logo")
     }
-    // 메인 에어비엔비 로고 이미지 레이아웃
+    
     private func bnbLogoImageLayout() {
         
         bnbLogoImage.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            bnbLogoImage.topAnchor.constraint(equalTo: mainScrollView.topAnchor, constant: 30),
+            bnbLogoImage.topAnchor.constraint(equalTo: mainScrollView.topAnchor, constant: 100),
             bnbLogoImage.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor, constant: 20),
             //            bnbLogoImage.trailingAnchor.constraint(equalTo: mainScrollView.trailingAnchor, constant: -400),
             bnbLogoImage.bottomAnchor.constraint(equalTo: mainScrollView.bottomAnchor, constant: -800),
@@ -119,7 +122,6 @@ class SignUpMainViewController: UIViewController {
         mainDescriptionLbl.textColor = .white
     }
     
-    // 메인 회원가입 페이지에 올라가는 모든 레이블들의 레이아웃
     private func labelsLayout() {
         
         firstWelcomMsgLbl.translatesAutoresizingMaskIntoConstraints = false
@@ -151,20 +153,19 @@ class SignUpMainViewController: UIViewController {
         //        mainDescriptionLbl.backgroundColor = .blue
     }
     
-    // 네비게이션 바 버튼 -> 로그인
-    private func loginBtnConfigure() {
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        self.navigationController?.navigationBar.tintColor = .white
+    // 로그인 버튼 레이아웃
+    private func moveToLoginVCbtnConfigure() {
         
-        navigationItem.rightBarButtonItem = loginBtn
+        moveToLoginVCbtn.translatesAutoresizingMaskIntoConstraints = false
         
-        loginBtn.title = "로그인"
-        loginBtn.style = .done
-        loginBtn.target = self
-        loginBtn.action = #selector(didTapLoginBtn(_:))
+        NSLayoutConstraint.activate([
+            moveToLoginVCbtn.topAnchor.constraint(equalTo: mainScrollView.topAnchor, constant: 10),
+            moveToLoginVCbtn.trailingAnchor.constraint(equalTo: mainScrollView.trailingAnchor, constant: -20),
+            ])
+        //        moveToLoginVCbtn.backgroundColor = .white
     }
     
-    // 페이스북 계정 로그인 버튼, 계정 만들기 버튼, 옵션 더 보기 레이아웃
+    // 페이스북 계정 로그인 버튼, 계정 만들기 버튼, 옵션 더 보기
     private func btnLayout() {
         
         facebookLoginBtn.translatesAutoresizingMaskIntoConstraints = false
@@ -196,7 +197,6 @@ class SignUpMainViewController: UIViewController {
         //        optionBtn.backgroundColor = .black
     }
     
-    // 메인 회원가입 페이지에 올라가는 모든 버튼들의 기본 구성 사항
     private func btnLayoutConfigure() {
         
         signUpBtn.setTitle("계정 만들기", for: .normal)
@@ -229,30 +229,31 @@ class SignUpMainViewController: UIViewController {
         
         optionBtn.addTarget(self, action: #selector(didTapOptionBtn(_:)), for: .touchUpInside)
         
+        moveToLoginVCbtn.setTitle("로그인", for: .normal)
+        moveToLoginVCbtn.setTitleColor(.white, for: .normal)
+        moveToLoginVCbtn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+        moveToLoginVCbtn.titleLabel?.textAlignment = .center
+        
+        moveToLoginVCbtn.addTarget(self, action: #selector(didTapMoveToLoginVCbtn(_:)), for: .touchUpInside)
+        
     }
     
-    // 계정 만들기 버튼 액션
     @objc private func didTapSignBtn(_ sender: UIButton) {
-        print("didTapSignBtn")
         let signUpPageVC = MakeIdPageViewController()
         navigationController?.pushViewController(signUpPageVC, animated: true)
     }
     
-    // 페이스북 계정으로 로그인 버튼 액션
     @objc private func didTapFacebookLoginBtn(_ sender: UIButton) {
         print("tapped  facebookLoginBtn")
     }
     
-    // 옵션 더 보기 버튼 액션
     @objc private func didTapOptionBtn(_ sender: UIButton) {
-        print("didTapOptionBtn")
         let optionLoginVC = OptionLoginPageViewController()
         present(optionLoginVC, animated: true, completion: nil)
     }
-
+    
     // 네비게이션 바 버튼 액션 -> 로그인 버튼
-    @objc private func didTapLoginBtn(_ sender: UIBarButtonItem) {
-        print("didTapLoginBtn")
+    @objc private func didTapMoveToLoginVCbtn(_ sender: UIButton) {
         let loginPageVC = LoginPageViewController()
         navigationController?.pushViewController(loginPageVC, animated: true)
     }
