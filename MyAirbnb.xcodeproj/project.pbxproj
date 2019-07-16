@@ -13,6 +13,7 @@
 		2080602E22D751CC008672D9 /* FindPassWordPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2080602D22D751CC008672D9 /* FindPassWordPageViewController.swift */; };
 		2080603022D75258008672D9 /* OptionLoginPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2080602F22D75258008672D9 /* OptionLoginPageViewController.swift */; };
 		2080603222D75274008672D9 /* InputPhoneNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2080603122D75274008672D9 /* InputPhoneNumberViewController.swift */; };
+		2080604122DDC067008672D9 /* ConfirmProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2080604022DDC067008672D9 /* ConfirmProgressViewController.swift */; };
 		4353B8D222CF51F6004BD807 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353B8D122CF51F6004BD807 /* AppDelegate.swift */; };
 		4353B8DC22CF51F9004BD807 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4353B8DA22CF51F9004BD807 /* LaunchScreen.storyboard */; };
 		4353B8E422D0797E004BD807 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353B8E322D0797E004BD807 /* MainViewController.swift */; };
@@ -99,6 +100,7 @@
 		2080602D22D751CC008672D9 /* FindPassWordPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPassWordPageViewController.swift; sourceTree = "<group>"; };
 		2080602F22D75258008672D9 /* OptionLoginPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionLoginPageViewController.swift; sourceTree = "<group>"; };
 		2080603122D75274008672D9 /* InputPhoneNumberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputPhoneNumberViewController.swift; sourceTree = "<group>"; };
+		2080604022DDC067008672D9 /* ConfirmProgressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmProgressViewController.swift; sourceTree = "<group>"; };
 		4353B8CE22CF51F6004BD807 /* MyAirbnb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyAirbnb.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4353B8D122CF51F6004BD807 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4353B8DB22CF51F9004BD807 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -263,6 +265,7 @@
 				2080602722D6E1FA008672D9 /* SignUpMainViewController.swift */,
 				2080602922D7517E008672D9 /* MakeIdPageViewController.swift */,
 				2080602B22D751B1008672D9 /* LoginPageViewController.swift */,
+				2080604022DDC067008672D9 /* ConfirmProgressViewController.swift */,
 				2080602D22D751CC008672D9 /* FindPassWordPageViewController.swift */,
 				2080602F22D75258008672D9 /* OptionLoginPageViewController.swift */,
 				2080603122D75274008672D9 /* InputPhoneNumberViewController.swift */,
@@ -589,6 +592,7 @@
 				4353B91822D75605004BD807 /* MainLuxeHouseCollectCell.swift in Sources */,
 				8D0D792F22DB7B2600F61F0B /* AllHouseLabelTableCell.swift in Sources */,
 				4353BA2822DC40B5004BD807 /* FSCalendarConstants.m in Sources */,
+				2080604122DDC067008672D9 /* ConfirmProgressViewController.swift in Sources */,
 				8D0D787522D089AD00F61F0B /* TripIntroCollectionViewCell.swift in Sources */,
 				4353BA2922DC40B5004BD807 /* FSCalendarCalculator.m in Sources */,
 				4353B8F022D22782004BD807 /* SearchBarView.swift in Sources */,
@@ -763,13 +767,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5AVJM299X4;
+				DEVELOPMENT_TEAM = 64WAG22Y2J;
 				INFOPLIST_FILE = MyAirbnb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = kr.AlexLee0427.MyAirbnb;
+				PRODUCT_BUNDLE_IDENTIFIER = com.VincentGeranium.master;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "./FSCalendar/Objc-Bridge-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -783,13 +787,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5AVJM299X4;
+				DEVELOPMENT_TEAM = 64WAG22Y2J;
 				INFOPLIST_FILE = MyAirbnb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = kr.AlexLee0427.MyAirbnb;
+				PRODUCT_BUNDLE_IDENTIFIER = com.VincentGeranium.master;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "./FSCalendar/Objc-Bridge-Header.h";
 				SWIFT_VERSION = 5.0;
