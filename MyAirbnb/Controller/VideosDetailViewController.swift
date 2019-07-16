@@ -31,6 +31,11 @@ class VideosDetailViewController: UIViewController {
     
     var isStatusBarWhite = true
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+    }
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         if isStatusBarWhite {
             return .lightContent
@@ -40,6 +45,8 @@ class VideosDetailViewController: UIViewController {
     }
     
     private func configure() {
+        view.backgroundColor = .white
+        
         tableView.dataSource = self
         tableView.delegate = self
         view.addSubview(tableView)

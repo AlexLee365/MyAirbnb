@@ -42,7 +42,7 @@ class TripViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        navigationController?.isNavigationBarHidden = false
+        navigationController?.isNavigationBarHidden = true
     }
     
     var isStatusBarWhite = true
@@ -184,9 +184,13 @@ extension TripViewController: UITableViewDelegate {
 // MARK: - TripIntroTableViewCellDelegate
 
 extension TripViewController: TripIntroTableViewCellDelegate {
-    func presentView() {
-        let localHostingVC = TripLocalHostingViewController()
-        present(localHostingVC, animated: true)
+    func presentView(index: IndexPath) {
+//        let localHostingVC = TripLocalHostingViewController()
+        let avFoundationVC = AVFoundationViewController()
+        avFoundationVC.beginPageCount = index.row
+//        let navi = UINavigationController(rootViewController: localHostingVC)
+//        present(localHostingVC, animated: true)
+        present(avFoundationVC, animated: true)
     }
 }
 

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class TripLocalHostingViewController: UIViewController {
     
@@ -25,64 +26,100 @@ class TripLocalHostingViewController: UIViewController {
          "category": "어드벤처",
          "title": "갈라파고스 슬로푸드 사파리",
          "hostName": "Jill & Javier",
+         "desc": "Island hop around Galapagos for wild, up-close encounters and local food.",
         ],
         ["image": "kayak",
          "videoUrl": "http://tetris.dicemono.xyz/test.mp4",
          "category": "어드벤처",
          "title": "카약을 타고 만나는 스웨덴의 다양한 섬",
          "hostName": "Helena",
+         "desc": "Island hop around Galapagos for wild, up-close encounters and local food.",
         ],
         ["image": "boxer",
          "videoUrl": "http://tetris.dicemono.xyz/test.mp4",
          "category": "복싱",
          "title": "세계 챔피언 '파이어'와 함께 권투하기",
          "hostName": "Keisher",
+         "desc": "Island hop around Galapagos for wild, up-close encounters and local food.",
         ],
         ["image": "concert",
          "videoUrl": "http://tetris.dicemono.xyz/test.mp4",
          "category": "콘서트",
          "title": "워털루의 숨겨진 재즈 클럽",
          "hostName": "Theo And Jannine",
+         "desc": "Island hop around Galapagos for wild, up-close encounters and local food.",
         ],
         ["image": "lp",
          "videoUrl": "http://tetris.dicemono.xyz/test.mp4",
          "category": "역사 투어",
          "title": "LP판의 마스터",
          "hostName": "DJ Jigüe",
+         "desc": "Island hop around Galapagos for wild, up-close encounters and local food.",
         ]
     ]
     
     var views: [VideoView] = []
+    var pageCount = 0 {
+        willSet {
+//            animateTimerStart()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         configure()
         setAutolayout()
+        
         createView(count: videoData.count)
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
+        tabBarController?.tabBar.isHidden = true
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
-        navigationController?.navigationBar.isHidden = true
-        tabBarController?.tabBar.isHidden = true
-        
-        views.forEach { $0.player.play()}
+//        animateTimerStart()
+        scrollView.setContentOffset(CGPoint(x: (view.frame.width * CGFloat(pageCount)), y: 0), animated: false)
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         views.forEach { $0.playerLayer?.frame = $0.videoView.bounds}
+        
+    }
+    
+    let delay: Double = 1
+    var aniamte = Timer()
+
+    func animateTimerStart() {
+        aniamte = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(animate), userInfo: nil, repeats: false)
+    }
+    
+    @objc private func animate() {
+        UIView.animate(withDuration: delay, animations: {
+            self.views[self.pageCount].blackView.alpha = 1
+            self.views[self.pageCount].layoutIfNeeded()
+        })
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+            self.views[self.pageCount].blackView.isHidden = true
+            self.views[self.pageCount].imageView.isHidden = true
+            self.views[self.pageCount].player.play()
+        }
     }
     
     private func configure() {
         view.backgroundColor = .black
-        
+        scrollView.delegate = self
         view.addSubview(scrollView)
         
         topView.backButton.setImage(UIImage(named: "cancel"), for: .normal)
@@ -94,17 +131,25 @@ class TripLocalHostingViewController: UIViewController {
     @objc func closeButtonDidTap(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
-    
-    
-    
-    func createView(count: Int) {
+    var timers = [Timer]()
+    private func createView(count: Int) {
         for index in 0..<count {
             let videoView = VideoView()
-            videoView.descLabel.text = videoData[index]["title"]
+            
+            videoView.imageView.image = UIImage(named: videoData[index]["image"]!)
+            videoView.categoryLabel.text = videoData[index]["category"]
+            videoView.titleLabel.text = videoData[index]["title"]
+            videoView.hostLabel.text = "호스트: \n \(videoData[index]["hostName"] ?? "")"
+            
+            videoView.url = URL(string: videoData[index]["videoUrl"]!)!
+            videoView.descLabel.text = videoData[index]["desc"]
+            
             
             videoView.translatesAutoresizingMaskIntoConstraints = false
             scrollView.addSubview(videoView)
             views.append(videoView)
+            
+//            videoView.delegate = self
             
             switch index {
             case 0:
@@ -154,11 +199,6 @@ class TripLocalHostingViewController: UIViewController {
         scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         scrollView.trailingAnchor.constraint(equalTo: guide.trailingAnchor).isActive = true
         
-//        videoView.topAnchor.constraint(equalTo: guide.topAnchor).isActive = true
-//        videoView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-//        videoView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-//        videoView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.76).isActive = true
-        
         topView.translatesAutoresizingMaskIntoConstraints = false
         topView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         topView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -166,16 +206,24 @@ class TripLocalHostingViewController: UIViewController {
         topView.heightAnchor.constraint(equalToConstant: 75).isActive = true
         topView.backButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
         topView.backButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        
-//        descLabel.topAnchor.constraint(equalTo: videoView.bottomAnchor, constant: 20).isActive = true
-//        descLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-//        descLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8).isActive = true
-        
-//        seeDetailButton.topAnchor.constraint(equalTo: descLabel.bottomAnchor, constant: 20).isActive = true
-//        seeDetailButton.centerXAnchor.constraint(equalTo: descLabel.centerXAnchor).isActive = true
-//        seeDetailButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.35).isActive = true
-//        seeDetailButton.heightAnchor.constraint(equalToConstant: 35).isActive = true
     }
 }
 
 
+// MARK: - UIScrollViewDelegate
+
+extension TripLocalHostingViewController: UIScrollViewDelegate {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        pageCount = Int(scrollView.bounds.minX / scrollView.bounds.width)
+        print(Int(scrollView.bounds.minX / scrollView.bounds.width))
+    }
+}
+
+// MARK: - VideoViewDelegate
+
+//extension TripLocalHostingViewController: VideoViewDelegate {
+//    func pushView() {
+//        let videoDetailVC = VideosDetailViewController()
+//        navigationController?.pushViewController(videoDetailVC, animated: true)
+//    }
+//}
