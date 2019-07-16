@@ -45,7 +45,6 @@ class HouseViewController: UIViewController {
         searchBarView.topAnchor.constraint(equalTo: safeGuide.topAnchor, constant: 0).isActive = true
         searchBarView.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor).isActive = true
         searchBarView.trailingAnchor.constraint(equalTo: safeGuide.trailingAnchor).isActive = true
-        searchBarView.heightAnchor.constraint(equalToConstant: 70).isActive = true
         
         houseView.translatesAutoresizingMaskIntoConstraints = false
         houseView.topAnchor.constraint(equalTo: searchBarView.bottomAnchor, constant: 5).isActive = true

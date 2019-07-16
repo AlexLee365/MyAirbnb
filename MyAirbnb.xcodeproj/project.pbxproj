@@ -48,6 +48,9 @@
 		4353BA2A22DC40B5004BD807 /* FSCalendarHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA1722DC40B5004BD807 /* FSCalendarHeaderView.m */; };
 		4353BA2B22DC40B5004BD807 /* FSCalendarTransitionCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA1B22DC40B5004BD807 /* FSCalendarTransitionCoordinator.m */; };
 		4353BA2D22DC40B5004BD807 /* FSCalendarAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA1D22DC40B5004BD807 /* FSCalendarAppearance.m */; };
+		4353BA3122DD7F41004BD807 /* SearchBarTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA3022DD7F41004BD807 /* SearchBarTableView.swift */; };
+		4353BA3322DDB7CF004BD807 /* FilterPeopleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA3222DDB7CF004BD807 /* FilterPeopleViewController.swift */; };
+		4353BA3522DDB7DA004BD807 /* FilterRemainsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA3422DDB7DA004BD807 /* FilterRemainsViewController.swift */; };
 		8D0D786E22D07C9300F61F0B /* TripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D786D22D07C9300F61F0B /* TripViewController.swift */; };
 		8D0D787022D07DE600F61F0B /* TripIntroTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D786F22D07DE600F61F0B /* TripIntroTableViewCell.swift */; };
 		8D0D787222D0810300F61F0B /* SpecialTripTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D787122D0810300F61F0B /* SpecialTripTableViewCell.swift */; };
@@ -154,6 +157,9 @@
 		4353BA1C22DC40B5004BD807 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4353BA1D22DC40B5004BD807 /* FSCalendarAppearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarAppearance.m; sourceTree = "<group>"; };
 		4353BA2E22DC5149004BD807 /* Objc-Bridge-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Objc-Bridge-Header.h"; sourceTree = "<group>"; };
+		4353BA3022DD7F41004BD807 /* SearchBarTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarTableView.swift; sourceTree = "<group>"; };
+		4353BA3222DDB7CF004BD807 /* FilterPeopleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPeopleViewController.swift; sourceTree = "<group>"; };
+		4353BA3422DDB7DA004BD807 /* FilterRemainsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterRemainsViewController.swift; sourceTree = "<group>"; };
 		5895FA9D40FD45C305945B10 /* Pods_MyAirbnb.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyAirbnb.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D0D786D22D07C9300F61F0B /* TripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripViewController.swift; sourceTree = "<group>"; };
 		8D0D786F22D07DE600F61F0B /* TripIntroTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripIntroTableViewCell.swift; sourceTree = "<group>"; };
@@ -260,6 +266,8 @@
 				4353B8ED22D088A3004BD807 /* TabbarController.swift */,
 				4353B8E322D0797E004BD807 /* MainViewController.swift */,
 				4353B9FB22DC3A69004BD807 /* CalenderViewController.swift */,
+				4353BA3222DDB7CF004BD807 /* FilterPeopleViewController.swift */,
+				4353BA3422DDB7DA004BD807 /* FilterRemainsViewController.swift */,
 				2080602722D6E1FA008672D9 /* SignUpMainViewController.swift */,
 				2080602922D7517E008672D9 /* MakeIdPageViewController.swift */,
 				2080602B22D751B1008672D9 /* LoginPageViewController.swift */,
@@ -283,6 +291,7 @@
 				8D0D792122DB020600F61F0B /* House */,
 				8D0D787322D0898200F61F0B /* Trip */,
 				4353B8EF22D22782004BD807 /* SearchBarView.swift */,
+				4353BA3022DD7F41004BD807 /* SearchBarTableView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -571,12 +580,15 @@
 				8D0D78DE22D864F700F61F0B /* SpecialTripDetailData.swift in Sources */,
 				8D0D789D22D3729000F61F0B /* Protocols.swift in Sources */,
 				4353BA2122DC40B5004BD807 /* FSCalendarCell.m in Sources */,
+				4353BA3522DDB7DA004BD807 /* FilterRemainsViewController.swift in Sources */,
 				8D0D78AE22D485B000F61F0B /* SeoulRecommendDetailData.swift in Sources */,
 				8D0D78A122D4598200F61F0B /* TripIntroData.swift in Sources */,
 				8D0D793522DC5F0700F61F0B /* TripLocalHostingViewController.swift in Sources */,
 				8D0D788E22D222A400F61F0B /* TripInfoCollectionViewCell.swift in Sources */,
 				8D0D78B422D5E5E600F61F0B /* BottomView.swift in Sources */,
 				8D0D786E22D07C9300F61F0B /* TripViewController.swift in Sources */,
+				4353BA3122DD7F41004BD807 /* SearchBarTableView.swift in Sources */,
+				4353BA3322DDB7CF004BD807 /* FilterPeopleViewController.swift in Sources */,
 				4353B91222D73B80004BD807 /* FourSquareTableCell.swift in Sources */,
 				8D0D792722DB328900F61F0B /* HousePlusTableCell.swift in Sources */,
 				8D0D78AA22D4754200F61F0B /* SeoulRecommendTableViewCell.swift in Sources */,

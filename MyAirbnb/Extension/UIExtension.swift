@@ -113,4 +113,8 @@ extension UITapGestureRecognizer {
 extension Notification.Name {
     static let searchBarEditBegin = Notification.Name(rawValue: "SearchBarEditBegin")
     static let searchBarEditEnd = Notification.Name(rawValue: "SearchBarEditEnd")
+    
+    static let searchBarDateBtnDidTap = Notification.Name(rawValue: "SearchBarDateBtnDidTap")
+    static let searchBarPeopleBtnDidTap = Notification.Name(rawValue: "searchBarPeopleBtnDidTap")
+    static let searchBarFilterBtnDidTap = Notification.Name(rawValue: "searchBarFilterBtnDidTap")
 }

@@ -69,7 +69,6 @@ class CalenderViewController: UIViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        tabBarController?.tabBar.alpha = 0.5
         setAnimation()
         
         
@@ -109,7 +108,8 @@ class CalenderViewController: UIViewController {
         containerView.topAnchor.constraint(equalTo: safeGuide.topAnchor, constant: 80).isActive = true
         containerView.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor, constant: 15).isActive = true
         containerView.trailingAnchor.constraint(equalTo: safeGuide.trailingAnchor, constant: -15).isActive = true
-        containerView.bottomAnchor.constraint(equalTo: safeGuide.bottomAnchor, constant: -200).isActive = true
+//        containerView.bottomAnchor.constraint(equalTo: safeGuide.bottomAnchor, constant: -200).isActive = true
+        containerView.heightAnchor.constraint(equalToConstant: 430).isActive = true
         
         containerView.addSubview(topTextLabel)
         topTextLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -153,7 +153,7 @@ class CalenderViewController: UIViewController {
         calendar.topAnchor.constraint(equalTo: seperateLineViewTop.bottomAnchor, constant: 0).isActive = true
         calendar.leadingAnchor.constraint(equalTo: containerView.leadingAnchor).isActive = true
         calendar.trailingAnchor.constraint(equalTo: containerView.trailingAnchor).isActive = true
-        calendar.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -40).isActive = true
+        calendar.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -46).isActive = true
         
         containerView.addSubview(seperateLineViewBottom)
         seperateLineViewBottom.translatesAutoresizingMaskIntoConstraints = false
@@ -165,7 +165,7 @@ class CalenderViewController: UIViewController {
         containerView.addSubview(resultBtn)
         resultBtn.translatesAutoresizingMaskIntoConstraints = false
         resultBtn.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
-        resultBtn.centerYAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -20).isActive = true
+        resultBtn.centerYAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -23).isActive = true
 //        resultBtn.widthAnchor.constraint(equalToConstant: 80).isActive = true
         resultBtn.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 1).isActive = true
         resultBtn.heightAnchor.constraint(equalToConstant: 30).isActive = true
@@ -198,8 +198,8 @@ class CalenderViewController: UIViewController {
         refreshBtn.layer.opacity = 0.5
         resultBtn.addTarget(self, action: #selector(resultBtnDidTap(_:)), for: .touchUpInside)
         
-        seperateLineViewTop.backgroundColor = #colorLiteral(red: 0.625213623, green: 0.6214996576, blue: 0.628070116, alpha: 0.6072880993)
-        seperateLineViewBottom.backgroundColor = #colorLiteral(red: 0.7327679992, green: 0.7284137607, blue: 0.7361161113, alpha: 0.4171660959)
+        seperateLineViewTop.backgroundColor = #colorLiteral(red: 0.5761868954, green: 0.5727648139, blue: 0.5788194537, alpha: 0.4162831764)
+        seperateLineViewBottom.backgroundColor = #colorLiteral(red: 0.5761868954, green: 0.5727648139, blue: 0.5788194537, alpha: 0.4162831764)
         
         resultBtn.setTitle("결과 보기", for: .normal)
         resultBtn.setTitleColor(UIColor(red:0.09, green:0.51, blue:0.54, alpha:1.0), for: .normal)
@@ -251,10 +251,14 @@ class CalenderViewController: UIViewController {
         sender.isEnabled = false
         sender.layer.opacity = 0.5
     }
+    
     @objc func resultBtnDidTap(_ sender: UIButton) {
         print("--------------------------[resultBtnDidTap]--------------------------")
         print(selectedDatesString)
-        guard let naviVC = presentingViewController as? UINavigationController else { print("navi convert error"); return }
+//        guard let naviVC = presentingViewController as? UINavigationController else { print("navi convert error"); return }
+        
+        guard let tabbarVC = presentingViewController as? TabbarController else { print("tabbarVC convert error"); return }
+        guard let naviVC = tabbarVC.viewControllers?.first as? UINavigationController else { print("navi convert error"); return }
         
         if let mainVC = naviVC.viewControllers.first as? MainViewController {
             print("mainVC")
