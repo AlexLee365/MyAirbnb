@@ -45,7 +45,6 @@ class TripLocalHostingViewController: UIViewController {
         return button
     }()
     
-    
     let player: AVPlayer = {
         let url = URL(string: "http://tetris.dicemono.xyz/test.mp4")!
         let playerItem = AVPlayerItem(url: url)
@@ -53,7 +52,7 @@ class TripLocalHostingViewController: UIViewController {
         return player
     }()
     
-    var playerLayer = AVPlayerLayer()
+    var playerLayer: AVPlayerLayer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,10 +76,8 @@ class TripLocalHostingViewController: UIViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        
-        playerLayer.frame = videoView.bounds
+        playerLayer?.frame = videoView.bounds
     }
-
     
     private func configure() {
         view.backgroundColor = .black
@@ -88,10 +85,9 @@ class TripLocalHostingViewController: UIViewController {
         view.addSubview(videoView)
         
         playerLayer = AVPlayerLayer(player: player)
-        playerLayer.videoGravity = .resizeAspectFill
-//            .resizeAspect
-        playerLayer.needsDisplayOnBoundsChange = true
-        videoView.layer.addSublayer(playerLayer)
+        playerLayer?.videoGravity = .resizeAspectFill
+        playerLayer?.needsDisplayOnBoundsChange = true
+        videoView.layer.addSublayer(playerLayer!)
         
         topView.backButton.setImage(UIImage(named: "cancel"), for: .normal)
         topView.backButton.addTarget(self, action: #selector(closeButtonDidTap(_:)), for: .touchUpInside)
