@@ -87,6 +87,7 @@
 		8D0D793522DC5F0700F61F0B /* TripLocalHostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D793422DC5F0700F61F0B /* TripLocalHostingViewController.swift */; };
 		8D0D793922DC9A2900F61F0B /* VideosDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D793822DC9A2900F61F0B /* VideosDetailViewController.swift */; };
 		8D0D793C22DCA57B00F61F0B /* VideosDetailTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D793B22DCA57B00F61F0B /* VideosDetailTableCell.swift */; };
+		8D0D793E22DD6C1600F61F0B /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D793D22DD6C1600F61F0B /* VideoView.swift */; };
 		9F10F3C31A75AE56BBBE8FE9 /* Pods_MyAirbnb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5895FA9D40FD45C305945B10 /* Pods_MyAirbnb.framework */; };
 /* End PBXBuildFile section */
 
@@ -193,6 +194,7 @@
 		8D0D793422DC5F0700F61F0B /* TripLocalHostingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripLocalHostingViewController.swift; sourceTree = "<group>"; };
 		8D0D793822DC9A2900F61F0B /* VideosDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideosDetailViewController.swift; sourceTree = "<group>"; };
 		8D0D793B22DCA57B00F61F0B /* VideosDetailTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideosDetailTableCell.swift; sourceTree = "<group>"; };
+		8D0D793D22DD6C1600F61F0B /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 		D11C85972DEC34ABFE5E5A06 /* Pods-MyAirbnb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyAirbnb.debug.xcconfig"; path = "Target Support Files/Pods-MyAirbnb/Pods-MyAirbnb.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -424,6 +426,7 @@
 		8D0D793A22DCA53C00F61F0B /* LocalHosting */ = {
 			isa = PBXGroup;
 			children = (
+				8D0D793D22DD6C1600F61F0B /* VideoView.swift */,
 				8D0D793B22DCA57B00F61F0B /* VideosDetailTableCell.swift */,
 			);
 			path = LocalHosting;
@@ -613,6 +616,7 @@
 				8D0D791C22DAFD8600F61F0B /* AccommodationView.swift in Sources */,
 				4353BA2622DC40B5004BD807 /* FSCalendarSeparatorDecorationView.m in Sources */,
 				8D0D792322DB02D900F61F0B /* HouseViewController.swift in Sources */,
+				8D0D793E22DD6C1600F61F0B /* VideoView.swift in Sources */,
 				4353BA1E22DC40B5004BD807 /* FSCalendarCollectionView.m in Sources */,
 				4353B8D222CF51F6004BD807 /* AppDelegate.swift in Sources */,
 				4353B91622D755F1004BD807 /* MainLuxeHouseTableCell.swift in Sources */,
