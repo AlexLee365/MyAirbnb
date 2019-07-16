@@ -32,10 +32,14 @@ class LoginPageViewController: UIViewController {
     let passwordTxtUnderLine = UILabel()
     
     let keyboardTopView = UIView()
+    let usePhoneNumberBtn = UIButton(type: .custom)
+    let loginBtn = UIButton(type: .custom)
     
     var bottomLayout: NSLayoutConstraint!
     var keyboardHeight: CGFloat = 0
     var bottomInsets: CGFloat = 0
+    
+    let confirmNoticeVC = ConfirmNoticeViewController()
     
     
     
@@ -122,6 +126,9 @@ class LoginPageViewController: UIViewController {
         loginScrollView.addSubview(passwordTxtField)
         loginScrollView.addSubview(passwordTxtUnderLine)
         loginScrollView.addSubview(keyboardTopView)
+        
+        keyboardTopView.addSubview(usePhoneNumberBtn)
+        keyboardTopView.addSubview(loginBtn)
     }
     
     private func textFieldsSetup() {
@@ -175,6 +182,8 @@ class LoginPageViewController: UIViewController {
         passwordTxtUnderLine.translatesAutoresizingMaskIntoConstraints = false
         emailCheckImage.translatesAutoresizingMaskIntoConstraints = false
         keyboardTopView.translatesAutoresizingMaskIntoConstraints = false
+        usePhoneNumberBtn.translatesAutoresizingMaskIntoConstraints = false
+        loginBtn.translatesAutoresizingMaskIntoConstraints = false
         
         let backBtnWidth = view.frame.width - (view.frame.width - 28)
         let backBtnHeight = view.frame.height - (view.frame.height - 25)
@@ -245,6 +254,14 @@ class LoginPageViewController: UIViewController {
             emailCheckImage.widthAnchor.constraint(equalToConstant: checkMarkWidth),
             emailCheckImage.heightAnchor.constraint(equalToConstant: checkMarkHeight),
             
+            usePhoneNumberBtn.centerYAnchor.constraint(equalTo: keyboardTopView.centerYAnchor),
+            usePhoneNumberBtn.leadingAnchor.constraint(equalTo: keyboardTopView.leadingAnchor, constant: 20),
+            usePhoneNumberBtn.heightAnchor.constraint(equalToConstant: findPwBtnHeight),
+            
+            loginBtn.centerYAnchor.constraint(equalTo: keyboardTopView.centerYAnchor),
+            loginBtn.trailingAnchor.constraint(equalTo: keyboardTopView.trailingAnchor, constant: -20),
+            loginBtn.heightAnchor.constraint(equalToConstant: 50),
+            loginBtn.widthAnchor.constraint(equalToConstant: 100),
             ])
         
         bottomLayout = keyboardTopView.bottomAnchor.constraint(equalTo: guide.bottomAnchor)
@@ -259,6 +276,9 @@ class LoginPageViewController: UIViewController {
         //        emailTxtField.backgroundColor = .black
         //        showAndHideBtn.backgroundColor = .black
         //        passwordTxtField.backgroundColor = .black
+        usePhoneNumberBtn.backgroundColor = .black
+        loginBtn.backgroundColor = .black
+        
         
     }
     
@@ -314,7 +334,35 @@ class LoginPageViewController: UIViewController {
         emailCheckImage.backgroundColor = .clear
         
         keyboardTopView.backgroundColor = .init(patternImage: UIImage(named: "nextBtn_Background")!)
+        
+        usePhoneNumberBtn.setTitle("전화번호 사용", for: .normal)
+        usePhoneNumberBtn.setTitleColor(.white, for: .normal)
+        usePhoneNumberBtn.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .init(3))
+        usePhoneNumberBtn.backgroundColor = .clear
+        usePhoneNumberBtn.addTarget(self, action: #selector(didTapUsePhoneNumberBtn(_:)), for: .touchUpInside)
+        
+        loginBtn.setTitle("로그인", for: .normal)
+        loginBtn.setTitleColor(.white, for: .normal)
+        loginBtn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        loginBtn.backgroundColor = UIColor.init(displayP3Red: 185, green: 216, blue: 218, alpha: 0.8)
+        //        loginBtn.backgroundColor = .black
+        loginBtn.layer.cornerRadius = 5.0
+        
+        loginBtn.layer.shadowColor = UIColor.init(displayP3Red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
+        //        loginBtn.layer.shadowColor = UIColor.green.cgColor
+        loginBtn.layer.shadowOpacity = 1.0
+        loginBtn.layer.shadowRadius = 0.0
+        loginBtn.layer.shadowOffset = CGSize.init(width: 2, height: 2)
+        loginBtn.addTarget(self, action: #selector(didTapLoginBtn(_:)), for: .touchUpInside)
     }
+    @objc private func didTapLoginBtn(_ sender: UIButton) {
+        present(confirmNoticeVC, animated: true)
+    }
+    
+    @objc private func didTapUsePhoneNumberBtn(_ sender: UIButton) {
+        print("전화번호 사용 버튼 동작")
+    }
+    
     @objc private func didTapShowAndHideBtn(_ sender: UIButton) {
         
         print("숨기기, 표시하기 버튼 동작")
@@ -332,6 +380,7 @@ class LoginPageViewController: UIViewController {
 }
 
 extension LoginPageViewController: UITextFieldDelegate {
+    // 이메일 주소 텍스트 필드가 채워질때만 체크박스 활성화 되도록 수정
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         let text = textField.text ?? ""
@@ -355,8 +404,8 @@ extension LoginPageViewController: UITextFieldDelegate {
             passwordTxtField.becomeFirstResponder()
             
         } else if(textField.isEqual(self.passwordTxtField)) {
-            let confirmProgressVC = ConfirmProgressViewController()
-            present(confirmProgressVC, animated: true)
+            
+            present(confirmNoticeVC, animated: true)
         }
         return true
     }

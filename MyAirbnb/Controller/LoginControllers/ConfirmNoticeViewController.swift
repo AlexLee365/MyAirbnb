@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ConfirmProgressViewController: UIViewController {
+class ConfirmNoticeViewController: UIViewController {
     
     let dismissBtn = UIButton()
     
