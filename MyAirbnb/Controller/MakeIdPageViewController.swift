@@ -26,9 +26,12 @@ class MakeIdPageViewController: UIViewController {
     let lastCheckMarkImage = UIImageView()
     
     let nextBtnBackground = UIView()
-    let nextBtn = UIButton()
+    let nextBtn = UIButton(type: .custom)
+    let backBtn = UIButton(type: .custom)
     
-    
+    var bottomLayout: NSLayoutConstraint!
+    var keyboardHeight: CGFloat = 0
+    var bottomInsets: CGFloat = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,16 +40,23 @@ class MakeIdPageViewController: UIViewController {
         // MakeIdPageViewController의 배경 이미지 지정
         view.backgroundColor = .init(patternImage: UIImage.init(named: "AirBnB-background")!)
         
-        
         textFieldsConfigure()
         addViews()
         makeIdPageItemsConfigure()
         makeIdPageItemsLayout()
         
     }
-    
     override func viewWillAppear(_ animated: Bool) {
         registForKeyboardNotification()
+    }
+    
+    
+    // 뷰들이 그려진 후
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        print("safeAreaInsets", view.safeAreaInsets.bottom)
+        // iphone의 맨 아래 부분 -> iphone X 버전부터 , 홈버튼이 없어진 이후 밑에 생김
+        bottomInsets = view.safeAreaInsets.bottom
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -55,6 +65,7 @@ class MakeIdPageViewController: UIViewController {
         print("-------------[scrollView.frame.height]--------------")
         print(scrollView.frame.height)
         print(view.frame.height)
+        
         
         // 이름 텍스트 필드 키보드 포커스
         self.firstNameInputTxtField.becomeFirstResponder()
@@ -76,9 +87,34 @@ class MakeIdPageViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
+    // 키보드에 의해 가려지는 nextBtn 과 nextBtnBackground 키보드와 함께 올리기
+    @objc func keyboardWillShow(_ sender: Notification) {
+        let userInfo: NSDictionary = sender.userInfo! as NSDictionary
+        let keyboardFrame: NSValue = userInfo.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as! NSValue
+        let keyboardRect = keyboardFrame.cgRectValue
+        
+        print("키보드 높이 : \(keyboardRect.height)")
+        keyboardHeight = keyboardRect.height - bottomInsets
+        print("safeAreaInsets을 뺀 키보드 높이 : \(keyboardHeight)")
+        bottomLayout.constant = -keyboardHeight
+        
+    }
+    
+    // 키보드에 의해 가려지는 nextBtn 과 nextBtnBackground 키보드와 내리기
+    @objc func keyboardWillHide(_ sender: Notification) {
+        
+        let userInfo: NSDictionary = sender.userInfo! as NSDictionary
+        let hideKeyboardFrame: NSValue = userInfo.value(forKey: UIResponder.keyboardFrameBeginUserInfoKey) as! NSValue
+        let hideKeyboardRect = hideKeyboardFrame.cgRectValue
+        let hideKeyboardHeight = hideKeyboardRect.height
+        print("내려간 키보드 높이 : \(hideKeyboardHeight)")
+        bottomLayout.constant = 0
+    }
+    
     // addSubViews
     private func addViews() {
         view.addSubview(scrollView)
+        
         scrollView.addSubview(makeIdVCtitle)
         scrollView.addSubview(firstNameInputTitle)
         scrollView.addSubview(firstNameInputTxtField)
@@ -89,10 +125,13 @@ class MakeIdPageViewController: UIViewController {
         scrollView.addSubview(firstCheckMarkImage)
         scrollView.addSubview(lastCheckMarkImage)
         scrollView.addSubview(nextBtnBackground)
+        scrollView.addSubview(backBtn)
+        
         nextBtnBackground.addSubview(nextBtn)
     }
     
-    // textfield 델리게이트와 리턴키 변경
+    
+    // textfield 델리게이트와 여러 구성 요소
     private func textFieldsConfigure() {
         
         firstNameInputTxtField.delegate = self
@@ -105,12 +144,15 @@ class MakeIdPageViewController: UIViewController {
         lastNameInputTxtField.autocorrectionType = .no
     }
     
+    
+    
     // MakeIdPageViewController에 올린 모든 컨텐츠의 오토레이아웃
     private func makeIdPageItemsLayout() {
         
         let guide = view.safeAreaLayoutGuide
         
         scrollView.translatesAutoresizingMaskIntoConstraints = false
+        
         makeIdVCtitle.translatesAutoresizingMaskIntoConstraints = false
         firstNameInputTitle.translatesAutoresizingMaskIntoConstraints = false
         firstNameInputTxtField.translatesAutoresizingMaskIntoConstraints = false
@@ -122,8 +164,11 @@ class MakeIdPageViewController: UIViewController {
         lastCheckMarkImage.translatesAutoresizingMaskIntoConstraints = false
         nextBtnBackground.translatesAutoresizingMaskIntoConstraints = false
         nextBtn.translatesAutoresizingMaskIntoConstraints = false
+        backBtn.translatesAutoresizingMaskIntoConstraints = false
         
         scrollView.backgroundColor = .init(patternImage: UIImage.init(named: "AirBnB-background")!)
+        scrollView.contentSize.width = view.frame.width
+        scrollView.contentSize.height = view.frame.height + 30
         
         let labelWidth = view.frame.width - (20 * 2)
         let textFieldWidth = view.frame.width - (33 * 2)
@@ -136,12 +181,13 @@ class MakeIdPageViewController: UIViewController {
         
         
         NSLayoutConstraint.activate([
+            
             scrollView.topAnchor.constraint(equalTo: guide.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: guide.bottomAnchor),
             
-            makeIdVCtitle.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 15),
+            makeIdVCtitle.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 70),
             makeIdVCtitle.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 20),
             makeIdVCtitle.widthAnchor.constraint(equalToConstant: labelWidth),
             
@@ -181,30 +227,44 @@ class MakeIdPageViewController: UIViewController {
             lastCheckMarkImage.widthAnchor.constraint(equalToConstant: checkMarkWidth),
             lastCheckMarkImage.heightAnchor.constraint(equalToConstant: checkMarkHeight),
             
-            nextBtnBackground.topAnchor.constraint(equalTo: guide.bottomAnchor, constant: -80),
-            nextBtnBackground.leadingAnchor.constraint(equalTo:scrollView.leadingAnchor, constant: 0),
-            nextBtnBackground.widthAnchor.constraint(equalToConstant: nextBtnBgWidth),
-            nextBtnBackground.heightAnchor.constraint(equalToConstant: nextBtnBgHeight),
+            //            nextBtnBackground.bottomAnchor.constraint(equalTo: guide.bottomAnchor, constant: 0),
+            //            nextBtnBackground.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 0),
+            //            nextBtnBackground.widthAnchor.constraint(equalToConstant: nextBtnBgWidth),
+            //            nextBtnBackground.heightAnchor.constraint(equalToConstant: nextBtnBgHeight),
             
             nextBtn.topAnchor.constraint(equalTo: nextBtnBackground.topAnchor),
             nextBtn.trailingAnchor.constraint(equalTo: nextBtnBackground.trailingAnchor),
             nextBtn.widthAnchor.constraint(equalToConstant: nextBtnWidth),
             nextBtn.heightAnchor.constraint(equalToConstant: nextBtnBgHeight),
             
+            backBtn.topAnchor.constraint(equalTo: guide.topAnchor, constant: 10),
+            backBtn.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 20),
+            backBtn.widthAnchor.constraint(equalToConstant: checkMarkWidth),
+            backBtn.heightAnchor.constraint(equalToConstant: checkMarkWidth),
             
             ])
         
+        // 다음 버튼의 배경 뷰 = nextBtnBackground 의 레이아웃
+        bottomLayout = nextBtnBackground.bottomAnchor.constraint(equalTo: guide.bottomAnchor)
+        bottomLayout.isActive = true
+        nextBtnBackground.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 0).isActive = true
+        nextBtnBackground.widthAnchor.constraint(equalToConstant: nextBtnBgWidth).isActive = true
+        nextBtnBackground.heightAnchor.constraint(equalToConstant: nextBtnBgHeight).isActive = true
+        
+        
         // 오토레이아웃 테스트 용
-        //        scrollView.backgroundColor = .black
-        //        makeIdVCtitle.backgroundColor = .red
-        //        firstNameInputTitle.backgroundColor = .blue
-        //        firstNameInputTxtField.backgroundColor = .gray
-        //        lastNameInputTitle.backgroundColor = .blue
-        //        lastNameInputTxtField.backgroundColor = .gray
-        //        firstCheckMarkImage.backgroundColor = .black
-        //        lastCheckMarkImage.backgroundColor = .black
-        //        nextBtnBackground.backgroundColor = .white
-        //        nextBtn.backgroundColor = .blue
+        scrollView.backgroundColor = .black
+        
+        makeIdVCtitle.backgroundColor = .red
+        firstNameInputTitle.backgroundColor = .blue
+        firstNameInputTxtField.backgroundColor = .gray
+        lastNameInputTitle.backgroundColor = .blue
+        lastNameInputTxtField.backgroundColor = .gray
+        firstCheckMarkImage.backgroundColor = .yellow
+        lastCheckMarkImage.backgroundColor = .yellow
+        nextBtnBackground.backgroundColor = .white
+        nextBtn.backgroundColor = .blue
+        //        backBtn.backgroundColor = .yellow
         
     }
     
@@ -240,49 +300,26 @@ class MakeIdPageViewController: UIViewController {
         
         firstCheckMarkImage.image = UIImage.init(named: "checkMark")
         firstCheckMarkImage.isHidden = true
-        firstCheckMarkImage.backgroundColor = .clear
+        //        firstCheckMarkImage.backgroundColor = .clear
         
         lastCheckMarkImage.image = UIImage.init(named: "checkMark")
         lastCheckMarkImage.isHidden = true
-        lastCheckMarkImage.backgroundColor = .clear
+        //        lastCheckMarkImage.backgroundColor = .clear
         
         nextBtnBackground.backgroundColor = .init(patternImage: UIImage.init(named: "nextBtn_Background")!)
         
+        backBtn.backgroundColor = .init(patternImage: UIImage.init(named: "backBtnImage")!)
+        backBtn.addTarget(self, action: #selector(didTapBackBtn(_:)), for: .touchUpInside)
+        
         nextBtn.setTitle("다음", for: .normal)
-        nextBtn.setTitleColor(.white, for: .normal)
-        nextBtn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+        nextBtn.setTitleColor(.lightGray, for: .normal)
+        nextBtn.setTitleColor(.white, for: .selected)
         nextBtn.addTarget(self, action: #selector(didTapNextBtn(_:)), for: .touchUpInside)
     }
     
-    
-    // 키보드에 의해 가려지는 nextBtn 과 nextBtnBackground 키보드와 함께 올리기
-    @objc private func keyboardWillShow(_ sender: Notification) {
+    @objc private func didTapBackBtn(_ sender: UIButton) {
         
-        let userInfo: NSDictionary = sender.userInfo! as NSDictionary
-        let keyboardFrame: NSValue = userInfo.value(forKey: UIResponder.keyboardFrameBeginUserInfoKey) as! NSValue
-        let keyboardRect = keyboardFrame.cgRectValue
-        let keyboardHeight = keyboardRect.height
-        print("키보드 높이 : \(keyboardHeight)")
-        
-        let nextBtnBgHeight = view.frame.height - (view.frame.height - 80)
-        let nextBtnBgKeyTop = scrollView.frame.height - (keyboardHeight + nextBtnBgHeight)
-        
-        self.nextBtnBackground.frame.origin.y = nextBtnBgKeyTop
-    }
-    
-    // 키보드에 의해 가려지는 nextBtn 과 nextBtnBackground 키보드와 내리기
-    @objc private func keyboardWillHide(_ sender: Notification) {
-        
-        let userInfo: NSDictionary = sender.userInfo! as NSDictionary
-        let keyboardFrame: NSValue = userInfo.value(forKey: UIResponder.keyboardFrameBeginUserInfoKey) as! NSValue
-        let keyboardRect = keyboardFrame.cgRectValue
-        let keyboardHeight = keyboardRect.height
-        print("키보드 높이 : \(keyboardHeight)")
-        
-        let nextBtnBgHeight = view.frame.height - (view.frame.height - 80)
-        let nextBtnBgKeyBottom = view.frame.height - nextBtnBgHeight
-        
-        self.nextBtnBackground.frame.origin.y = nextBtnBgKeyBottom
+        navigationController?.popToRootViewController(animated: true)
     }
     
     // "다음" 버튼 액션
@@ -295,21 +332,22 @@ class MakeIdPageViewController: UIViewController {
 
 extension MakeIdPageViewController: UITextFieldDelegate {
     
+    // 텍스트 필드 옆 체크 버튼 애니메이션 -> 수정 필요
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         let text = textField.text ?? ""
+        
         let replaceText = (text as NSString).replacingCharacters(in: range, with: string)
         
         UIView.animate(withDuration: 0.1, delay: 0, animations: {
             
             if replaceText.isEmpty {
                 self.firstCheckMarkImage.isHidden = true
-                //                self.lastCheckMarkImage.isHidden = true
-                
             } else {
                 self.firstCheckMarkImage.isHidden = false
-                //                self.lastCheckMarkImage.isHidden = false
             }
+            
+            
         })
         return true
     }
@@ -318,7 +356,6 @@ extension MakeIdPageViewController: UITextFieldDelegate {
     
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
         if (textField.isEqual(self.firstNameInputTxtField)) {
             lastNameInputTxtField.becomeFirstResponder()
             

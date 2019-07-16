@@ -10,7 +10,10 @@ import UIKit
 
 class LoginPageViewController: UIViewController {
     
-    let findPassWordBtn = UIBarButtonItem()
+    let loginScrollView = UIScrollView()
+    let backBtn = UIButton(type: .custom)
+    let findPwBtn = UIButton(type: .custom)
+    let loginPageTitle = UILabel()
     
     
     override func viewDidLoad() {
@@ -18,29 +21,101 @@ class LoginPageViewController: UIViewController {
         
         view.backgroundColor = .blue
         
-        self.navigationController?.navigationBar.topItem?.title = ""
         
-        findPassWordBtnConfiguration()
+        addViews()
+        loginScrollViewLayout()
+        loginPageItemsLayout()
+        loginPageItemsConfigure()
+    }
+    
+    private func addViews() {
+        view.addSubview(loginScrollView)
+        loginScrollView.addSubview(backBtn)
+        loginScrollView.addSubview(findPwBtn)
+        loginScrollView.addSubview(loginPageTitle)
+        
+        
         
     }
     
-    private func findPassWordBtnConfiguration() {
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        self.navigationController?.navigationBar.tintColor = .white
+    private func loginScrollViewLayout() {
         
-        navigationItem.rightBarButtonItem = findPassWordBtn
+        let guide = view.safeAreaLayoutGuide
         
-        findPassWordBtn.title = "비밀번호찾기"
-        findPassWordBtn.style = .done
-        findPassWordBtn.target = self
-        findPassWordBtn.action = #selector(didTapfindPassWordBtn(_:))
+        loginScrollView.backgroundColor = .init(patternImage: UIImage.init(named: "AirBnB-background")!)
+        
+        loginScrollView.translatesAutoresizingMaskIntoConstraints = false
+        
+        loginScrollView.contentSize.width = view.frame.width
+        loginScrollView.contentSize.height = view.frame.height + 10
+        
+        NSLayoutConstraint.activate([
+            loginScrollView.topAnchor.constraint(equalTo: guide.topAnchor),
+            loginScrollView.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
+            loginScrollView.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
+            loginScrollView.bottomAnchor.constraint(equalTo: guide.bottomAnchor),
+            ])
+        loginScrollView.backgroundColor = .black
     }
     
-    @objc private func didTapfindPassWordBtn(_ sender: UIBarButtonItem) {
-        let findPassWordVC = FindPassWordPageViewController()
+    private func loginPageItemsLayout() {
         
-        navigationController?.pushViewController(findPassWordVC, animated: true)
+        let guide = view.safeAreaLayoutGuide
+        
+        backBtn.translatesAutoresizingMaskIntoConstraints = false
+        findPwBtn.translatesAutoresizingMaskIntoConstraints = false
+        loginPageTitle.translatesAutoresizingMaskIntoConstraints = false
+        
+        let backBtnWidth = view.frame.width - (view.frame.width - 28)
+        let findPwBtnHeight = view.frame.height - (view.frame.height - 28)
+        let findPwBtnWidth = view.frame.width - (view.frame.width - 100)
+        let labelWidth = view.frame.width - (20 * 2)
+        
+        NSLayoutConstraint.activate([
+            backBtn.topAnchor.constraint(equalTo: loginScrollView.topAnchor, constant: 10),
+            backBtn.leadingAnchor.constraint(equalTo: loginScrollView.leadingAnchor, constant: 20),
+            backBtn.widthAnchor.constraint(equalToConstant: backBtnWidth),
+            backBtn.heightAnchor.constraint(equalToConstant: backBtnWidth),
+            
+            findPwBtn.topAnchor.constraint(equalTo: loginScrollView.topAnchor, constant: 10),
+            findPwBtn.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -20),
+            findPwBtn.widthAnchor.constraint(equalToConstant: findPwBtnWidth),
+            findPwBtn.heightAnchor.constraint(equalToConstant: findPwBtnHeight),
+            
+            loginPageTitle.topAnchor.constraint(equalTo: loginScrollView.topAnchor, constant: 70),
+            loginPageTitle.leadingAnchor.constraint(equalTo: loginScrollView.leadingAnchor, constant: 20),
+            loginPageTitle.widthAnchor.constraint(equalToConstant: labelWidth),
+            ])
+        //        backBtn.backgroundColor = .white
+        //        findPwBtn.backgroundColor = .white
+        
     }
+    
+    private func loginPageItemsConfigure() {
+        backBtn.backgroundColor = .init(patternImage: UIImage.init(named: "backBtnImage")!)
+        backBtn.addTarget(self, action: #selector(didTapBackBtn(_:)), for: .touchUpInside)
+        
+        findPwBtn.setTitle("비밀번호 찾기", for: .normal)
+        findPwBtn.setTitleColor(.white, for: .normal)
+        findPwBtn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+        findPwBtn.titleLabel?.textAlignment = .center
+        
+        findPwBtn.addTarget(self, action: #selector(didTapFindPwBtn(_:)), for: .touchUpInside)
+        
+        loginPageTitle.text = "로그인"
+        loginPageTitle.textColor = .white
+        loginPageTitle.font = UIFont.systemFont(ofSize: 28, weight: UIFont.Weight(7))
+    }
+    
+    @objc private func didTapBackBtn(_ sender: UIButton) {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func didTapFindPwBtn(_ sender: UIButton) {
+        let findPwVC = FindPassWordPageViewController()
+        navigationController?.pushViewController(findPwVC, animated: true)
+    }
+    
     
     
     
