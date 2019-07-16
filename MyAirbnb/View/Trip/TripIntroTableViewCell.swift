@@ -8,7 +8,7 @@
 import UIKit
 
 protocol TripIntroTableViewCellDelegate: class {
-    func presentView()
+    func presentView(index: IndexPath)
 }
 
 class TripIntroTableViewCell: UITableViewCell {
@@ -161,7 +161,7 @@ extension TripIntroTableViewCell: UICollectionViewDataSource {
 
 extension TripIntroTableViewCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.presentView()
+        delegate?.presentView(index: indexPath)
     }
 }
 

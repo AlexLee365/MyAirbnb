@@ -10,6 +10,8 @@ import UIKit
 
 protocol CalendarDelegate: class {
     func presentCalenderVC()
+    func presentPeopleVC()
+    func presentFilterVC()
 }
 
 class SearchBarView: UIView {
@@ -23,17 +25,21 @@ class SearchBarView: UIView {
     
     let filterDateBtn = UIButton()
     let filterPeopleBtn = UIButton()
-    lazy var filterStackView = UIStackView(arrangedSubviews: [filterDateBtn, filterPeopleBtn])
+    let filterRemainsBtn = UIButton()
+    lazy var filterStackView = UIStackView(arrangedSubviews: [filterDateBtn, filterPeopleBtn, filterRemainsBtn])
     
     let autoCompleteTableView = UITableView()
     
 
     // MARK: - Properties
-    let notiCenter = NotificationCenter.default
     var searchContainerTrailingInSearch: NSLayoutConstraint?
     
-    var selectedDatesArray = [Date]()
+    var tableViewConstHeightInEditing: NSLayoutConstraint?
+    var tableViewConstBottomInEditing: NSLayoutConstraint?
     
+    let notiCenter = NotificationCenter.default
+    
+    var selectedDatesArray = [Date]()
     var selectedDateString = "날짜" {
         didSet {
             
@@ -47,6 +53,21 @@ class SearchBarView: UIView {
             } else {
                 filterDateBtn.setTitleColor(.white, for: .normal)
                 filterDateBtn.backgroundColor = StandardUIValue.shared.colorBlueGreen
+            }
+        }
+    }
+    
+    var selectedPeople = (0, 0, 0) {
+        didSet {
+            let total = selectedPeople.0 + selectedPeople.1 + selectedPeople.2
+            if total == 0 {
+                filterPeopleBtn.setTitle("    인원    ", for: .normal)
+                filterPeopleBtn.setTitleColor(StandardUIValue.shared.colorRegularText, for: .normal)
+                filterPeopleBtn.backgroundColor = .clear
+            } else {
+                filterPeopleBtn.setTitle("    게스트 \(total)명    ", for: .normal)
+                filterPeopleBtn.setTitleColor(.white, for: .normal)
+                filterPeopleBtn.backgroundColor = StandardUIValue.shared.colorBlueGreen
             }
         }
     }
@@ -100,7 +121,7 @@ class SearchBarView: UIView {
         searchCancelBtn.heightAnchor.constraint(equalTo: searchContainerView.heightAnchor, multiplier: 1).isActive = true
         searchCancelBtn.widthAnchor.constraint(equalToConstant: 60).isActive = true
         searchCancelBtn.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5).isActive = true
-        // =================================== searchContainerView end ===================================
+        // =========================================================================================================
         
         self.addSubview(filterStackView)    // 높이: 50
         filterStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -118,13 +139,16 @@ class SearchBarView: UIView {
         filterDateBtn.heightAnchor.constraint(equalToConstant: 32).isActive = true
 //        filterDateBtn.widthAnchor.constraint(equalToConstant: widthConst).isActive = true
         
-        filterPeopleBtn.leadingAnchor.constraint(equalTo: filterDateBtn.trailingAnchor, constant: 5).isActive = true
+        filterPeopleBtn.leadingAnchor.constraint(equalTo: filterDateBtn.trailingAnchor, constant: 8).isActive = true
         filterPeopleBtn.topAnchor.constraint(equalTo: filterStackView.topAnchor, constant: 15).isActive = true
         filterPeopleBtn.heightAnchor.constraint(equalToConstant: 32).isActive = true
-        // =================================== filterStackview end ===================================
+        
+        filterRemainsBtn.leadingAnchor.constraint(equalTo: filterPeopleBtn.trailingAnchor, constant: 8).isActive = true
+        filterRemainsBtn.topAnchor.constraint(equalTo: filterStackView.topAnchor, constant: 15).isActive = true
+        filterRemainsBtn.heightAnchor.constraint(equalToConstant: 32).isActive = true
+        // =========================================================================================================
         
         self.addSubview(autoCompleteTableView)
-        let tableviewHeight: CGFloat = UIScreen.main.bounds.height - 55
         autoCompleteTableView.translatesAutoresizingMaskIntoConstraints = false
         autoCompleteTableView.topAnchor.constraint(equalTo: searchContainerView.bottomAnchor, constant: 5).isActive = true
         autoCompleteTableView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
@@ -132,9 +156,10 @@ class SearchBarView: UIView {
         let tableViewConstHeight = autoCompleteTableView.heightAnchor.constraint(equalToConstant: 0)
         tableViewConstHeight.priority = UILayoutPriority(500)
         tableViewConstHeight.isActive = true
-        let tableViewConstBottom = autoCompleteTableView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
-        tableViewConstBottom.priority = UILayoutPriority(rawValue: 500)
-        tableViewConstBottom.isActive = true
+        
+//        let tableViewConstBottom = autoCompleteTableView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+//        tableViewConstBottom.priority = UILayoutPriority(rawValue: 500)
+//        tableViewConstBottom.isActive = true
         
 //        self.bringSubviewToFront(filterStackView)
     }
@@ -148,12 +173,10 @@ class SearchBarView: UIView {
         searchContainerView.layer.shadowOffset = CGSize(width: 0, height: 0)
         searchContainerView.layer.shadowRadius = 5
         searchContainerView.layer.cornerRadius = 3
-        //        searchContainerView.layer.shadowPath
         
         searchImageBtn.setImage(UIImage(named: "searchIcon"), for: .normal)
         searchImageBtn.imageEdgeInsets = UIEdgeInsets(top: 10, left: 13, bottom: 10, right: 13)
         searchImageBtn.imageView?.contentMode = .scaleAspectFit
-//        searchImageBtn.backgroundColor = .yellow
         
         searchTF.delegate = self
         searchTF.placeholder = "'쿠알라룸프르'에 가보는 건 어떠세요?"
@@ -169,13 +192,12 @@ class SearchBarView: UIView {
         searchCancelBtn.titleLabel?.font = .systemFont(ofSize: 14, weight: .regular)
         searchCancelBtn.addTarget(self, action: #selector(searchCancelBtnDidTap(_:)), for: .touchUpInside)
         searchCancelBtn.layer.opacity = 0
-//        searchCancelBtn.backgroundColor = .yellow
         
         filterStackView.axis = .horizontal
         filterStackView.alignment = .leading
-        filterStackView.spacing = 5
+        filterStackView.spacing = 8
         
-        filterDateBtn.setTitle("    날짜    ", for: .normal)
+        filterDateBtn.setTitle("    날짜    ", for: .normal)      // 공백 앞뒤 4개
         filterDateBtn.setTitleColor(StandardUIValue.shared.colorRegularText, for: .normal)
         filterDateBtn.titleLabel?.font = .systemFont(ofSize: 13, weight: .semibold)
         filterDateBtn.layer.borderColor = StandardUIValue.shared.colorLineBorder.cgColor
@@ -183,17 +205,26 @@ class SearchBarView: UIView {
         filterDateBtn.layer.cornerRadius = 5
         filterDateBtn.addTarget(self, action: #selector(filterDateBtnDidTap(_:)), for: .touchUpInside)
         
-        filterPeopleBtn.setTitle("    인원    ", for: .normal)    // 공백 앞뒤 4개
+        filterPeopleBtn.setTitle("    인원    ", for: .normal)
         filterPeopleBtn.setTitleColor(StandardUIValue.shared.colorRegularText, for: .normal)
         filterPeopleBtn.titleLabel?.font = .systemFont(ofSize: 13, weight: .semibold)
         filterPeopleBtn.layer.borderColor = StandardUIValue.shared.colorLineBorder.cgColor
         filterPeopleBtn.layer.borderWidth = 0.5
         filterPeopleBtn.layer.cornerRadius = 5
+        filterPeopleBtn.addTarget(self, action: #selector(filterPeopleBtnDidTap(_:)), for: .touchUpInside)
+        
+        filterRemainsBtn.setTitle("    필터    ", for: .normal)
+        filterRemainsBtn.setTitleColor(StandardUIValue.shared.colorRegularText, for: .normal)
+        filterRemainsBtn.titleLabel?.font = .systemFont(ofSize: 13, weight: .semibold)
+        filterRemainsBtn.layer.borderColor = StandardUIValue.shared.colorLineBorder.cgColor
+        filterRemainsBtn.layer.borderWidth = 0.5
+        filterRemainsBtn.layer.cornerRadius = 5
+        filterRemainsBtn.addTarget(self, action: #selector(filterRemainsBtnDidTap(_:)), for: .touchUpInside)
         
         autoCompleteTableView.delegate = self
         autoCompleteTableView.dataSource = self
         autoCompleteTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        autoCompleteTableView.backgroundColor = .yellow
+//        autoCompleteTableView.backgroundColor = .yellow
         
     }
     
@@ -204,24 +235,33 @@ class SearchBarView: UIView {
     }
     
     @objc func filterDateBtnDidTap(_ sender: UIButton) {
-        self.delegate?.presentCalenderVC()
+        notiCenter.post(name: .searchBarDateBtnDidTap, object: nil)
     }
-   
+    
+    @objc func filterPeopleBtnDidTap(_ sender: UIButton) {
+        notiCenter.post(name: .searchBarPeopleBtnDidTap, object: nil)
+    }
+    
+    @objc func filterRemainsBtnDidTap(_ sender: UIButton) {
+        notiCenter.post(name: .searchBarFilterBtnDidTap, object: nil)
+    }
+    
 }
 
 
 extension SearchBarView: UITextFieldDelegate {
-    func textFieldDidBeginEditing(_ textField: UITextField) {
+    func textFieldDidBeginEditing(_ textField: UITextField) {   // 수정 시작
         notiCenter.post(name: .searchBarEditBegin, object: nil)
         
         self.searchContainerTrailingInSearch = self.searchContainerView.trailingAnchor.constraint(equalTo: self.searchCancelBtn.leadingAnchor, constant: 0)
-     
         
         UIView.animate(withDuration: 0.15) {
             self.searchTF.transform = CGAffineTransform(translationX: -(self.searchImageBtn.frame.width - 15), y: 0)
             self.searchImageBtn.layer.opacity = 0
+            
             self.layoutIfNeeded()
         }
+        self.bringSubviewToFront(autoCompleteTableView)
         
         UIView.animate(withDuration: 0.3, delay: 0.3, usingSpringWithDamping: 1, initialSpringVelocity: 0.5, options: [.curveEaseIn], animations: {
             self.searchContainerTrailingInSearch?.priority = .defaultHigh
@@ -238,12 +278,13 @@ extension SearchBarView: UITextFieldDelegate {
         
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
+    func textFieldDidEndEditing(_ textField: UITextField) {     // 수정 종료
 
         UIView.animateKeyframes(withDuration: 0.6, delay: 0, options: [], animations: {
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.3, animations: {
                 self.searchCancelBtn.layer.opacity = 0
-
+                
+                self.layoutIfNeeded()
             })
             UIView.addKeyframe(withRelativeStartTime: 0.2, relativeDuration: 0.6, animations: {
                 self.searchContainerTrailingInSearch?.priority = .defaultLow
@@ -259,7 +300,7 @@ extension SearchBarView: UITextFieldDelegate {
 
 extension SearchBarView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return 30
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
