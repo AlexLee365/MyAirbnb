@@ -17,7 +17,7 @@ class SearchBarView: UIView {
     
     // MARK: - UI Properties
     let searchContainerView = UIView()
-    let searchImageView = UIImageView()
+    let searchImageBtn = UIButton()
     let searchTF = UITextField()
     let searchCancelBtn = UIButton()
     
@@ -25,7 +25,7 @@ class SearchBarView: UIView {
     let filterPeopleBtn = UIButton()
     lazy var filterStackView = UIStackView(arrangedSubviews: [filterDateBtn, filterPeopleBtn])
     
-    
+    let autoCompleteTableView = UITableView()
     
 
     // MARK: - Properties
@@ -79,34 +79,39 @@ class SearchBarView: UIView {
         searchContainerView.heightAnchor.constraint(equalToConstant: 45).isActive = true
         
         // =================================== searchContainerView begin ===================================
-        searchContainerView.addSubview(searchImageView)
-        searchImageView.translatesAutoresizingMaskIntoConstraints = false
-        searchImageView.leadingAnchor.constraint(equalTo: searchContainerView.leadingAnchor, constant: 15).isActive = true
-        searchImageView.centerYAnchor.constraint(equalTo: searchContainerView.centerYAnchor).isActive = true
-        searchImageView.heightAnchor.constraint(equalTo: searchContainerView.heightAnchor, multiplier: 0.4).isActive = true
-        searchImageView.widthAnchor.constraint(equalTo: searchImageView.heightAnchor, multiplier: 1).isActive = true
+        searchContainerView.addSubview(searchImageBtn)
+        searchImageBtn.translatesAutoresizingMaskIntoConstraints = false
+        searchImageBtn.leadingAnchor.constraint(equalTo: searchContainerView.leadingAnchor, constant: 0).isActive = true
+        searchImageBtn.centerYAnchor.constraint(equalTo: searchContainerView.centerYAnchor).isActive = true
+        searchImageBtn.heightAnchor.constraint(equalTo: searchContainerView.heightAnchor, multiplier: 1).isActive = true
+        searchImageBtn.widthAnchor.constraint(equalTo: searchImageBtn.heightAnchor, multiplier: 1).isActive = true
         
         
         searchContainerView.addSubview(searchTF)
         searchTF.translatesAutoresizingMaskIntoConstraints = false
-        searchTF.leadingAnchor.constraint(equalTo: searchImageView.trailingAnchor, constant: 15).isActive = true
-        searchTF.centerYAnchor.constraint(equalTo: searchImageView.centerYAnchor).isActive = true
+        searchTF.leadingAnchor.constraint(equalTo: searchImageBtn.trailingAnchor, constant: 0).isActive = true
+        searchTF.centerYAnchor.constraint(equalTo: searchImageBtn.centerYAnchor).isActive = true
         searchTF.widthAnchor.constraint(equalTo: searchContainerView.widthAnchor, multiplier: 0.85).isActive = true
-        searchTF.heightAnchor.constraint(equalTo: searchContainerView.heightAnchor, multiplier: 0.7).isActive = true
+        searchTF.heightAnchor.constraint(equalTo: searchContainerView.heightAnchor, multiplier: 1).isActive = true
         
         self.addSubview(searchCancelBtn)
         searchCancelBtn.translatesAutoresizingMaskIntoConstraints = false
         searchCancelBtn.centerYAnchor.constraint(equalTo: searchContainerView.centerYAnchor).isActive = true
         searchCancelBtn.heightAnchor.constraint(equalTo: searchContainerView.heightAnchor, multiplier: 1).isActive = true
-        searchCancelBtn.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20).isActive = true
+        searchCancelBtn.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        searchCancelBtn.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5).isActive = true
         // =================================== searchContainerView end ===================================
         
         self.addSubview(filterStackView)    // 높이: 50
         filterStackView.translatesAutoresizingMaskIntoConstraints = false
         filterStackView.topAnchor.constraint(equalTo: searchContainerView.bottomAnchor).isActive = true
         filterStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: sideMargin).isActive = true
-        filterStackView.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        filterStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0).isActive = true
+        let filterStackViewConstHeight = filterStackView.heightAnchor.constraint(equalToConstant: 50)
+        filterStackViewConstHeight.priority = .defaultHigh // 750
+        filterStackViewConstHeight.isActive = true
+        let filterStackViewConstBottom = filterStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+        filterStackViewConstBottom.priority = .defaultHigh // 750
+        filterStackViewConstBottom.isActive = true
         
         // =================================== filterStackview begin ===================================
         filterDateBtn.topAnchor.constraint(equalTo: filterStackView.topAnchor, constant: 15).isActive = true
@@ -118,6 +123,20 @@ class SearchBarView: UIView {
         filterPeopleBtn.heightAnchor.constraint(equalToConstant: 32).isActive = true
         // =================================== filterStackview end ===================================
         
+        self.addSubview(autoCompleteTableView)
+        let tableviewHeight: CGFloat = UIScreen.main.bounds.height - 55
+        autoCompleteTableView.translatesAutoresizingMaskIntoConstraints = false
+        autoCompleteTableView.topAnchor.constraint(equalTo: searchContainerView.bottomAnchor, constant: 5).isActive = true
+        autoCompleteTableView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        autoCompleteTableView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        let tableViewConstHeight = autoCompleteTableView.heightAnchor.constraint(equalToConstant: 0)
+        tableViewConstHeight.priority = UILayoutPriority(500)
+        tableViewConstHeight.isActive = true
+        let tableViewConstBottom = autoCompleteTableView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+        tableViewConstBottom.priority = UILayoutPriority(rawValue: 500)
+        tableViewConstBottom.isActive = true
+        
+//        self.bringSubviewToFront(filterStackView)
     }
     
     private func configureViewsOptions() {
@@ -131,7 +150,10 @@ class SearchBarView: UIView {
         searchContainerView.layer.cornerRadius = 3
         //        searchContainerView.layer.shadowPath
         
-        searchImageView.image = UIImage(named: "searchIcon")
+        searchImageBtn.setImage(UIImage(named: "searchIcon"), for: .normal)
+        searchImageBtn.imageEdgeInsets = UIEdgeInsets(top: 10, left: 13, bottom: 10, right: 13)
+        searchImageBtn.imageView?.contentMode = .scaleAspectFit
+//        searchImageBtn.backgroundColor = .yellow
         
         searchTF.delegate = self
         searchTF.placeholder = "'쿠알라룸프르'에 가보는 건 어떠세요?"
@@ -147,6 +169,7 @@ class SearchBarView: UIView {
         searchCancelBtn.titleLabel?.font = .systemFont(ofSize: 14, weight: .regular)
         searchCancelBtn.addTarget(self, action: #selector(searchCancelBtnDidTap(_:)), for: .touchUpInside)
         searchCancelBtn.layer.opacity = 0
+//        searchCancelBtn.backgroundColor = .yellow
         
         filterStackView.axis = .horizontal
         filterStackView.alignment = .leading
@@ -167,9 +190,14 @@ class SearchBarView: UIView {
         filterPeopleBtn.layer.borderWidth = 0.5
         filterPeopleBtn.layer.cornerRadius = 5
         
+        autoCompleteTableView.delegate = self
+        autoCompleteTableView.dataSource = self
+        autoCompleteTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        autoCompleteTableView.backgroundColor = .yellow
+        
     }
     
-    @objc func searchCancelBtnDidTap(_ sender: UIButton) {
+    @objc func searchCancelBtnDidTap(_ sender: UIButton) {  // 취소 버튼 => 수정종료
         searchTF.resignFirstResponder()
         searchTF.text = ""
         notiCenter.post(name: .searchBarEditEnd, object: nil)
@@ -186,12 +214,12 @@ extension SearchBarView: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         notiCenter.post(name: .searchBarEditBegin, object: nil)
         
-        self.searchContainerTrailingInSearch = self.searchContainerView.trailingAnchor.constraint(equalTo: self.searchCancelBtn.leadingAnchor, constant: -20)
+        self.searchContainerTrailingInSearch = self.searchContainerView.trailingAnchor.constraint(equalTo: self.searchCancelBtn.leadingAnchor, constant: 0)
      
         
-        UIView.animate(withDuration: 0.2) {
-            self.searchTF.transform = CGAffineTransform(translationX: -self.searchImageView.frame.width-15, y: 0)
-            self.searchImageView.layer.opacity = 0
+        UIView.animate(withDuration: 0.15) {
+            self.searchTF.transform = CGAffineTransform(translationX: -(self.searchImageBtn.frame.width - 15), y: 0)
+            self.searchImageBtn.layer.opacity = 0
             self.layoutIfNeeded()
         }
         
@@ -205,7 +233,7 @@ extension SearchBarView: UITextFieldDelegate {
         UIView.animate(withDuration: 0.5, delay: 0.4, options: [], animations: {
             self.searchCancelBtn.layer.opacity = 1
         }) { (_) in
-            self.searchImageView.isHidden = true
+            self.searchImageBtn.isHidden = true
         }
         
     }
@@ -221,11 +249,25 @@ extension SearchBarView: UITextFieldDelegate {
                 self.searchContainerTrailingInSearch?.priority = .defaultLow
 
                 self.searchTF.transform = CGAffineTransform.identity
-                self.searchImageView.isHidden = false
-                self.searchImageView.layer.opacity = 1
+                self.searchImageBtn.isHidden = false
+                self.searchImageBtn.layer.opacity = 1
                 self.layoutIfNeeded()
             })
         })
     }
+}
+
+extension SearchBarView: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.textLabel?.text = "textCell"
+        return cell
+    }
+    
+    
 }
 

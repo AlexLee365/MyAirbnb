@@ -22,7 +22,7 @@ class TripViewController: UIViewController {
     
     let searchBarView: SearchBarView = {
         let searchBarView = SearchBarView()
-        searchBarView.searchImageView.image = UIImage(named: "back32")
+        searchBarView.searchImageBtn.setImage(UIImage(named: "back32"), for: .normal)
         searchBarView.backgroundColor = .clear
         return searchBarView
     }()

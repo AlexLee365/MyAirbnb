@@ -92,11 +92,11 @@ class MainViewController: UIViewController {
     }
     
     @objc func receiveSearchEditBeginNotification(_ sender: Notification) {
-        print("receiveSearchEditBeginNotification")
+//        print("receiveSearchEditBeginNotification")
 //        UIView.transition(from: mainView, to: testView, duration: 1, options: .transitionCrossDissolve, completion: nil)
     }
     @objc func receiveSearchEditEndNotification(_ sender: Notification) {
-        print("receiveSearchEditEndNotification")
+//        print("receiveSearchEditEndNotification")
 //        UIView.transition(from: testView, to: mainView, duration: 1, options: .transitionCrossDissolve, completion: nil)
     }
 }

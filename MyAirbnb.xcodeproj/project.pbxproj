@@ -212,7 +212,6 @@
 			isa = PBXGroup;
 			children = (
 				4353B8D022CF51F6004BD807 /* MyAirbnb */,
-				4353B8E922D085D0004BD807 /* Extension */,
 				4353B9FD22DC40B5004BD807 /* FSCalendar */,
 				4353B8CF22CF51F6004BD807 /* Products */,
 				C61D96A808C126AE8EE65879 /* Pods */,
@@ -240,6 +239,7 @@
 				4353B8DD22CF51F9004BD807 /* Info.plist */,
 				4353B90B22D4B755004BD807 /* Assets.xcassets */,
 				8D0D788222D209AB00F61F0B /* Font */,
+				4353B8E922D085D0004BD807 /* Extension */,
 			);
 			path = MyAirbnb;
 			sourceTree = "<group>";
@@ -759,13 +759,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = G4MM77V7NH;
+				DEVELOPMENT_TEAM = 5AVJM299X4;
 				INFOPLIST_FILE = MyAirbnb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = kr.doyeong.MyAirbnb;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.AlexLee0427.MyAirbnb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "./FSCalendar/Objc-Bridge-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -779,13 +779,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = G4MM77V7NH;
+				DEVELOPMENT_TEAM = 5AVJM299X4;
 				INFOPLIST_FILE = MyAirbnb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = kr.doyeong.MyAirbnb;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.AlexLee0427.MyAirbnb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "./FSCalendar/Objc-Bridge-Header.h";
 				SWIFT_VERSION = 5.0;
