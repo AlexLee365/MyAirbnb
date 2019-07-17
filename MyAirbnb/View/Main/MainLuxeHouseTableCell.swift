@@ -45,16 +45,22 @@ class MainLuxeHouseTableCell: UITableViewCell {
         let sideMargin: CGFloat = 20
         
         contentView.addSubview(titleLabel)
+        let titleTextHeight:CGFloat = "가".size(withAttributes: [NSAttributedString.Key.font :
+            UIFont.systemFont(ofSize: StandardUIValue.shared.sizeTitleBoldText, weight: .bold)]).height
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: topBottomMargin).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: sideMargin).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -sideMargin*2).isActive = true
+        titleLabel.heightAnchor.constraint(equalToConstant: titleTextHeight).isActive = true
         
         contentView.addSubview(detailTitleLabel)
+        let detailTitleTextHeight:CGFloat = "가".size(withAttributes: [NSAttributedString.Key.font :
+            UIFont.systemFont(ofSize: StandardUIValue.shared.sizeSubTitleText, weight: .semibold)]).height
         detailTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         detailTitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5).isActive = true
         detailTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: sideMargin).isActive = true
         detailTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -sideMargin*2).isActive = true
+        detailTitleLabel.heightAnchor.constraint(equalToConstant: detailTitleTextHeight).isActive = true
         
         
         contentView.addSubview(collectionView)
