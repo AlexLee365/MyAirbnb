@@ -41,7 +41,9 @@ class MainFullImageTableCell: UITableViewCell {
         fullImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: StandardUIValue.shared.mainTableViewCellsTopBottomPadding).isActive = true
         fullImageView.widthAnchor.constraint(equalToConstant: imageWidth).isActive = true
         fullImageView.heightAnchor.constraint(equalTo: fullImageView.widthAnchor, multiplier: 1.25).isActive = true
-        fullImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15).isActive = true
+//        fullImageView.heightAnchor.constraint(equalToConstant: imageWidth*1.25).isActive = true
+        fullImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
+        
         
         let topPadding: CGFloat = 15
         fullImageView.addSubview(detailTitleLabel)
@@ -65,7 +67,9 @@ class MainFullImageTableCell: UITableViewCell {
         fullImageView.contentMode = .scaleAspectFill
         fullImageView.layer.cornerRadius = 10
         fullImageView.clipsToBounds = true
+        fullImageView.layer.masksToBounds = true
         fullImageView.isUserInteractionEnabled = true
+        fullImageView.image = UIImage(named: "MainFullImage")
         
         
         detailTitleLabel.text = "에어비앤비 어드벤처를 소개합니다"

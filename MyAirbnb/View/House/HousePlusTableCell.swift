@@ -16,7 +16,7 @@ class HousePlusTableCell: UITableViewCell {
         static let linesOnScreen: CGFloat = 1
         static let lineSpacing: CGFloat = 13.0
         static let itemSpacing: CGFloat = 0
-        static let edgeInsets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+        static let edgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
         
         static let nextOffset: CGFloat = 80
     }
@@ -104,7 +104,7 @@ class HousePlusTableCell: UITableViewCell {
         collectionView.topAnchor.constraint(equalTo: subLabel.bottomAnchor, constant: 10).isActive = true
         collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        collectionView.heightAnchor.constraint(equalToConstant: collectionViewCellWidth).isActive = true
+        collectionView.heightAnchor.constraint(equalToConstant: collectionViewCellWidth+1).isActive = true
         
         seeAllButton.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 30).isActive = true
         seeAllButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
@@ -143,7 +143,7 @@ extension HousePlusTableCell: UICollectionViewDelegateFlowLayout {
         let horizontalInset = UI.edgeInsets.left + UI.edgeInsets.right
 
         let horizontalSpacing = lineSpacing + horizontalInset + UI.nextOffset
-        let cellWidth: CGFloat = ((collectionView.frame.width - horizontalSpacing) / UI.linesOnScreen) - 20
+        let cellWidth: CGFloat = ((collectionView.frame.width - horizontalSpacing) / UI.linesOnScreen)
         let cellHeight = collectionView.frame.height * 0.9
         
         let roundedWidth = cellWidth.rounded(.down)

@@ -62,7 +62,7 @@ class MainLuxeHouseCollectCell: UICollectionViewCell {
         houseNameLabel.topAnchor.constraint(equalTo: firstStackView.bottomAnchor, constant: 5).isActive = true
         houseNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         houseNameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        
+//        houseNameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
       
     }
     

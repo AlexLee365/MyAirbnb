@@ -58,7 +58,7 @@ class HouseLuxeTableCell: UITableViewCell {
         collectionView.topAnchor.constraint(equalTo: detailTitleLabel.bottomAnchor, constant: 25).isActive = true
         collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        collectionView.heightAnchor.constraint(equalToConstant: collectionViewCellHeight).isActive = true
+        collectionView.heightAnchor.constraint(equalToConstant: collectionViewCellHeight+1).isActive = true
         
         self.addSubview(seeMoreBtn)
         seeMoreBtn.translatesAutoresizingMaskIntoConstraints = false
