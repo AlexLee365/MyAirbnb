@@ -13,7 +13,7 @@ class MainViewController: UIViewController {
     let searchBarView = SearchBarView()
     let houseView = AccommodationView()
     
-    
+    // modify
     var mainView = MainView()
     
     let searchBarTableViewBackWhiteView = UIView()
