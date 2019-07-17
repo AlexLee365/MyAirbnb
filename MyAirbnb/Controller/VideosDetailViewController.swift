@@ -7,8 +7,21 @@
 //
 
 import UIKit
+import AVFoundation
 
 class VideosDetailViewController: UIViewController {
+    
+    let videoData: [[String: String]] = [
+        ["image": "adventure",
+         "videoUrl": "http://tetris.dicemono.xyz/test.mp4"
+        ]
+    ]
+    
+    let tempView = UIView()
+    let videoImageView = UIImageView()
+    let videoView = UIView()
+    
+    var player: AVPlayer!
     
     let tableView: UITableView = {
         let tableView = UITableView()
@@ -21,6 +34,7 @@ class VideosDetailViewController: UIViewController {
     
     let topView = TableviewTopView()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,11 +44,48 @@ class VideosDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         navigationController?.navigationBar.barStyle = .default
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        startAnimate()
+    }
+    
+    func startAnimate() {
+        UIView.animate(withDuration: 0.7, delay: 0.7, options: [], animations: {
+            self.videoImageView.alpha = 0
+            self.player.play()
+            self.view.layoutIfNeeded()
+        })
+    }
+    
+    func setting(data: [String: String]) {
+        let url = URL(string: data["videoUrl"]!)
+        let playerItem = AVPlayerItem(url: url!)
+        player = AVPlayer(playerItem: playerItem)
+        
+        let playerLayer = AVPlayerLayer(player: player)
+        
+        let tempSize = CGSize(width: view.frame.width, height: 500)
+
+        playerLayer.frame = CGRect(origin: .zero, size: tempSize)
+        playerLayer.videoGravity = .resizeAspectFill
+        videoView.layer.addSublayer(playerLayer)
+        
+        videoImageView.image = UIImage(named: data["image"]!)
+        videoImageView.frame = CGRect(origin: .zero, size: tempSize)
+    }
+    
     private func configure() {
+        tempView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 500)
+        tableView.tableHeaderView = tempView
+        
+        tempView.addSubview(videoView)
+        tempView.addSubview(videoImageView)
+        
+        setting(data: videoData[0])
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(VideosDetailTableCell.self, forCellReuseIdentifier: VideosDetailTableCell.identifier)
@@ -55,7 +106,7 @@ class VideosDetailViewController: UIViewController {
         topView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         topView.leadingAnchor.constraint(equalTo: guide.leadingAnchor).isActive = true
         topView.trailingAnchor.constraint(equalTo: guide.trailingAnchor).isActive = true
-        topView.heightAnchor.constraint(equalToConstant: 70).isActive = true
+        topView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.1).isActive = true
     }
 }
 
