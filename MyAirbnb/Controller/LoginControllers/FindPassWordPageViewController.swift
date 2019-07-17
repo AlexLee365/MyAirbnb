@@ -13,7 +13,7 @@ class FindPassWordPageViewController: UIViewController {
     let findScrollView = UIScrollView()
     let backBtn = UIButton(type: .custom)
     
-    
+    // 뷰 디드
     override func viewDidLoad() {
         super.viewDidLoad()
         
