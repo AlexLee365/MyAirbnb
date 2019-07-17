@@ -287,9 +287,9 @@
 				4353B8ED22D088A3004BD807 /* TabbarController.swift */,
 				4353B8E322D0797E004BD807 /* MainViewController.swift */,
 				4353B9FB22DC3A69004BD807 /* CalenderViewController.swift */,
-<<<<<<< HEAD
+
 				8D0D786D22D07C9300F61F0B /* TripViewController.swift */,
-=======
+
 				4353BA3222DDB7CF004BD807 /* FilterPeopleViewController.swift */,
 				4353BA3422DDB7DA004BD807 /* FilterRemainsViewController.swift */,
 				2080602722D6E1FA008672D9 /* SignUpMainViewController.swift */,
@@ -298,7 +298,7 @@
 				2080602D22D751CC008672D9 /* FindPassWordPageViewController.swift */,
 				2080602F22D75258008672D9 /* OptionLoginPageViewController.swift */,
 				2080603122D75274008672D9 /* InputPhoneNumberViewController.swift */,
->>>>>>> 1e74d7d6075242df7d99ae8de7ad7f26b88f7d95
+
 				8D0D789922D3610C00F61F0B /* SeoulRecommendedDetailViewController.swift */,
 				4353B90F22D6DCCB004BD807 /* LoginTestViewController.swift */,
 				8D0D792222DB02D900F61F0B /* HouseViewController.swift */,
@@ -805,21 +805,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-<<<<<<< HEAD
+
 				DEVELOPMENT_TEAM = 64WAG22Y2J;
-=======
-				DEVELOPMENT_TEAM = G4MM77V7NH;
->>>>>>> 1e74d7d6075242df7d99ae8de7ad7f26b88f7d95
 				INFOPLIST_FILE = MyAirbnb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-<<<<<<< HEAD
+
 				PRODUCT_BUNDLE_IDENTIFIER = com.VincentGeranium.master;
-=======
-				PRODUCT_BUNDLE_IDENTIFIER = kr.doyeong.MyAirbnb;
->>>>>>> 1e74d7d6075242df7d99ae8de7ad7f26b88f7d95
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "./FSCalendar/Objc-Bridge-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -833,21 +827,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-<<<<<<< HEAD
+
 				DEVELOPMENT_TEAM = 64WAG22Y2J;
-=======
-				DEVELOPMENT_TEAM = G4MM77V7NH;
->>>>>>> 1e74d7d6075242df7d99ae8de7ad7f26b88f7d95
 				INFOPLIST_FILE = MyAirbnb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-<<<<<<< HEAD
+
 				PRODUCT_BUNDLE_IDENTIFIER = com.VincentGeranium.master;
-=======
-				PRODUCT_BUNDLE_IDENTIFIER = kr.doyeong.MyAirbnb;
->>>>>>> 1e74d7d6075242df7d99ae8de7ad7f26b88f7d95
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "./FSCalendar/Objc-Bridge-Header.h";
 				SWIFT_VERSION = 5.0;
