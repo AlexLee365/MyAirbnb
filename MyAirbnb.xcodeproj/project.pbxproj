@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+
 		207FFE7C22DEC9EE0009E973 /* InputPhoneNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207FFE7622DEC9EE0009E973 /* InputPhoneNumberViewController.swift */; };
 		207FFE7D22DEC9EE0009E973 /* SignUpMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207FFE7722DEC9EE0009E973 /* SignUpMainViewController.swift */; };
 		207FFE7E22DEC9EE0009E973 /* LoginPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207FFE7822DEC9EE0009E973 /* LoginPageViewController.swift */; };
 		207FFE7F22DEC9EE0009E973 /* MakeIdPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207FFE7922DEC9EE0009E973 /* MakeIdPageViewController.swift */; };
 		207FFE8022DEC9EE0009E973 /* FindPassWordPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207FFE7A22DEC9EE0009E973 /* FindPassWordPageViewController.swift */; };
 		207FFE8122DEC9EE0009E973 /* OptionLoginPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207FFE7B22DEC9EE0009E973 /* OptionLoginPageViewController.swift */; };
+
 		2080604122DDC067008672D9 /* ConfirmNoticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2080604022DDC067008672D9 /* ConfirmNoticeViewController.swift */; };
 		4353B8D222CF51F6004BD807 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353B8D122CF51F6004BD807 /* AppDelegate.swift */; };
 		4353B8DC22CF51F9004BD807 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4353B8DA22CF51F9004BD807 /* LaunchScreen.storyboard */; };
@@ -52,6 +54,12 @@
 		4353BA3122DD7F41004BD807 /* SearchBarTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA3022DD7F41004BD807 /* SearchBarTableView.swift */; };
 		4353BA3322DDB7CF004BD807 /* FilterPeopleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA3222DDB7CF004BD807 /* FilterPeopleViewController.swift */; };
 		4353BA3522DDB7DA004BD807 /* FilterRemainsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA3422DDB7DA004BD807 /* FilterRemainsViewController.swift */; };
+		4353BA3C22DEC90B004BD807 /* FindPassWordPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA3622DEC90B004BD807 /* FindPassWordPageViewController.swift */; };
+		4353BA3D22DEC90B004BD807 /* InputPhoneNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA3722DEC90B004BD807 /* InputPhoneNumberViewController.swift */; };
+		4353BA3E22DEC90B004BD807 /* MakeIdPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA3822DEC90B004BD807 /* MakeIdPageViewController.swift */; };
+		4353BA3F22DEC90B004BD807 /* OptionLoginPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA3922DEC90B004BD807 /* OptionLoginPageViewController.swift */; };
+		4353BA4022DEC90B004BD807 /* LoginPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA3A22DEC90B004BD807 /* LoginPageViewController.swift */; };
+		4353BA4122DEC90B004BD807 /* SignUpMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA3B22DEC90B004BD807 /* SignUpMainViewController.swift */; };
 		8D0D786E22D07C9300F61F0B /* TripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D786D22D07C9300F61F0B /* TripViewController.swift */; };
 		8D0D787022D07DE600F61F0B /* TripIntroTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D786F22D07DE600F61F0B /* TripIntroTableViewCell.swift */; };
 		8D0D787222D0810300F61F0B /* SpecialTripTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D787122D0810300F61F0B /* SpecialTripTableViewCell.swift */; };
@@ -99,12 +107,14 @@
 
 /* Begin PBXFileReference section */
 		1B374C2A2B972FE4E8580B8D /* Pods-MyAirbnb.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyAirbnb.release.xcconfig"; path = "Target Support Files/Pods-MyAirbnb/Pods-MyAirbnb.release.xcconfig"; sourceTree = "<group>"; };
+
 		207FFE7622DEC9EE0009E973 /* InputPhoneNumberViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputPhoneNumberViewController.swift; sourceTree = "<group>"; };
 		207FFE7722DEC9EE0009E973 /* SignUpMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpMainViewController.swift; sourceTree = "<group>"; };
 		207FFE7822DEC9EE0009E973 /* LoginPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPageViewController.swift; sourceTree = "<group>"; };
 		207FFE7922DEC9EE0009E973 /* MakeIdPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeIdPageViewController.swift; sourceTree = "<group>"; };
 		207FFE7A22DEC9EE0009E973 /* FindPassWordPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindPassWordPageViewController.swift; sourceTree = "<group>"; };
 		207FFE7B22DEC9EE0009E973 /* OptionLoginPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionLoginPageViewController.swift; sourceTree = "<group>"; };
+
 		2080604022DDC067008672D9 /* ConfirmNoticeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmNoticeViewController.swift; sourceTree = "<group>"; };
 		4353B8CE22CF51F6004BD807 /* MyAirbnb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyAirbnb.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4353B8D122CF51F6004BD807 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -164,6 +174,12 @@
 		4353BA3022DD7F41004BD807 /* SearchBarTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarTableView.swift; sourceTree = "<group>"; };
 		4353BA3222DDB7CF004BD807 /* FilterPeopleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPeopleViewController.swift; sourceTree = "<group>"; };
 		4353BA3422DDB7DA004BD807 /* FilterRemainsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterRemainsViewController.swift; sourceTree = "<group>"; };
+		4353BA3622DEC90B004BD807 /* FindPassWordPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindPassWordPageViewController.swift; sourceTree = "<group>"; };
+		4353BA3722DEC90B004BD807 /* InputPhoneNumberViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputPhoneNumberViewController.swift; sourceTree = "<group>"; };
+		4353BA3822DEC90B004BD807 /* MakeIdPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeIdPageViewController.swift; sourceTree = "<group>"; };
+		4353BA3922DEC90B004BD807 /* OptionLoginPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionLoginPageViewController.swift; sourceTree = "<group>"; };
+		4353BA3A22DEC90B004BD807 /* LoginPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPageViewController.swift; sourceTree = "<group>"; };
+		4353BA3B22DEC90B004BD807 /* SignUpMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpMainViewController.swift; sourceTree = "<group>"; };
 		5895FA9D40FD45C305945B10 /* Pods_MyAirbnb.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyAirbnb.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D0D786D22D07C9300F61F0B /* TripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripViewController.swift; sourceTree = "<group>"; };
 		8D0D786F22D07DE600F61F0B /* TripIntroTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripIntroTableViewCell.swift; sourceTree = "<group>"; };
@@ -225,6 +241,7 @@
 		2080604222DDE6C5008672D9 /* LoginControllers */ = {
 			isa = PBXGroup;
 			children = (
+
 				207FFE7A22DEC9EE0009E973 /* FindPassWordPageViewController.swift */,
 				207FFE7622DEC9EE0009E973 /* InputPhoneNumberViewController.swift */,
 				207FFE7822DEC9EE0009E973 /* LoginPageViewController.swift */,
@@ -586,7 +603,9 @@
 				4353B8F222D319F2004BD807 /* MainView.swift in Sources */,
 				4353B8EE22D088A3004BD807 /* TabbarController.swift in Sources */,
 				4353B8FD22D47C02004BD807 /* UIExtension.swift in Sources */,
+
 				207FFE7E22DEC9EE0009E973 /* LoginPageViewController.swift in Sources */,
+
 				4353BA2D22DC40B5004BD807 /* FSCalendarAppearance.m in Sources */,
 				8D0D78A722D459E200F61F0B /* TodaySeoulExperienceData.swift in Sources */,
 				8D0D78A522D459C900F61F0B /* SeoulRecommendedTripData.swift in Sources */,
@@ -598,6 +617,7 @@
 				4353BA2122DC40B5004BD807 /* FSCalendarCell.m in Sources */,
 				4353BA3522DDB7DA004BD807 /* FilterRemainsViewController.swift in Sources */,
 				8D0D78AE22D485B000F61F0B /* SeoulRecommendDetailData.swift in Sources */,
+				4353BA3E22DEC90B004BD807 /* MakeIdPageViewController.swift in Sources */,
 				8D0D78A122D4598200F61F0B /* TripIntroData.swift in Sources */,
 				8D0D793522DC5F0700F61F0B /* TripLocalHostingViewController.swift in Sources */,
 				8D0D788E22D222A400F61F0B /* TripInfoCollectionViewCell.swift in Sources */,
@@ -608,6 +628,7 @@
 				4353B91222D73B80004BD807 /* FourSquareTableCell.swift in Sources */,
 				207FFE7F22DEC9EE0009E973 /* MakeIdPageViewController.swift in Sources */,
 				8D0D792722DB328900F61F0B /* HousePlusTableCell.swift in Sources */,
+				4353BA3D22DEC90B004BD807 /* InputPhoneNumberViewController.swift in Sources */,
 				8D0D78AA22D4754200F61F0B /* SeoulRecommendTableViewCell.swift in Sources */,
 				4353B8F822D327C2004BD807 /* MainCategoryCollectCell.swift in Sources */,
 				4353BA2322DC40B5004BD807 /* FSCalendar.m in Sources */,
@@ -615,12 +636,17 @@
 				4353B8F422D31D68004BD807 /* MainCategoryTableCell.swift in Sources */,
 				207FFE7D22DEC9EE0009E973 /* SignUpMainViewController.swift in Sources */,
 				4353BA2522DC40B5004BD807 /* FSCalendarWeekdayView.m in Sources */,
+
 				207FFE8022DEC9EE0009E973 /* FindPassWordPageViewController.swift in Sources */,
+
+				4353BA4022DEC90B004BD807 /* LoginPageViewController.swift in Sources */,
+
 				8D0D78AC22D47AA700F61F0B /* InfoView.swift in Sources */,
 				4353B91822D75605004BD807 /* MainLuxeHouseCollectCell.swift in Sources */,
 				8D0D792F22DB7B2600F61F0B /* AllHouseLabelTableCell.swift in Sources */,
 				4353BA2822DC40B5004BD807 /* FSCalendarConstants.m in Sources */,
 				2080604122DDC067008672D9 /* ConfirmNoticeViewController.swift in Sources */,
+				4353BA3F22DEC90B004BD807 /* OptionLoginPageViewController.swift in Sources */,
 				8D0D787522D089AD00F61F0B /* TripIntroCollectionViewCell.swift in Sources */,
 				4353BA2922DC40B5004BD807 /* FSCalendarCalculator.m in Sources */,
 				4353B8F022D22782004BD807 /* SearchBarView.swift in Sources */,
@@ -635,6 +661,7 @@
 				8D0D794422DDE64900F61F0B /* VideoCollectionViewCell.swift in Sources */,
 				4353BA2022DC40B5004BD807 /* FSCalendarDelegationFactory.m in Sources */,
 				8D0D792022DB009100F61F0B /* AccommodationTopLabelTableCell.swift in Sources */,
+				4353BA3C22DEC90B004BD807 /* FindPassWordPageViewController.swift in Sources */,
 				4353B91422D73E0D004BD807 /* FourSquareCollectCell.swift in Sources */,
 				4353B8E422D0797E004BD807 /* MainViewController.swift in Sources */,
 				8D0D794222DDE50900F61F0B /* AVFoundationViewController.swift in Sources */,
@@ -647,6 +674,7 @@
 				8D0D791C22DAFD8600F61F0B /* AccommodationView.swift in Sources */,
 				4353BA2622DC40B5004BD807 /* FSCalendarSeparatorDecorationView.m in Sources */,
 				8D0D792322DB02D900F61F0B /* HouseViewController.swift in Sources */,
+				4353BA4122DEC90B004BD807 /* SignUpMainViewController.swift in Sources */,
 				8D0D793E22DD6C1600F61F0B /* VideoView.swift in Sources */,
 				4353BA1E22DC40B5004BD807 /* FSCalendarCollectionView.m in Sources */,
 				4353B8D222CF51F6004BD807 /* AppDelegate.swift in Sources */,
@@ -795,13 +823,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 64WAG22Y2J;
+
+				DEVELOPMENT_TEAM = 5AVJM299X4;
+
 				INFOPLIST_FILE = MyAirbnb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.VincentGeranium.master;
+
+				PRODUCT_BUNDLE_IDENTIFIER = kr.AlexLee0427.MyAirbnb;
+
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "./FSCalendar/Objc-Bridge-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -815,13 +847,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 64WAG22Y2J;
+
+				DEVELOPMENT_TEAM = 5AVJM299X4;
+
 				INFOPLIST_FILE = MyAirbnb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.VincentGeranium.master;
+
+				PRODUCT_BUNDLE_IDENTIFIER = kr.AlexLee0427.MyAirbnb;
+
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "./FSCalendar/Objc-Bridge-Header.h";
 				SWIFT_VERSION = 5.0;

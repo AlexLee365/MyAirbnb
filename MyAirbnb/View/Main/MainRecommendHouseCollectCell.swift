@@ -72,11 +72,16 @@ class MainRecommendHouseCollectCell: UICollectionViewCell {
         secondStackView.translatesAutoresizingMaskIntoConstraints = false
         secondStackView.topAnchor.constraint(equalTo: houseNameLabel.bottomAnchor, constant: 7).isActive = true
         secondStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        secondStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+//        secondStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         secondStackView.heightAnchor.constraint(equalToConstant: 10).isActive = true
         
         ratingImageLabel.centerYAnchor.constraint(equalTo: secondStackView.centerYAnchor).isActive = true
+        ratingImageLabel.leadingAnchor.constraint(equalTo: secondStackView.leadingAnchor).isActive = true
+//        ratingImageLabel.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        
         ratingAndHostInfoLabel.centerYAnchor.constraint(equalTo: secondStackView.centerYAnchor).isActive = true
+        ratingAndHostInfoLabel.leadingAnchor.constraint(equalTo: ratingImageLabel.trailingAnchor, constant: 3).isActive = true
+//        ratingAndHostInfoLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 100).isActive = true
         
 //        ratingImageLabel.heightAnchor.constraint(equalTo: secondStackView.heightAnchor).isActive = true
 //        ratingAndHostInfoLabel.heightAnchor.constraint(equalTo: secondStackView.heightAnchor).isActive = true
@@ -115,9 +120,11 @@ class MainRecommendHouseCollectCell: UICollectionViewCell {
         ratingImageLabel.text = String(repeating: "★", count: 5)
         ratingImageLabel.textColor = #colorLiteral(red: 0.386121124, green: 0.02965694666, blue: 0.2658225596, alpha: 0.7088505993)
         ratingImageLabel.font = .systemFont(ofSize: 5, weight: .regular)
+        ratingImageLabel.sizeToFit()
         
         ratingAndHostInfoLabel.text = "215 ・ 슈퍼호스트"
         ratingAndHostInfoLabel.font = .systemFont(ofSize: 8, weight: .regular)
         ratingAndHostInfoLabel.textColor = #colorLiteral(red: 0.3221844435, green: 0.3202747703, blue: 0.3236560524, alpha: 1)
+        ratingAndHostInfoLabel.sizeToFit()
     }
 }
