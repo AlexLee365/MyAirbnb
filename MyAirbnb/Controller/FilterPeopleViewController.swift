@@ -12,6 +12,7 @@ class FilterPeopleViewController: UIViewController {
     
     
     // MARK: - UI Properties
+    // 수정
     let backgroundView = UIView()
     
     let containerView = UIView()
