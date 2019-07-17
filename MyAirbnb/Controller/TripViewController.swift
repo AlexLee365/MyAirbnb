@@ -32,6 +32,7 @@ class TripViewController: UIViewController {
         
         configure()
         setAutolayout()
+        navigationController?.interactivePopGestureRecognizer?.delegate = nil
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -185,12 +186,10 @@ extension TripViewController: UITableViewDelegate {
 
 extension TripViewController: TripIntroTableViewCellDelegate {
     func presentView(index: IndexPath) {
-//        let localHostingVC = TripLocalHostingViewController()
         let avFoundationVC = AVFoundationViewController()
         avFoundationVC.beginPageCount = index.row
-//        let navi = UINavigationController(rootViewController: localHostingVC)
-//        present(localHostingVC, animated: true)
-        present(avFoundationVC, animated: true)
+        let navi = UINavigationController(rootViewController: avFoundationVC)
+        present(navi, animated: true)
     }
 }
 

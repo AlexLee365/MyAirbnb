@@ -9,12 +9,16 @@
 import UIKit
 import AVFoundation
 
+protocol VideoCollectionViewCellDelegate: class {
+    func pushView()
+}
+
 class VideoCollectionViewCell: UICollectionViewCell {
     static let identifier = "VideoCollectionViewCell"
 
     private struct Standard {
         static let space: CGFloat = 50
-        static let subViewHeight: CGFloat = 200
+        static let subViewHeight: CGFloat = 170
     }
 
     let categoryLabel: UILabel = {
@@ -40,7 +44,7 @@ class VideoCollectionViewCell: UICollectionViewCell {
         label.textColor = .white
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 15, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -53,25 +57,33 @@ class VideoCollectionViewCell: UICollectionViewCell {
     private let seeDetailButton = UIButton()
     private let imageView = UIImageView()
     
+    weak var delegate: VideoCollectionViewCellDelegate?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        
         configure()
         autoLayout()
-        
     }
     
     func startAnimate() {
-        UIView.animate(withDuration: 0.5, delay: 0.5, options: [], animations: {
+        print("startAnimate")
+        UIView.animate(withDuration: 0.7, delay: 0.7, options: [], animations: {
             self.imageView.alpha = 0
+            self.titleLabel.alpha = 0
+            self.categoryLabel.alpha = 0
+            self.hostLabel.alpha = 0
             self.player.play()
             self.layoutIfNeeded()
         })
     }
     
     func endAnimate() {
+        print("endAnimate")
         imageView.alpha = 1
+        self.titleLabel.alpha = 1
+        self.categoryLabel.alpha = 1
+        self.hostLabel.alpha = 1
         player.pause()
     }
     
@@ -91,6 +103,9 @@ class VideoCollectionViewCell: UICollectionViewCell {
         imageView.image = UIImage(named: data["image"]!)
         imageView.frame = CGRect(origin: .zero, size: tempSize)
         
+        titleLabel.text = data["title"]!
+        categoryLabel.text = data["category"]
+        hostLabel.text = "호스트: \n \(data["hostName"] ?? "")"
         descLabel.text = data["desc"]!
     }
     
@@ -121,6 +136,7 @@ class VideoCollectionViewCell: UICollectionViewCell {
         seeDetailButton.layer.cornerRadius = 9
         seeDetailButton.layer.borderColor = UIColor.white.cgColor
         seeDetailButton.layer.borderWidth = 0.9
+        seeDetailButton.addTarget(self, action: #selector(seeDetailBtnDidTap(_:)), for: .touchUpInside)
         contentView.addSubview(seeDetailButton)
         
         contentView.addSubview(imageView)
@@ -129,8 +145,11 @@ class VideoCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(hostLabel)
     }
     
+    @objc func seeDetailBtnDidTap(_ sender: UIButton) {
+        delegate?.pushView()
+    }
+    
     private func autoLayout() {
-        
         categoryLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         categoryLabel.topAnchor.constraint(equalTo: imageView.topAnchor, constant: 50).isActive = true
         

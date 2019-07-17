@@ -20,7 +20,6 @@ class VideosDetailViewController: UIViewController {
     }()
     
     let topView = TableviewTopView()
-    let bottomView = BottomView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,45 +28,34 @@ class VideosDetailViewController: UIViewController {
         setAutolayout()
     }
     
-    var isStatusBarWhite = true
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-    }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        if isStatusBarWhite {
-            return .lightContent
-        } else {
-            return .default
-        }
+        navigationController?.navigationBar.barStyle = .default
     }
     
     private func configure() {
-        view.backgroundColor = .white
-        
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.register(VideosDetailTableCell.self, forCellReuseIdentifier: VideosDetailTableCell.identifier)
         view.addSubview(tableView)
         
         view.addSubview(topView)
-        view.addSubview(bottomView)
     }
     
     private func setAutolayout() {
+        let guide = view.safeAreaLayoutGuide
+        
         tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: bottomView.topAnchor).isActive = true
+        tableView.leadingAnchor.constraint(equalTo: guide.leadingAnchor).isActive = true
+        tableView.trailingAnchor.constraint(equalTo: guide.trailingAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         
         topView.translatesAutoresizingMaskIntoConstraints = false
-        topView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        topView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        topView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        topView.heightAnchor.constraint(equalToConstant: 75).isActive = true
-        
-        bottomView.translatesAutoresizingMaskIntoConstraints = false
+        topView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        topView.leadingAnchor.constraint(equalTo: guide.leadingAnchor).isActive = true
+        topView.trailingAnchor.constraint(equalTo: guide.trailingAnchor).isActive = true
+        topView.heightAnchor.constraint(equalToConstant: 70).isActive = true
     }
 }
 
@@ -79,55 +67,18 @@ extension VideosDetailViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        switch indexPath.row {
+        case 0:
+            let videoCell = tableView.dequeueReusableCell(withIdentifier: VideosDetailTableCell.identifier, for: indexPath) as! VideosDetailTableCell
+            return videoCell
+        default:
+            return UITableViewCell()
+        }
     }
-    
-    
 }
 
 // MARK: - UITableViewDelegate
 
 extension VideosDetailViewController: UITableViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) else { return }
-        
-        let becomeWhiteEndPoint = cell.frame.height - topView.frame.height
-        let becomeWhiteStartPoint = becomeWhiteEndPoint - 70
-        
-        let opacity = ( scrollView.contentOffset.y - becomeWhiteStartPoint ) / (becomeWhiteEndPoint - becomeWhiteStartPoint)
-        
-        if scrollView.contentOffset.y > becomeWhiteStartPoint {
-            navigationController?.view.backgroundColor = UIColor.white.withAlphaComponent(opacity)
-            topView.backgroundColor = UIColor.white.withAlphaComponent(opacity)
-            topView.backButton.setImage(UIImage(named: "backBlack"), for: .normal)
-            topView.heartButton.setImage(UIImage(named: "heartBlack"), for: .normal)
-            topView.shareButton.setImage(UIImage(named: "shareBlack"), for: .normal)
-            
-            isStatusBarWhite = false
-        } else {
-            navigationController?.view.backgroundColor = UIColor.white.withAlphaComponent(opacity)
-            topView.backgroundColor = UIColor.white.withAlphaComponent(opacity)
-            topView.backButton.setImage(UIImage(named: "backWhite"), for: .normal)
-            topView.heartButton.setImage(UIImage(named: "heartWhite"), for: .normal)
-            topView.shareButton.setImage(UIImage(named: "shareWhite"), for: .normal)
-            isStatusBarWhite = true
-        }
-        
-        let cellHeight = cell.frame.height
-        let currentY = scrollView.contentOffset.y
-        let deviceHeight = UIScreen.main.bounds.height
-        let bottomViewHeight = bottomView.frame.height
-        
-        if (cellHeight - currentY) <= (deviceHeight - bottomViewHeight) {
-            UIView.animate(withDuration: 0.3) {
-                self.bottomView.backgroundColor = .white
-                self.bottomView.makeShadow()
-            }
-        } else {
-            self.bottomView.backgroundColor = .black
-        }
-        
-        setNeedsStatusBarAppearanceUpdate()
-    }
 }
 

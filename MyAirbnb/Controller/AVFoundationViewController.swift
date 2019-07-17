@@ -52,11 +52,12 @@ class AVFoundationViewController: UIViewController {
     let topView = TableviewTopView()
     
     var beginPageCount = 0
+    
     var pageCount = 0 {
         willSet {
             if pageCount != newValue {
-                cells[newValue].startAnimate()
                 cells[pageCount].endAnimate()
+                cells[newValue].startAnimate()
             }
         }
     }
@@ -67,7 +68,7 @@ class AVFoundationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .black
         
         configure()
         autoLayout()
@@ -76,12 +77,14 @@ class AVFoundationViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("viewWIllAppear")
-        
+        navigationController?.navigationBar.isHidden = true
+        navigationController?.navigationBar.barStyle = .black
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         print("viewDidAppear")
+        
         cells[beginPageCount].startAnimate()
     }
     
@@ -105,11 +108,6 @@ class AVFoundationViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         print("viewDidlayoutSubviews")
-        
-    }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
     }
     
     private func configure() {
@@ -148,10 +146,9 @@ class AVFoundationViewController: UIViewController {
         topView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         topView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         topView.heightAnchor.constraint(equalToConstant: 70).isActive = true
+        topView.backButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        topView.backButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
-    
-    
-    
 }
 
 extension AVFoundationViewController: UICollectionViewDataSource {
@@ -162,6 +159,7 @@ extension AVFoundationViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: VideoCollectionViewCell.identifier, for: indexPath) as! VideoCollectionViewCell
         
+        cell.delegate = self
         cell.index = indexPath.row
         cell.setting(data: videoData[indexPath.row])
         cells.append(cell)
@@ -171,7 +169,25 @@ extension AVFoundationViewController: UICollectionViewDataSource {
 }
 
 extension AVFoundationViewController: UICollectionViewDelegate {
+    
+//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//        cells[indexPath.item].startAnimate()
+//
+//    }
+//    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//        cells[indexPath.item].endAnimate()
+//    }
+    
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         pageCount = Int(scrollView.bounds.minX / scrollView.bounds.width)
+    }
+}
+
+// MARK: - VideoCollectionViewCellDelegate
+
+extension AVFoundationViewController: VideoCollectionViewCellDelegate {
+    func pushView() {
+        let videosDetailVC = VideosDetailViewController()
+        navigationController?.pushViewController(videosDetailVC, animated: true)
     }
 }
