@@ -80,7 +80,7 @@ class SignUpMainViewController: UIViewController {
             mainScrollView.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
             mainScrollView.bottomAnchor.constraint(equalTo: guide.bottomAnchor),
             ])
-        mainScrollView.backgroundColor = .black
+        //        mainScrollView.backgroundColor = .black
         
         //        mainScrollView.contentSize.width = view.frame.width
         //        mainScrollView.contentSize.height = view.frame.height
