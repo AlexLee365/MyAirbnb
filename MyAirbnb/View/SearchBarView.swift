@@ -125,9 +125,9 @@ class SearchBarView: UIView {
         
         self.addSubview(filterStackView)    // 높이: 50
         filterStackView.translatesAutoresizingMaskIntoConstraints = false
-        filterStackView.topAnchor.constraint(equalTo: searchContainerView.bottomAnchor).isActive = true
+        filterStackView.topAnchor.constraint(equalTo: searchContainerView.bottomAnchor, constant:  15).isActive = true
         filterStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: sideMargin).isActive = true
-        let filterStackViewConstHeight = filterStackView.heightAnchor.constraint(equalToConstant: 50)
+        let filterStackViewConstHeight = filterStackView.heightAnchor.constraint(equalToConstant: 32)
         filterStackViewConstHeight.priority = .defaultHigh // 750
         filterStackViewConstHeight.isActive = true
         let filterStackViewConstBottom = filterStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
@@ -135,17 +135,17 @@ class SearchBarView: UIView {
         filterStackViewConstBottom.isActive = true
         
         // =================================== filterStackview begin ===================================
-        filterDateBtn.topAnchor.constraint(equalTo: filterStackView.topAnchor, constant: 15).isActive = true
-        filterDateBtn.heightAnchor.constraint(equalToConstant: 32).isActive = true
+        filterDateBtn.topAnchor.constraint(equalTo: filterStackView.topAnchor, constant: 0).isActive = true
+        filterDateBtn.heightAnchor.constraint(equalTo: filterStackView.heightAnchor, multiplier: 1).isActive = true
 //        filterDateBtn.widthAnchor.constraint(equalToConstant: widthConst).isActive = true
         
-        filterPeopleBtn.leadingAnchor.constraint(equalTo: filterDateBtn.trailingAnchor, constant: 8).isActive = true
-        filterPeopleBtn.topAnchor.constraint(equalTo: filterStackView.topAnchor, constant: 15).isActive = true
-        filterPeopleBtn.heightAnchor.constraint(equalToConstant: 32).isActive = true
+//        filterPeopleBtn.leadingAnchor.constraint(equalTo: filterDateBtn.trailingAnchor, constant: 8).isActive = true
+        filterPeopleBtn.topAnchor.constraint(equalTo: filterStackView.topAnchor, constant: 0).isActive = true
+        filterPeopleBtn.heightAnchor.constraint(equalTo: filterStackView.heightAnchor, multiplier: 1).isActive = true
         
-        filterRemainsBtn.leadingAnchor.constraint(equalTo: filterPeopleBtn.trailingAnchor, constant: 8).isActive = true
-        filterRemainsBtn.topAnchor.constraint(equalTo: filterStackView.topAnchor, constant: 15).isActive = true
-        filterRemainsBtn.heightAnchor.constraint(equalToConstant: 32).isActive = true
+//        filterRemainsBtn.leadingAnchor.constraint(equalTo: filterPeopleBtn.trailingAnchor, constant: 8).isActive = true
+        filterRemainsBtn.topAnchor.constraint(equalTo: filterStackView.topAnchor, constant: 0).isActive = true
+        filterRemainsBtn.heightAnchor.constraint(equalTo: filterStackView.heightAnchor, multiplier: 1).isActive = true
         // =========================================================================================================
         
         self.addSubview(autoCompleteTableView)
