@@ -1,15 +1,15 @@
 //
-//  AccommodationTopLabelTableCell.swift
+//  HouseTopLabelTableCell.swift
 //  MyAirbnb
 //
-//  Created by Solji Kim on 14/07/2019.
+//  Created by 행복한 개발자 on 17/07/2019.
 //  Copyright © 2019 Alex Lee. All rights reserved.
 //
 
 import UIKit
 
-class AccommodationTopLabelTableCell: UITableViewCell {
-    static let identifier = "accommodationTopLabelTableCell"
+class HouseTopLabelTableCell: UITableViewCell {
+    static let identifier = "HouseTopLabelTableCell"
     
     let topLabel: UILabel = {
         let label = UILabel()

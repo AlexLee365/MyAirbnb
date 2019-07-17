@@ -48,19 +48,21 @@ class MainCategoryTableCell: UITableViewCell {
         let topBottomMargin = StandardUIValue.shared.mainTableViewCellsTopBottomPadding
         let sideMargin = StandardUIValue.shared.mainViewSideMargin
 
-        self.addSubview(titleLabel)
+        contentView.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: topBottomMargin).isActive = true
-        titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: sideMargin).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -sideMargin*2).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: topBottomMargin).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: sideMargin).isActive = true
+//        titleLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 1, constant: -sideMargin*2).isActive = true
+        titleLabel.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - sideMargin*3).isActive = true
+//        titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -sideMargin*2).isActive = true
         
-        self.addSubview(collectionView)
+        contentView.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 15).isActive = true
-        collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        collectionView.heightAnchor.constraint(equalToConstant: collectionViewCellWidth).isActive = true
-        collectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0).isActive = true
+        collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        collectionView.heightAnchor.constraint(equalToConstant: collectionViewCellWidth+1).isActive = true
+        collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0).isActive = true
     }
     
     private func configureViewsOptions() {
@@ -77,6 +79,8 @@ class MainCategoryTableCell: UITableViewCell {
         layout.scrollDirection = .horizontal
         
         titleLabel.configureMainTableViewCellsTitle()
+        titleLabel.text = "MainCategoryTabelCell"
+        titleLabel.sizeToFit()
 //        titleLabel.font = .systemFont(ofSize: 21, weight: .bold)
     }
     

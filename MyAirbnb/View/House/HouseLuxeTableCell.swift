@@ -18,6 +18,7 @@ class HouseLuxeTableCell: UITableViewCell {
     
     let seeMoreBtn = UIButton()
     
+    let notiCenter = NotificationCenter.default
     
     var collectionViewCellWidth: CGFloat = UIScreen.main.bounds.width * 0.6
     lazy var collectionViewCellHeight: CGFloat = collectionViewCellWidth * 1.2
@@ -58,7 +59,7 @@ class HouseLuxeTableCell: UITableViewCell {
         collectionView.topAnchor.constraint(equalTo: detailTitleLabel.bottomAnchor, constant: 25).isActive = true
         collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        collectionView.heightAnchor.constraint(equalToConstant: collectionViewCellHeight).isActive = true
+        collectionView.heightAnchor.constraint(equalToConstant: collectionViewCellHeight+1).isActive = true
         
         self.addSubview(seeMoreBtn)
         seeMoreBtn.translatesAutoresizingMaskIntoConstraints = false
@@ -118,5 +119,11 @@ extension HouseLuxeTableCell: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         return CGSize(width: collectionViewCellWidth, height: collectionViewCellHeight)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("collectionView Cell didSelect \(indexPath.item)")
+        
+        notiCenter.post(name: .moveToHouseDetailView, object: nil)
     }
 }

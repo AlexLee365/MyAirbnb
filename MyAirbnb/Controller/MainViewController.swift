@@ -11,15 +11,11 @@ import UIKit
 class MainViewController: UIViewController {
 
     let searchBarView = SearchBarView()
-    let houseView = AccommodationView()
     
-    // modify
     var mainView = MainView()
     
     let searchBarTableViewBackWhiteView = UIView()
     let searchBarTableView = SearchBarTableView()
-    
-    let testView = UIView()
     
     let notiCenter = NotificationCenter.default
 
@@ -57,7 +53,7 @@ class MainViewController: UIViewController {
 //        mainView.topAnchor.constraint(equalTo: safeGuide.topAnchor, constant: 110).isActive = true
         mainView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         mainView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-//        mainView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
+        mainView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
         
         view.addSubview(searchBarTableViewBackWhiteView)
         searchBarTableViewBackWhiteView.translatesAutoresizingMaskIntoConstraints = false
@@ -82,8 +78,7 @@ class MainViewController: UIViewController {
         view.backgroundColor = .white
         
 
-        testView.backgroundColor = .yellow
-        testView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        
         
         searchBarTableView.alpha = 0
         searchBarTableViewBackWhiteView.backgroundColor = .white
@@ -101,7 +96,7 @@ class MainViewController: UIViewController {
         if setLayout == false {
             print("MainViewController ViewDidLayoutSubviews")
             let tabbarHeight = self.tabBarController!.tabBar.frame.height
-            mainView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -tabbarHeight).isActive = true
+//            mainView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -tabbarHeight).isActive = true
             
             
             

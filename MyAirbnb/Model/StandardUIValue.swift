@@ -27,4 +27,6 @@ class StandardUIValue {
     // MARK: - Margin
     let mainViewSideMargin: CGFloat = 20
     let mainTableViewCellsTopBottomPadding: CGFloat = 30
+    
+    let houseDetailTopBottomMargin: CGFloat = 25
 }

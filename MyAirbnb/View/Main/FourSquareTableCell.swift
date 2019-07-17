@@ -73,7 +73,7 @@ class FourSquareTableCell: UITableViewCell {
         
         
         
-        layout.minimumInteritemSpacing = 15
+//        layout.minimumInteritemSpacing = 15
 //        layout.minimumLineSpacing = 0
         layout.scrollDirection = .vertical
         

@@ -80,7 +80,7 @@ class MainRecommendHouseCollectCell: UICollectionViewCell {
 //        ratingImageLabel.widthAnchor.constraint(equalToConstant: 50).isActive = true
         
         ratingAndHostInfoLabel.centerYAnchor.constraint(equalTo: secondStackView.centerYAnchor).isActive = true
-        ratingAndHostInfoLabel.leadingAnchor.constraint(equalTo: ratingImageLabel.trailingAnchor, constant: 3).isActive = true
+//        ratingAndHostInfoLabel.leadingAnchor.constraint(equalTo: ratingImageLabel.trailingAnchor, constant: 3).isActive = true
 //        ratingAndHostInfoLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 100).isActive = true
         
 //        ratingImageLabel.heightAnchor.constraint(equalTo: secondStackView.heightAnchor).isActive = true

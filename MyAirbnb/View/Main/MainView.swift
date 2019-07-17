@@ -31,8 +31,11 @@ class MainView: UIView {
         mainTableView.translatesAutoresizingMaskIntoConstraints = false
         mainTableView.topAnchor.constraint(equalTo: self.topAnchor, constant: 0).isActive = true
         mainTableView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        mainTableView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        mainTableView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0).isActive = true
+        mainTableView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1).isActive = true
+//        mainTableView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width).isActive = true
+        mainTableView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 1).isActive = true
+//        mainTableView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+//        mainTableView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0).isActive = true
 
     }
     
@@ -45,8 +48,9 @@ class MainView: UIView {
         mainTableView.register(MainLuxeHouseTableCell.self, forCellReuseIdentifier: MainLuxeHouseTableCell.identifier)
         mainTableView.register(FourSquareTableCell.self, forCellReuseIdentifier: FourSquareTableCell.identifier)
         mainTableView.allowsSelection = false
+//        mainTableView.separatorStyle = .none
         
-        
+//        mainTableView.rowHeight = 500
         mainTableView.rowHeight = UITableView.automaticDimension
         mainTableView.estimatedRowHeight = 100
     }

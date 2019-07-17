@@ -8,6 +8,20 @@
 
 import UIKit
 
+extension Notification.Name {
+    // MARK: - SearchBarView
+    static let searchBarEditBegin = Notification.Name(rawValue: "SearchBarEditBegin")
+    static let searchBarEditEnd = Notification.Name(rawValue: "SearchBarEditEnd")
+    
+    static let searchBarDateBtnDidTap = Notification.Name(rawValue: "SearchBarDateBtnDidTap")
+    static let searchBarPeopleBtnDidTap = Notification.Name(rawValue: "SearchBarPeopleBtnDidTap")
+    static let searchBarFilterBtnDidTap = Notification.Name(rawValue: "SearchBarFilterBtnDidTap")
+    
+    
+    // MARK: -
+    static let moveToHouseDetailView = Notification.Name("MoveToHouseDetailView")
+}
+
 extension UILabel {
     func configureMainTableViewCellsTitle() {   // MainView의 TableViewCell들의 타이틀 텍스트 설정을 통일시켜주는 메소드
         self.font = .systemFont(ofSize: StandardUIValue.shared.sizeTitleBoldText, weight: .bold)
@@ -110,11 +124,4 @@ extension UITapGestureRecognizer {
 }
 
 
-extension Notification.Name {
-    static let searchBarEditBegin = Notification.Name(rawValue: "SearchBarEditBegin")
-    static let searchBarEditEnd = Notification.Name(rawValue: "SearchBarEditEnd")
-    
-    static let searchBarDateBtnDidTap = Notification.Name(rawValue: "SearchBarDateBtnDidTap")
-    static let searchBarPeopleBtnDidTap = Notification.Name(rawValue: "searchBarPeopleBtnDidTap")
-    static let searchBarFilterBtnDidTap = Notification.Name(rawValue: "searchBarFilterBtnDidTap")
-}
+

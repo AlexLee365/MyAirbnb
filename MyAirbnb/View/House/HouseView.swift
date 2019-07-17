@@ -1,15 +1,14 @@
 //
-//  AccommodationView.swift
+//  HouseView.swift
 //  MyAirbnb
 //
-//  Created by Solji Kim on 14/07/2019.
+//  Created by 행복한 개발자 on 17/07/2019.
 //  Copyright © 2019 Alex Lee. All rights reserved.
 //
 
 import UIKit
 
-class AccommodationView: UIView {
-    
+class HouseView: UIView {
     let tableView: UITableView = {
         let tableView = UITableView()
         tableView.rowHeight = UITableView.automaticDimension
@@ -34,7 +33,7 @@ class AccommodationView: UIView {
     private func configure() {
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(AccommodationTopLabelTableCell.self, forCellReuseIdentifier: AccommodationTopLabelTableCell.identifier)
+        tableView.register(HouseTopLabelTableCell.self, forCellReuseIdentifier: HouseTopLabelTableCell.identifier)
         tableView.register(HouseLuxeTableCell.self, forCellReuseIdentifier: HouseLuxeTableCell.identifier)
         tableView.register(HousePlusTableCell.self, forCellReuseIdentifier: HousePlusTableCell.identifier)
         tableView.register(AllHouseLabelTableCell.self, forCellReuseIdentifier: AllHouseLabelTableCell.identifier)
@@ -53,7 +52,7 @@ class AccommodationView: UIView {
 
 // MARK: - UITableViewDataSource
 
-extension AccommodationView: UITableViewDataSource {
+extension HouseView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 15
     }
@@ -61,7 +60,7 @@ extension AccommodationView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
-            let topLabelCell = tableView.dequeueReusableCell(withIdentifier: AccommodationTopLabelTableCell.identifier, for: indexPath) as! AccommodationTopLabelTableCell
+            let topLabelCell = tableView.dequeueReusableCell(withIdentifier: HouseTopLabelTableCell.identifier, for: indexPath) as! HouseTopLabelTableCell
             topLabelCell.topLabel.text = "여행 날짜와 게스트 인원수를 입력하면 1박당 총 요금을 확인할 수 있습니다. 관광세가 추가로 부과될 수 있습니다."
             topLabelCell.selectionStyle = .none
             return topLabelCell
@@ -93,6 +92,6 @@ extension AccommodationView: UITableViewDataSource {
 
 // MARK: - UITabBarDelegate
 
-extension AccommodationView: UITableViewDelegate {
+extension HouseView: UITableViewDelegate {
     
 }

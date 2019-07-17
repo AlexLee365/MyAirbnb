@@ -16,18 +16,35 @@ class HouseViewController: UIViewController {
         return searchBarView
     }()
     
-    let houseView = AccommodationView()
+    let houseView = HouseView()
+    
+    let notiCenter = NotificationCenter.default
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         configure()
         setAutolayout()
+        addNotificationObserver()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        if setLayout == false {
+            let tabbarHeight = self.tabBarController!.tabBar.frame.height
+            houseView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -tabbarHeight).isActive = true
+            
+            setLayout = true
+        }
     }
     
     private func configure() {
@@ -38,6 +55,7 @@ class HouseViewController: UIViewController {
         view.addSubview(houseView)
     }
     
+    var setLayout = false
     private func setAutolayout() {
         let safeGuide = view.safeAreaLayoutGuide
         
@@ -52,16 +70,18 @@ class HouseViewController: UIViewController {
         houseView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     }
     
-    var setLayout = false
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        if setLayout == false {
-            let tabbarHeight = self.tabBarController!.tabBar.frame.height
-            houseView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -tabbarHeight).isActive = true
-            
-            setLayout = true
-        }
+    private func addNotificationObserver() {
+        notiCenter.addObserver(self, selector: #selector(receiveNotificationMoveToHouseDetailVC(_:)), name: .moveToHouseDetailView, object: nil)
     }
+    
+    
+    
+    @objc func receiveNotificationMoveToHouseDetailVC(_ sender: Notification) {
+        let houseDetailVC = HouseDetailViewController()
+        navigationController?.pushViewController(houseDetailVC, animated: true)
+    }
+    
+    
+    
+   
 }
