@@ -11,8 +11,6 @@ import UIKit
 class MainViewController: UIViewController {
 
     let searchBarView = SearchBarView()
-    let houseView = AccommodationView()
-    
     
     var mainView = MainView()
     

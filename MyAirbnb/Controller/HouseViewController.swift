@@ -16,13 +16,19 @@ class HouseViewController: UIViewController {
         return searchBarView
     }()
     
-    let accomodationView = AccommodationView()
+    let houseView = HouseView()
+    
+    let notiCenter = NotificationCenter.default
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         configure()
         setAutolayout()
+        addNotificationObserver()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -30,14 +36,26 @@ class HouseViewController: UIViewController {
         navigationController?.isNavigationBarHidden = true
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        if setLayout == false {
+            let tabbarHeight = self.tabBarController!.tabBar.frame.height
+            houseView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -tabbarHeight).isActive = true
+            
+            setLayout = true
+        }
+    }
+    
     private func configure() {
         view.backgroundColor = .white
         
         view.addSubview(searchBarView)
         
-        view.addSubview(accomodationView)
+        view.addSubview(houseView)
     }
     
+    var setLayout = false
     private func setAutolayout() {
         let safeGuide = view.safeAreaLayoutGuide
         
@@ -46,22 +64,24 @@ class HouseViewController: UIViewController {
         searchBarView.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor).isActive = true
         searchBarView.trailingAnchor.constraint(equalTo: safeGuide.trailingAnchor).isActive = true
         
-        accomodationView.translatesAutoresizingMaskIntoConstraints = false
-        accomodationView.topAnchor.constraint(equalTo: searchBarView.bottomAnchor, constant: 5).isActive = true
-        accomodationView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        accomodationView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        houseView.translatesAutoresizingMaskIntoConstraints = false
+        houseView.topAnchor.constraint(equalTo: searchBarView.bottomAnchor, constant: 5).isActive = true
+        houseView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        houseView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     }
     
-    var setLayout = false
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        if setLayout == false {
-            let tabbarHeight = self.tabBarController!.tabBar.frame.height
-            accomodationView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -tabbarHeight).isActive = true
-            
-            setLayout = true
-        }
+    private func addNotificationObserver() {
+        notiCenter.addObserver(self, selector: #selector(receiveNotificationMoveToHouseDetailVC(_:)), name: .moveToHouseDetailView, object: nil)
     }
+    
+    
+    
+    @objc func receiveNotificationMoveToHouseDetailVC(_ sender: Notification) {
+        let houseDetailVC = HouseDetailViewController()
+        navigationController?.pushViewController(houseDetailVC, animated: true)
+    }
+    
+    
+    
+   
 }
