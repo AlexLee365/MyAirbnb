@@ -12,15 +12,32 @@ import AVFoundation
 class VideosDetailTableCell: UITableViewCell {
     static let identifier = "VideosDetailTableCell"
     
-    private struct Standard {
-        static let space: CGFloat = 50
-        static let subViewHeight: CGFloat = 170
-    }
+    let courseLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
+        label.text = "6일 여행 코스"
+        label.textColor = .white
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     
-    let videoView = UIView()
-    let videoImageView = UIImageView()
+    let titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 29, weight: .bold)
+        label.text = "갈라파고스 슬로푸드 사파리"
+        label.textColor = .white
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     
-    var player: AVPlayer!
+    let regionLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 19, weight: .regular)
+        label.textColor = .white
+        label.text = "푸에르토아요라, Ecuador"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -33,52 +50,24 @@ class VideosDetailTableCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    func startAnimate() {
-        print("startAnimate")
-        UIView.animate(withDuration: 0.7, delay: 0.7, options: [], animations: {
-            self.videoImageView.alpha = 0
-            self.player.play()
-            self.layoutIfNeeded()
-        })
-    }
-    
-    func endAnimate() {
-        print("endAnimate")
-        videoImageView.alpha = 1
-        player.pause()
-    }
-    
-    func setting(data: [String: String]) {
-        let url = URL(string: data["videoUrl"]!)
-        let playerItem = AVPlayerItem(url: url!)
-        player = AVPlayer(playerItem: playerItem)
-        
-        let playerLayer = AVPlayerLayer(player: player)
-        
-        let tempSize = CGSize(width: contentView.frame.width, height: contentView.frame.height - Standard.subViewHeight)
-        
-        playerLayer.frame = CGRect(origin: .zero, size: tempSize)
-        playerLayer.videoGravity = .resizeAspectFill
-        videoView.layer.addSublayer(playerLayer)
-        
-        videoImageView.image = UIImage(named: data["image"]!)
-        videoImageView.frame = CGRect(origin: .zero, size: tempSize)
-        
-//        titleLabel.text = data["title"]!
-//        categoryLabel.text = data["category"]
-//        hostLabel.text = "호스트: \n \(data["hostName"] ?? "")"
-//        descLabel.text = data["desc"]!
-    }
-    
     private func configure() {
         contentView.backgroundColor = .black
         
-        contentView.addSubview(videoView)
+        contentView.addSubview(courseLabel)
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(regionLabel)
     }
     
     private func setAutolayout() {
+        courseLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20).isActive = true
+        courseLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
         
+        titleLabel.topAnchor.constraint(equalTo: courseLabel.bottomAnchor, constant: 10).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
+        
+        regionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10).isActive = true
+        regionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
+        regionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15).isActive = true
     }
     
 }

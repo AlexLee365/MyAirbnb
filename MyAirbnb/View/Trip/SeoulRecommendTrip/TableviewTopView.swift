@@ -18,24 +18,27 @@ class TableviewTopView: UIView {
     
     let backButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .clear
         button.setImage(UIImage(named: "backWhite"), for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        button.imageEdgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     let heartButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .clear
         button.setImage(UIImage(named: "heartWhite"), for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        button.imageEdgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     let shareButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .clear
         button.setImage(UIImage(named: "shareWhite"), for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        button.imageEdgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -69,19 +72,19 @@ class TableviewTopView: UIView {
     
     private func setAutolayout() {
 
-        backButton.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 8).isActive = true
-        backButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 25).isActive = true
-        backButton.widthAnchor.constraint(equalToConstant: 20).isActive = true
-        backButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        backButton.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor).isActive = true
+        backButton.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        backButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        backButton.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         
-        heartButton.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 8).isActive = true
-        heartButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20).isActive = true
-        heartButton.widthAnchor.constraint(equalToConstant: 20).isActive = true
-        heartButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        heartButton.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor).isActive = true
+        heartButton.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        heartButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        heartButton.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
 
-        shareButton.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 8).isActive = true
-        shareButton.trailingAnchor.constraint(equalTo: heartButton.leadingAnchor, constant: -30).isActive = true
-        shareButton.widthAnchor.constraint(equalToConstant: 22).isActive = true
-        shareButton.heightAnchor.constraint(equalToConstant: 22).isActive = true
+        shareButton.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor).isActive = true
+        shareButton.trailingAnchor.constraint(equalTo: heartButton.leadingAnchor).isActive = true
+        shareButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        shareButton.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
     }
 }

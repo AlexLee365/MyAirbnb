@@ -80,7 +80,7 @@ class SeoulRecommendedDetailViewController: UIViewController {
         topView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         topView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         topView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        topView.heightAnchor.constraint(equalToConstant: 75).isActive = true
+        topView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.1).isActive = true
         
         let height = UIScreen.main.bounds.height * 0.1
         bottomView.translatesAutoresizingMaskIntoConstraints = false

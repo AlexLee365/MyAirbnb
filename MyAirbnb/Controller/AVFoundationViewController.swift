@@ -55,9 +55,11 @@ class AVFoundationViewController: UIViewController {
     
     var pageCount = 0 {
         willSet {
+            print("[Log] newValue :", newValue)
+            print("[Log] pageCount :", pageCount)
             if pageCount != newValue {
-                cells[pageCount].endAnimate()
                 cells[newValue].startAnimate()
+                cells[pageCount].endAnimate()
             }
         }
     }
@@ -86,6 +88,12 @@ class AVFoundationViewController: UIViewController {
         print("viewDidAppear")
         
         cells[beginPageCount].startAnimate()
+        cells[pageCount].startAnimate()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        cells[pageCount].endAnimate()
     }
     
     var isLayout = true
@@ -119,13 +127,9 @@ class AVFoundationViewController: UIViewController {
         collectionView.register(VideoCollectionViewCell.self, forCellWithReuseIdentifier: VideoCollectionViewCell.identifier)
         view.addSubview(collectionView)
         
+        topView.delegate = self
         topView.backButton.setImage(UIImage(named: "cancel"), for: .normal)
-        topView.backButton.addTarget(self, action: #selector(closeButtonDidTap(_:)), for: .touchUpInside)
         view.addSubview(topView)
-    }
-    
-    @objc func closeButtonDidTap(_ sender: UIButton) {
-        dismiss(animated: true, completion: nil)
     }
     
     private struct Standard {
@@ -142,12 +146,10 @@ class AVFoundationViewController: UIViewController {
         collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         
         topView.translatesAutoresizingMaskIntoConstraints = false
-        topView.topAnchor.constraint(equalTo: guide.topAnchor).isActive = true
+        topView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         topView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         topView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        topView.heightAnchor.constraint(equalToConstant: 70).isActive = true
-        topView.backButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        topView.backButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        topView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.1).isActive = true
     }
 }
 
@@ -189,5 +191,11 @@ extension AVFoundationViewController: VideoCollectionViewCellDelegate {
     func pushView() {
         let videosDetailVC = VideosDetailViewController()
         navigationController?.pushViewController(videosDetailVC, animated: true)
+    }
+}
+
+extension AVFoundationViewController: TableviewTopViewDelegate {
+    func popView() {
+        dismiss(animated: true, completion: nil)
     }
 }
