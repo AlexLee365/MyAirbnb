@@ -97,7 +97,6 @@ class MakeIdPageViewController: UIViewController {
         keyboardHeight = keyboardRect.height - bottomInsets
         print("safeAreaInsets을 뺀 키보드 높이 : \(keyboardHeight)")
         bottomLayout.constant = -keyboardHeight
-        
     }
     
     // 키보드에 의해 가려지는 nextBtn 과 nextBtnBackground 키보드와 내리기
@@ -178,6 +177,8 @@ class MakeIdPageViewController: UIViewController {
         let nextBtnBgHeight = view.frame.height - (view.frame.height - 80)
         let nextBtnBgWidth = view.frame.width
         let nextBtnWidth = view.frame.width - (view.frame.width - 80)
+        let backBtnWidth = view.frame.width - (view.frame.width - 28)
+        let backBtnHeight = view.frame.height - (view.frame.height - 25)
         
         
         NSLayoutConstraint.activate([
@@ -239,8 +240,8 @@ class MakeIdPageViewController: UIViewController {
             
             backBtn.topAnchor.constraint(equalTo: guide.topAnchor, constant: 10),
             backBtn.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 20),
-            backBtn.widthAnchor.constraint(equalToConstant: checkMarkWidth),
-            backBtn.heightAnchor.constraint(equalToConstant: checkMarkWidth),
+            backBtn.widthAnchor.constraint(equalToConstant: backBtnWidth),
+            backBtn.heightAnchor.constraint(equalToConstant: backBtnHeight),
             
             ])
         
@@ -253,17 +254,17 @@ class MakeIdPageViewController: UIViewController {
         
         
         // 오토레이아웃 테스트 용
-        scrollView.backgroundColor = .black
-        
-        makeIdVCtitle.backgroundColor = .red
-        firstNameInputTitle.backgroundColor = .blue
-        firstNameInputTxtField.backgroundColor = .gray
-        lastNameInputTitle.backgroundColor = .blue
-        lastNameInputTxtField.backgroundColor = .gray
-        firstCheckMarkImage.backgroundColor = .yellow
-        lastCheckMarkImage.backgroundColor = .yellow
-        nextBtnBackground.backgroundColor = .white
-        nextBtn.backgroundColor = .blue
+        //        scrollView.backgroundColor = .black
+        //
+        //        makeIdVCtitle.backgroundColor = .red
+        //        firstNameInputTitle.backgroundColor = .blue
+        //        firstNameInputTxtField.backgroundColor = .gray
+        //        lastNameInputTitle.backgroundColor = .blue
+        //        lastNameInputTxtField.backgroundColor = .gray
+        //        firstCheckMarkImage.backgroundColor = .yellow
+        //        lastCheckMarkImage.backgroundColor = .yellow
+        //        nextBtnBackground.backgroundColor = .white
+        //        nextBtn.backgroundColor = .blue
         //        backBtn.backgroundColor = .yellow
         
     }
@@ -300,13 +301,14 @@ class MakeIdPageViewController: UIViewController {
         
         firstCheckMarkImage.image = UIImage.init(named: "checkMark")
         firstCheckMarkImage.isHidden = true
-        //        firstCheckMarkImage.backgroundColor = .clear
+        firstCheckMarkImage.backgroundColor = .clear
         
         lastCheckMarkImage.image = UIImage.init(named: "checkMark")
         lastCheckMarkImage.isHidden = true
-        //        lastCheckMarkImage.backgroundColor = .clear
+        lastCheckMarkImage.backgroundColor = .clear
         
         nextBtnBackground.backgroundColor = .init(patternImage: UIImage.init(named: "nextBtn_Background")!)
+        
         
         backBtn.backgroundColor = .init(patternImage: UIImage.init(named: "backBtnImage")!)
         backBtn.addTarget(self, action: #selector(didTapBackBtn(_:)), for: .touchUpInside)
@@ -329,7 +331,6 @@ class MakeIdPageViewController: UIViewController {
     }
 }
 
-
 extension MakeIdPageViewController: UITextFieldDelegate {
     
     // 텍스트 필드 옆 체크 버튼 애니메이션 -> 수정 필요
@@ -337,14 +338,22 @@ extension MakeIdPageViewController: UITextFieldDelegate {
         
         let text = textField.text ?? ""
         
+        //        if textField == self.firstNameInputTxtField {
+        //            text = firstNameInputTxtField.text ?? ""
+        //        } else if textField == self.lastNameInputTxtField {
+        //            text = lastNameInputTxtField.text ?? ""
+        //        }
+        
         let replaceText = (text as NSString).replacingCharacters(in: range, with: string)
         
         UIView.animate(withDuration: 0.1, delay: 0, animations: {
             
             if replaceText.isEmpty {
                 self.firstCheckMarkImage.isHidden = true
+                self.lastCheckMarkImage.isHidden = true
             } else {
                 self.firstCheckMarkImage.isHidden = false
+                self.lastCheckMarkImage.isHidden = false
             }
             
             
@@ -369,3 +378,5 @@ extension MakeIdPageViewController: UITextFieldDelegate {
     }
     
 }
+
+
