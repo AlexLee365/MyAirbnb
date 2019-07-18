@@ -48,7 +48,6 @@ class PriceRangeTableCell: UITableViewCell {
     }()
     
     let sliderContainerView = UIView()
-    
     let rangeSlider = PriceRangeSlider(frame: .zero)
     
     var isDateSelected = true
@@ -115,7 +114,13 @@ class PriceRangeTableCell: UITableViewCell {
         
         let sliderWidth: CGFloat = UIScreen.main.bounds.width - 40
         rangeSlider.frame = CGRect(x: 0, y: 10, width: sliderWidth, height: 30)
-        rangeSlider.backgroundColor = .red
+//        rangeSlider.backgroundColor = .red
+        rangeSlider.addTarget(self, action: #selector(rangeSliderValueChanged(_:)), for: .valueChanged)
         sliderContainerView.addSubview(rangeSlider)
+    }
+    
+    @objc func rangeSliderValueChanged(_ rangeSlider: PriceRangeSlider) {
+        let values = "(\(rangeSlider.lowerValue) \(rangeSlider.upperValue))"
+        print("Range slider value changed: \(values)")
     }
 }

@@ -14,9 +14,13 @@ class PriceRangeSlider: UIControl {
     var lowerValue: CGFloat = 0.2
     var upperValue: CGFloat = 0.8
     
+    var trackTintColor = UIColor(white: 0.9, alpha: 1)
+    var trackHighlightTintColor = UIColor(red: 0, green: 0.45, blue: 0.94, alpha: 1)
+    
     var thumbImage = #imageLiteral(resourceName: "Oval")
     
-    private let trackLayer = CALayer()
+//    private let trackLayer = CALayer()
+    private let trackLayer = RangeSliderTrackLayer()
     private let lowerThumbImageView = UIImageView()
     private let upperThumbImageView = UIImageView()
     
@@ -40,7 +44,10 @@ class PriceRangeSlider: UIControl {
     }
     
     private func configure() {
-        trackLayer.backgroundColor = UIColor.blue.cgColor
+        
+//        trackLayer.backgroundColor = UIColor.blue.cgColor
+        trackLayer.rangeSlider = self
+        trackLayer.contentsScale = UIScreen.main.scale
         layer.addSublayer(trackLayer)
         
         lowerThumbImageView.image = thumbImage
@@ -78,5 +85,45 @@ extension PriceRangeSlider {
             upperThumbImageView.isHighlighted = true
         }
         return lowerThumbImageView.isHighlighted || upperThumbImageView.isHighlighted
+    }
+    
+    // slider values are updated inside this function.
+    override func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
+        let location = touch.location(in: self)
+        
+        let deltaLocation = location.x - previousLocation.x
+        let deltaValue = (maximumValue - minimumValue) * deltaLocation / bounds.width
+        
+        previousLocation = location
+        
+        if lowerThumbImageView.isHighlighted {
+            lowerValue += deltaValue
+            lowerValue = boundValue(lowerValue, toLowerValue: minimumValue,
+                                    upperValue: upperValue)
+        } else if upperThumbImageView.isHighlighted {
+            upperValue += deltaValue
+            upperValue = boundValue(upperValue, toLowerValue: lowerValue,
+                                    upperValue: maximumValue)
+        }
+        
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        
+        updateLayerFrames()
+        
+        CATransaction.commit()
+        
+        sendActions(for: .valueChanged)
+        
+        return true
+    }
+    
+    private func boundValue(_ value: CGFloat, toLowerValue lowerValue: CGFloat, upperValue: CGFloat) -> CGFloat {
+        return min(max(value, lowerValue), upperValue)
+    }
+    
+    override func endTracking(_ touch: UITouch?, with event: UIEvent?) {
+        lowerThumbImageView.isHighlighted = false
+        upperThumbImageView.isHighlighted = false
     }
 }

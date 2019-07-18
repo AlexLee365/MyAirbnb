@@ -101,6 +101,7 @@
 		8D518FEE22E06F29009D6792 /* QualifiedHouseTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D518FED22E06F29009D6792 /* QualifiedHouseTableCell.swift */; };
 		8D518FF022E07769009D6792 /* PriceRangeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D518FEF22E07769009D6792 /* PriceRangeTableCell.swift */; };
 		8D518FF222E090D7009D6792 /* PriceRangeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D518FF122E090D7009D6792 /* PriceRangeSlider.swift */; };
+		8D518FF422E0A222009D6792 /* RangeSliderTrackLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D518FF322E0A222009D6792 /* RangeSliderTrackLayer.swift */; };
 		9F10F3C31A75AE56BBBE8FE9 /* Pods_MyAirbnb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5895FA9D40FD45C305945B10 /* Pods_MyAirbnb.framework */; };
 /* End PBXBuildFile section */
 
@@ -221,6 +222,7 @@
 		8D518FED22E06F29009D6792 /* QualifiedHouseTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QualifiedHouseTableCell.swift; sourceTree = "<group>"; };
 		8D518FEF22E07769009D6792 /* PriceRangeTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceRangeTableCell.swift; sourceTree = "<group>"; };
 		8D518FF122E090D7009D6792 /* PriceRangeSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceRangeSlider.swift; sourceTree = "<group>"; };
+		8D518FF322E0A222009D6792 /* RangeSliderTrackLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSliderTrackLayer.swift; sourceTree = "<group>"; };
 		D11C85972DEC34ABFE5E5A06 /* Pods-MyAirbnb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyAirbnb.debug.xcconfig"; path = "Target Support Files/Pods-MyAirbnb/Pods-MyAirbnb.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -499,6 +501,7 @@
 				8D518FED22E06F29009D6792 /* QualifiedHouseTableCell.swift */,
 				8D518FEF22E07769009D6792 /* PriceRangeTableCell.swift */,
 				8D518FF122E090D7009D6792 /* PriceRangeSlider.swift */,
+				8D518FF322E0A222009D6792 /* RangeSliderTrackLayer.swift */,
 			);
 			path = FilterRemains;
 			sourceTree = "<group>";
@@ -665,6 +668,7 @@
 				4353B8F422D31D68004BD807 /* MainCategoryTableCell.swift in Sources */,
 				4353BA2522DC40B5004BD807 /* FSCalendarWeekdayView.m in Sources */,
 				4353BA5C22DECE9F004BD807 /* MakeIdPageViewController.swift in Sources */,
+				8D518FF422E0A222009D6792 /* RangeSliderTrackLayer.swift in Sources */,
 				4353BA6B22DF20B8004BD807 /* HouseDetailBasicInfoTableCell.swift in Sources */,
 				8D0D78AC22D47AA700F61F0B /* InfoView.swift in Sources */,
 				4353B91822D75605004BD807 /* MainLuxeHouseCollectCell.swift in Sources */,
