@@ -12,6 +12,8 @@ class MakeIdPageViewController: UIViewController {
     
     let scrollView = UIScrollView()
     
+    let topBarItem = TopBarItemView()
+    
     let makeIdVCtitle = UILabel()
     
     let firstNameInputTitle = UILabel()
@@ -36,6 +38,9 @@ class MakeIdPageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.navigationBar.isHidden = true
+        
+        topBarItem.delegate = self
         
         // MakeIdPageViewController의 배경 이미지 지정
         view.backgroundColor = .init(patternImage: UIImage.init(named: "AirBnB-background")!)
@@ -113,6 +118,7 @@ class MakeIdPageViewController: UIViewController {
     // addSubViews
     private func addViews() {
         view.addSubview(scrollView)
+        view.addSubview(topBarItem)
         
         scrollView.addSubview(makeIdVCtitle)
         scrollView.addSubview(firstNameInputTitle)
@@ -164,11 +170,13 @@ class MakeIdPageViewController: UIViewController {
         nextBtnBackground.translatesAutoresizingMaskIntoConstraints = false
         nextBtn.translatesAutoresizingMaskIntoConstraints = false
         backBtn.translatesAutoresizingMaskIntoConstraints = false
+        topBarItem.translatesAutoresizingMaskIntoConstraints = false
         
-        scrollView.backgroundColor = .init(patternImage: UIImage.init(named: "AirBnB-background")!)
+        scrollView.backgroundColor = .clear
         scrollView.contentSize.width = view.frame.width
         scrollView.contentSize.height = view.frame.height + 30
         
+        let topBarHeight = view.frame.height - (view.frame.height - 55)
         let labelWidth = view.frame.width - (20 * 2)
         let textFieldWidth = view.frame.width - (33 * 2)
         let underLineHeight = view.frame.height - (view.frame.height - 2)
@@ -182,13 +190,17 @@ class MakeIdPageViewController: UIViewController {
         
         
         NSLayoutConstraint.activate([
+            topBarItem.topAnchor.constraint(equalTo: guide.topAnchor),
+            topBarItem.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
+            topBarItem.trailingAnchor.constraint(equalTo:guide.trailingAnchor),
+            topBarItem.heightAnchor.constraint(equalToConstant: topBarHeight),
             
-            scrollView.topAnchor.constraint(equalTo: guide.topAnchor),
+            scrollView.topAnchor.constraint(equalTo: topBarItem.bottomAnchor, constant: 0),
             scrollView.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: guide.bottomAnchor),
             
-            makeIdVCtitle.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 70),
+            makeIdVCtitle.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 20),
             makeIdVCtitle.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 20),
             makeIdVCtitle.widthAnchor.constraint(equalToConstant: labelWidth),
             
@@ -264,7 +276,7 @@ class MakeIdPageViewController: UIViewController {
         //        firstCheckMarkImage.backgroundColor = .yellow
         //        lastCheckMarkImage.backgroundColor = .yellow
         //        nextBtnBackground.backgroundColor = .white
-        //        nextBtn.backgroundColor = .blue
+        nextBtn.backgroundColor = .blue
         //        backBtn.backgroundColor = .yellow
         
     }
@@ -376,6 +388,14 @@ extension MakeIdPageViewController: UITextFieldDelegate {
         }
         return true
     }
+    
+}
+
+extension MakeIdPageViewController: TopBarItemViewDelegate {
+    func popView() {
+        navigationController?.popViewController(animated: true)
+    }
+    
     
 }
 

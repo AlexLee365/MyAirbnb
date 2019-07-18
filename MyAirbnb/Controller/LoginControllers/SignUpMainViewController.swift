@@ -14,6 +14,7 @@ class SignUpMainViewController: UIViewController {
     
     //    let loginBtn = UIBarButtonItem()
     let moveToLoginVCbtn = UIButton(type: .custom)
+    let signUpTopBarItem = UIView()
     let signUpBtn = UIButton()
     let facebookLoginBtn = UIButton()
     let optionBtn = UIButton()
@@ -34,6 +35,7 @@ class SignUpMainViewController: UIViewController {
         
         addSubViews()
         mainScrollViewLayout()
+        signUpTopBarItemLayout()
         
         btnLayout()
         btnLayoutConfigure()
@@ -54,7 +56,10 @@ class SignUpMainViewController: UIViewController {
     }
     
     private func addSubViews() {
+        view.addSubview(signUpTopBarItem)
         view.addSubview(mainScrollView)
+        signUpTopBarItem.addSubview(moveToLoginVCbtn)
+        
         mainScrollView.addSubview(facebookLoginBtn)
         mainScrollView.addSubview(signUpBtn)
         mainScrollView.addSubview(bnbLogoImage)
@@ -62,7 +67,28 @@ class SignUpMainViewController: UIViewController {
         mainScrollView.addSubview(secondWelcomMsgLbl)
         mainScrollView.addSubview(optionBtn)
         mainScrollView.addSubview(mainDescriptionLbl)
-        mainScrollView.addSubview(moveToLoginVCbtn)
+        
+    }
+    
+    private func signUpTopBarItemLayout() {
+        let guide = view.safeAreaLayoutGuide
+        
+        let signUpTopBarItemHeight = view.frame.height - (view.frame.height - 55)
+        
+        signUpTopBarItem.backgroundColor = .clear
+        
+        signUpTopBarItem.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            signUpTopBarItem.topAnchor.constraint(equalTo: guide.topAnchor),
+            signUpTopBarItem.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
+            signUpTopBarItem.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
+            signUpTopBarItem.heightAnchor.constraint(equalToConstant: signUpTopBarItemHeight)
+            ])
+        
+        // 오토레이아웃 테스트용
+        //        signUpTopBarItem.backgroundColor = .black
+        
     }
     
     // 메인 스크롤 뷰 레이아웃
@@ -70,17 +96,16 @@ class SignUpMainViewController: UIViewController {
         
         let guide = view.safeAreaLayoutGuide
         
-        mainScrollView.backgroundColor = .init(patternImage: UIImage.init(named: "AirBnB-background")!)
+        mainScrollView.backgroundColor = .clear
         
         mainScrollView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            mainScrollView.topAnchor.constraint(equalTo: guide.topAnchor),
+            mainScrollView.topAnchor.constraint(equalTo: signUpTopBarItem.bottomAnchor),
             mainScrollView.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
             mainScrollView.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
             mainScrollView.bottomAnchor.constraint(equalTo: guide.bottomAnchor),
             ])
-        //        mainScrollView.backgroundColor = .black
         
         //        mainScrollView.contentSize.width = view.frame.width
         //        mainScrollView.contentSize.height = view.frame.height
@@ -97,7 +122,7 @@ class SignUpMainViewController: UIViewController {
         bnbLogoImage.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            bnbLogoImage.topAnchor.constraint(equalTo: mainScrollView.topAnchor, constant: 100),
+            bnbLogoImage.topAnchor.constraint(equalTo: mainScrollView.topAnchor, constant: 20),
             bnbLogoImage.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor, constant: 20),
             //            bnbLogoImage.trailingAnchor.constraint(equalTo: mainScrollView.trailingAnchor, constant: -400),
             bnbLogoImage.bottomAnchor.constraint(equalTo: mainScrollView.bottomAnchor, constant: -800),
@@ -124,6 +149,9 @@ class SignUpMainViewController: UIViewController {
     
     private func labelsLayout() {
         
+        let welcomMsgLblHeight = view.frame.height - (view.frame.height - 45)
+        let lblHeight = view.frame.height - (view.frame.height - 55)
+        
         firstWelcomMsgLbl.translatesAutoresizingMaskIntoConstraints = false
         secondWelcomMsgLbl.translatesAutoresizingMaskIntoConstraints = false
         mainDescriptionLbl.translatesAutoresizingMaskIntoConstraints = false
@@ -132,21 +160,21 @@ class SignUpMainViewController: UIViewController {
             firstWelcomMsgLbl.topAnchor.constraint(equalTo: bnbLogoImage.bottomAnchor, constant: 20),
             firstWelcomMsgLbl.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor, constant: 20),
             firstWelcomMsgLbl.trailingAnchor.constraint(equalTo: mainScrollView.trailingAnchor),
-            firstWelcomMsgLbl.heightAnchor.constraint(equalToConstant: 45),
+            firstWelcomMsgLbl.heightAnchor.constraint(equalToConstant: welcomMsgLblHeight),
             
             
             
             secondWelcomMsgLbl.topAnchor.constraint(equalTo: firstWelcomMsgLbl.bottomAnchor, constant: 0),
             secondWelcomMsgLbl.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor, constant: 20),
             secondWelcomMsgLbl.trailingAnchor.constraint(equalTo: mainScrollView.trailingAnchor),
-            secondWelcomMsgLbl.heightAnchor.constraint(equalToConstant: 45),
+            secondWelcomMsgLbl.heightAnchor.constraint(equalToConstant: welcomMsgLblHeight),
             
             
             
             mainDescriptionLbl.topAnchor.constraint(equalTo: optionBtn.bottomAnchor, constant: 40),
             mainDescriptionLbl.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor, constant: 20),
             mainDescriptionLbl.trailingAnchor.constraint(equalTo: mainScrollView.trailingAnchor, constant: -20),
-            mainDescriptionLbl.heightAnchor.constraint(equalToConstant: 55),
+            mainDescriptionLbl.heightAnchor.constraint(equalToConstant: lblHeight),
             ])
         //        secondWelcomMsgLbl.backgroundColor = .black
         //        firstWelcomMsgLbl.backgroundColor = .yellow
@@ -159,8 +187,8 @@ class SignUpMainViewController: UIViewController {
         moveToLoginVCbtn.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            moveToLoginVCbtn.topAnchor.constraint(equalTo: mainScrollView.topAnchor, constant: 10),
-            moveToLoginVCbtn.trailingAnchor.constraint(equalTo: mainScrollView.trailingAnchor, constant: -20),
+            moveToLoginVCbtn.centerYAnchor.constraint(equalTo: signUpTopBarItem.centerYAnchor),
+            moveToLoginVCbtn.trailingAnchor.constraint(equalTo: signUpTopBarItem.trailingAnchor, constant: -20),
             ])
         //        moveToLoginVCbtn.backgroundColor = .white
     }
