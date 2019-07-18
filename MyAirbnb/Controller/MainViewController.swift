@@ -149,7 +149,9 @@ class MainViewController: UIViewController {
     
     @objc func receiveSearchFilterBtnTapNotification(_ sender: Notification) {
         print("receiveSearchFilterBtnTapNotification")
+        let filterRemainsVC = FilterRemainsViewController()
         
+        present(filterRemainsVC, animated: true)
     }
     
     private func showSearchBarTableView() {
