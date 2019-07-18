@@ -48,7 +48,7 @@ class LoginPageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        navigationController?.navigationBar.isHidden = true
         //        view.backgroundColor = .blue
         addViews()
         textFieldsSetup()
@@ -139,6 +139,11 @@ class LoginPageViewController: UIViewController {
         emailTxtField.returnKeyType = .next
         passwordTxtField.returnKeyType = .next
         
+        emailTxtField.keyboardType = .emailAddress
+        passwordTxtField.isSecureTextEntry = true
+        
+        emailTxtField.autocapitalizationType = .none
+        
         emailTxtField.autocorrectionType = .no
         passwordTxtField.autocorrectionType = .no
     }
@@ -210,7 +215,7 @@ class LoginPageViewController: UIViewController {
             findPwBtn.widthAnchor.constraint(equalToConstant: findPwBtnWidth),
             findPwBtn.heightAnchor.constraint(equalToConstant: findPwBtnHeight),
             
-            loginPageTitle.topAnchor.constraint(equalTo: loginScrollView.topAnchor, constant: 10),
+            loginPageTitle.topAnchor.constraint(equalTo: loginScrollView.topAnchor, constant: 20),
             loginPageTitle.leadingAnchor.constraint(equalTo: loginScrollView.leadingAnchor, constant: 20),
             loginPageTitle.widthAnchor.constraint(equalToConstant: labelWidth),
             
@@ -276,8 +281,8 @@ class LoginPageViewController: UIViewController {
         //        emailTxtField.backgroundColor = .black
         //        showAndHideBtn.backgroundColor = .black
         //        passwordTxtField.backgroundColor = .black
-        usePhoneNumberBtn.backgroundColor = .black
-        loginBtn.backgroundColor = .black
+        //        usePhoneNumberBtn.backgroundColor = .black
+        //        loginBtn.backgroundColor = .black
         
         
     }
@@ -336,6 +341,7 @@ class LoginPageViewController: UIViewController {
         keyboardTopView.backgroundColor = .init(patternImage: UIImage(named: "nextBtn_Background")!)
         
         usePhoneNumberBtn.setTitle("전화번호 사용", for: .normal)
+        usePhoneNumberBtn.setTitle("이메일 주소", for: .selected)
         usePhoneNumberBtn.setTitleColor(.white, for: .normal)
         usePhoneNumberBtn.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .init(3))
         usePhoneNumberBtn.backgroundColor = .clear
@@ -360,6 +366,8 @@ class LoginPageViewController: UIViewController {
     }
     
     @objc private func didTapUsePhoneNumberBtn(_ sender: UIButton) {
+        
+        
         print("전화번호 사용 버튼 동작")
     }
     
