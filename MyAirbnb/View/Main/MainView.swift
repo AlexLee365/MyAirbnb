@@ -7,6 +7,16 @@
 //
 
 import UIKit
+enum CellStyle {
+    case flow
+    case grid
+}
+
+struct Travel {
+    let sectionTitle: String
+    let cards: [String]
+    let style: CellStyle = .flow
+}
 
 class MainView: UIView {
     
@@ -14,7 +24,11 @@ class MainView: UIView {
     let mainTableView = UITableView()
     
     // MARK: - Properties
-    
+//    var source: [Travel] = [
+//        Travel(sectionTitle: <#T##String#>, cards: <#T##[String]#>),
+//        Travel(sectionTitle: <#T##String#>, cards: <#T##[String]#>),
+//        Travel(sectionTitle: <#T##String#>, cards: <#T##[String]#>),
+//    ]
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -52,7 +66,7 @@ class MainView: UIView {
         
 //        mainTableView.rowHeight = 500
         mainTableView.rowHeight = UITableView.automaticDimension
-        mainTableView.estimatedRowHeight = 100
+        mainTableView.estimatedRowHeight = 200
     }
 }
 
@@ -62,7 +76,12 @@ extension MainView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let data = source[indexPath.row]
         
+//        switch data.style {
+//        case .flow:
+//
+//        }
         switch indexPath.row {
         case 0 :
             let CategoryCell = tableView.dequeueReusableCell(withIdentifier: MainCategoryTableCell.identifier, for: indexPath) as! MainCategoryTableCell
@@ -98,4 +117,16 @@ extension MainView: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: MainCategoryTableCell.identifier, for: indexPath)
         return cell
     }
+    
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row == 2 {
+            let height = ( (UIScreen.main.bounds.width - 40) * 1.25 ) + 40
+            return height
+        }
+        return UITableView.automaticDimension
+    }
 }
+
+
+

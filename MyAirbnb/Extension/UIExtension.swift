@@ -18,8 +18,12 @@ extension Notification.Name {
     static let searchBarFilterBtnDidTap = Notification.Name(rawValue: "SearchBarFilterBtnDidTap")
     
     
-    // MARK: -
+    // MARK: - House
+    static let moveToHouseView = Notification.Name(rawValue: "MoveToHouseView")
     static let moveToHouseDetailView = Notification.Name("MoveToHouseDetailView")
+    
+    
+    // MARK: -
 }
 
 extension UILabel {

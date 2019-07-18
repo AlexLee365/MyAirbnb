@@ -23,7 +23,8 @@ class MainCategoryTableCell: UITableViewCell {
     // MARK: - Properties
     let collectionViewCellWidth: CGFloat = UIScreen.main.bounds.width * 0.35
     
-    weak var delegate: MainCategoryTableCellDelegate?
+//    weak var delegate: MainCategoryTableCellDelegate?
+    let notiCenter = NotificationCenter.default
     
     // MARK: - LifeCycle
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -112,12 +113,9 @@ extension MainCategoryTableCell: UICollectionViewDataSource, UICollectionViewDel
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        if indexPath.row == 0 {
-//            guard let collectCell = collectionView.cellForItem(at: indexPath) as? MainCategoryCollectCell else {
-//                print("error")
-//                return
-//            }
-            self.delegate?.pushView()
-//        }
+
+//        self.delegate?.pushView()
+        notiCenter.post(name: .moveToHouseView, object: nil)
+
     }
 }

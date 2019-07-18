@@ -46,6 +46,7 @@ class HouseView: UIView {
         tableView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        
     }
 }
 

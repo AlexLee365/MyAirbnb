@@ -27,18 +27,22 @@ class HouseDetailViewController: UIViewController {
         tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: safeGuide.bottomAnchor).isActive = true
     }
     
     private func configureViewsOptions() {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(HouseDetailPicturesTableCell.self, forCellReuseIdentifier: HouseDetailPicturesTableCell.identifier)
+        tableView.register(HouseDetailBasicInfoTableCell.self, forCellReuseIdentifier: HouseDetailBasicInfoTableCell.identifier)
         tableView.contentInsetAdjustmentBehavior = .never
+        tableView.allowsSelection = false
         
         
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 100
+        tableView.estimatedRowHeight = 300
+        
+//        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
     
 
@@ -47,14 +51,32 @@ class HouseDetailViewController: UIViewController {
 
 extension HouseDetailViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: HouseDetailPicturesTableCell.identifier, for: indexPath) as! HouseDetailPicturesTableCell
         
-        return cell
+        switch indexPath.row {
+        case 0:
+            let houseDetailPicturesTableCell = tableView.dequeueReusableCell(withIdentifier: HouseDetailPicturesTableCell.identifier, for: indexPath) as! HouseDetailPicturesTableCell
+            
+            return houseDetailPicturesTableCell
+        case 1:
+            let houseDetailBasicInfoTableCell = tableView.dequeueReusableCell(withIdentifier: HouseDetailBasicInfoTableCell.identifier, for: indexPath) as! HouseDetailBasicInfoTableCell
+            
+            return houseDetailBasicInfoTableCell
+        default : break
+        }
+        
+        return UITableViewCell()
     }
+    
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        if indexPath.row == 1 {
+//            return 800
+//        }
+//        return UITableView.automaticDimension
+//    }
     
     
 }
