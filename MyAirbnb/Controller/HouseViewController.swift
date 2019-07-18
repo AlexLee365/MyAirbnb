@@ -34,17 +34,18 @@ class HouseViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
+        
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        if setLayout == false {
-            let tabbarHeight = self.tabBarController!.tabBar.frame.height
-            houseView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -tabbarHeight).isActive = true
-            
-            setLayout = true
-        }
+//        if setLayout == false {
+//            let tabbarHeight = self.tabBarController!.tabBar.frame.height
+//            houseView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -tabbarHeight).isActive = true
+//
+//            setLayout = true
+//        }
     }
     
     private func configure() {
@@ -53,6 +54,9 @@ class HouseViewController: UIViewController {
         view.addSubview(searchBarView)
         
         view.addSubview(houseView)
+        
+        
+        navigationController?.interactivePopGestureRecognizer?.delegate = nil
     }
     
     var setLayout = false
@@ -68,6 +72,7 @@ class HouseViewController: UIViewController {
         houseView.topAnchor.constraint(equalTo: searchBarView.bottomAnchor, constant: 5).isActive = true
         houseView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         houseView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        houseView.bottomAnchor.constraint(equalTo: safeGuide.bottomAnchor).isActive = true
     }
     
     private func addNotificationObserver() {

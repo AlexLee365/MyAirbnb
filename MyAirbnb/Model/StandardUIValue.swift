@@ -18,6 +18,7 @@ class StandardUIValue {
     let colorWine = #colorLiteral(red: 0.386121124, green: 0.02965694666, blue: 0.2658225596, alpha: 0.7088505993)
     let colorPurple = UIColor(red:0.20, green:0.00, blue:0.47, alpha:1.0)
     let colorBlueGreen = UIColor(red:0.09, green:0.51, blue:0.54, alpha:1.0)
+    let colorBrown = UIColor(red:0.57, green:0.44, blue:0.36, alpha:1.0)
     let colorLineBorder = #colorLiteral(red: 0.625213623, green: 0.6214996576, blue: 0.628070116, alpha: 0.6072880993)
     
     // MARK: - Size

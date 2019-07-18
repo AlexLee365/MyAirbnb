@@ -23,6 +23,7 @@ class HouseDetailPicturesTableCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        print("--------------------------[HouseDetailPictures Table Cell]--------------------------")
         
         setAutoLayout()
         configureViewsOptions()
@@ -41,7 +42,6 @@ class HouseDetailPicturesTableCell: UITableViewCell {
 
     var setLayout = false
     override func layoutSubviews() {
-        print("--------------------------[HouseDetailPictures Table Cell]--------------------------")
         if setLayout == false {
             print("🔵🔵🔵 tableCell Frame: ", self.frame)
             tempHeight = self.frame.height

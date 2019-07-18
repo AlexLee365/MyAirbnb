@@ -33,18 +33,16 @@ class MainFullImageTableCell: UITableViewCell {
     }
     
     private func setAutoLayout() {
+        let sideMargin: CGFloat = StandardUIValue.shared.mainViewSideMargin
         
         contentView.addSubview(fullImageView)
         let imageWidth = UIScreen.main.bounds.width - (StandardUIValue.shared.mainViewSideMargin * 2)
         fullImageView.translatesAutoresizingMaskIntoConstraints = false
-        fullImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: StandardUIValue.shared.mainViewSideMargin).isActive = true
-        fullImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: StandardUIValue.shared.mainTableViewCellsTopBottomPadding).isActive = true
+        fullImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20).isActive = true
+        fullImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: sideMargin).isActive = true
         fullImageView.widthAnchor.constraint(equalToConstant: imageWidth).isActive = true
         fullImageView.heightAnchor.constraint(equalTo: fullImageView.widthAnchor, multiplier: 1.25).isActive = true
-//        fullImageView.heightAnchor.constraint(equalToConstant: imageWidth*1.25).isActive = true
-        fullImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
-        
-        
+
         let topPadding: CGFloat = 15
         fullImageView.addSubview(detailTitleLabel)
         detailTitleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -70,6 +68,7 @@ class MainFullImageTableCell: UITableViewCell {
         fullImageView.layer.masksToBounds = true
         fullImageView.isUserInteractionEnabled = true
         fullImageView.image = UIImage(named: "MainFullImage")
+        
         
         
         detailTitleLabel.text = "에어비앤비 어드벤처를 소개합니다"

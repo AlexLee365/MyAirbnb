@@ -91,6 +91,7 @@ class VideosDetailViewController: UIViewController {
         tableView.register(VideosDetailTableCell.self, forCellReuseIdentifier: VideosDetailTableCell.identifier)
         view.addSubview(tableView)
         
+        topView.delegate = self
         view.addSubview(topView)
     }
     
@@ -131,5 +132,13 @@ extension VideosDetailViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 
 extension VideosDetailViewController: UITableViewDelegate {
+}
+
+// MARK: - TableviewTopViewDelegate
+
+extension VideosDetailViewController: TableviewTopViewDelegate {
+    func popView() {
+        navigationController?.popViewController(animated: true)
+    }
 }
 
