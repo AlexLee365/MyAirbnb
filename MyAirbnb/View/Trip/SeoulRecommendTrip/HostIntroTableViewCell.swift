@@ -71,7 +71,6 @@ class HostIntroTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         profileImage.layer.cornerRadius = profileImage.frame.width / 2
-        
         if isLayout {
             
             isLayout = false
