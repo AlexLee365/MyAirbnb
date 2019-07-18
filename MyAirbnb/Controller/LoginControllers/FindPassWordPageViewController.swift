@@ -10,58 +10,89 @@ import UIKit
 
 class FindPassWordPageViewController: UIViewController {
     
-    let findScrollView = UIScrollView()
-    let backBtn = UIButton(type: .custom)
+    let findPwScrollView = UIScrollView()
     
-    // 뷰 디드
+    let topBarItem = TopBarItemView()
+    
+    let findPassWordTitle = UILabel()
+    let findPassWordSubTitle = UILabel()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .black
+        navigationController?.navigationBar.isHidden = true
+        view.backgroundColor = UIColor.init(patternImage: UIImage(named: "AirBnB-background")!)
+        
+        topBarItem.delegate = self
         
         setupViews()
-        setupConstraints()
+        setupLayout()
         setupConfigure()
+        setupConstraints()
     }
     
     private func setupViews() {
-        view.addSubview(findScrollView)
-        findScrollView.addSubview(backBtn)
+        view.addSubview(findPwScrollView)
+        view.addSubview(topBarItem)
+        findPwScrollView.addSubview(findPassWordTitle)
+        findPwScrollView.addSubview(findPassWordSubTitle)
+    }
+    
+    private func setupLayout() {
+        findPwScrollView.translatesAutoresizingMaskIntoConstraints = false
+        topBarItem.translatesAutoresizingMaskIntoConstraints = false
+        findPassWordTitle.translatesAutoresizingMaskIntoConstraints = false
+        findPassWordSubTitle.translatesAutoresizingMaskIntoConstraints = false
+        
+        let guide = view.safeAreaLayoutGuide
+        let topBarHeight = view.frame.height - (view.frame.height - 55)
+        let labelWidth = view.frame.width - (20 * 2)
+        
+        NSLayoutConstraint.activate([
+            findPwScrollView.topAnchor.constraint(equalTo: guide.topAnchor, constant: 55),
+            findPwScrollView.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
+            findPwScrollView.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
+            findPwScrollView.bottomAnchor.constraint(equalTo: guide.bottomAnchor),
+            
+            topBarItem.topAnchor.constraint(equalTo: guide.topAnchor),
+            topBarItem.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
+            topBarItem.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
+            topBarItem.heightAnchor.constraint(equalToConstant: topBarHeight),
+            
+            findPassWordTitle.topAnchor.constraint(equalTo: findPwScrollView.topAnchor, constant: 20),
+            findPassWordTitle.leadingAnchor.constraint(equalTo: findPwScrollView.leadingAnchor, constant: 20),
+            findPassWordTitle.widthAnchor.constraint(equalToConstant: labelWidth),
+            
+            findPassWordSubTitle.topAnchor.constraint(equalTo: findPassWordTitle.bottomAnchor, constant: 10),
+            findPassWordSubTitle.leadingAnchor.constraint(equalTo: findPwScrollView.leadingAnchor, constant: 20),
+            findPassWordSubTitle.widthAnchor.constraint(equalToConstant: labelWidth),
+            ])
+        
     }
     
     private func setupConstraints() {
-        let guide = view.safeAreaLayoutGuide
-        
-        findScrollView.translatesAutoresizingMaskIntoConstraints = false
-        
-        findScrollView.contentSize.width = view.frame.width
-        findScrollView.contentSize.height = view.frame.height + 10
-        
-        findScrollView.topAnchor.constraint(equalTo: guide.topAnchor).isActive = true
-        findScrollView.leadingAnchor.constraint(equalTo: guide.leadingAnchor).isActive = true
-        findScrollView.trailingAnchor.constraint(equalTo: guide.trailingAnchor).isActive = true
-        findScrollView.bottomAnchor.constraint(equalTo: guide.bottomAnchor).isActive = true
-        
-        findScrollView.backgroundColor = .orange
-        
-        backBtn.translatesAutoresizingMaskIntoConstraints = false
-        let backBtnWidth = self.view.frame.width - (self.view.frame.width - 28)
-        
-        backBtn.topAnchor.constraint(equalTo: findScrollView.topAnchor, constant: 10).isActive = true
-        backBtn.leadingAnchor.constraint(equalTo: findScrollView.leadingAnchor, constant: 20).isActive = true
-        backBtn.widthAnchor.constraint(equalToConstant: backBtnWidth).isActive = true
-        backBtn.heightAnchor.constraint(equalToConstant: backBtnWidth).isActive = true
+        findPwScrollView.contentSize.width = view.frame.width
+        findPwScrollView.contentSize.height = view.frame.height + 10
     }
     
     private func setupConfigure() {
-        backBtn.backgroundColor = .init(patternImage: UIImage(named: "backBtnImage")!)
-        backBtn.addTarget(self, action: #selector(didTapBackBtn(_:)) , for: .touchUpInside)
+        findPwScrollView.backgroundColor = .orange
+        
+        findPassWordTitle.text = "비밀번호를 잊어버리셨나요?"
+        findPassWordTitle.textColor = .white
+        findPassWordTitle.font = UIFont.systemFont(ofSize: 28, weight: UIFont.Weight.init(rawValue:7))
+        
+        findPassWordSubTitle.text = "비밀번호를 다시 설정하려면 이메일을 입력하세요."
+        findPassWordSubTitle.textColor = .white
+        findPassWordSubTitle.font = UIFont.systemFont(ofSize: 18)
+        
     }
     
-    @objc private func didTapBackBtn(_ sender: UIButton) {
+}
+
+extension FindPassWordPageViewController: TopBarItemViewDelegate {
+    func popView() {
         navigationController?.popViewController(animated: true)
     }
-    
-    
-    
 }
