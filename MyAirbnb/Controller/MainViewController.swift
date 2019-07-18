@@ -53,7 +53,7 @@ class MainViewController: UIViewController {
 //        mainView.topAnchor.constraint(equalTo: safeGuide.topAnchor, constant: 110).isActive = true
         mainView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         mainView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        mainView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
+        mainView.bottomAnchor.constraint(equalTo: safeGuide.bottomAnchor, constant: 0).isActive = true
         
         view.addSubview(searchBarTableViewBackWhiteView)
         searchBarTableViewBackWhiteView.translatesAutoresizingMaskIntoConstraints = false
@@ -92,66 +92,66 @@ class MainViewController: UIViewController {
         super.viewDidLayoutSubviews()
         if setLayout == false {
             print("MainViewController ViewDidLayoutSubviews")
-            let tabbarHeight = self.tabBarController!.tabBar.frame.height
+//            let tabbarHeight = self.tabBarController!.tabBar.frame.height
 //            mainView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -tabbarHeight).isActive = true
             
-            
-            
-            if let mainTableCell = mainView.mainTableView.cellForRow(at: IndexPath(row: 0, section: 0))
-                as? MainCategoryTableCell {
-//                mainTableCell.delegate = self
-            }
             setLayout = true
         }
     }
     
     private func addNotificationObserver() {
-        notiCenter.addObserver(self, selector: #selector(receiveSearchEditBeginNotification(_:)), name: .searchBarEditBegin, object: nil)
-        notiCenter.addObserver(self, selector: #selector(receiveSearchEditEndNotification(_:)), name: .searchBarEditEnd, object: nil)
-        notiCenter.addObserver(self, selector: #selector(receiveSearchDateBtnTapNotification(_:)), name: .searchBarDateBtnDidTap, object: nil)
-        notiCenter.addObserver(self, selector: #selector(receiveSearchPeopleBtnTapNotification(_:)), name: .searchBarPeopleBtnDidTap, object: nil)
-        notiCenter.addObserver(self, selector: #selector(receiveSearchFilterBtnTapNotification(_:)), name: .searchBarFilterBtnDidTap, object: nil)
+        notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .searchBarEditBegin, object: nil)
+        notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .searchBarEditEnd, object: nil)
+        notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .searchBarDateBtnDidTap, object: nil)
+        notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .searchBarPeopleBtnDidTap, object: nil)
+        notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .searchBarFilterBtnDidTap, object: nil)
+        notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .moveToHouseView, object: nil)
     }
     
-    @objc func receiveSearchEditBeginNotification(_ sender: Notification) { // 수정 시작
-        print("receiveSearchEditBeginNotification")
-        showSearchBarTableView()
-    }
-    
-    @objc func receiveSearchEditEndNotification(_ sender: Notification) {   // 수정 종료
-        print("receiveSearchEditEndNotification")
-        hideSearchBarTableView()
-    }
-    
-   
-    
-    @objc func receiveSearchDateBtnTapNotification(_ sender: Notification) {
-        print("receiveSearchDateBtnTapNotification")
-        let calendarVC = CalenderViewController()
-        calendarVC.modalPresentationStyle = .overFullScreen
-//        calendarVC.modalPresentationStyle = .overCurrentContext
-        
-        if searchBarView.selectedDatesArray.count > 0 {
-            calendarVC.beginDatesArray = searchBarView.selectedDatesArray
+    @objc func receiveNotification(_ sender: Notification) {
+        switch sender.name {
+        case Notification.Name.searchBarEditBegin:
+            print("receiveSearchEditBeginNotification")
+            showSearchBarTableView()
+            
+        case Notification.Name.searchBarEditEnd:
+            print("receiveSearchEditEndNotification")
+            hideSearchBarTableView()
+            
+        case Notification.Name.searchBarDateBtnDidTap:
+            print("receiveSearchDateBtnTapNotification")
+            let calendarVC = CalenderViewController()
+            calendarVC.modalPresentationStyle = .overFullScreen
+            //        calendarVC.modalPresentationStyle = .overCurrentContext
+            
+            if searchBarView.selectedDatesArray.count > 0 {
+                calendarVC.beginDatesArray = searchBarView.selectedDatesArray
+            }
+            
+            present(calendarVC, animated: false)
+            
+        case Notification.Name.searchBarPeopleBtnDidTap:
+            print("receiveSearchPeopleBtnTapNotification")
+            let filterPeopleVC = FilterPeopleViewController()
+            filterPeopleVC.selectedPeople = searchBarView.selectedPeople
+            
+            filterPeopleVC.modalPresentationStyle = .overFullScreen
+            present(filterPeopleVC, animated: false)
+            
+        case Notification.Name.searchBarFilterBtnDidTap:
+            print("receiveSearchFilterBtnTapNotification")
+            let filterRemainsVC = FilterRemainsViewController()
+            
+            present(filterRemainsVC, animated: true)
+            
+        case Notification.Name.moveToHouseView:
+            print("receiveMoveToHouseViewNotification")
+            
+            let houseVC = HouseViewController()
+            navigationController?.pushViewController(houseVC, animated: false)
+            
+        default : break
         }
-
-        present(calendarVC, animated: false)
-    }
-    
-    @objc func receiveSearchPeopleBtnTapNotification(_ sender: Notification) {
-        print("receiveSearchPeopleBtnTapNotification")
-        let filterPeopleVC = FilterPeopleViewController()
-        filterPeopleVC.selectedPeople = searchBarView.selectedPeople
-        
-        filterPeopleVC.modalPresentationStyle = .overFullScreen
-        present(filterPeopleVC, animated: false)
-    }
-    
-    @objc func receiveSearchFilterBtnTapNotification(_ sender: Notification) {
-        print("receiveSearchFilterBtnTapNotification")
-        let filterRemainsVC = FilterRemainsViewController()
-        
-        present(filterRemainsVC, animated: true)
     }
     
     private func showSearchBarTableView() {
@@ -184,14 +184,5 @@ class MainViewController: UIViewController {
     }
     
 }
-
-
-extension MainViewController: MainCategoryTableCellDelegate {
-    func pushView() {
-        let houseVC = HouseViewController()
-        navigationController?.pushViewController(houseVC, animated: false)
-    }
-}
-
 
 

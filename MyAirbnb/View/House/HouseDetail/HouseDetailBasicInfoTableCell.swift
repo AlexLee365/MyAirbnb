@@ -129,7 +129,7 @@ class HouseDetailBasicInfoTableCell: UITableViewCell {
         
         self.addSubview(typeDetailLabel)
         typeDetailLabel.translatesAutoresizingMaskIntoConstraints = false
-        typeDetailLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: typeLabel.leadingAnchor, multiplier: 1).isActive = true
+        typeDetailLabel.leadingAnchor.constraint(equalTo: typeLabel.leadingAnchor).isActive = true
         typeDetailLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -sideMargin).isActive = true
         typeDetailLabel.topAnchor.constraint(equalTo: typeLabel.bottomAnchor, constant: textLineSpacing).isActive = true
         
