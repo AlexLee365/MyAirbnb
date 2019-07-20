@@ -209,7 +209,7 @@ class HouseDetailBasicInfoTableCell: UITableViewCell {
         checkInDetailLabel.topAnchor.constraint(equalTo: checkInLabel.bottomAnchor, constant: textLineSpacing).isActive = true
         checkInDetailLabel.leadingAnchor.constraint(equalTo: checkInLabel.leadingAnchor).isActive = true
         checkInDetailLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -sideMargin).isActive = true
-        checkInDetailLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20).isActive = true
+        checkInDetailLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -StandardUIValue.shared.houseDetailTopBottomMargin).isActive = true
         
     }
     

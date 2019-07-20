@@ -58,7 +58,7 @@ class MainRecommendHouseTableCell: UITableViewCell {
         collectionView.register(MainRecommendHouseCollectCell.self, forCellWithReuseIdentifier: MainRecommendHouseCollectCell.identifier)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = .white
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: StandardUIValue.shared.mainViewSideMargin, bottom: 0, right: 0)
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: StandardUIValue.shared.mainViewSideMargin, bottom: 0, right: StandardUIValue.shared.mainViewSideMargin)
         
         
        
