@@ -43,7 +43,8 @@ class HouseDetailBedroomsTableCell: UITableViewCell {
 //            let width = (collectionView.frame.width - lineSpacing - horizontalPadding) / Metric.numberOfLine
 //            let height = (collectionView.frame.height - itemSpacing - verticalPadding) / Metric.numberOfItem
             
-            return CGSize(width: width.rounded(.down), height: height.rounded(.down))
+//            return CGSize(width: width.rounded(.down), height: height.rounded(.down))
+            return CGSize.zero
         }
     }
 
@@ -66,7 +67,7 @@ class HouseDetailBedroomsTableCell: UITableViewCell {
         collectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: topBottomMargin).isActive = true
         collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: sideMargin).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: sideMargin).isActive = true
-        collectionView.heightAnchor.constraint(equalTo: <#T##NSLayoutAnchor<NSLayoutDimension>#>, constant: <#T##CGFloat#>)
+//        collectionView.heightAnchor.constraint(equalTo: <#T##NSLayoutAnchor<NSLayoutDimension>#>, constant: <#T##CGFloat#>)
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -26,5 +26,9 @@ class HouseDetailStayingDaysTableCell: UITableViewCell {
         label.configureHouseDetailSubText()
         label.text = "최소 1박"
     }
-
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 }
