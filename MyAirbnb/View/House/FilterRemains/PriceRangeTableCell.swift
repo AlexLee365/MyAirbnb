@@ -69,6 +69,8 @@ class PriceRangeTableCell: UITableViewCell {
     
     
     private func configure() {
+        self.selectionStyle = .none
+        
         contentView.addSubview(titleLabel)
         contentView.addSubview(subLabel)
         
@@ -92,7 +94,7 @@ class PriceRangeTableCell: UITableViewCell {
     private func showPriceSlider() {
         subLabel.isHidden = true
     
-        priceRangeLabel.text = "₩12,000 - ₩234,917"
+//        priceRangeLabel.text = "₩12,000 - ₩234,917"
         avrPriceLabel.text = "평균 1박 요금은 ₩114,043입니다"
         
         priceRangeLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 28).isActive = true
@@ -112,15 +114,35 @@ class PriceRangeTableCell: UITableViewCell {
         sliderContainerBottom.priority = UILayoutPriority(1000)
         sliderContainerBottom.isActive = true
         
-        let sliderWidth: CGFloat = UIScreen.main.bounds.width - 40
-        rangeSlider.frame = CGRect(x: 0, y: 10, width: sliderWidth, height: 30)
-//        rangeSlider.backgroundColor = .red
+        let sliderBackgroundWidth: CGFloat = UIScreen.main.bounds.width - 40
+        
+        let sliderBackGroundView = UIView()
+        sliderContainerView.addSubview(sliderBackGroundView)
+        sliderBackGroundView.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
+        sliderBackGroundView.frame = CGRect(x: 0, y: 12.5, width: sliderBackgroundWidth-3, height: 3)
+        
+        
+        rangeSlider.frame = CGRect(x: 17.5, y: 0, width: sliderBackgroundWidth-35, height: 30)
         rangeSlider.addTarget(self, action: #selector(rangeSliderValueChanged(_:)), for: .valueChanged)
         sliderContainerView.addSubview(rangeSlider)
     }
     
     @objc func rangeSliderValueChanged(_ rangeSlider: PriceRangeSlider) {
-        let values = "(\(rangeSlider.lowerValue) \(rangeSlider.upperValue))"
-        print("Range slider value changed: \(values)")
+//        let values = "(\(rangeSlider.lowerValue) \(rangeSlider.upperValue))"
+//        print("Range slider value changed: \(values)")
+        
+//        let numberFormatter = NumberFormatter()
+//        numberFormatter.numberStyle = .decimal
+//        numberFormatter.maximumFractionDigits = 0
+//        let minPrice = 12000
+//        let maxPrice = 1000000
+//        priceRangeLabel.text = numberFormatter.string(from: NSNumber(value: minPrice))
     }
+    
+//    private func limitFractionDigits(to numString: String) -> String {
+//        guard let number = Double(numString) else { return "0" }
+//        let formatter = NumberFormatter()
+//        numberFormatter.numberStyle = .decimal
+//        numberFormatter.maximumFractionDigits = 0
+//    }
 }

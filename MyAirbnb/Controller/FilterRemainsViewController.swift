@@ -52,6 +52,7 @@ class FilterRemainsViewController: UIViewController {
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
+        tableView.showsVerticalScrollIndicator = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -71,6 +72,7 @@ class FilterRemainsViewController: UIViewController {
         tableView.register(InstantBookTableCell.self, forCellReuseIdentifier: InstantBookTableCell.identifier)
         tableView.register(QualifiedHouseTableCell.self, forCellReuseIdentifier: QualifiedHouseTableCell.identifier)
         tableView.register(PriceRangeTableCell.self, forCellReuseIdentifier: PriceRangeTableCell.identifier)
+        tableView.register(HouseTypeTableCell.self, forCellReuseIdentifier: HouseTypeTableCell.identifier)
         view.addSubview(tableView)
         
         view.addSubview(topView)
@@ -95,7 +97,7 @@ class FilterRemainsViewController: UIViewController {
 
 extension FilterRemainsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return 4
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -109,6 +111,9 @@ extension FilterRemainsViewController: UITableViewDataSource {
         case 2:
             let priceRangeCell = tableView.dequeueReusableCell(withIdentifier: PriceRangeTableCell.identifier, for: indexPath) as! PriceRangeTableCell
             return priceRangeCell
+        case 3:
+            let houseTypeCell = tableView.dequeueReusableCell(withIdentifier: HouseTypeTableCell.identifier, for: indexPath) as! HouseTypeTableCell
+            return houseTypeCell
         default:
             return UITableViewCell()
         }

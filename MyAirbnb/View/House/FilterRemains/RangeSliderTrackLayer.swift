@@ -19,7 +19,7 @@ class RangeSliderTrackLayer: CALayer {
         let path = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
         ctx.addPath(path.cgPath)
         
-        ctx.setFillColor(slider.trackTintColor.cgColor)
+        ctx.setFillColor(UIColor.clear.cgColor)
         ctx.fillPath()
         
         ctx.setFillColor(slider.trackHighlightTintColor.cgColor)
