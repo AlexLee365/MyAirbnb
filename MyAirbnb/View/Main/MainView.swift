@@ -75,6 +75,12 @@ extension MainView: UITableViewDelegate, UITableViewDataSource {
         return 5
     }
     
+    enum CellStyle: String {
+        case category, recommend, fullImage
+    }
+    
+//    let data = [fullImage, mainCategory, recommend, ]
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 //        let data = source[indexPath.row]
         
@@ -82,6 +88,9 @@ extension MainView: UITableViewDelegate, UITableViewDataSource {
 //        case .flow:
 //
 //        }
+//        UIButton().setImage(<#T##image: UIImage?##UIImage?#>, for: .selected)
+//        let cellStyle = CellStyle(rawValue: data[indexPath.row].identifier)
+        
         switch indexPath.row {
         case 0 :
             let CategoryCell = tableView.dequeueReusableCell(withIdentifier: MainCategoryTableCell.identifier, for: indexPath) as! MainCategoryTableCell

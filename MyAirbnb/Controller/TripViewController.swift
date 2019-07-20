@@ -66,7 +66,6 @@ class TripViewController: UIViewController {
         tableView.register(SpecialTripTableViewCell.self, forCellReuseIdentifier: SpecialTripTableViewCell.identifier)
         tableView.register(SeoulRecommenedTripTableViewCell.self, forCellReuseIdentifier: SeoulRecommenedTripTableViewCell.identifier)
         tableView.register(TodaySeoulExperienceTableViewCell.self, forCellReuseIdentifier: TodaySeoulExperienceTableViewCell.identifier)
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         view.addSubview(tableView)
         
         view.addSubview(searchBarView)
@@ -104,7 +103,7 @@ class TripViewController: UIViewController {
 
 extension TripViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 4
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -148,13 +147,8 @@ extension TripViewController: UITableViewDataSource {
             
             return todaySeoulExperienceCell
             
-        } else {
-            tableView.rowHeight = 510
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-            
-            return cell
         }
+        return UITableViewCell()
     }
 }
 
