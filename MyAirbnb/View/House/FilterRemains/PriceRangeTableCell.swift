@@ -13,7 +13,7 @@ class PriceRangeTableCell: UITableViewCell {
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 17.8, weight: .medium)
+        label.font = UIFont.systemFont(ofSize: 17.8, weight: .semibold)
         label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
         label.text = "가격 범위"
         label.translatesAutoresizingMaskIntoConstraints = false
