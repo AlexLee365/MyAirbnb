@@ -14,6 +14,8 @@ class FindPassWordPageViewController: UIViewController {
     
     let topBarItem = TopBarItemView()
     
+    let inputEmailAndPhoneItem = InputEmailAndPhoneView()
+    
     let findPassWordTitle = UILabel()
     let findPassWordSubTitle = UILabel()
     
@@ -25,6 +27,7 @@ class FindPassWordPageViewController: UIViewController {
         view.backgroundColor = UIColor.init(patternImage: UIImage(named: "AirBnB-background")!)
         
         topBarItem.delegate = self
+        inputEmailAndPhoneItem.delegate = self
         
         setupViews()
         setupLayout()
@@ -37,6 +40,7 @@ class FindPassWordPageViewController: UIViewController {
         view.addSubview(topBarItem)
         findPwScrollView.addSubview(findPassWordTitle)
         findPwScrollView.addSubview(findPassWordSubTitle)
+        findPwScrollView.addSubview(inputEmailAndPhoneItem)
     }
     
     private func setupLayout() {
@@ -44,10 +48,12 @@ class FindPassWordPageViewController: UIViewController {
         topBarItem.translatesAutoresizingMaskIntoConstraints = false
         findPassWordTitle.translatesAutoresizingMaskIntoConstraints = false
         findPassWordSubTitle.translatesAutoresizingMaskIntoConstraints = false
+        inputEmailAndPhoneItem.translatesAutoresizingMaskIntoConstraints = false
         
         let guide = view.safeAreaLayoutGuide
         let topBarHeight = view.frame.height - (view.frame.height - 55)
         let labelWidth = view.frame.width - (20 * 2)
+        let inputEmailAndPhoneItemHeight = view.frame.height - (view.frame.height - 100)
         
         NSLayoutConstraint.activate([
             findPwScrollView.topAnchor.constraint(equalTo: guide.topAnchor, constant: 55),
@@ -67,6 +73,11 @@ class FindPassWordPageViewController: UIViewController {
             findPassWordSubTitle.topAnchor.constraint(equalTo: findPassWordTitle.bottomAnchor, constant: 10),
             findPassWordSubTitle.leadingAnchor.constraint(equalTo: findPwScrollView.leadingAnchor, constant: 20),
             findPassWordSubTitle.widthAnchor.constraint(equalToConstant: labelWidth),
+            //30
+            inputEmailAndPhoneItem.topAnchor.constraint(equalTo: findPassWordSubTitle.bottomAnchor, constant: 30),
+            inputEmailAndPhoneItem.leadingAnchor.constraint(equalTo: findPwScrollView.leadingAnchor),
+            inputEmailAndPhoneItem.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
+            inputEmailAndPhoneItem.heightAnchor.constraint(equalToConstant: inputEmailAndPhoneItemHeight),
             ])
         
     }
@@ -77,7 +88,10 @@ class FindPassWordPageViewController: UIViewController {
     }
     
     private func setupConfigure() {
-        findPwScrollView.backgroundColor = .orange
+        
+        //        오토레이아웃 테스트용
+        //        findPwScrollView.backgroundColor = .orange
+        findPwScrollView.backgroundColor = .clear
         
         findPassWordTitle.text = "비밀번호를 잊어버리셨나요?"
         findPassWordTitle.textColor = .white
@@ -94,5 +108,13 @@ class FindPassWordPageViewController: UIViewController {
 extension FindPassWordPageViewController: TopBarItemViewDelegate {
     func popView() {
         navigationController?.popViewController(animated: true)
+    }
+}
+
+extension FindPassWordPageViewController: InputEmailAndPhoneViewDelegate {
+    func presentPickNationalNumberView() {
+        let pickNationalNumberVC = PickNationalNumberViewController()
+        
+        present(pickNationalNumberVC, animated: true, completion: nil)
     }
 }

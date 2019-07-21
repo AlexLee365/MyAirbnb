@@ -276,7 +276,7 @@ class MakeIdPageViewController: UIViewController {
         //        firstCheckMarkImage.backgroundColor = .yellow
         //        lastCheckMarkImage.backgroundColor = .yellow
         //        nextBtnBackground.backgroundColor = .white
-        nextBtn.backgroundColor = .blue
+        //        nextBtn.backgroundColor = .blue
         //        backBtn.backgroundColor = .yellow
         
     }

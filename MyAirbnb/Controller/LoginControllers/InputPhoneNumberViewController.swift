@@ -33,6 +33,8 @@ class InputPhoneNumberViewController: UIViewController {
     var keyboardHeight: CGFloat = 0
     var bottomInsets: CGFloat = 0
     
+    let makePwVC = MakePwPageViewContorller()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = true
@@ -149,6 +151,7 @@ class InputPhoneNumberViewController: UIViewController {
         rejectReceptionMsgLbl.translatesAutoresizingMaskIntoConstraints = false
         receptionSwitch.translatesAutoresizingMaskIntoConstraints = false
         keyboardTopViewItem.translatesAutoresizingMaskIntoConstraints = false
+        
         
         let guide = view.safeAreaLayoutGuide
         
@@ -281,7 +284,7 @@ class InputPhoneNumberViewController: UIViewController {
 
 extension InputPhoneNumberViewController: KeyboardTopViewDelegate {
     func pushView() {
-        print("메인 화면 뜨게 하기")
+        navigationController?.pushViewController(makePwVC, animated: true)
     }
 }
 
