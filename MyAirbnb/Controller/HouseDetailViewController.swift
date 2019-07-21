@@ -78,5 +78,24 @@ extension HouseDetailViewController: UITableViewDelegate, UITableViewDataSource 
 //        return UITableView.automaticDimension
 //    }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        print(scrollView.contentOffset)
+        let contentY = scrollView.contentOffset.y
+        print(contentY)
+        
+        if contentY < 0 {     //
+            let scaleValue = ( -(contentY)/300 ) + 1
+//            print(scaleValue)
+            
+            let houseDetailPictureCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! HouseDetailPicturesTableCell
+            houseDetailPictureCell.scrollView.transform = CGAffineTransform(scaleX: scaleValue, y: scaleValue)
+    
+//            houseDetailPictureCell.scrollView.transform = CGAffineTransform(scaleX: 0, y: contentY)
+            
+//            houseDetailPictureCell.pictureViews.first?.transform = CGAffineTransform(scaleX: 0, y: contentY)
+//            houseDetailPictureCell.pictureViews.first?.transform = CGAffineTransform(scaleX: scaleValue, y: scaleValue)
+        }
+    }
+    
     
 }

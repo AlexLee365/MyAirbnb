@@ -578,6 +578,7 @@
 				4353B8CA22CF51F6004BD807 /* Sources */,
 				4353B8CB22CF51F6004BD807 /* Frameworks */,
 				4353B8CC22CF51F6004BD807 /* Resources */,
+				1D0533643D08517F0CE65579 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -637,6 +638,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1D0533643D08517F0CE65579 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MyAirbnb/Pods-MyAirbnb-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MyAirbnb/Pods-MyAirbnb-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		F59CB371D117C8F32C2AAD61 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
