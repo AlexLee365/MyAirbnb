@@ -13,7 +13,7 @@ class QualifiedHouseTableCell: UITableViewCell {
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 17.8, weight: .medium)
+        label.font = UIFont.systemFont(ofSize: 17.8, weight: .semibold)
         label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
         label.text = "검증된 숙소"
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -86,6 +86,8 @@ class QualifiedHouseTableCell: UITableViewCell {
     }
     
     private func configure() {
+        self.selectionStyle = .none
+        
         contentView.addSubview(titleLabel)
         contentView.addSubview(subLabel)
         contentView.addSubview(descLabel)

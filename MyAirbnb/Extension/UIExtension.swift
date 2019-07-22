@@ -46,6 +46,18 @@ extension UILabel {
         self.textColor = #colorLiteral(red: 0.370555222, green: 0.3705646992, blue: 0.3705595732, alpha: 1)
     }
     
+    func configureHouseDetailMainText() {
+        self.textColor = StandardUIValue.shared.colorRegularText
+        self.font = .systemFont(ofSize: 14, weight: .semibold)
+    }
+    
+    func configureHouseDetailSubText() {
+        self.textColor = StandardUIValue.shared.colorRegularText
+        self.font = .systemFont(ofSize: 13, weight: .regular)
+        self.numberOfLines = 0
+    }
+    
+    
     
     // MARK: - For read more action
     

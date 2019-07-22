@@ -93,6 +93,7 @@ class HouseDetailPicturesTableCell: UITableViewCell {
             let pictureView = AllHousesScrollImageView(frame: tempFrame)
             pictureView.imageView.image = UIImage(named: images[i])
             
+            
             scrollView.addSubview(pictureView)
             pictureViews.append(pictureView)
         }
