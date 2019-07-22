@@ -47,7 +47,7 @@ class HouseDetailViewController: UIViewController {
         
         
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 300
+        tableView.estimatedRowHeight = 50
         
 //        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }

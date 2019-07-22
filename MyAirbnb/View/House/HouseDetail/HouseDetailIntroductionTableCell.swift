@@ -33,6 +33,7 @@ class HouseDetailIntroductionTableCell: UITableViewCell {
         
         
         
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
