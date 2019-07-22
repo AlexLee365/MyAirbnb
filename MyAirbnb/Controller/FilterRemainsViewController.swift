@@ -134,6 +134,10 @@ class FilterRemainsViewController: UIViewController {
         showBtn.widthAnchor.constraint(equalTo: bottomView.widthAnchor, multiplier: 0.85).isActive = true
         showBtn.heightAnchor.constraint(equalTo: bottomView.heightAnchor, multiplier: 0.63).isActive = true
     }
+    
+    var checkBoxViewButtons = [[UIButton]]()
+    
+    
 }
 
 // MARK: - UITableViewDataSource
@@ -162,7 +166,29 @@ extension FilterRemainsViewController: UITableViewDataSource {
             return bedCell
         case 5:
             let convenienceFacilityCell = tableView.dequeueReusableCell(withIdentifier: CheckboxTableCell.identifier, for: indexPath) as! CheckboxTableCell
+            
+            convenienceFacilityCell.setting(data: checkBoxDatas[0])
+            
+            let tempButtons = convenienceFacilityCell.checkBoxViewArray.compactMap { $0.checkBox }
+            checkBoxViewButtons.insert(tempButtons, at: 0)
+            
             return convenienceFacilityCell
+        case 6:
+            let facilityCell = tableView.dequeueReusableCell(withIdentifier: CheckboxTableCell.identifier, for: indexPath) as! CheckboxTableCell
+            
+            return facilityCell
+        case 7:
+            let buildingTypeCell = tableView.dequeueReusableCell(withIdentifier: CheckboxTableCell.identifier, for: indexPath) as! CheckboxTableCell
+            
+            return buildingTypeCell
+        case 8:
+            let distictHouseCell = tableView.dequeueReusableCell(withIdentifier: CheckboxTableCell.identifier, for: indexPath) as! CheckboxTableCell
+            
+            return distictHouseCell
+        case 9:
+            let houseRuleCell = tableView.dequeueReusableCell(withIdentifier: CheckboxTableCell.identifier, for: indexPath) as! CheckboxTableCell
+            
+            return houseRuleCell
         default:
             return UITableViewCell()
         }

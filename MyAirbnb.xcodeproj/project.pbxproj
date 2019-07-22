@@ -114,6 +114,8 @@
 		8D518FF622E1A3AB009D6792 /* CheckboxTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D518FF522E1A3AB009D6792 /* CheckboxTableCell.swift */; };
 		8D518FF822E1A57E009D6792 /* HouseTypeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D518FF722E1A57E009D6792 /* HouseTypeTableCell.swift */; };
 		8D51902222E57DA8009D6792 /* BedFilterTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51902122E57DA8009D6792 /* BedFilterTableCell.swift */; };
+		8D51902622E5B54D009D6792 /* CheckboxContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51902522E5B54D009D6792 /* CheckboxContainerView.swift */; };
+		8D51902A22E5B7DD009D6792 /* CheckBoxData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51902922E5B7DD009D6792 /* CheckBoxData.swift */; };
 		9F10F3C31A75AE56BBBE8FE9 /* Pods_MyAirbnb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5895FA9D40FD45C305945B10 /* Pods_MyAirbnb.framework */; };
 /* End PBXBuildFile section */
 
@@ -247,6 +249,8 @@
 		8D518FF522E1A3AB009D6792 /* CheckboxTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxTableCell.swift; sourceTree = "<group>"; };
 		8D518FF722E1A57E009D6792 /* HouseTypeTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseTypeTableCell.swift; sourceTree = "<group>"; };
 		8D51902122E57DA8009D6792 /* BedFilterTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BedFilterTableCell.swift; sourceTree = "<group>"; };
+		8D51902522E5B54D009D6792 /* CheckboxContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxContainerView.swift; sourceTree = "<group>"; };
+		8D51902922E5B7DD009D6792 /* CheckBoxData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxData.swift; sourceTree = "<group>"; };
 		D11C85972DEC34ABFE5E5A06 /* Pods-MyAirbnb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyAirbnb.debug.xcconfig"; path = "Target Support Files/Pods-MyAirbnb/Pods-MyAirbnb.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -378,6 +382,7 @@
 				8D0D78A622D459E200F61F0B /* TodaySeoulExperienceData.swift */,
 				8D0D78DB22D74D2F00F61F0B /* PlaceData.swift */,
 				8D0D78DD22D864F700F61F0B /* SpecialTripDetailData.swift */,
+				8D51902922E5B7DD009D6792 /* CheckBoxData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -546,6 +551,7 @@
 				8D518FF722E1A57E009D6792 /* HouseTypeTableCell.swift */,
 				8D51902122E57DA8009D6792 /* BedFilterTableCell.swift */,
 				8D518FF522E1A3AB009D6792 /* CheckboxTableCell.swift */,
+				8D51902522E5B54D009D6792 /* CheckboxContainerView.swift */,
 			);
 			path = FilterRemains;
 			sourceTree = "<group>";
@@ -756,8 +762,10 @@
 				8D0D787022D07DE600F61F0B /* TripIntroTableViewCell.swift in Sources */,
 				8D0D788A22D20B9100F61F0B /* SpecialTripCollectionViewCell.swift in Sources */,
 				8D0D792522DB29B200F61F0B /* HouseLuxeTableCell.swift in Sources */,
+				8D51902622E5B54D009D6792 /* CheckboxContainerView.swift in Sources */,
 				4353B9FC22DC3A69004BD807 /* CalenderViewController.swift in Sources */,
 				4353B90822D48EB8004BD807 /* MainRecommendHouseCollectCell.swift in Sources */,
+				8D51902A22E5B7DD009D6792 /* CheckBoxData.swift in Sources */,
 				4353BA9722E1A06D004BD807 /* HouseDetailIntroductionTableCell.swift in Sources */,
 				4353B90E22D5AE12004BD807 /* MainFullImageTableCell.swift in Sources */,
 				8D0D794422DDE64900F61F0B /* VideoCollectionViewCell.swift in Sources */,
