@@ -776,11 +776,12 @@
 				43E36CDE22E5AC77006C8AEF /* HouseDetailCheckInTableCell.swift in Sources */,
 				4353BA2522DC40B5004BD807 /* FSCalendarWeekdayView.m in Sources */,
 				4353BA5C22DECE9F004BD807 /* MakeIdPageViewController.swift in Sources */,
-<<<<<<< HEAD
+
+
 				20CD1F2322E303F4009641F4 /* ConfirmBirthDayViewController.swift in Sources */,
-=======
+
 				8D518FF422E0A222009D6792 /* RangeSliderTrackLayer.swift in Sources */,
->>>>>>> 72b707888330fdf5fac68517b3e7f48c90b5caf7
+
 				4353BA6B22DF20B8004BD807 /* HouseDetailBasicInfoTableCell.swift in Sources */,
 				208BC8F822E08DA200EBDDBA /* PickNationalNumberViewController.swift in Sources */,
 				8D0D78AC22D47AA700F61F0B /* InfoView.swift in Sources */,
