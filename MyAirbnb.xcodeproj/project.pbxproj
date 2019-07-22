@@ -66,6 +66,10 @@
 		4353BA9922E1A2B4004BD807 /* HouseDetailStayingDaysTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA9822E1A2B4004BD807 /* HouseDetailStayingDaysTableCell.swift */; };
 		4353BA9B22E1A335004BD807 /* HouseDetailFacilityTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA9A22E1A335004BD807 /* HouseDetailFacilityTableCell.swift */; };
 		4353BA9D22E1A398004BD807 /* HouseDetailBedroomsTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA9C22E1A398004BD807 /* HouseDetailBedroomsTableCell.swift */; };
+		43E36CD822E57627006C8AEF /* HouseDetailBedRoomsCollectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E36CD722E57627006C8AEF /* HouseDetailBedRoomsCollectCell.swift */; };
+		43E36CDA22E586D4006C8AEF /* HouseDetailFacilityCollectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E36CD922E586D4006C8AEF /* HouseDetailFacilityCollectCell.swift */; };
+		43E36CDC22E59B03006C8AEF /* HouseDetailLocationTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E36CDB22E59B03006C8AEF /* HouseDetailLocationTableCell.swift */; };
+		43E36CDE22E5AC77006C8AEF /* HouseDetailCheckInTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E36CDD22E5AC77006C8AEF /* HouseDetailCheckInTableCell.swift */; };
 		8D0D786E22D07C9300F61F0B /* TripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D786D22D07C9300F61F0B /* TripViewController.swift */; };
 		8D0D787022D07DE600F61F0B /* TripIntroTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D786F22D07DE600F61F0B /* TripIntroTableViewCell.swift */; };
 		8D0D787222D0810300F61F0B /* SpecialTripTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D787122D0810300F61F0B /* SpecialTripTableViewCell.swift */; };
@@ -198,6 +202,10 @@
 		4353BA9822E1A2B4004BD807 /* HouseDetailStayingDaysTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailStayingDaysTableCell.swift; sourceTree = "<group>"; };
 		4353BA9A22E1A335004BD807 /* HouseDetailFacilityTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailFacilityTableCell.swift; sourceTree = "<group>"; };
 		4353BA9C22E1A398004BD807 /* HouseDetailBedroomsTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailBedroomsTableCell.swift; sourceTree = "<group>"; };
+		43E36CD722E57627006C8AEF /* HouseDetailBedRoomsCollectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailBedRoomsCollectCell.swift; sourceTree = "<group>"; };
+		43E36CD922E586D4006C8AEF /* HouseDetailFacilityCollectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailFacilityCollectCell.swift; sourceTree = "<group>"; };
+		43E36CDB22E59B03006C8AEF /* HouseDetailLocationTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailLocationTableCell.swift; sourceTree = "<group>"; };
+		43E36CDD22E5AC77006C8AEF /* HouseDetailCheckInTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailCheckInTableCell.swift; sourceTree = "<group>"; };
 		5895FA9D40FD45C305945B10 /* Pods_MyAirbnb.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyAirbnb.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D0D786D22D07C9300F61F0B /* TripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripViewController.swift; sourceTree = "<group>"; };
 		8D0D786F22D07DE600F61F0B /* TripIntroTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripIntroTableViewCell.swift; sourceTree = "<group>"; };
@@ -453,8 +461,12 @@
 				4353BA6A22DF20B8004BD807 /* HouseDetailBasicInfoTableCell.swift */,
 				4353BA9622E1A06D004BD807 /* HouseDetailIntroductionTableCell.swift */,
 				4353BA9C22E1A398004BD807 /* HouseDetailBedroomsTableCell.swift */,
+				43E36CD722E57627006C8AEF /* HouseDetailBedRoomsCollectCell.swift */,
 				4353BA9822E1A2B4004BD807 /* HouseDetailStayingDaysTableCell.swift */,
 				4353BA9A22E1A335004BD807 /* HouseDetailFacilityTableCell.swift */,
+				43E36CD922E586D4006C8AEF /* HouseDetailFacilityCollectCell.swift */,
+				43E36CDB22E59B03006C8AEF /* HouseDetailLocationTableCell.swift */,
+				43E36CDD22E5AC77006C8AEF /* HouseDetailCheckInTableCell.swift */,
 			);
 			path = HouseDetail;
 			sourceTree = "<group>";
@@ -701,6 +713,7 @@
 				8D0D789222D333BF00F61F0B /* TodaySeoulExperienceTableViewCell.swift in Sources */,
 				8D0D78DC22D74D2F00F61F0B /* PlaceData.swift in Sources */,
 				208BC8F622E08CBC00EBDDBA /* KeyboardTopView.swift in Sources */,
+				43E36CD822E57627006C8AEF /* HouseDetailBedRoomsCollectCell.swift in Sources */,
 				4353B8F222D319F2004BD807 /* MainView.swift in Sources */,
 				4353B8EE22D088A3004BD807 /* TabbarController.swift in Sources */,
 				4353BA9122E09FD0004BD807 /* TestMessageViewController.swift in Sources */,
@@ -738,6 +751,7 @@
 				8D518FFA22E1AA2A009D6792 /* Checkbox.swift in Sources */,
 				8D518FF222E090D7009D6792 /* PriceRangeSlider.swift in Sources */,
 				4353B8F422D31D68004BD807 /* MainCategoryTableCell.swift in Sources */,
+				43E36CDE22E5AC77006C8AEF /* HouseDetailCheckInTableCell.swift in Sources */,
 				4353BA2522DC40B5004BD807 /* FSCalendarWeekdayView.m in Sources */,
 				4353BA5C22DECE9F004BD807 /* MakeIdPageViewController.swift in Sources */,
 				8D518FF422E0A222009D6792 /* RangeSliderTrackLayer.swift in Sources */,
@@ -753,6 +767,8 @@
 				8D518FF822E1A57E009D6792 /* HouseTypeTableCell.swift in Sources */,
 				4353B8F022D22782004BD807 /* SearchBarView.swift in Sources */,
 				4353B91022D6DCCB004BD807 /* LoginTestViewController.swift in Sources */,
+				43E36CDC22E59B03006C8AEF /* HouseDetailLocationTableCell.swift in Sources */,
+				43E36CDA22E586D4006C8AEF /* HouseDetailFacilityCollectCell.swift in Sources */,
 				4353BA2422DC40B5004BD807 /* FSCalendarCollectionViewLayout.m in Sources */,
 				8D0D787022D07DE600F61F0B /* TripIntroTableViewCell.swift in Sources */,
 				8D0D788A22D20B9100F61F0B /* SpecialTripCollectionViewCell.swift in Sources */,
@@ -930,7 +946,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-
 				DEVELOPMENT_TEAM = G4MM77V7NH;
 				INFOPLIST_FILE = MyAirbnb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -951,7 +966,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-
 				DEVELOPMENT_TEAM = G4MM77V7NH;
 				INFOPLIST_FILE = MyAirbnb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

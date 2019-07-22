@@ -9,6 +9,7 @@
 import UIKit
 
 class HouseDetailIntroductionTableCell: UITableViewCell {
+    static let identifier = "HouseDetailIntroductionTableCell"
     
      let label = UILabel()
 
@@ -23,7 +24,7 @@ class HouseDetailIntroductionTableCell: UITableViewCell {
         label.topAnchor.constraint(equalTo: self.topAnchor, constant: topBottomMargin).isActive = true
         label.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: sideMargin).isActive = true
         label.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -sideMargin).isActive = true
-        label.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        label.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -topBottomMargin).isActive = true
         
         label.configureHouseDetailSubText()
         label.text = """
