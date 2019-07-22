@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		206C998822E5B451002D3D55 /* KeyboardNotiCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206C998722E5B451002D3D55 /* KeyboardNotiCenter.swift */; };
+		206C998A22E5B4AB002D3D55 /* PasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206C998922E5B4AB002D3D55 /* PasswordView.swift */; };
 		208BC8F422E08C9300EBDDBA /* TopBarItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208BC8F322E08C9300EBDDBA /* TopBarItemView.swift */; };
 		208BC8F622E08CBC00EBDDBA /* KeyboardTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208BC8F522E08CBC00EBDDBA /* KeyboardTopView.swift */; };
 		208BC8F822E08DA200EBDDBA /* PickNationalNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208BC8F722E08DA200EBDDBA /* PickNationalNumberViewController.swift */; };
@@ -115,6 +117,8 @@
 
 /* Begin PBXFileReference section */
 		1B374C2A2B972FE4E8580B8D /* Pods-MyAirbnb.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyAirbnb.release.xcconfig"; path = "Target Support Files/Pods-MyAirbnb/Pods-MyAirbnb.release.xcconfig"; sourceTree = "<group>"; };
+		206C998722E5B451002D3D55 /* KeyboardNotiCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardNotiCenter.swift; sourceTree = "<group>"; };
+		206C998922E5B4AB002D3D55 /* PasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordView.swift; sourceTree = "<group>"; };
 		208BC8F322E08C9300EBDDBA /* TopBarItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarItemView.swift; sourceTree = "<group>"; };
 		208BC8F522E08CBC00EBDDBA /* KeyboardTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardTopView.swift; sourceTree = "<group>"; };
 		208BC8F722E08DA200EBDDBA /* PickNationalNumberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickNationalNumberViewController.swift; sourceTree = "<group>"; };
@@ -278,6 +282,7 @@
 				208BC8F322E08C9300EBDDBA /* TopBarItemView.swift */,
 				208BC8F522E08CBC00EBDDBA /* KeyboardTopView.swift */,
 				20CD1F1C22E3028A009641F4 /* InputEmailAndPhoneView.swift */,
+				206C998922E5B4AB002D3D55 /* PasswordView.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -374,6 +379,7 @@
 				8D0D78A622D459E200F61F0B /* TodaySeoulExperienceData.swift */,
 				8D0D78DB22D74D2F00F61F0B /* PlaceData.swift */,
 				8D0D78DD22D864F700F61F0B /* SpecialTripDetailData.swift */,
+				206C998722E5B451002D3D55 /* KeyboardNotiCenter.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -669,6 +675,7 @@
 				4353B8F222D319F2004BD807 /* MainView.swift in Sources */,
 				4353B8EE22D088A3004BD807 /* TabbarController.swift in Sources */,
 				20CD1F2122E303B1009641F4 /* MakePwPageViewContorller.swift in Sources */,
+				206C998A22E5B4AB002D3D55 /* PasswordView.swift in Sources */,
 				4353BA9122E09FD0004BD807 /* TestMessageViewController.swift in Sources */,
 				4353B8FD22D47C02004BD807 /* UIExtension.swift in Sources */,
 				4353BA2D22DC40B5004BD807 /* FSCalendarAppearance.m in Sources */,
@@ -746,6 +753,7 @@
 				4353BA1E22DC40B5004BD807 /* FSCalendarCollectionView.m in Sources */,
 				4353BA6922DF11CC004BD807 /* HouseDetailViewController.swift in Sources */,
 				4353B8D222CF51F6004BD807 /* AppDelegate.swift in Sources */,
+				206C998822E5B451002D3D55 /* KeyboardNotiCenter.swift in Sources */,
 				4353B91622D755F1004BD807 /* MainLuxeHouseTableCell.swift in Sources */,
 				8D0D78B622D6060600F61F0B /* HostIntroTableViewCell.swift in Sources */,
 				4353B90422D484FA004BD807 /* StandardUIValue.swift in Sources */,

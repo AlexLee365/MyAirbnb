@@ -107,8 +107,9 @@ class InputPhoneNumberViewController: UIViewController {
     private func addViews() {
         view.addSubview(topBarItem)
         view.addSubview(inputPhoneScrollView)
-        view.addSubview(keyboardTopViewItem)
+        //        view.addSubview(keyboardTopViewItem)
         
+        inputPhoneScrollView.addSubview(keyboardTopViewItem)
         inputPhoneScrollView.addSubview(mainTitle)
         inputPhoneScrollView.addSubview(phoneNumberTitle)
         inputPhoneScrollView.addSubview(pickNationalNumberBtn)

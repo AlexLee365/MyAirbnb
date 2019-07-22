@@ -69,7 +69,7 @@ class KeyboardTopView: UIView {
         nextBtn.addTarget(self, action: #selector(didTapNextBtn(_:)), for: .touchUpInside)
         
         statusChangeBtn.setTitle("이메일 주소 사용", for: .normal)
-        statusChangeBtn.setTitle("전화번호", for: .selected)
+        statusChangeBtn.setTitle("전화번호 사용", for: .selected)
         statusChangeBtn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
         statusChangeBtn.setTitleColor(.white, for: .normal)
         statusChangeBtn.setTitleColor(.white, for: .selected)
