@@ -6,4 +6,7 @@ target 'MyAirbnb' do
   use_frameworks!
 
   # Pods for MyAirbnb
+
+  pod 'SnapKit', '~> 5.0.0'
+
 end

@@ -13,7 +13,7 @@ class InstantBookTableCell: UITableViewCell {
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 17.5)
+        label.font = UIFont.systemFont(ofSize: 17.5, weight: .semibold)
         label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
         label.text = "즉시 예약"
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -51,6 +51,7 @@ class InstantBookTableCell: UITableViewCell {
     }
     
     private func configure() {
+        self.selectionStyle = .none
         contentView.addSubview(titleLabel)
         contentView.addSubview(subtitleLabel)
         
