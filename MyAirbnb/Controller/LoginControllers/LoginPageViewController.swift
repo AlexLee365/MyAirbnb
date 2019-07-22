@@ -39,8 +39,7 @@ class LoginPageViewController: UIViewController {
     var keyboardHeight: CGFloat = 0
     var bottomInsets: CGFloat = 0
     
-    let confirmNoticeVC = ConfirmNoticeViewController()
-    
+    let alarmConfirmVC = AlarmConfirmViewController()
     
     
     
@@ -50,6 +49,7 @@ class LoginPageViewController: UIViewController {
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = true
         //        view.backgroundColor = .blue
+        
         addViews()
         textFieldsSetup()
         loginScrollViewLayout()
@@ -362,7 +362,7 @@ class LoginPageViewController: UIViewController {
         loginBtn.addTarget(self, action: #selector(didTapLoginBtn(_:)), for: .touchUpInside)
     }
     @objc private func didTapLoginBtn(_ sender: UIButton) {
-        present(confirmNoticeVC, animated: true)
+        present(alarmConfirmVC, animated: true, completion: nil)
     }
     
     @objc private func didTapUsePhoneNumberBtn(_ sender: UIButton) {
@@ -413,7 +413,7 @@ extension LoginPageViewController: UITextFieldDelegate {
             
         } else if(textField.isEqual(self.passwordTxtField)) {
             
-            present(confirmNoticeVC, animated: true)
+            present(alarmConfirmVC, animated: true, completion: nil)
         }
         return true
     }
