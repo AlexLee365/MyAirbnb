@@ -72,7 +72,7 @@ extension HouseDetailBedroomsTableCell: UICollectionViewDelegate, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: <#T##String#>, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "", for: indexPath)
         
         return cell
     }
