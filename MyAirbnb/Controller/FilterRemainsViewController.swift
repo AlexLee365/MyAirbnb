@@ -31,22 +31,20 @@ class FilterRemainsViewController: UIViewController {
         
         titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         titleLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        
-        let removeAllBtn = UIButton(type: .system)
-        removeAllBtn.titleLabel!.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        removeAllBtn.titleLabel?.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
-        removeAllBtn.setTitle(" 모두 지우기 ", for: .normal)
-        removeAllBtn.setTitleColor(.black, for: .normal)
-        removeAllBtn.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(removeAllBtn)
-        
-        removeAllBtn.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        removeAllBtn.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        removeAllBtn.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
        
         return view
     }()
 
+    let removeAllBtn: UIButton = {
+        let button = UIButton(type: .system)
+        button.titleLabel!.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        button.titleLabel?.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
+        button.setTitle(" 모두 지우기 ", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     let tableView: UITableView = {
         let tableView = UITableView()
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
@@ -57,6 +55,24 @@ class FilterRemainsViewController: UIViewController {
         return tableView
     }()
 
+    let bottomView: BottomView = {
+        let view = BottomView()
+        view.backColor = .white
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    let showBtn: UIButton = {
+        let button = UIButton()
+        button.setTitle("300개 이상의 숙소 보기", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = #colorLiteral(red: 0, green: 0.5690457821, blue: 0.5746168494, alpha: 1)
+        button.titleLabel?.textAlignment = .center
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 13.5, weight: .bold)
+        button.layer.cornerRadius = 5
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,9 +89,22 @@ class FilterRemainsViewController: UIViewController {
         tableView.register(QualifiedHouseTableCell.self, forCellReuseIdentifier: QualifiedHouseTableCell.identifier)
         tableView.register(PriceRangeTableCell.self, forCellReuseIdentifier: PriceRangeTableCell.identifier)
         tableView.register(HouseTypeTableCell.self, forCellReuseIdentifier: HouseTypeTableCell.identifier)
+        tableView.register(BedFilterTableCell.self, forCellReuseIdentifier: BedFilterTableCell.identifier)
+        tableView.register(CheckboxTableCell.self, forCellReuseIdentifier: CheckboxTableCell.identifier)
         view.addSubview(tableView)
         
         view.addSubview(topView)
+        
+        removeAllBtn.addTarget(self, action: #selector(removeAllBtnDidTap(_:)), for: .touchUpInside)
+        topView.addSubview(removeAllBtn)
+        
+        view.addSubview(bottomView)
+        
+        bottomView.addSubview(showBtn)
+    }
+    
+    @objc private func removeAllBtnDidTap(_ sender: UIButton) {
+        
     }
     
     private func setAutolayout() {
@@ -86,10 +115,24 @@ class FilterRemainsViewController: UIViewController {
         topView.trailingAnchor.constraint(equalTo: guide.trailingAnchor).isActive = true
         topView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.07).isActive = true
     
+        removeAllBtn.trailingAnchor.constraint(equalTo: topView.trailingAnchor).isActive = true
+        removeAllBtn.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        removeAllBtn.centerYAnchor.constraint(equalTo: topView.centerYAnchor).isActive = true
+        
         tableView.topAnchor.constraint(equalTo: topView.bottomAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: guide.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: guide.trailingAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: guide.bottomAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: bottomView.topAnchor).isActive = true
+        
+        bottomView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        bottomView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        bottomView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        bottomView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.11).isActive = true
+        
+        showBtn.centerXAnchor.constraint(equalTo: bottomView.centerXAnchor).isActive = true
+        showBtn.centerYAnchor.constraint(equalTo: bottomView.centerYAnchor).isActive = true
+        showBtn.widthAnchor.constraint(equalTo: bottomView.widthAnchor, multiplier: 0.85).isActive = true
+        showBtn.heightAnchor.constraint(equalTo: bottomView.heightAnchor, multiplier: 0.63).isActive = true
     }
 }
 
@@ -97,7 +140,7 @@ class FilterRemainsViewController: UIViewController {
 
 extension FilterRemainsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 10
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -114,6 +157,12 @@ extension FilterRemainsViewController: UITableViewDataSource {
         case 3:
             let houseTypeCell = tableView.dequeueReusableCell(withIdentifier: HouseTypeTableCell.identifier, for: indexPath) as! HouseTypeTableCell
             return houseTypeCell
+        case 4:
+            let bedCell = tableView.dequeueReusableCell(withIdentifier: BedFilterTableCell.identifier, for: indexPath) as! BedFilterTableCell
+            return bedCell
+        case 5:
+            let convenienceFacilityCell = tableView.dequeueReusableCell(withIdentifier: CheckboxTableCell.identifier, for: indexPath) as! CheckboxTableCell
+            return convenienceFacilityCell
         default:
             return UITableViewCell()
         }

@@ -9,6 +9,18 @@
 import UIKit
 
 class BottomView: UIView {
+    
+    var backColor: UIColor = .black {
+        didSet {
+            self.backgroundColor = backColor
+            
+            if backColor == .black {
+                layer.shadowColor = UIColor.white.cgColor
+            } else {
+                layer.shadowColor = UIColor.gray.cgColor
+            }
+        }
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -24,19 +36,13 @@ class BottomView: UIView {
     func makeShadow() {
         layer.masksToBounds = false
         
-        layer.shadowOpacity = 0.3
+        layer.shadowOpacity = 0.7
         layer.shadowOffset = CGSize(width: 0, height: 0)
         layer.shadowRadius = 3
-        
-        if self.backgroundColor == .black {
-            layer.shadowColor = UIColor.white.cgColor
-        } else {
-            layer.shadowColor = UIColor.gray.cgColor
-        }
     }
     
     private func configure() {
-        self.backgroundColor = .black
+        self.backColor = .black
         
         makeShadow()
     }
