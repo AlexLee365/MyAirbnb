@@ -152,18 +152,22 @@ extension FilterRemainsViewController: UITableViewDataSource {
         case 0:
             let instantBookCell = tableView.dequeueReusableCell(withIdentifier: InstantBookTableCell.identifier, for: indexPath) as! InstantBookTableCell
             return instantBookCell
+            
         case 1:
             let qualifiedHouseCell = tableView.dequeueReusableCell(withIdentifier: QualifiedHouseTableCell.identifier, for: indexPath) as! QualifiedHouseTableCell
             return qualifiedHouseCell
+            
         case 2:
             let priceRangeCell = tableView.dequeueReusableCell(withIdentifier: PriceRangeTableCell.identifier, for: indexPath) as! PriceRangeTableCell
             return priceRangeCell
+            
         case 3:
             let houseTypeCell = tableView.dequeueReusableCell(withIdentifier: HouseTypeTableCell.identifier, for: indexPath) as! HouseTypeTableCell
             return houseTypeCell
         case 4:
             let bedCell = tableView.dequeueReusableCell(withIdentifier: BedFilterTableCell.identifier, for: indexPath) as! BedFilterTableCell
             return bedCell
+            
         case 5:
             let convenienceFacilityCell = tableView.dequeueReusableCell(withIdentifier: CheckboxTableCell.identifier, for: indexPath) as! CheckboxTableCell
             
@@ -173,22 +177,35 @@ extension FilterRemainsViewController: UITableViewDataSource {
             checkBoxViewButtons.insert(tempButtons, at: 0)
             
             return convenienceFacilityCell
+            
         case 6:
             let facilityCell = tableView.dequeueReusableCell(withIdentifier: CheckboxTableCell.identifier, for: indexPath) as! CheckboxTableCell
+
+            facilityCell.setting(data: checkBoxDatas[1])
             
             return facilityCell
+
         case 7:
             let buildingTypeCell = tableView.dequeueReusableCell(withIdentifier: CheckboxTableCell.identifier, for: indexPath) as! CheckboxTableCell
+
+            buildingTypeCell.setting(data: checkBoxDatas[2])
             
             return buildingTypeCell
+
         case 8:
             let distictHouseCell = tableView.dequeueReusableCell(withIdentifier: CheckboxTableCell.identifier, for: indexPath) as! CheckboxTableCell
+
+            distictHouseCell.setting(data: checkBoxDatas[3])
             
             return distictHouseCell
+
         case 9:
             let houseRuleCell = tableView.dequeueReusableCell(withIdentifier: CheckboxTableCell.identifier, for: indexPath) as! CheckboxTableCell
             
+            houseRuleCell.setting(data: checkBoxDatas[4])
+
             return houseRuleCell
+            
         default:
             return UITableViewCell()
         }

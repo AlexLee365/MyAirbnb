@@ -67,6 +67,7 @@ class CheckBoxContainerView: UIView {
         
         checkBox.topAnchor.constraint(equalTo: typeLabel.topAnchor).isActive = true
         checkBox.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        checkBox.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         checkBox.widthAnchor.constraint(equalToConstant: 27).isActive = true
         checkBox.heightAnchor.constraint(equalToConstant: 27).isActive = true
     }
