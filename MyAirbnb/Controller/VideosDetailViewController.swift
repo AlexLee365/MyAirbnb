@@ -78,6 +78,8 @@ class VideosDetailViewController: UIViewController {
     }
     
     private func configure() {
+        view.backgroundColor = .white
+        
         tempView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 500)
         tableView.tableHeaderView = tempView
         

@@ -21,6 +21,7 @@ extension Notification.Name {
     // MARK: - House
     static let moveToHouseView = Notification.Name(rawValue: "MoveToHouseView")
     static let moveToHouseDetailView = Notification.Name("MoveToHouseDetailView")
+    static let mapViewDidTapInHouseDetailView = Notification.Name("MapViewDidTapInHouseDetailView")
     
     
     // MARK: -

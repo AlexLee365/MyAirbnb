@@ -7,16 +7,20 @@
 //
 
 import UIKit
+import MapKit
 
 class HouseDetailViewController: UIViewController {
     
     let tableView = UITableView()
+    
+    let notiCenter = NotificationCenter.default
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setAutoLayout()
         configureViewsOptions()
+        addNotificationObserver()
     }
     
     private func setAutoLayout() {
@@ -52,6 +56,20 @@ class HouseDetailViewController: UIViewController {
 //        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
     
+    private func addNotificationObserver() {
+        notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .mapViewDidTapInHouseDetailView, object: nil)
+    }
+    
+    @objc func receiveNotification(_ sender: Notification) {
+        print("mapView Did Tap Notification")
+        guard let userInfo = sender.userInfo as? [String: CLLocationCoordinate2D]
+            , let coordinate = userInfo["coordinate"]
+            else { print("‼️‼️‼️ noti userInfo convert error");return }
+        
+        let mapVC = MapViewController()
+        mapVC.defaultLocation = coordinate
+        navigationController?.pushViewController(mapVC, animated: true)
+    }
 
 
 }
@@ -113,7 +131,7 @@ extension HouseDetailViewController: UITableViewDelegate, UITableViewDataSource 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
 //        print(scrollView.contentOffset)
         let contentY = scrollView.contentOffset.y
-        print(contentY)
+//        print(contentY)
         
         if contentY < 0 {     //
             let scaleValue = ( -(contentY)/300 ) + 1

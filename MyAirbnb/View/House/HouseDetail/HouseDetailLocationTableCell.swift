@@ -13,6 +13,7 @@ import SnapKit
 class HouseDetailLocationTableCell: UITableViewCell {
     static let identifier = "HouseDetailLocationTableCell"
     
+    // MARK: - UI Properties
     let titleLabel = UILabel()
     let subTitleLabel = UILabel()
     let descriptionLabel = UILabel()
@@ -21,12 +22,19 @@ class HouseDetailLocationTableCell: UITableViewCell {
     let geocoder = CLGeocoder()
     
     let mapNoticeLabel = UILabel()
-
+    
+    // MARK: - Properties
+//    var callBack: ( () -> Void )?
+    let notiCenter = NotificationCenter.default
+    var currentCoordinate = CLLocationCoordinate2D()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setAutoLayout()
         configureViewsOptions()
         setMapView()
+        print("🔵🔵🔵 HouseDetailLocation TableCell ")
+        print(mapView.annotations)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -89,35 +97,70 @@ class HouseDetailLocationTableCell: UITableViewCell {
         mapNoticeLabel.configureHouseDetailSubText()
         mapNoticeLabel.font = .systemFont(ofSize: 10, weight: .regular)
         mapNoticeLabel.text = "정확한 위치는 예약 완료 후에 표시됩니다."
+        
+        
     }
     
     private func setMapView() {
+        mapView.delegate = self
+        mapView.isScrollEnabled = false
+        let mapViewTapGesture = UITapGestureRecognizer(target: self, action: #selector(mapViewDidTap(_:)))
+        mapView.addGestureRecognizer(mapViewTapGesture)
         let basicLocation = "서울 종로구 사직로 161 경복궁"
-        getLocationFromAddress(address: basicLocation)
+
+        getLocationFromAddress(address: basicLocation) { (region) in
+            self.mapView.setRegion(region, animated: false)
+            self.drawCircleInMap(centerCoordinate: region.center)
+        }
     }
     
-    private func getLocationFromAddress(address: String) {
+    private func drawCircleInMap(centerCoordinate: CLLocationCoordinate2D) {
+        let center = centerCoordinate
+        let circle = MKCircle(center: center, radius: 800)
+        mapView.addOverlay(circle)
+    }
+    
+    private func getLocationFromAddress(address: String, completion: @escaping (MKCoordinateRegion) -> Void ) {
         geocoder.geocodeAddressString(address) { (placeMark, error) in
             guard let coordinate = placeMark?.first?.location?.coordinate else { print("주소 변환 실패"); return }
+            self.currentCoordinate = coordinate
             
             let span = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
             let region = MKCoordinateRegion(center: coordinate, span: span)
-            self.mapView.setRegion(region, animated: false)
+            completion(region)
         }
     }
+    
+    @objc func mapViewDidTap(_ sender: UITapGestureRecognizer) {
+        print("Mapview Tapped")
+        notiCenter.post(name: .mapViewDidTapInHouseDetailView, object: nil, userInfo: ["coordinate": currentCoordinate])
+    }
+    
+    
+    
 
 }
 
-//extension HouseDetailLocationTableCell: CLLocationManagerDelegate {
-//    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-//        switch status {
-//        case .authorizedWhenInUse, .authorizedAlways:
-//            print("authrorized")
-//        default :
-//            print("Unauthorized")
-//
-//        }
-//    }
-//
-//
-//}
+extension HouseDetailLocationTableCell: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        if let circle = overlay as? MKCircle {
+            let renderer = MKCircleRenderer(circle: circle)
+            renderer.strokeColor = StandardUIValue.shared.colorBlueGreen
+            renderer.lineWidth = 1
+            renderer.fillColor = UIColor(red:0.09, green:0.51, blue:0.54, alpha:0.3)
+            return renderer
+        }
+        return MKOverlayRenderer(overlay: overlay)
+    }
+}
+
+final class Annotation: NSObject, MKAnnotation {
+    var title: String?
+    var coordinate: CLLocationCoordinate2D
+    
+    init(title: String, coordinate: CLLocationCoordinate2D) {
+        self.title = title
+        self.coordinate = coordinate
+    }
+    
+}

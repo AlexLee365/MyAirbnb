@@ -16,6 +16,7 @@
 		20CD1F1F22E302F5009641F4 /* AlarmConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CD1F1E22E302F5009641F4 /* AlarmConfirmViewController.swift */; };
 		20CD1F2122E303B1009641F4 /* MakePwPageViewContorller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CD1F2022E303B1009641F4 /* MakePwPageViewContorller.swift */; };
 		20CD1F2322E303F4009641F4 /* ConfirmBirthDayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CD1F2222E303F4009641F4 /* ConfirmBirthDayViewController.swift */; };
+		4313F08822E5DE0A003BB3D1 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4313F08722E5DE0A003BB3D1 /* MapViewController.swift */; };
 		4353B8D222CF51F6004BD807 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353B8D122CF51F6004BD807 /* AppDelegate.swift */; };
 		4353B8DC22CF51F9004BD807 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4353B8DA22CF51F9004BD807 /* LaunchScreen.storyboard */; };
 		4353B8E422D0797E004BD807 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353B8E322D0797E004BD807 /* MainViewController.swift */; };
@@ -138,6 +139,7 @@
 		20CD1F1E22E302F5009641F4 /* AlarmConfirmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmConfirmViewController.swift; sourceTree = "<group>"; };
 		20CD1F2022E303B1009641F4 /* MakePwPageViewContorller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakePwPageViewContorller.swift; sourceTree = "<group>"; };
 		20CD1F2222E303F4009641F4 /* ConfirmBirthDayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmBirthDayViewController.swift; sourceTree = "<group>"; };
+		4313F08722E5DE0A003BB3D1 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		4353B8CE22CF51F6004BD807 /* MyAirbnb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyAirbnb.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4353B8D122CF51F6004BD807 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4353B8DB22CF51F9004BD807 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -375,6 +377,7 @@
 				8D0D794122DDE50900F61F0B /* AVFoundationViewController.swift */,
 				8D0D793822DC9A2900F61F0B /* VideosDetailViewController.swift */,
 				8D0D793422DC5F0700F61F0B /* TripLocalHostingViewController.swift */,
+				4313F08722E5DE0A003BB3D1 /* MapViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -771,6 +774,7 @@
 				4353BA2322DC40B5004BD807 /* FSCalendar.m in Sources */,
 				8D0D788C22D2220700F61F0B /* SeoulRecommenedTripTableViewCell.swift in Sources */,
 				8D518FFA22E1AA2A009D6792 /* Checkbox.swift in Sources */,
+				4313F08822E5DE0A003BB3D1 /* MapViewController.swift in Sources */,
 				8D518FF222E090D7009D6792 /* PriceRangeSlider.swift in Sources */,
 				4353B8F422D31D68004BD807 /* MainCategoryTableCell.swift in Sources */,
 				43E36CDE22E5AC77006C8AEF /* HouseDetailCheckInTableCell.swift in Sources */,
