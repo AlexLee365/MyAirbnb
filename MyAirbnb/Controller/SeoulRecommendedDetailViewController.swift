@@ -159,11 +159,11 @@ extension SeoulRecommendedDetailViewController: UITableViewDelegate {
 
         if (cellHeight - currentY) <= (deviceHeight - bottomViewHeight) {
             UIView.animate(withDuration: 0.3) {
-                self.bottomView.backgroundColor = .white
-                self.bottomView.makeShadow()
+                self.bottomView.backColor = .white
+//                self.bottomView.makeShadow()
             }
         } else {
-            self.bottomView.backgroundColor = .black
+            self.bottomView.backColor = .black
         }
 
         setNeedsStatusBarAppearanceUpdate()
