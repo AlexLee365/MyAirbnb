@@ -24,6 +24,8 @@ class BedFilterTableCell: UITableViewCell {
     let bedroomContainerView = BedContainerView()
     let bathroomContainerView = BedContainerView()
     
+    var selectedBed = (0, 0, 0)
+    
     var bedCount = 0 {
         didSet {
             bedContainerView.countLabel.text = "\(bedCount)"

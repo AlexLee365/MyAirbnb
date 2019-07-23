@@ -45,21 +45,21 @@ class CheckBoxContainerView: UIView {
     private func configure() {
         self.addSubview(typeLabel)
         
-        checkBox.addTarget(self, action: #selector(checkBoxBtnDidTap(_:)), for: .touchUpInside)
+//        checkBox.addTarget(self, action: #selector(checkBoxBtnDidTap(_:)), for: .touchUpInside)
         self.addSubview(checkBox)
     }
     
-    @objc func checkBoxBtnDidTap(_ sender: UIButton) {
-        sender.isSelected.toggle()
-        
-        if sender.isSelected {
-            sender.layer.borderColor = UIColor.clear.cgColor
-            sender.backgroundColor = #colorLiteral(red: 0, green: 0.5690457821, blue: 0.5746168494, alpha: 1)
-        } else {
-            sender.layer.borderColor = #colorLiteral(red: 0.6642242074, green: 0.6642400622, blue: 0.6642315388, alpha: 1)
-            sender.backgroundColor = .white
-        }
-    }
+//    @objc func checkBoxBtnDidTap(_ sender: UIButton) {
+//        sender.isSelected.toggle()
+//
+//        if sender.isSelected {
+//            sender.layer.borderColor = UIColor.clear.cgColor
+//            sender.backgroundColor = #colorLiteral(red: 0, green: 0.5690457821, blue: 0.5746168494, alpha: 1)
+//        } else {
+//            sender.layer.borderColor = #colorLiteral(red: 0.6642242074, green: 0.6642400622, blue: 0.6642315388, alpha: 1)
+//            sender.backgroundColor = .white
+//        }
+//    }
     
     private func setAutolayout() {
         typeLabel.topAnchor.constraint(equalTo: self.topAnchor).isActive = true

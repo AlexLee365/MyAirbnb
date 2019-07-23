@@ -72,6 +72,12 @@ class SearchBarView: UIView {
         }
     }
     
+    var selectedBed = (0, 0, 0) {
+        didSet {
+            
+        }
+    }
+    
     weak var delegate: CalendarDelegate?
     
     override init(frame: CGRect) {
