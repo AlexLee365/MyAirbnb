@@ -31,12 +31,13 @@ class ChatRoomViewController: UIViewController {
     }()
     
     let detailBtn: UIButton = {
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.setTitle("상세정보", for: .normal)
         button.setTitleColor(#colorLiteral(red: 0, green: 0.5690457821, blue: 0.5746168494, alpha: 1), for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17)
         return button
     }()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,9 +52,12 @@ class ChatRoomViewController: UIViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.view.backgroundColor = UIColor.clear
+        
+        tabBarController?.tabBar.isHidden = true
     }
-    
-    // set custom navi back button & image
+
+
+    // MARK: - set custom navi back button & image
     func setNavigationBar() {
 
         self.navigationItem.setHidesBackButton(true, animated:false)
@@ -75,6 +79,8 @@ class ChatRoomViewController: UIViewController {
     @objc func backToPreviousView() {
         self.navigationController?.popViewController(animated: true)
     }
+    
+    // MARK: - Properties
     
     private func configure() {
         view.backgroundColor = .white
