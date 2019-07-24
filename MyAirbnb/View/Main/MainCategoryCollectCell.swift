@@ -17,7 +17,6 @@ class MainCategoryCollectCell: UICollectionViewCell {
     let titleLabel = UILabel()
     let detailLabel = UILabel()
     
-   
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -71,7 +70,6 @@ class MainCategoryCollectCell: UICollectionViewCell {
         
         detailLabel.font = .systemFont(ofSize: 11, weight: .bold)
         detailLabel.textColor = .lightGray
-        
     }
     
     var setLayout = false
@@ -82,9 +80,15 @@ class MainCategoryCollectCell: UICollectionViewCell {
         if setLayout == false {
             
         }
-        
-        
     }
+    
+    func setData(_ category: Category) {
+        mainImageView.image = category.image
+        titleLabel.text = category.title
+        detailLabel.text = category.subTitle
+    }
+    
+    
     
 
 }

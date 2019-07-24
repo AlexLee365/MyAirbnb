@@ -11,7 +11,7 @@ import UIKit
 class AllHousesTableCell: UITableViewCell {
     static let identifier = "AllHousesTableCell"
     
-    var images = ["categoryImage", "houseSample", "luxeSample", "MainFullImage", "roomImage"]
+    var images = ["roomImage", "houseSample", "luxeSample", "MainFullImage", "categoryHouseImage"]
     
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()

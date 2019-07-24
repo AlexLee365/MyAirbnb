@@ -60,6 +60,7 @@ class TripViewController: UIViewController {
         
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.backgroundColor = .white
         tableView.contentInsetAdjustmentBehavior = .never
         tableView.separatorStyle = .none
         tableView.register(TripIntroTableViewCell.self, forCellReuseIdentifier: TripIntroTableViewCell.identifier)
@@ -69,6 +70,7 @@ class TripViewController: UIViewController {
         view.addSubview(tableView)
         
         view.addSubview(searchBarView)
+        searchBarView.filterStackView.isHidden = true
 
         view.addSubview(searchBarBackgroundView)
         
