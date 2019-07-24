@@ -31,7 +31,7 @@ class MapViewController: UIViewController {
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        tabBarController?.tabBar.isHidden = false
+        tabBarController?.tabBar.isHidden = false   
     }
     
     private func setAutoLayout() {
