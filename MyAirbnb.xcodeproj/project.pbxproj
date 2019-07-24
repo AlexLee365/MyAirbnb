@@ -127,6 +127,9 @@
 		8D51902222E57DA8009D6792 /* BedFilterTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51902122E57DA8009D6792 /* BedFilterTableCell.swift */; };
 		8D51902622E5B54D009D6792 /* CheckboxContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51902522E5B54D009D6792 /* CheckboxContainerView.swift */; };
 		8D51902A22E5B7DD009D6792 /* CheckBoxData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51902922E5B7DD009D6792 /* CheckBoxData.swift */; };
+		8D51902C22E81811009D6792 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51902B22E81811009D6792 /* MessageViewController.swift */; };
+		8D51902F22E82C8F009D6792 /* MsgListTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51902E22E82C8F009D6792 /* MsgListTableCell.swift */; };
+		8D51903122E8472A009D6792 /* ChatRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51903022E8472A009D6792 /* ChatRoomViewController.swift */; };
 		9F10F3C31A75AE56BBBE8FE9 /* Pods_MyAirbnb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5895FA9D40FD45C305945B10 /* Pods_MyAirbnb.framework */; };
 /* End PBXBuildFile section */
 
@@ -273,6 +276,9 @@
 		8D51902122E57DA8009D6792 /* BedFilterTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BedFilterTableCell.swift; sourceTree = "<group>"; };
 		8D51902522E5B54D009D6792 /* CheckboxContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxContainerView.swift; sourceTree = "<group>"; };
 		8D51902922E5B7DD009D6792 /* CheckBoxData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxData.swift; sourceTree = "<group>"; };
+		8D51902B22E81811009D6792 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
+		8D51902E22E82C8F009D6792 /* MsgListTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MsgListTableCell.swift; sourceTree = "<group>"; };
+		8D51903022E8472A009D6792 /* ChatRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomViewController.swift; sourceTree = "<group>"; };
 		D11C85972DEC34ABFE5E5A06 /* Pods-MyAirbnb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyAirbnb.debug.xcconfig"; path = "Target Support Files/Pods-MyAirbnb/Pods-MyAirbnb.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -382,6 +388,8 @@
 				8D0D793822DC9A2900F61F0B /* VideosDetailViewController.swift */,
 				8D0D793422DC5F0700F61F0B /* TripLocalHostingViewController.swift */,
 				4313F08722E5DE0A003BB3D1 /* MapViewController.swift */,
+				8D51902B22E81811009D6792 /* MessageViewController.swift */,
+				8D51903022E8472A009D6792 /* ChatRoomViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -393,6 +401,7 @@
 				4353B8F522D3274E004BD807 /* Main */,
 				8D0D792122DB020600F61F0B /* House */,
 				8D0D787322D0898200F61F0B /* Trip */,
+				8D51902D22E82C41009D6792 /* Message */,
 				4353B8EF22D22782004BD807 /* SearchBarView.swift */,
 				4353BA3022DD7F41004BD807 /* SearchBarTableView.swift */,
 			);
@@ -410,11 +419,8 @@
 				8D0D78A622D459E200F61F0B /* TodaySeoulExperienceData.swift */,
 				8D0D78DB22D74D2F00F61F0B /* PlaceData.swift */,
 				8D0D78DD22D864F700F61F0B /* SpecialTripDetailData.swift */,
-
 				8D51902922E5B7DD009D6792 /* CheckBoxData.swift */,
-
 				206C998722E5B451002D3D55 /* KeyboardNotiCenter.swift */,
-
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -592,6 +598,14 @@
 			path = FilterRemains;
 			sourceTree = "<group>";
 		};
+		8D51902D22E82C41009D6792 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				8D51902E22E82C8F009D6792 /* MsgListTableCell.swift */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
 		C61D96A808C126AE8EE65879 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -751,6 +765,8 @@
 				206C998A22E5B4AB002D3D55 /* PasswordView.swift in Sources */,
 				4353BA9122E09FD0004BD807 /* TestMessageViewController.swift in Sources */,
 				4353B8FD22D47C02004BD807 /* UIExtension.swift in Sources */,
+				8D51902F22E82C8F009D6792 /* MsgListTableCell.swift in Sources */,
+				8D51903122E8472A009D6792 /* ChatRoomViewController.swift in Sources */,
 				4353BA2D22DC40B5004BD807 /* FSCalendarAppearance.m in Sources */,
 				4353BA5E22DECE9F004BD807 /* LoginPageViewController.swift in Sources */,
 				8D0D78A722D459E200F61F0B /* TodaySeoulExperienceData.swift in Sources */,
@@ -782,10 +798,7 @@
 				4353B8F822D327C2004BD807 /* MainCategoryCollectCell.swift in Sources */,
 				4353BA2322DC40B5004BD807 /* FSCalendar.m in Sources */,
 				8D0D788C22D2220700F61F0B /* SeoulRecommenedTripTableViewCell.swift in Sources */,
-
-				8D518FFA22E1AA2A009D6792 /* Checkbox.swift in Sources */,
 				4313F08822E5DE0A003BB3D1 /* MapViewController.swift in Sources */,
-
 				8D518FF222E090D7009D6792 /* PriceRangeSlider.swift in Sources */,
 				4353B8F422D31D68004BD807 /* MainCategoryTableCell.swift in Sources */,
 				43E36CDE22E5AC77006C8AEF /* HouseDetailCheckInTableCell.swift in Sources */,
@@ -832,6 +845,7 @@
 				4353BA5922DECE9F004BD807 /* ConfirmNoticeViewController.swift in Sources */,
 				4353BA6722DF10A0004BD807 /* HouseDetailPicturesTableCell.swift in Sources */,
 				4353BA2B22DC40B5004BD807 /* FSCalendarTransitionCoordinator.m in Sources */,
+				8D51902C22E81811009D6792 /* MessageViewController.swift in Sources */,
 				4353BA1F22DC40B5004BD807 /* FSCalendarDelegationProxy.m in Sources */,
 				4353BA2622DC40B5004BD807 /* FSCalendarSeparatorDecorationView.m in Sources */,
 				4353BA9D22E1A398004BD807 /* HouseDetailBedroomsTableCell.swift in Sources */,
