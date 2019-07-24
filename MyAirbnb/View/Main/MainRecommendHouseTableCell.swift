@@ -16,6 +16,7 @@ class MainRecommendHouseTableCell: UITableViewCell {
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     
     let collectionViewCellWidth: CGFloat = UIScreen.main.bounds.width * 0.4
+    let notiCenter = NotificationCenter.default
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: MainRecommendHouseTableCell.identifier)
@@ -89,6 +90,10 @@ extension MainRecommendHouseTableCell: UICollectionViewDelegate, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         return CGSize(width: collectionViewCellWidth, height: collectionViewCellWidth * 1.25)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        notiCenter.post(name: .moveToHouseDetailView, object: nil)
     }
     
     

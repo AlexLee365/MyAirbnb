@@ -7,33 +7,25 @@
 //
 
 import UIKit
-enum CellStyle {
-    case flow
-    case grid
-}
-
-struct Travel {
-    let sectionTitle: String
-    let cards: [String]
-    let style: CellStyle = .flow
-}
 
 class MainView: UIView {
+    
+   
     
     // MARK: - UI Properties
     let mainTableView = UITableView()
     
     // MARK: - Properties
-//    var source: [Travel] = [
-//        Travel(sectionTitle: <#T##String#>, cards: <#T##[String]#>),
-//        Travel(sectionTitle: <#T##String#>, cards: <#T##[String]#>),
-//        Travel(sectionTitle: <#T##String#>, cards: <#T##[String]#>),
-//    ]
+    let netWork = NetworkCommunicator()
+    
+    var mainViewDatas = [MainViewData]()
+    
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         setAutoLayout()
         configureViewsOptions()
+
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -68,6 +60,14 @@ class MainView: UIView {
         mainTableView.rowHeight = UITableView.automaticDimension
         mainTableView.estimatedRowHeight = 200
     }
+    
+    private func setData() {
+        
+    }
+    
+   
+    
+    
 }
 
 extension MainView: UITableViewDelegate, UITableViewDataSource {
@@ -75,28 +75,27 @@ extension MainView: UITableViewDelegate, UITableViewDataSource {
         return 5
     }
     
-    enum CellStyle: String {
-        case category, recommend, fullImage
-    }
-    
-//    let data = [fullImage, mainCategory, recommend, ]
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let data = source[indexPath.row]
-        
-//        switch data.style {
-//        case .flow:
+
+//        let data = mainViewDatas[indexPath.row]
 //
+//        switch data.cellStyle {
+//        case .category:
+//            let CategoryCell = tableView.dequeueReusableCell(withIdentifier: MainCategoryTableCell.identifier, for: indexPath) as! MainCategoryTableCell
+//
+//            CategoryCell.titleLabel.text = "Jung Jin Alex님, 무엇을 찾고 계신가요?"
+//            return CategoryCell
+//        default: break
 //        }
-//        UIButton().setImage(<#T##image: UIImage?##UIImage?#>, for: .selected)
-//        let cellStyle = CellStyle(rawValue: data[indexPath.row].identifier)
+        
         
         switch indexPath.row {
         case 0 :
             let CategoryCell = tableView.dequeueReusableCell(withIdentifier: MainCategoryTableCell.identifier, for: indexPath) as! MainCategoryTableCell
-            
+
             CategoryCell.titleLabel.text = "Jung Jin Alex님, 무엇을 찾고 계신가요?"
             return CategoryCell
+         
             
         case 1 :
             let RecommendHoseCell = tableView.dequeueReusableCell(withIdentifier: MainRecommendHouseTableCell.identifier, for: indexPath) as! MainRecommendHouseTableCell

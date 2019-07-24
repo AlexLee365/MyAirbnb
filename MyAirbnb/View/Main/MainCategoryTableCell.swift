@@ -22,14 +22,15 @@ class MainCategoryTableCell: UITableViewCell {
     
     // MARK: - Properties
     let collectionViewCellWidth: CGFloat = UIScreen.main.bounds.width * 0.35
-    
-//    weak var delegate: MainCategoryTableCellDelegate?
     let notiCenter = NotificationCenter.default
+    
+    var categoryDataArray = [Category]()
     
     // MARK: - LifeCycle
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: MainCategoryTableCell.identifier)
         
+        createCategoryData()
         setAutoLayout()
         configureViewsOptions()
     }
@@ -85,24 +86,25 @@ class MainCategoryTableCell: UITableViewCell {
 //        titleLabel.font = .systemFont(ofSize: 21, weight: .bold)
     }
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    private func createCategoryData() {
+        categoryDataArray = [
+            Category(image: UIImage(named: "categoryHouseImage") ?? UIImage(), title: "숙소", subTitle: "숙소"),
+            Category(image: UIImage(named: "categoryTripImage") ?? UIImage(), title: "트립", subTitle: "액티비티"),
+            Category(image: UIImage(named: "categoryAdventureImage") ?? UIImage(), title: "어드벤처", subTitle: "호스팅 여행"),
+            Category(image: UIImage(named: "categoryRestaurantImage") ?? UIImage(), title: "레스토랑", subTitle: "최고 평점의 음식"),
+        ]
     }
 }
 
 extension MainCategoryTableCell: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return categoryDataArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainCategoryCollectCell.identifier, for: indexPath) as! MainCategoryCollectCell
+        cell.setData(categoryDataArray[indexPath.row])
         
-        cell.mainImageView.image = UIImage(named: "categoryImage")
-        cell.titleLabel.text = "숙소"
-        cell.detailLabel.text = "숙소"
         return cell
     }
     
