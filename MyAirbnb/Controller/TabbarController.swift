@@ -36,7 +36,7 @@ class TabbarController: UITabBarController {
         let mainVC = UINavigationController(rootViewController: MainViewController()) 
         let saveListVC = TestSaveViewController()
         let tripNaviController = UINavigationController(rootViewController: TripViewController())
-        let messageVC = TestMessageViewController()
+        let messageVC = UINavigationController(rootViewController: MessageViewController()) 
         let profileVC = LoginTestViewController()
             
         
