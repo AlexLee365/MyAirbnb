@@ -82,6 +82,8 @@ class FilterRemainsViewController: UIViewController {
         setAutolayout()
     }
     
+    
+    
     private func configure() {
         tableView.dataSource = self
         tableView.delegate = self
@@ -91,6 +93,8 @@ class FilterRemainsViewController: UIViewController {
         tableView.register(HouseTypeTableCell.self, forCellReuseIdentifier: HouseTypeTableCell.identifier)
         tableView.register(BedFilterTableCell.self, forCellReuseIdentifier: BedFilterTableCell.identifier)
         tableView.register(CheckboxTableCell.self, forCellReuseIdentifier: CheckboxTableCell.identifier)
+        
+        
         view.addSubview(tableView)
         
         view.addSubview(topView)
@@ -105,6 +109,14 @@ class FilterRemainsViewController: UIViewController {
     
     @objc private func removeAllBtnDidTap(_ sender: UIButton) {
         
+    }
+    
+    @objc private func showBtnDidTap() {
+        guard let mainVC = presentingViewController as? MainViewController else { return }
+        
+        
+        guard let cellA = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? BedFilterTableCell else { return }
+//        let dataA = (cellA.bathroomCount , ,)
     }
     
     private func setAutolayout() {
@@ -148,47 +160,70 @@ extension FilterRemainsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        print("tableview indexPath: ", indexPath.row)
+        
         switch indexPath.row {
         case 0:
             let instantBookCell = tableView.dequeueReusableCell(withIdentifier: InstantBookTableCell.identifier, for: indexPath) as! InstantBookTableCell
             return instantBookCell
+            
         case 1:
             let qualifiedHouseCell = tableView.dequeueReusableCell(withIdentifier: QualifiedHouseTableCell.identifier, for: indexPath) as! QualifiedHouseTableCell
             return qualifiedHouseCell
+            
         case 2:
             let priceRangeCell = tableView.dequeueReusableCell(withIdentifier: PriceRangeTableCell.identifier, for: indexPath) as! PriceRangeTableCell
             return priceRangeCell
+            
         case 3:
             let houseTypeCell = tableView.dequeueReusableCell(withIdentifier: HouseTypeTableCell.identifier, for: indexPath) as! HouseTypeTableCell
             return houseTypeCell
         case 4:
             let bedCell = tableView.dequeueReusableCell(withIdentifier: BedFilterTableCell.identifier, for: indexPath) as! BedFilterTableCell
             return bedCell
-        case 5:
-            let convenienceFacilityCell = tableView.dequeueReusableCell(withIdentifier: CheckboxTableCell.identifier, for: indexPath) as! CheckboxTableCell
             
-            convenienceFacilityCell.setting(data: checkBoxDatas[0])
+        case 5...9:
             
-            let tempButtons = convenienceFacilityCell.checkBoxViewArray.compactMap { $0.checkBox }
-            checkBoxViewButtons.insert(tempButtons, at: 0)
+            let checkBoxCell = tableView.dequeueReusableCell(withIdentifier: CheckboxTableCell.identifier, for: indexPath) as! CheckboxTableCell
             
-            return convenienceFacilityCell
-        case 6:
-            let facilityCell = tableView.dequeueReusableCell(withIdentifier: CheckboxTableCell.identifier, for: indexPath) as! CheckboxTableCell
+//            let checkBoxCell = UITableViewCell(style: UITableViewCell.CellStyle.init(rawValue: 0)!, reuseIdentifier: CheckboxTableCell.identifier) as! CheckboxTableCell
+        
+//            checkBoxCell.inputCheckboxData = checkBoxDatas[indexPath.row-5]
+            checkBoxCell.setData(inputData: checkBoxDatas[indexPath.row-5])
+
+//            let tempButtons = convenienceFacilityCell.checkBoxViewArray.compactMap { $0.checkBox }
+//            checkBoxViewButtons.insert(tempButtons, at: 0)
+//
+            return checkBoxCell
             
-            return facilityCell
-        case 7:
-            let buildingTypeCell = tableView.dequeueReusableCell(withIdentifier: CheckboxTableCell.identifier, for: indexPath) as! CheckboxTableCell
+//        case 6:
+//            let facilityCell = tableView.dequeueReusableCell(withIdentifier: CheckboxTableCell.identifier, for: indexPath) as! CheckboxTableCell
+//
+//            facilityCell.setting(data: checkBoxDatas[1])
+//
+//            return facilityCell
+//
+//        case 7:
+//            let buildingTypeCell = tableView.dequeueReusableCell(withIdentifier: CheckboxTableCell.identifier, for: indexPath) as! CheckboxTableCell
+//
+//            buildingTypeCell.setting(data: checkBoxDatas[2])
+//
+//            return buildingTypeCell
+//
+//        case 8:
+//            let distictHouseCell = tableView.dequeueReusableCell(withIdentifier: CheckboxTableCell.identifier, for: indexPath) as! CheckboxTableCell
+//
+//            distictHouseCell.setting(data: checkBoxDatas[3])
+//
+//            return distictHouseCell
+//
+//        case 9:
+//            let houseRuleCell = tableView.dequeueReusableCell(withIdentifier: CheckboxTableCell.identifier, for: indexPath) as! CheckboxTableCell
+//
+//            houseRuleCell.setting(data: checkBoxDatas[4])
+
+//            return houseRuleCell
             
-            return buildingTypeCell
-        case 8:
-            let distictHouseCell = tableView.dequeueReusableCell(withIdentifier: CheckboxTableCell.identifier, for: indexPath) as! CheckboxTableCell
-            
-            return distictHouseCell
-        case 9:
-            let houseRuleCell = tableView.dequeueReusableCell(withIdentifier: CheckboxTableCell.identifier, for: indexPath) as! CheckboxTableCell
-            
-            return houseRuleCell
         default:
             return UITableViewCell()
         }
@@ -198,7 +233,17 @@ extension FilterRemainsViewController: UITableViewDataSource {
 // MARK: - TableviewTopViewDelegate
 
 extension FilterRemainsViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? CheckboxTableCell else { return }
+        
+//        cell.isTrue()
+//        switch checkBoxDatas[indexPath.row].contentArray[indexPath.row].checkBoxState {
+//        case true:
+//            cell.isTrue()
+//        case false:
+//            cell.isFalse()
+//        }
+    }
 }
 
 extension FilterRemainsViewController: TableviewTopViewDelegate {
