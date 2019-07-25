@@ -23,6 +23,7 @@ class MainView: UIView {
         super.init(frame: frame)
         setAutoLayout()
         configureViewsOptions()
+
         
     }
     

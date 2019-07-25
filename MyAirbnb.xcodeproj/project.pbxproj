@@ -136,6 +136,7 @@
 		8D51902C22E81811009D6792 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51902B22E81811009D6792 /* MessageViewController.swift */; };
 		8D51902F22E82C8F009D6792 /* MsgListTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51902E22E82C8F009D6792 /* MsgListTableCell.swift */; };
 		8D51903122E8472A009D6792 /* ChatRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51903022E8472A009D6792 /* ChatRoomViewController.swift */; };
+		8D51903422E96FE8009D6792 /* PlusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51903322E96FE7009D6792 /* PlusViewController.swift */; };
 		9F10F3C31A75AE56BBBE8FE9 /* Pods_MyAirbnb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5895FA9D40FD45C305945B10 /* Pods_MyAirbnb.framework */; };
 /* End PBXBuildFile section */
 
@@ -291,6 +292,7 @@
 		8D51902B22E81811009D6792 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
 		8D51902E22E82C8F009D6792 /* MsgListTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MsgListTableCell.swift; sourceTree = "<group>"; };
 		8D51903022E8472A009D6792 /* ChatRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomViewController.swift; sourceTree = "<group>"; };
+		8D51903322E96FE7009D6792 /* PlusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusViewController.swift; sourceTree = "<group>"; };
 		D11C85972DEC34ABFE5E5A06 /* Pods-MyAirbnb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyAirbnb.debug.xcconfig"; path = "Target Support Files/Pods-MyAirbnb/Pods-MyAirbnb.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -384,6 +386,7 @@
 		4353B8EA22D085D2004BD807 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				8D51903222E96F94009D6792 /* House */,
 				2080604222DDE6C5008672D9 /* LoginControllers */,
 				4313F09122E83FA2003BB3D1 /* LaunchScreenViewController.swift */,
 				4353B8ED22D088A3004BD807 /* TabbarController.swift */,
@@ -624,6 +627,14 @@
 			path = Message;
 			sourceTree = "<group>";
 		};
+		8D51903222E96F94009D6792 /* House */ = {
+			isa = PBXGroup;
+			children = (
+				8D51903322E96FE7009D6792 /* PlusViewController.swift */,
+			);
+			path = House;
+			sourceTree = "<group>";
+		};
 		C61D96A808C126AE8EE65879 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -832,6 +843,7 @@
 				208BC8F822E08DA200EBDDBA /* PickNationalNumberViewController.swift in Sources */,
 				8D0D78AC22D47AA700F61F0B /* InfoView.swift in Sources */,
 				4313F09422E8478E003BB3D1 /* MainViewData.swift in Sources */,
+				8D51903422E96FE8009D6792 /* PlusViewController.swift in Sources */,
 				4353B91822D75605004BD807 /* MainLuxeHouseCollectCell.swift in Sources */,
 				8D0D792F22DB7B2600F61F0B /* AllHouseLabelTableCell.swift in Sources */,
 				4353BA2822DC40B5004BD807 /* FSCalendarConstants.m in Sources */,
