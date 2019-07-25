@@ -127,4 +127,12 @@ class MainRecommendHouseCollectCell: UICollectionViewCell {
         ratingAndHostInfoLabel.textColor = #colorLiteral(red: 0.3221844435, green: 0.3202747703, blue: 0.3236560524, alpha: 1)
         ratingAndHostInfoLabel.sizeToFit()
     }
+    
+    func setData(plusHouseData: HousePlusDataInList) {
+        mainImageView.image = plusHouseData.houseMainImage
+        dateAndGuestLabel.text = "검증됨 ・ \(plusHouseData.houseLocation)"
+        houseNameLabel.text = plusHouseData.houseName
+        ratingImageLabel.text = plusHouseData.drawStarsWithHouseRate()
+        ratingAndHostInfoLabel.text = "\(plusHouseData.houseRateCount) ・ 슈퍼호스트"
+    }
 }

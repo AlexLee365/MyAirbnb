@@ -24,6 +24,7 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("--------------------------[MainVC viewDidLoad]--------------------------")
         view.addSubview(mainView)
         
         setAutoLayout()
@@ -109,6 +110,7 @@ class MainViewController: UIViewController {
         notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .searchBarFilterBtnDidTap, object: nil)
         notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .moveToHouseView, object: nil)
         notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .moveToHouseDetailView, object: nil)
+        notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .moveToPlusHouseDetailView, object: nil)
     }
     
     @objc func receiveNotification(_ sender: Notification) {
@@ -148,6 +150,9 @@ class MainViewController: UIViewController {
         case Notification.Name.moveToHouseDetailView:
             let houseDetailVC = HouseDetailViewController()
             navigationController?.pushViewController(houseDetailVC, animated: true)
+        
+//        case Notification.Name.moveToPlusHouseDetailView:
+            
             
         default : break
         }

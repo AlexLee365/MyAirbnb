@@ -15,6 +15,8 @@ class MainFullImageTableCell: UITableViewCell {
     let detailTitleLabel = UILabel()
     let titleLabel = UILabel()
     let buttonLabel = UILabel()
+    
+    
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -75,7 +77,7 @@ class MainFullImageTableCell: UITableViewCell {
         detailTitleLabel.font = .systemFont(ofSize: 11, weight: .regular)
         detailTitleLabel.textColor = .white
         
-        titleLabel.text = "계획을 전혀 세우지않고도\n완벽한 여행을 즐기는 법"
+//        titleLabel.text = "계획을 전혀 세우지않고도\n완벽한 여행을 즐기는 법"
         titleLabel.numberOfLines = 0
         titleLabel.font = .systemFont(ofSize: 21, weight: .bold)
         titleLabel.textColor = .white
@@ -84,6 +86,11 @@ class MainFullImageTableCell: UITableViewCell {
         buttonLabel.font = .systemFont(ofSize: 13, weight: .bold)
         buttonLabel.textColor = .white
         
+    }
+    
+    func setData(fullImageData: HouseFullImagDataInList) {
+        titleLabel.text = fullImageData.title
+        fullImageView.image = fullImageData.image
     }
     
 }
