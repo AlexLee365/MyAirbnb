@@ -54,7 +54,7 @@ extension UILabel {
     
     func configureHouseDetailSubText() {
         self.textColor = StandardUIValue.shared.colorRegularText
-        self.font = .systemFont(ofSize: 13, weight: .regular)
+        self.font = .systemFont(ofSize: 14, weight: .regular)
         self.numberOfLines = 0
     }
     

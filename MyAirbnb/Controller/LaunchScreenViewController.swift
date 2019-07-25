@@ -9,6 +9,7 @@
 import UIKit
 import SnapKit
 import Kingfisher
+import NVActivityIndicatorView
 
 class LaunchScreenViewController: UIViewController {
     
@@ -22,7 +23,14 @@ class LaunchScreenViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+//        let activityData = ActivityData(size: CGSize(width: 25, height: 25), message: "testing", messageFont: .systemFont(ofSize: 13, weight: .bold), messageSpacing: 10, type: .ballPulse, color: .red, padding: 50, displayTimeThreshold: 1, minimumDisplayTime: 1, backgroundColor: .clear, textColor: .black)
+//
+//        NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData)
+        
+        
+//        startAnimating(CGSize(width: 40, height: 40), type: .ballPulse, color: StandardUIValue.shared.colorBlueGreen, displayTimeThreshold: 1, minimumDisplayTime: 1, backgroundColor: .white, textColor: nil, fadeInAnimation: nil)
+        
         setAutoLayout()
         configureViewsOptions()
         createCategoryData()
@@ -50,7 +58,11 @@ class LaunchScreenViewController: UIViewController {
                 mainVC.mainView.mainViewDatas = self.mainViewDataArray
                 
                 self.present(tabbarVC, animated: false)
+                
             }
+            
+            
+            
         }
     }
     
@@ -85,9 +97,8 @@ class LaunchScreenViewController: UIViewController {
     }
 }
 
-
+// ServerData & 가데이터 생성
 extension LaunchScreenViewController {
-    // ServerData & 가데이터 생성
     private func createCategoryData() {
         let categoryDataArray: [Category] = [
             Category(image: UIImage(named: "categoryHouseImage") ?? UIImage(), title: "숙소", subTitle: "숙소"),

@@ -32,7 +32,7 @@ class HouseDetailLocationTableCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setAutoLayout()
         configureViewsOptions()
-        setMapView()
+        
         print("🔵🔵🔵 HouseDetailLocation TableCell ")
         print(mapView.annotations)
     }
@@ -61,6 +61,7 @@ class HouseDetailLocationTableCell: UITableViewCell {
         descriptionLabel.snp.makeConstraints { (make) in
             make.top.equalTo(subTitleLabel.snp.bottom).offset(topBottomMargin/2)
             make.leading.equalTo(sideMargin)
+            make.trailing.equalTo(-sideMargin)
         }
         
         self.addSubview(mapView)
@@ -101,14 +102,13 @@ class HouseDetailLocationTableCell: UITableViewCell {
         
     }
     
-    private func setMapView() {
+    private func setMapView(addressString: String) {
         mapView.delegate = self
         mapView.isScrollEnabled = false
         let mapViewTapGesture = UITapGestureRecognizer(target: self, action: #selector(mapViewDidTap(_:)))
         mapView.addGestureRecognizer(mapViewTapGesture)
-        let basicLocation = "서울 종로구 사직로 161 경복궁"
 
-        getLocationFromAddress(address: basicLocation) { (region) in
+        getLocationFromAddress(address: addressString) { (region) in
             self.mapView.setRegion(region, animated: false)
             self.drawCircleInMap(centerCoordinate: region.center)
         }
@@ -136,7 +136,11 @@ class HouseDetailLocationTableCell: UITableViewCell {
         notiCenter.post(name: .mapViewDidTapInHouseDetailView, object: nil, userInfo: ["coordinate": currentCoordinate])
     }
     
-    
+    func setData(state: String, LocationDescription: String, address: String) {
+        subTitleLabel.text = "\(state), 한국"
+//        descriptionLabel.text = LocationDescription
+        setMapView(addressString: address)
+    }
     
 
 }
@@ -147,7 +151,7 @@ extension HouseDetailLocationTableCell: MKMapViewDelegate {
             let renderer = MKCircleRenderer(circle: circle)
             renderer.strokeColor = StandardUIValue.shared.colorBlueGreen
             renderer.lineWidth = 1
-            renderer.fillColor = UIColor(red:0.09, green:0.51, blue:0.54, alpha:0.3)
+            renderer.fillColor = UIColor(red:0.09, green:0.51, blue:0.54, alpha:0.2)
             return renderer
         }
         return MKOverlayRenderer(overlay: overlay)

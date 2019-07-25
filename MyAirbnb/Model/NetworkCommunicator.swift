@@ -23,7 +23,6 @@ class NetworkCommunicator {
                 print("[getJsonObjectFromAPI] dataTask error!!")
                 return
             }
-            //            print("🔵🔵🔵 response: ", response)
             guard let data = data else {
                 print("[getJsonObjectFromAPI] data convert error")
                 return

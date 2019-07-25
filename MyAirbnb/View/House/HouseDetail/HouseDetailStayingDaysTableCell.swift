@@ -34,4 +34,8 @@ class HouseDetailStayingDaysTableCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setData(minStayingDay: Int) {
+        label.text = "최소 \(minStayingDay)박"
+    }
+    
 }

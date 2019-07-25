@@ -17,7 +17,7 @@ class HouseDetailFacilityTableCell: UITableViewCell {
     let layout = UICollectionViewFlowLayout()
     lazy var collectionview = UICollectionView(frame: .zero, collectionViewLayout: layout)
     
-    let data = ["에어컨", "케이블 TV", "필수품목", "난방"]
+    var facilitiesArray = [String]()
     
     private enum Metric {
         static let lineSpacing: CGFloat = 15
@@ -89,12 +89,13 @@ class HouseDetailFacilityTableCell: UITableViewCell {
 
 extension HouseDetailFacilityTableCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return data.count
+        return facilitiesArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HouseDetailFacilityCollectCell.identifier, for: indexPath) as! HouseDetailFacilityCollectCell
-        cell.titleLabel.text = "・ \(data[indexPath.row])"
+        
+        cell.setData(facility: facilitiesArray[indexPath.row])
         
         return cell
     }

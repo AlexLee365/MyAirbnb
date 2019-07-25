@@ -20,54 +20,33 @@ class HouseViewController: UIViewController {
     
     let notiCenter = NotificationCenter.default
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        configure()
+        configureViewsOptions()
         setAutolayout()
-        addNotificationObserver()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
-        
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
-//        if setLayout == false {
-//            let tabbarHeight = self.tabBarController!.tabBar.frame.height
-//            houseView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -tabbarHeight).isActive = true
-//
-//            setLayout = true
-//        }
     }
     
-    private func configure() {
-        view.backgroundColor = .white
-        
-        view.addSubview(searchBarView)
-        
-        view.addSubview(houseView)
-        
-        
-        navigationController?.interactivePopGestureRecognizer?.delegate = nil
-    }
     
     var setLayout = false
     private func setAutolayout() {
         let safeGuide = view.safeAreaLayoutGuide
         
+        view.addSubview(searchBarView)
         searchBarView.translatesAutoresizingMaskIntoConstraints = false
         searchBarView.topAnchor.constraint(equalTo: safeGuide.topAnchor, constant: 0).isActive = true
         searchBarView.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor).isActive = true
         searchBarView.trailingAnchor.constraint(equalTo: safeGuide.trailingAnchor).isActive = true
         
+        view.addSubview(houseView)
         houseView.translatesAutoresizingMaskIntoConstraints = false
         houseView.topAnchor.constraint(equalTo: searchBarView.bottomAnchor, constant: 5).isActive = true
         houseView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -75,18 +54,15 @@ class HouseViewController: UIViewController {
         houseView.bottomAnchor.constraint(equalTo: safeGuide.bottomAnchor).isActive = true
     }
     
-    private func addNotificationObserver() {
-//        notiCenter.addObserver(self, selector: #selector(receiveNotificationMoveToHouseDetailVC(_:)), name: .moveToHouseDetailView, object: nil)
+    private func configureViewsOptions() {
+        view.backgroundColor = .white
+        
+        navigationController?.interactivePopGestureRecognizer?.delegate = nil
+        searchBarView.searchImageBtn.addTarget(self, action: #selector(searchImageBtnDidTap), for: .touchUpInside)
     }
     
-    
-    
-    @objc func receiveNotificationMoveToHouseDetailVC(_ sender: Notification) {
-        let houseDetailVC = HouseDetailViewController()
-        navigationController?.pushViewController(houseDetailVC, animated: true)
+    @objc func searchImageBtnDidTap() {
+        navigationController?.popViewController(animated: false)
     }
     
-    
-    
-   
 }

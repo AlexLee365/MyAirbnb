@@ -36,8 +36,6 @@ class MainView: UIView {
         print("🔴🔴🔴 MainView didMoveToSuperview: ", mainViewDatas)
     }
     
-    
-    
     private func setAutoLayout() {
         self.addSubview(mainTableView)
         mainTableView.translatesAutoresizingMaskIntoConstraints = false
@@ -59,7 +57,7 @@ class MainView: UIView {
         mainTableView.register(MainFullImageTableCell.self, forCellReuseIdentifier: MainFullImageTableCell.identifier)
         mainTableView.register(MainLuxeHouseTableCell.self, forCellReuseIdentifier: MainLuxeHouseTableCell.identifier)
         mainTableView.register(FourSquareTableCell.self, forCellReuseIdentifier: FourSquareTableCell.identifier)
-        mainTableView.allowsSelection = true
+        mainTableView.allowsSelection = false
         //        mainTableView.separatorStyle = .none
         
         //        mainTableView.rowHeight = 500
@@ -194,6 +192,8 @@ extension MainView: UITableViewDelegate, UITableViewDataSource {
             return UITableView.automaticDimension
         }
     }
+    
+    
 }
 
 

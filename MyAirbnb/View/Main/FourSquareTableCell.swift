@@ -116,7 +116,10 @@ extension FourSquareTableCell: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        notiCenter.post(name: .moveToHouseDetailView, object: nil)
+        let data = normalHouseDataArray[indexPath.row]
+        
+        notiCenter.post(name: .moveToHouseDetailView, object: nil,
+                        userInfo: ["roomID": data.id, "type": data.houseType, "houseName": data.houseName])
     }
     
     

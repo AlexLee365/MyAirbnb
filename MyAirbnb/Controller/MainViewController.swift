@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SnapKit
+import NVActivityIndicatorView
 
 class MainViewController: UIViewController {
     
@@ -17,20 +19,20 @@ class MainViewController: UIViewController {
     
     var mainView = MainView()
     
+    let indicatorView = UIView()
+    let indicator = NVActivityIndicatorView(frame: .zero)
+    let jsonDecoder = JSONDecoder()
+    
     // MARK: - Properties
     let notiCenter = NotificationCenter.default
-    
     let netWork = NetworkCommunicator()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("--------------------------[MainVC viewDidLoad]--------------------------")
-        view.addSubview(mainView)
-        
         setAutoLayout()
         configureViewsOptions()
         addNotificationObserver()
-        
+        makeIndicatorView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,6 +42,7 @@ class MainViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         hideSearchBarTableView()
+        stopIndicator()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -81,9 +84,6 @@ class MainViewController: UIViewController {
         
         
         view.sendSubviewToBack(searchBarTableViewBackWhiteView)
-        
-        
-        
     }
     
     private func configureViewsOptions() {
@@ -107,6 +107,67 @@ class MainViewController: UIViewController {
         }
     }
     
+   
+    
+  
+    
+    private func showSearchBarTableView() {
+        view.bringSubviewToFront(searchBarTableViewBackWhiteView)
+        self.searchBarTableViewBackWhiteView.alpha = 1
+        
+        UIView.animate(withDuration: 0.3) {
+            self.searchBarTableView.alpha = 1
+        }
+    }
+    private func hideSearchBarTableView() {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.searchBarTableView.alpha = 0
+        }) { (_) in
+            self.searchBarTableViewBackWhiteView.alpha = 0
+            self.view.sendSubviewToBack(self.searchBarTableViewBackWhiteView)
+        }
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        print("touchesEnd")
+        
+        let location = touches.first!.location(in: searchBarTableView)
+        
+        if searchBarTableView.frame.contains(location) {
+            searchBarView.searchTF.resignFirstResponder()
+        }
+    }
+    
+    private func makeIndicatorView() {
+        view.addSubview(indicatorView)
+        indicatorView.snp.makeConstraints { (make) in
+            make.top.equalTo(searchBarView.snp.bottom).offset(5)
+            make.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        indicatorView.backgroundColor = .white
+        view.sendSubviewToBack(indicatorView)
+        
+        let centerX = UIScreen.main.bounds.width/2
+        let centerY = UIScreen.main.bounds.height/2
+        indicatorView.addSubview(indicator)
+        indicator.frame = CGRect(x: centerX-15, y: centerY-300, width: 30, height: 30)
+        indicator.type = .ballBeat
+        indicator.color = StandardUIValue.shared.colorBlueGreen
+    }
+    private func startIndicator() {
+        view.bringSubviewToFront(indicatorView)
+        indicator.startAnimating()
+    }
+    private func stopIndicator() {
+        view.sendSubviewToBack(indicatorView)
+        indicator.stopAnimating()
+    }
+}
+
+//Notification
+extension MainViewController {
     private func addNotificationObserver() {
         notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .searchBarEditBegin, object: nil)
         notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .searchBarEditEnd, object: nil)
@@ -149,13 +210,50 @@ class MainViewController: UIViewController {
             present(filterRemainsVC, animated: true)
             
         case Notification.Name.moveToHouseView:
-            let houseVC = HouseViewController()
-            navigationController?.pushViewController(houseVC, animated: false)
+            startIndicator()
+            DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+                let houseVC = HouseViewController()
+                self.navigationController?.pushViewController(houseVC, animated: false)
+            }
             
         case Notification.Name.moveToHouseDetailView:
+            guard let userInfo = sender.userInfo as? [String: Any]
+                , let roomID = userInfo["roomID"] as? Int
+                , let type = userInfo["type"] as? String
+                , let name = userInfo["houseName"] as? String
+                else { print("moveToHouseDetailView noti error"); return }
+            
             let houseDetailVC = HouseDetailViewController()
-            navigationController?.pushViewController(houseDetailVC, animated: true)
-        
+            houseDetailVC.roomID = roomID
+            houseDetailVC.nameLabelPlaceholder = name
+            houseDetailVC.typeLablePlaceholder = type
+            self.navigationController?.pushViewController(houseDetailVC, animated: false)
+            
+//            let urlString = netWork.basicUrlString + "/rooms/\(roomID)/"
+//            netWork.getJsonObjectFromAPI(urlString: urlString, urlForSpecificProcessing: nil) { (json) in
+//                guard let data = try? JSONSerialization.data(withJSONObject: json) else {
+//                    print("‼️ moveToHouseDetail noti error1")
+//                    return
+//                }
+//                guard let result = try? self.jsonDecoder.decode(HouseDetailData.self, from: data) else {
+//                    print("‼️ moveToHouseDetail noti error1")
+//                    return
+//                }
+//
+////                DispatchQueue.main.async {
+////                    let houseDetailVC = HouseDetailViewController()
+////                    houseDetailVC.houseDetailData = result
+////                    self.navigationController?.pushViewController(houseDetailVC, animated: true)
+////                }
+//            }
+            
+            
+            
+//            DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+//                let houseDetailVC = HouseDetailViewController()
+//                self.navigationController?.pushViewController(houseDetailVC, animated: true)
+//            }
+            
         case Notification.Name.moveToPlusHouseDetailView:
             let plusHouseVC = PlusViewController()
             navigationController?.pushViewController(plusHouseVC, animated: true)
@@ -163,48 +261,5 @@ class MainViewController: UIViewController {
         default : break
         }
     }
-    
-  
-    
-    private func showSearchBarTableView() {
-        view.bringSubviewToFront(searchBarTableViewBackWhiteView)
-        self.searchBarTableViewBackWhiteView.alpha = 1
-        
-        UIView.animate(withDuration: 0.3) {
-            self.searchBarTableView.alpha = 1
-        }
-    }
-    private func hideSearchBarTableView() {
-        UIView.animate(withDuration: 0.3, animations: {
-            self.searchBarTableView.alpha = 0
-        }) { (_) in
-            self.searchBarTableViewBackWhiteView.alpha = 0
-            self.view.sendSubviewToBack(self.searchBarTableViewBackWhiteView)
-        }
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesEnded(touches, with: event)
-        print("touchesEnd")
-        
-        let location = touches.first!.location(in: searchBarTableView)
-        print(location)
-        
-        if searchBarTableView.frame.contains(location) {
-            searchBarView.searchTF.resignFirstResponder()
-        }
-    }
-    
-    
-    
 }
 
-
-
-
-
-//        let urlString = "https://kapi.kakao.com/v1/translation/translate?"
-//            + "app_key=e4e4abd79709fdbc4e04e732818ac6f1&"
-//            + "src_lang=\()&"
-//            + "target_lang=\()&"
-//            + "query=\()"

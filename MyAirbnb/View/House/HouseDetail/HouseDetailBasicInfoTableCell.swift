@@ -301,4 +301,14 @@ class HouseDetailBasicInfoTableCell: UITableViewCell {
         label.font = .systemFont(ofSize: 13, weight: .regular)
         label.numberOfLines = 0
     }
+    
+    func setData(type: String, name: String, state: String, hostName: String, hostImage: UIImage?, capacity: Int, bedroom: Int, bathroom: Int) {
+        typeTopLabel.text = type
+        nameLabel.text = name
+        locationLabel.text = "\(state), 한국"
+        hostNameLabel.text = "호스트: \(hostName)님"
+        hostImageView.image = hostImage ?? UIImage(named: "hostSample1")
+        typeLabel.text = type
+        typeDetailLabel.text = "인원 \(capacity)명 ・ 침실 \(bedroom)개 ・ 침대 \(bedroom)개 ・ 욕실 \(bathroom)개"
+    }
 }

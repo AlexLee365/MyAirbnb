@@ -8,19 +8,50 @@
 
 import UIKit
 import MapKit
+import SnapKit
+import NVActivityIndicatorView
 
 class HouseDetailViewController: UIViewController {
     
     let tableView = UITableView()
+    let indicatorView = UIView()
     
+    
+    let indicator = NVActivityIndicatorView(frame: .zero)
     let notiCenter = NotificationCenter.default
+    
+    let netWork = NetworkCommunicator()
+    let jsonDecoder = JSONDecoder()
+    var houseDetailData: HouseDetailData?
+    var cellCountAfterDataRoad = 0
+    var roomID = 0
+    
+    var typeLablePlaceholder = ""
+    var nameLabelPlaceholder = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        setAutoLayout()
-        configureViewsOptions()
-        addNotificationObserver()
+        view.backgroundColor = .white
+        
+        self.setIndicatorView()
+        self.showIdicator()
+        self.addNotificationObserver()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+            
+            self.getServerData {
+                DispatchQueue.main.async {
+                    self.setAutoLayout()
+                    self.configureViewsOptions()
+                    self.tableView.reloadData()
+                    self.indicatorView.isHidden = true
+                    self.stopIndicator()
+                }
+                
+            }
+        }
+        
+       
     }
     
     private func setAutoLayout() {
@@ -70,16 +101,102 @@ class HouseDetailViewController: UIViewController {
         mapVC.defaultLocation = coordinate
         navigationController?.pushViewController(mapVC, animated: true)
     }
-
+    
+    func getServerData(completion: @escaping () -> ()) {
+        let urlString = netWork.basicUrlString + "/rooms/\(roomID)/"
+        netWork.getJsonObjectFromAPI(urlString: urlString, urlForSpecificProcessing: nil) { (json) in
+            guard let data = try? JSONSerialization.data(withJSONObject: json) else {
+                print("‼️ moveToHouseDetail noti error1")
+                return
+            }
+            guard let result = try? self.jsonDecoder.decode(HouseDetailData.self, from: data) else {
+                print("‼️ moveToHouseDetail noti error1")
+                return
+            }
+            self.houseDetailData = result
+            self.cellCountAfterDataRoad = 8
+            completion()
+        }
+    }
+    
+    private func setIndicatorView() {
+        let placeholderColor = #colorLiteral(red: 0.6902005672, green: 0.6860997081, blue: 0.6933541894, alpha: 0.3706389127)
+        indicatorView.backgroundColor = .white
+        view.addSubview(indicatorView)
+        indicatorView.snp.makeConstraints { (make) in
+            make.top.leading.trailing.bottom.equalTo(view)
+        }
+        
+        let imageView = UIImageView()
+        indicatorView.addSubview(imageView)
+        imageView.snp.makeConstraints { (make) in
+            make.top.leading.trailing.equalToSuperview()
+            make.height.equalTo(250)
+        }
+        imageView.backgroundColor = placeholderColor
+        
+        let hostView = UIView()
+        indicatorView.addSubview(hostView)
+        hostView.snp.makeConstraints { (make) in
+            make.top.equalTo(imageView.snp.bottom).offset(80)
+            make.trailing.equalTo(-20)
+            make.width.height.equalTo(80)
+        }
+        hostView.layer.cornerRadius = 40
+        hostView.clipsToBounds = true
+        hostView.backgroundColor = placeholderColor
+        
+        let typeLabel = UILabel()
+        indicatorView.addSubview(typeLabel)
+        typeLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(imageView.snp.bottom).offset(25)
+            make.leading.equalTo(20)
+        }
+        
+        let nameLabel = UILabel()
+        indicatorView.addSubview(nameLabel)
+        nameLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(typeLabel.snp.bottom).offset(5)
+            make.leading.equalTo(20)
+            make.width.equalToSuperview().multipliedBy(0.8)
+        }
+        
+        typeLabel.text = typeLablePlaceholder
+        typeLabel.font = .systemFont(ofSize: 12, weight: .bold)
+        typeLabel.textColor = StandardUIValue.shared.colorBrown
+        
+        nameLabel.text = nameLabelPlaceholder
+        nameLabel.configureMainTableViewCellsTitle()
+    }
+    
+    private func showIdicator() {
+        let centerX = UIScreen.main.bounds.width/2
+        let centerY = UIScreen.main.bounds.height/2
+        indicatorView.addSubview(indicator)
+        indicator.frame = CGRect(x: centerX-15, y: centerY, width: 30, height: 30)
+        indicator.type = .ballBeat
+        indicator.color = StandardUIValue.shared.colorBlueGreen
+        startIndicator()
+    }
+    
+    private func startIndicator() {
+        view.bringSubviewToFront(indicatorView)
+        indicator.startAnimating()
+    }
+    private func stopIndicator() {
+        view.sendSubviewToBack(indicatorView)
+        indicator.stopAnimating()
+    }
 
 }
 
 extension HouseDetailViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 8
+        return cellCountAfterDataRoad
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let data = houseDetailData else { print("‼️ HouseDetailVC tableView error"); return UITableViewCell()}
         
         switch indexPath.row {
         case 0:
@@ -88,31 +205,42 @@ extension HouseDetailViewController: UITableViewDelegate, UITableViewDataSource 
             return houseDetailPicturesTableCell
         case 1:
             let houseDetailBasicInfoTableCell = tableView.dequeueReusableCell(withIdentifier: HouseDetailBasicInfoTableCell.identifier, for: indexPath) as! HouseDetailBasicInfoTableCell
+            houseDetailBasicInfoTableCell.setData(type: data.roomType, name: data.title, state: "서울", hostName: data.host, hostImage: nil, capacity: data.capacity, bedroom: data.bedroom, bathroom: data.bathroom)
             
             return houseDetailBasicInfoTableCell
         case 2:
             let houseDetailIntroductionTableCell = tableView.dequeueReusableCell(withIdentifier: HouseDetailIntroductionTableCell.identifier, for: indexPath) as! HouseDetailIntroductionTableCell
+            houseDetailIntroductionTableCell.setData(description: data.houseDescription)
             
             return houseDetailIntroductionTableCell
         case 3:
             let houseDetailBedroomsTableCell = tableView.dequeueReusableCell(withIdentifier: HouseDetailBedroomsTableCell.identifier, for: indexPath) as! HouseDetailBedroomsTableCell
+            houseDetailBedroomsTableCell.bedRoomCount = data.bedroom
             
             return houseDetailBedroomsTableCell
             
         case 4:
             let houseDetailStayingDaysTableCell = tableView.dequeueReusableCell(withIdentifier: HouseDetailStayingDaysTableCell.identifier, for: indexPath) as! HouseDetailStayingDaysTableCell
             
+            houseDetailStayingDaysTableCell.setData(minStayingDay: data.minStay)
+            
             return houseDetailStayingDaysTableCell
         case 5:
             let houseDetailFacilityTableCell = tableView.dequeueReusableCell(withIdentifier: HouseDetailFacilityTableCell.identifier, for: indexPath) as! HouseDetailFacilityTableCell
+            
+            houseDetailFacilityTableCell.facilitiesArray = data.facilities
             
             return houseDetailFacilityTableCell
         case 6:
             let houseDetailLocationTableCell = tableView.dequeueReusableCell(withIdentifier: HouseDetailLocationTableCell.identifier, for: indexPath) as! HouseDetailLocationTableCell
             
+            houseDetailLocationTableCell.setData(state: "서울", LocationDescription: "", address: data.address)
+            
             return houseDetailLocationTableCell
         case 7:
             let houseDetailCheckInTableCell = tableView.dequeueReusableCell(withIdentifier: HouseDetailCheckInTableCell.identifier, for: indexPath) as! HouseDetailCheckInTableCell
+            
+            houseDetailCheckInTableCell.setData(checkIn: "", checkOut: "")
             
             return houseDetailCheckInTableCell
         default : break
