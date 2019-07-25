@@ -42,6 +42,11 @@ class MainViewController: UIViewController {
         hideSearchBarTableView()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        tabBarController?.tabBar.isHidden = false
+    }
+    
     private func setAutoLayout() {
         let safeGuide = view.safeAreaLayoutGuide
         
@@ -151,8 +156,9 @@ class MainViewController: UIViewController {
             let houseDetailVC = HouseDetailViewController()
             navigationController?.pushViewController(houseDetailVC, animated: true)
         
-//        case Notification.Name.moveToPlusHouseDetailView:
-            
+        case Notification.Name.moveToPlusHouseDetailView:
+            let plusHouseVC = PlusViewController()
+            navigationController?.pushViewController(plusHouseVC, animated: true)
             
         default : break
         }
