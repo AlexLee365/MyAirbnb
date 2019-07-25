@@ -15,7 +15,7 @@ struct MainViewData: MainViewDataProtocol {
     var cellStyle: CellStyle
     
     enum CellStyle {
-        case category, recommend, fullImage, luxe, fourSquare
+        case category, plus, fullImage, luxe, fourSquare
     }
 }
 
@@ -28,18 +28,73 @@ struct Category: MainViewDataProtocol {
 
 struct HouseDataInList: MainViewDataProtocol {
     let id: Int
-    let houseImage: UIImage
+    let houseImage: UIImage?
     let houseGarde: String = "default"
+    let houseType: String
+    let houseLocation: String
     let houseName: String
     var houseTotalRate: Double
     var houseRateCount: Int = 0
     let hostGrade: String = "default"
     
-    //    init(houseImage: String, houseGrade: String, houseName: String, houseTotalRate: Double, houseRateCount: Int, houseGrade: String) {
-    //        self.houseImage = houseImage
-    //        self.
-    //    }
-    
-    
+    func drawStarsWithHouseRate() -> String {
+        var starCount = 0
+        
+        switch houseTotalRate {
+        case 0..<1.1:
+            starCount = 1
+        case 1.1..<2.1:
+            starCount = 2
+        case 2.1..<3.1:
+            starCount = 3
+        case 3.1..<4.1:
+            starCount = 4
+        case 4.1...5:
+            starCount = 5
+        default:
+            starCount = 5
+        }
+        return String(repeating: "★", count: starCount)
+    }
 }
 
+struct HousePlusDataInList: MainViewDataProtocol {
+    let houseMainImage: UIImage?
+    let houseImageString: [String]
+    let houseLocation: String
+    let houseName: String
+    var houseTotalRate: Double
+    var houseRateCount: Int
+    
+    func drawStarsWithHouseRate() -> String {
+        var starCount = 0
+        
+        switch houseTotalRate {
+        case 0..<1.1:
+            starCount = 1
+        case 1.1..<2.1:
+            starCount = 2
+        case 2.1..<3.1:
+            starCount = 3
+        case 3.1..<4.1:
+            starCount = 4
+        case 4.1...5:
+            starCount = 5
+        default:
+            starCount = 5
+        }
+        return String(repeating: "★", count: starCount)
+    }
+}
+
+struct HouseFullImagDataInList: MainViewDataProtocol {
+    let title: String
+    let image: UIImage?
+}
+
+struct HouseLuxeDataInList: MainViewDataProtocol {
+    let houseMainImage: UIImage?
+    let houseImageString: [String]
+    let houseLocation: String
+    let houseName: String
+}

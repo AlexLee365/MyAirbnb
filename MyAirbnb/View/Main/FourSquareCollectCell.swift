@@ -106,5 +106,10 @@ class FourSquareCollectCell: UICollectionViewCell {
         ratingAndHostInfoLabel.textColor = #colorLiteral(red: 0.3221844435, green: 0.3202747703, blue: 0.3236560524, alpha: 1)
     }
     
+    func setData(houseData: HouseDataInList) {
+        mainImageView.image = houseData.houseImage
+//        detailLabel.text = "・ \(houseData)"
+    }
+    
     
 }

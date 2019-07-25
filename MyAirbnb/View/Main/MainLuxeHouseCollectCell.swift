@@ -95,4 +95,10 @@ class MainLuxeHouseCollectCell: UICollectionViewCell {
         
        
     }
+    
+    func setData(luxeHouseData: HouseLuxeDataInList) {
+        mainImageView.image = luxeHouseData.houseMainImage
+        dateAndGuestLabel.text = "검증됨 ・ \(luxeHouseData.houseLocation)"
+        houseNameLabel.text = luxeHouseData.houseName
+    }
 }

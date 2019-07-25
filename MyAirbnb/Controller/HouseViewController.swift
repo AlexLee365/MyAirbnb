@@ -76,7 +76,7 @@ class HouseViewController: UIViewController {
     }
     
     private func addNotificationObserver() {
-        notiCenter.addObserver(self, selector: #selector(receiveNotificationMoveToHouseDetailVC(_:)), name: .moveToHouseDetailView, object: nil)
+//        notiCenter.addObserver(self, selector: #selector(receiveNotificationMoveToHouseDetailVC(_:)), name: .moveToHouseDetailView, object: nil)
     }
     
     

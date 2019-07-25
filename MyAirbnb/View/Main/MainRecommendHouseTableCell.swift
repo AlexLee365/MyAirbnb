@@ -18,6 +18,8 @@ class MainRecommendHouseTableCell: UITableViewCell {
     let collectionViewCellWidth: CGFloat = UIScreen.main.bounds.width * 0.4
     let notiCenter = NotificationCenter.default
     
+    var plusHouseDataArray = [HousePlusDataInList]()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: MainRecommendHouseTableCell.identifier)
         
@@ -75,13 +77,13 @@ class MainRecommendHouseTableCell: UITableViewCell {
 
 extension MainRecommendHouseTableCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return plusHouseDataArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainRecommendHouseCollectCell.identifier, for: indexPath) as! MainRecommendHouseCollectCell
 
-        cell.mainImageView.image = UIImage(named: "houseSample")
+        cell.setData(plusHouseData: plusHouseDataArray[indexPath.row])
         
         return cell
     }
@@ -93,7 +95,7 @@ extension MainRecommendHouseTableCell: UICollectionViewDelegate, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        notiCenter.post(name: .moveToHouseDetailView, object: nil)
+        notiCenter.post(name: .moveToPlusHouseDetailView, object: nil)
     }
     
     

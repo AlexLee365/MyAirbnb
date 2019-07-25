@@ -11,6 +11,7 @@ import UIKit
 class MainLuxeHouseTableCell: UITableViewCell {
     static let identifier = "MainLuxeHouseTableCell"
     
+    // MARK: - UI Properties
     let titleLabel = UILabel()
     let detailTitleLabel = UILabel()
     let layout = UICollectionViewFlowLayout()
@@ -18,10 +19,12 @@ class MainLuxeHouseTableCell: UITableViewCell {
     
     let seeMoreBtn = UIButton()
     
-    
+    // MARK: - Properties
     var collectionViewCellWidth: CGFloat = UIScreen.main.bounds.width * 0.4
 //    lazy var collectionViewCellHeight: CGFloat = collectionViewCellWidth * 1.25
     var collectionViewCellHeight: CGFloat = (UIScreen.main.bounds.width * 0.4) * 1.25
+    
+    var luxeHouseDataArray = [HouseLuxeDataInList]()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

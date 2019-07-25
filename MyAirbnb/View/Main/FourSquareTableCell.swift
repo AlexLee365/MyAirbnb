@@ -11,13 +11,17 @@ import UIKit
 class FourSquareTableCell: UITableViewCell {
     static let identifier = "FourSquareTableCell"
     
+    // MARK: - UI Properties
     let titleLabel = UILabel()
     let layout = UICollectionViewFlowLayout()
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-    
-    let collectionViewCellWidth: CGFloat = ( UIScreen.main.bounds.width - (StandardUIValue.shared.mainViewSideMargin * 2) - 15 ) / 2
 
     let seeMoreBtn = UIButton()
+    
+    // MARK: - Properties
+    let notiCenter = NotificationCenter.default
+    let collectionViewCellWidth: CGFloat = ( UIScreen.main.bounds.width - (StandardUIValue.shared.mainViewSideMargin * 2) - 15 ) / 2
+    var normalHouseDataArray = [HouseDataInList]()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -107,6 +111,10 @@ extension FourSquareTableCell: UICollectionViewDelegate, UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionViewCellWidth, height: collectionViewCellWidth * 1.25)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        notiCenter.post(name: .moveToHouseDetailView, object: nil)
     }
     
     
