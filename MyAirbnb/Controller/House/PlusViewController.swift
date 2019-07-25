@@ -18,6 +18,11 @@ class PlusViewController: UIViewController {
         imageView.clipsToBounds = true
         return imageView
     }()
+
+    let topView: TableviewTopView = {
+        let view = TableviewTopView()
+        return view
+    }()
     
     let tableView: UITableView = {
         let tableView = UITableView()
@@ -25,11 +30,12 @@ class PlusViewController: UIViewController {
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
+        tableView.register(PlusIntroTableCell.self, forCellReuseIdentifier: PlusIntroTableCell.identifier)
         return tableView
     }()
     
-    let bottomView: BottomView = {
-        let view = BottomView()
+    let bottomView: BottomInfoView = {
+        let view = BottomInfoView()
         view.backColor = .white
         return view
     }()
@@ -41,6 +47,12 @@ class PlusViewController: UIViewController {
         setAutolayout()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        tabBarController?.tabBar.isHidden = true
+    }
+
     private func configure() {
         let imageViewHeight = view.frame.height * 0.7
         
@@ -48,6 +60,9 @@ class PlusViewController: UIViewController {
         headerImageView.frame = CGRect(x: 0, y: 0, width: tableView.frame.width, height: imageViewHeight)
         tableView.tableHeaderView = headerImageView
         view.addSubview(tableView)
+        
+        topView.delegate = self
+        view.addSubview(topView)
         
         view.addSubview(bottomView)
     }
@@ -58,6 +73,11 @@ class PlusViewController: UIViewController {
             make.bottom.equalTo(bottomView.snp.top)
         }
         
+        topView.snp.makeConstraints { (make) in
+            make.top.leading.trailing.equalToSuperview()
+            make.height.equalToSuperview().multipliedBy(0.1)
+        }
+        
         bottomView.snp.makeConstraints { (make) in
             make.bottom.equalToSuperview()
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
@@ -66,7 +86,7 @@ class PlusViewController: UIViewController {
     }
 }
 
-// MARK: -
+// MARK: - UITableViewDataSource
 
 extension PlusViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -74,6 +94,20 @@ extension PlusViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        switch indexPath.row {
+        case 0:
+            let introCell = tableView.dequeueReusableCell(withIdentifier: PlusIntroTableCell.identifier, for: indexPath) as! PlusIntroTableCell
+            return introCell
+        default:
+            return UITableViewCell()
+        }
+    }
+}
+
+// MARK: - TableviewTopViewDelegate
+
+extension PlusViewController: TableviewTopViewDelegate {
+    func popView() {
+        navigationController?.popViewController(animated: true)
     }
 }

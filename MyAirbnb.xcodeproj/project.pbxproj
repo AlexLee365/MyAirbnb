@@ -137,6 +137,7 @@
 		8D51902F22E82C8F009D6792 /* MsgListTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51902E22E82C8F009D6792 /* MsgListTableCell.swift */; };
 		8D51903122E8472A009D6792 /* ChatRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51903022E8472A009D6792 /* ChatRoomViewController.swift */; };
 		8D51903422E96FE8009D6792 /* PlusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51903322E96FE7009D6792 /* PlusViewController.swift */; };
+		8D51903722E97D92009D6792 /* PlusIntroTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51903622E97D92009D6792 /* PlusIntroTableCell.swift */; };
 		9F10F3C31A75AE56BBBE8FE9 /* Pods_MyAirbnb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5895FA9D40FD45C305945B10 /* Pods_MyAirbnb.framework */; };
 /* End PBXBuildFile section */
 
@@ -293,6 +294,7 @@
 		8D51902E22E82C8F009D6792 /* MsgListTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MsgListTableCell.swift; sourceTree = "<group>"; };
 		8D51903022E8472A009D6792 /* ChatRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomViewController.swift; sourceTree = "<group>"; };
 		8D51903322E96FE7009D6792 /* PlusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusViewController.swift; sourceTree = "<group>"; };
+		8D51903622E97D92009D6792 /* PlusIntroTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusIntroTableCell.swift; sourceTree = "<group>"; };
 		D11C85972DEC34ABFE5E5A06 /* Pods-MyAirbnb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyAirbnb.debug.xcconfig"; path = "Target Support Files/Pods-MyAirbnb/Pods-MyAirbnb.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -414,6 +416,7 @@
 		4353B8EB22D085D3004BD807 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8D51903522E97D52009D6792 /* PlusHouse */,
 				208BC8F222E08C6900EBDDBA /* Login */,
 				4353B8F522D3274E004BD807 /* Main */,
 				8D0D792122DB020600F61F0B /* House */,
@@ -633,6 +636,14 @@
 				8D51903322E96FE7009D6792 /* PlusViewController.swift */,
 			);
 			path = House;
+			sourceTree = "<group>";
+		};
+		8D51903522E97D52009D6792 /* PlusHouse */ = {
+			isa = PBXGroup;
+			children = (
+				8D51903622E97D92009D6792 /* PlusIntroTableCell.swift */,
+			);
+			path = PlusHouse;
 			sourceTree = "<group>";
 		};
 		C61D96A808C126AE8EE65879 /* Pods */ = {
@@ -865,6 +876,7 @@
 				4353B90822D48EB8004BD807 /* MainRecommendHouseCollectCell.swift in Sources */,
 				8D51902A22E5B7DD009D6792 /* CheckBoxData.swift in Sources */,
 				4353BA9722E1A06D004BD807 /* HouseDetailIntroductionTableCell.swift in Sources */,
+				8D51903722E97D92009D6792 /* PlusIntroTableCell.swift in Sources */,
 				4353B90E22D5AE12004BD807 /* MainFullImageTableCell.swift in Sources */,
 				8D0D794422DDE64900F61F0B /* VideoCollectionViewCell.swift in Sources */,
 				4353BA5B22DECE9F004BD807 /* OptionLoginPageViewController.swift in Sources */,
