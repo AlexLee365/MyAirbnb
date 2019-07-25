@@ -58,8 +58,6 @@ class MessageViewController: UIViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.view.backgroundColor = UIColor.clear
-        
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {

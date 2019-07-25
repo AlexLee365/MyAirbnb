@@ -31,6 +31,8 @@ class PlusViewController: UIViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
         tableView.register(PlusIntroTableCell.self, forCellReuseIdentifier: PlusIntroTableCell.identifier)
+        tableView.register(BrowsePhotosTableCell.self, forCellReuseIdentifier: BrowsePhotosTableCell.identifier)
+        tableView.register(FacilityTableCell.self, forCellReuseIdentifier: FacilityTableCell.identifier)
         return tableView
     }()
     
@@ -51,12 +53,15 @@ class PlusViewController: UIViewController {
         super.viewWillAppear(animated)
         
         tabBarController?.tabBar.isHidden = true
+        navigationController?.navigationBar.barStyle = .blackTranslucent
     }
 
+    
     private func configure() {
         let imageViewHeight = view.frame.height * 0.7
         
         tableView.dataSource = self
+        tableView.delegate = self
         headerImageView.frame = CGRect(x: 0, y: 0, width: tableView.frame.width, height: imageViewHeight)
         tableView.tableHeaderView = headerImageView
         view.addSubview(tableView)
@@ -90,7 +95,7 @@ class PlusViewController: UIViewController {
 
 extension PlusViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 15
+        return 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -98,9 +103,48 @@ extension PlusViewController: UITableViewDataSource {
         case 0:
             let introCell = tableView.dequeueReusableCell(withIdentifier: PlusIntroTableCell.identifier, for: indexPath) as! PlusIntroTableCell
             return introCell
+        case 1:
+            let browsePhotosCell = tableView.dequeueReusableCell(withIdentifier: BrowsePhotosTableCell.identifier, for: indexPath) as! BrowsePhotosTableCell
+            return browsePhotosCell
+        case 2:
+            let facilityCell = tableView.dequeueReusableCell(withIdentifier: FacilityTableCell.identifier, for: indexPath) as! FacilityTableCell
+            return facilityCell
         default:
             return UITableViewCell()
         }
+    }
+}
+
+// MARK: - UITableViewDelegate
+
+extension PlusViewController: UITableViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        let becomeWhiteEndPoint = tableView.tableHeaderView!.frame.height - topView.frame.height
+        let becomeWhiteStartPoint = becomeWhiteEndPoint - 70
+        
+        let opacity = ( scrollView.contentOffset.y - becomeWhiteStartPoint ) / (becomeWhiteEndPoint - becomeWhiteStartPoint)
+        
+        if scrollView.contentOffset.y > becomeWhiteStartPoint {
+            navigationController?.view.backgroundColor = UIColor.white.withAlphaComponent(opacity)
+            topView.backgroundColor = UIColor.white.withAlphaComponent(opacity)
+            topView.backButton.setImage(UIImage(named: "backBlack"), for: .normal)
+            topView.heartButton.setImage(UIImage(named: "heartBlack"), for: .normal)
+            topView.shareButton.setImage(UIImage(named: "shareBlack"), for: .normal)
+            
+            navigationController?.navigationBar.barStyle = .default
+            
+        } else {
+            navigationController?.view.backgroundColor = UIColor.white.withAlphaComponent(opacity)
+            topView.backgroundColor = UIColor.white.withAlphaComponent(opacity)
+            topView.backButton.setImage(UIImage(named: "backWhite"), for: .normal)
+            topView.heartButton.setImage(UIImage(named: "heartWhite"), for: .normal)
+            topView.shareButton.setImage(UIImage(named: "shareWhite"), for: .normal)
+            
+            navigationController?.navigationBar.barStyle = .blackTranslucent
+        }
+        
+        setNeedsStatusBarAppearanceUpdate()
     }
 }
 
