@@ -26,6 +26,7 @@ class MainView: UIView {
         setAutoLayout()
         configureViewsOptions()
 
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
