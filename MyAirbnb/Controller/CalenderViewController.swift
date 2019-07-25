@@ -281,9 +281,10 @@ class CalenderViewController: UIViewController {
                 self.dismiss(animated: false, completion: nil)
             }
             
-        } else if let tripVC = presentingViewController as? TripViewController {
-            print("tripVC")
         }
+//        else if let tripVC = presentingViewController as? TripViewController {
+//            print("tripVC")
+//        }
         
         
         

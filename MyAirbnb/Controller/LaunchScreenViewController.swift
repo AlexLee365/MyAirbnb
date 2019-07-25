@@ -66,6 +66,23 @@ class LaunchScreenViewController: UIViewController {
         imageView.image = UIImage(named: "launchImage")
         imageView.contentMode = .scaleAspectFit
     }
+    
+    private func reArrangeMainViewDataArray() {
+        var newArrangedArray = [MainViewData]()
+        let categoryData = mainViewDataArray.filter { $0.cellStyle == .category}
+        let plusHouseData = mainViewDataArray.filter { $0.cellStyle == .plus}
+        let fullImageData = mainViewDataArray.filter { $0.cellStyle == .fullImage}
+        let luxeHouseData = mainViewDataArray.filter { $0.cellStyle == .luxe}
+        let normalHouseData = mainViewDataArray.filter { $0.cellStyle == .fourSquare}
+        
+        newArrangedArray.append(MainViewData(data: categoryData, cellStyle: .category))
+        newArrangedArray.append(MainViewData(data: plusHouseData, cellStyle: .plus))
+        newArrangedArray.append(MainViewData(data: fullImageData, cellStyle: .fullImage))
+        newArrangedArray.append(MainViewData(data: luxeHouseData, cellStyle: .luxe))
+        newArrangedArray.append(MainViewData(data: normalHouseData, cellStyle: .fourSquare))
+        
+        mainViewDataArray = newArrangedArray
+    }
 }
 
 

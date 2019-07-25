@@ -19,7 +19,7 @@ class SeoulRecommendedDetailViewController: UIViewController {
     
     let topView = TableviewTopView()
     
-    let bottomView = BottomView()
+    let bottomView = BottomInfoView()
     
     override func viewDidLoad() {
         super.viewDidLoad()

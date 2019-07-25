@@ -128,11 +128,13 @@ class MainLuxeHouseTableCell: UITableViewCell {
 
 extension MainLuxeHouseTableCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return luxeHouseDataArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainLuxeHouseCollectCell.identifier, for: indexPath) as! MainLuxeHouseCollectCell
+        
+        cell.setData(luxeHouseData: luxeHouseDataArray[indexPath.row])
         
         return cell
     }

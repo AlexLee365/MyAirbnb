@@ -97,14 +97,16 @@ class FourSquareTableCell: UITableViewCell {
 
 extension FourSquareTableCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return normalHouseDataArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FourSquareCollectCell.identifier, for: indexPath) as! FourSquareCollectCell
         
-        let titleText = ["Villa San Gennariello B&B", "Villa Amonteera, Luxury with Fantastic Ocean Vision", "Amazing and Extremely Central Flat", "Unique Cave House"]
-        cell.houseNameLabel.text = titleText[indexPath.item]
+//        let titleText = ["Villa San Gennariello B&B", "Villa Amonteera, Luxury with Fantastic Ocean Vision", "Amazing and Extremely Central Flat", "Unique Cave House"]
+//        cell.houseNameLabel.text = titleText[indexPath.item]
+        
+        cell.setData(houseData: normalHouseDataArray[indexPath.row])
         
         return cell
     }

@@ -39,8 +39,8 @@ class ChatRoomViewController: UIViewController {
     }()
 
     
-    let bottomView: BottomView = {
-        let view = BottomView()
+    let bottomView: BottomInfoView = {
+        let view = BottomInfoView()
         view.backColor = .white
         return view
     }()

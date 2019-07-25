@@ -95,7 +95,7 @@ class SearchBarView: UIView {
         
         self.addSubview(searchContainerView)    // 높이: 45 + 10
         let sideMargin = StandardUIValue.shared.mainViewSideMargin
-        let bottomMargin = StandardUIValue.shared.mainTableViewCellsTopBottomPadding
+        
         searchContainerView.translatesAutoresizingMaskIntoConstraints = false
         searchContainerView.topAnchor.constraint(equalTo: self.topAnchor, constant: sideMargin/2).isActive = true
         searchContainerView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: sideMargin).isActive = true

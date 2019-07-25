@@ -1,14 +1,14 @@
 //
-//  BottomView.swift
+//  BottomInfoView.swift
 //  MyAirbnb
 //
-//  Created by Solji Kim on 10/07/2019.
+//  Created by 행복한 개발자 on 25/07/2019.
 //  Copyright © 2019 Alex Lee. All rights reserved.
 //
 
 import UIKit
 
-class BottomView: UIView {
+class BottomInfoView: UIView {
     
     var backColor: UIColor = .black {
         didSet {
@@ -21,7 +21,7 @@ class BottomView: UIView {
             }
         }
     }
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         

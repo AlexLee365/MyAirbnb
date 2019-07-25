@@ -107,8 +107,11 @@ class FourSquareCollectCell: UICollectionViewCell {
     }
     
     func setData(houseData: HouseDataInList) {
-        mainImageView.image = houseData.houseImage
-//        detailLabel.text = "・ \(houseData)"
+        mainImageView.image = houseData.houseImage ?? UIImage(named: "houseSample")
+        detailLabel.text = "\(houseData.houseType) ・ \(houseData.houseLocation)"
+        houseNameLabel.text = houseData.houseName
+        ratingImageLabel.text = houseData.drawStarsWithHouseRate()
+        ratingAndHostInfoLabel.text = "\(houseData.houseRateCount) ・ \(houseData.hostGrade)"
     }
     
     

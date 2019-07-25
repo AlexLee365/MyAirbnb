@@ -59,7 +59,7 @@ class MainView: UIView {
         mainTableView.register(MainFullImageTableCell.self, forCellReuseIdentifier: MainFullImageTableCell.identifier)
         mainTableView.register(MainLuxeHouseTableCell.self, forCellReuseIdentifier: MainLuxeHouseTableCell.identifier)
         mainTableView.register(FourSquareTableCell.self, forCellReuseIdentifier: FourSquareTableCell.identifier)
-        mainTableView.allowsSelection = false
+        mainTableView.allowsSelection = true
         //        mainTableView.separatorStyle = .none
         
         //        mainTableView.rowHeight = 500
@@ -125,6 +125,7 @@ extension MainView: UITableViewDelegate, UITableViewDataSource {
             if let luxeHouseData = houseData.data as? [HouseLuxeDataInList] {
                 let luxeHouseCell = tableView.dequeueReusableCell(withIdentifier: MainLuxeHouseTableCell.identifier, for: indexPath) as! MainLuxeHouseTableCell
                 
+                luxeHouseCell.luxeHouseDataArray = luxeHouseData
                 
                 return luxeHouseCell
             } else {
@@ -133,12 +134,12 @@ extension MainView: UITableViewDelegate, UITableViewDataSource {
           
         case .fourSquare:
             if let normalHouseData = houseData.data as? [HouseDataInList] {
-                let allWorldsFourSquareCell = tableView.dequeueReusableCell(withIdentifier: FourSquareTableCell.identifier, for: indexPath) as! FourSquareTableCell
+                let normalHouseSquareCell = tableView.dequeueReusableCell(withIdentifier: FourSquareTableCell.identifier, for: indexPath) as! FourSquareTableCell
                 
-                allWorldsFourSquareCell.titleLabel.text = "전 세계 숙소"
+                normalHouseSquareCell.titleLabel.text = "전 세계 숙소"
+                normalHouseSquareCell.normalHouseDataArray = normalHouseData
                 
-                
-                return allWorldsFourSquareCell
+                return normalHouseSquareCell
             } else {
                 print("normal Housedata convert error")
             }
@@ -186,11 +187,12 @@ extension MainView: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row == 2 {
+        if mainViewDatas[indexPath.row].cellStyle == .fullImage {
             let height = ( (UIScreen.main.bounds.width - 40) * 1.25 ) + 40
             return height
+        } else {
+            return UITableView.automaticDimension
         }
-        return UITableView.automaticDimension
     }
 }
 

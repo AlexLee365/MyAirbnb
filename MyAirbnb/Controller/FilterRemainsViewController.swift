@@ -55,8 +55,8 @@ class FilterRemainsViewController: UIViewController {
         return tableView
     }()
 
-    let bottomView: BottomView = {
-        let view = BottomView()
+    let bottomView: BottomInfoView = {
+        let view = BottomInfoView()
         view.backColor = .white
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
