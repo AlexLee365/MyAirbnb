@@ -42,7 +42,7 @@ class BrowsePhotosTableCell: UITableViewCell {
     let seeAllBtn: UIButton = {
         let button = UIButton()
         button.setTitle("사진 23장 모두 보기", for: .normal)
-        button.setTitleColor(#colorLiteral(red: 0.5810584426, green: 0.1285524964, blue: 0.5745313764, alpha: 0.9406838613), for: .normal)
+        button.setTitleColor(StandardUIValue.shared.colorWine, for: .normal)
         button.contentHorizontalAlignment = .left
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         return button

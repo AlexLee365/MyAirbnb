@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 import SnapKit
 
 class PlusViewController: UIViewController {
@@ -33,6 +34,8 @@ class PlusViewController: UIViewController {
         tableView.register(PlusIntroTableCell.self, forCellReuseIdentifier: PlusIntroTableCell.identifier)
         tableView.register(BrowsePhotosTableCell.self, forCellReuseIdentifier: BrowsePhotosTableCell.identifier)
         tableView.register(FacilityTableCell.self, forCellReuseIdentifier: FacilityTableCell.identifier)
+        tableView.register(HandicappedFacilityTableCell.self, forCellReuseIdentifier: HandicappedFacilityTableCell.identifier)
+        tableView.register(MapTableCell.self, forCellReuseIdentifier: MapTableCell.identifier)
         return tableView
     }()
     
@@ -42,11 +45,15 @@ class PlusViewController: UIViewController {
         return view
     }()
     
+    let notiCenter = NotificationCenter.default
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configure()
         setAutolayout()
+        addNotiObserver()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -56,6 +63,21 @@ class PlusViewController: UIViewController {
         navigationController?.navigationBar.barStyle = .blackTranslucent
     }
 
+    
+    private func addNotiObserver() {
+        notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .mapViewDidTapInHouseDetailView, object: nil)
+    }
+    
+    @objc private func receiveNotification(_ sender: Notification) {
+        guard let userInfo = sender.userInfo as? [String: CLLocationCoordinate2D],
+            let coordinate = userInfo["coordinate"] else { return }
+        
+        let mapVC = MapViewController()
+        
+        mapVC.defaultLocation = coordinate
+        mapVC.circleColor = StandardUIValue.shared.colorWine
+        navigationController?.pushViewController(mapVC, animated: true)
+    }
     
     private func configure() {
         let imageViewHeight = view.frame.height * 0.7
@@ -95,7 +117,7 @@ class PlusViewController: UIViewController {
 
 extension PlusViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 5
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -109,6 +131,12 @@ extension PlusViewController: UITableViewDataSource {
         case 2:
             let facilityCell = tableView.dequeueReusableCell(withIdentifier: FacilityTableCell.identifier, for: indexPath) as! FacilityTableCell
             return facilityCell
+        case 3:
+            let handicappedFacilityCell = tableView.dequeueReusableCell(withIdentifier: HandicappedFacilityTableCell.identifier, for: indexPath) as! HandicappedFacilityTableCell
+            return handicappedFacilityCell
+        case 4:
+            let mapCell = tableView.dequeueReusableCell(withIdentifier: MapTableCell.identifier, for: indexPath) as! MapTableCell
+            return mapCell
         default:
             return UITableViewCell()
         }

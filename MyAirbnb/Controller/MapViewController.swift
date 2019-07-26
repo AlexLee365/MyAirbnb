@@ -17,6 +17,7 @@ class MapViewController: UIViewController {
     let dismissBtn = UIButton()
     
     var defaultLocation = CLLocationCoordinate2D()
+    var circleColor = UIColor.black
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,9 +87,9 @@ extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if let circle = overlay as? MKCircle {
             let renderer = MKCircleRenderer(circle: circle)
-            renderer.strokeColor = StandardUIValue.shared.colorBlueGreen
+            renderer.strokeColor = circleColor
             renderer.lineWidth = 1
-            renderer.fillColor = UIColor(red:0.09, green:0.51, blue:0.54, alpha:0.3)
+            renderer.fillColor = circleColor.withAlphaComponent(0.3)
             return renderer
         }
         return MKOverlayRenderer(overlay: overlay)

@@ -51,7 +51,17 @@ class FacilityTableCell: UITableViewCell {
         return collectionView
     }()
     
+    let seeAllBtn: UIButton = {
+        let button = UIButton()
+        button.setTitle("19개의 편의시설 보기", for: .normal)
+        button.setTitleColor(StandardUIValue.shared.colorWine, for: .normal)
+        button.contentHorizontalAlignment = .left
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        return button
+    }()
+    
     let amenitiesArray = ["셀프 체크인", "주방", "무선 인터넷", "TV", "욕실 용품", "편안한 침구", "커피메이커", "헤어드라이어", "다리미"]
+    
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -64,7 +74,37 @@ class FacilityTableCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    private func setAmenityImage(amenity: String) -> UIImage {
+        var imageString = ""
+        
+        switch amenity {
+        case "셀프 체크인":
+            imageString = "selfCheckIn"
+        case "주방":
+            imageString = "kitchen"
+        case "무선 인터넷":
+            imageString = "wifi"
+        case "TV":
+            imageString = "tv"
+        case "욕실 용품":
+            imageString = "bathItem"
+        case "편안한 침구":
+            imageString = "comfortablePillow"
+        case "커피메이커":
+            imageString = "coffeeMaker"
+        case "헤어드라이어":
+            imageString = "hairDryer"
+        case "다리미":
+            imageString = "iron"
+        default: break
+        }
+        return UIImage(named: imageString) ?? UIImage()
+    }
+    
     private func configure() {
+        self.selectionStyle = .none
+        
         contentView.addSubview(titleLabel)
         contentView.addSubview(descLabel)
         contentView.addSubview(basicLabel)
@@ -73,12 +113,14 @@ class FacilityTableCell: UITableViewCell {
         collectionView.delegate = self
         
         let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
-        layout.scrollDirection = .horizontal
+        layout.scrollDirection = .vertical
         layout.minimumLineSpacing = UI.lineSpacing
         layout.minimumInteritemSpacing = UI.itemSpacing
         
         collectionView.contentInset = UI.edgeInsets
         contentView.addSubview(collectionView)
+        
+        contentView.addSubview(seeAllBtn)
     }
     
     private func setAutolayout() {
@@ -108,21 +150,15 @@ class FacilityTableCell: UITableViewCell {
             make.leading.equalTo(20)
             make.trailing.equalTo(-20)
             make.height.equalTo(collectionViewHeight)
-            make.bottom.equalTo(-20)
         }
-    }
-    
-    private func setAmenityImage(amenity: String) -> UIImage {
-        var imageString = ""
         
-        switch amenity {
-        case "셀프 체크인":
-            imageString = "selfCheckIn"
-        case "b":
-            imageString = "imageName2"
-        default: break
+        seeAllBtn.snp.makeConstraints { (make) in
+            make.top.equalTo(collectionView.snp.bottom).offset(20)
+            make.leading.equalTo(20)
+            make.trailing.equalToSuperview()
+            make.height.equalTo(60)
+            make.bottom.equalToSuperview()
         }
-        return UIImage(named: imageString) ?? UIImage()
     }
 }
 
@@ -155,8 +191,8 @@ extension FacilityTableCell: UICollectionViewDelegateFlowLayout {
         let horizontalInset = UI.edgeInsets.left + UI.edgeInsets.right
         let verticalInset = UI.edgeInsets.top + UI.edgeInsets.bottom
         
-        let verticalSpacing = itemSpacing + verticalInset
-        let horizontalSpacing = lineSpacing + horizontalInset
+        let horizontalSpacing = itemSpacing + horizontalInset
+        let verticalSpacing = lineSpacing + verticalInset
         
         let height = (collectionView.frame.height - verticalSpacing) / UI.itemsInLine
         let width = (collectionView.frame.width - horizontalSpacing) / UI.linesOnScreen
