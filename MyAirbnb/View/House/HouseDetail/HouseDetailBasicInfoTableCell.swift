@@ -56,28 +56,16 @@ class HouseDetailBasicInfoTableCell: UITableViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
     
     var setLayout = false
     override func layoutSubviews() {
-//        print("layoutSubviews")
-        
-//        if setLayout == false {
-//            if hostImageView.frame.width > 1 {
-//                setLayout = true
-//            }
-//
-//            print("hostImageView frame: ", hostImageView.frame)
-//
-//            hostImageView.layer.cornerRadius = hostImageView.frame.width/2
-//
-//
-//        }
+        super.layoutSubviews()
+        if setLayout == false, hostImageView.frame.width > 1 {
+            hostImageView.layer.cornerRadius = hostImageView.frame.width/2
+            setLayout = true
+        }
     }
+    
 
     private func setAutoLayout() {
         let sideMargin: CGFloat = StandardUIValue.shared.mainViewSideMargin
@@ -108,7 +96,7 @@ class HouseDetailBasicInfoTableCell: UITableViewCell {
         
         self.addSubview(hostImageView)
         hostImageView.translatesAutoresizingMaskIntoConstraints = false
-        hostImageView.centerYAnchor.constraint(equalTo: locationLabel.bottomAnchor).isActive = true
+        hostImageView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 5).isActive = true
         hostImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -sideMargin).isActive = true
         hostImageView.widthAnchor.constraint(equalToConstant: 80).isActive = true
         hostImageView.heightAnchor.constraint(equalTo: hostImageView.widthAnchor, multiplier: 1).isActive = true
@@ -232,7 +220,7 @@ class HouseDetailBasicInfoTableCell: UITableViewCell {
         hostImageView.image = UIImage(named: "hostSample1")
         hostImageView.contentMode = .scaleAspectFit
         hostImageView.clipsToBounds = true
-        hostImageView.layer.cornerRadius = 40
+//        hostImageView.layer.cornerRadius = 40
         
 //        typeIconView.backgroundColor = .yellow
         typeIconView.image = UIImage(named: "houseTypeIcon")

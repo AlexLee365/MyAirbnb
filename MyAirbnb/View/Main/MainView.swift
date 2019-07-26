@@ -58,6 +58,8 @@ class MainView: UIView {
         mainTableView.register(MainLuxeHouseTableCell.self, forCellReuseIdentifier: MainLuxeHouseTableCell.identifier)
         mainTableView.register(FourSquareTableCell.self, forCellReuseIdentifier: FourSquareTableCell.identifier)
         mainTableView.allowsSelection = false
+        
+        
         //        mainTableView.separatorStyle = .none
         
         //        mainTableView.rowHeight = 500

@@ -62,7 +62,7 @@ class MainViewController: UIViewController {
         
         view.addSubview(mainView)
         mainView.translatesAutoresizingMaskIntoConstraints = false
-        mainView.topAnchor.constraint(equalTo: searchBarView.bottomAnchor, constant: 5).isActive = true
+        mainView.topAnchor.constraint(equalTo: searchBarView.filterStackView.bottomAnchor, constant: 5).isActive = true
         //        mainView.topAnchor.constraint(equalTo: safeGuide.topAnchor, constant: 110).isActive = true
         mainView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         mainView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
@@ -83,6 +83,8 @@ class MainViewController: UIViewController {
         searchBarTableView.bottomAnchor.constraint(equalTo: searchBarTableViewBackWhiteView.bottomAnchor).isActive = true
         
         
+        
+        view.bringSubviewToFront(searchBarView)
         view.sendSubviewToBack(searchBarTableViewBackWhiteView)
     }
     
@@ -181,11 +183,11 @@ extension MainViewController {
     
     @objc func receiveNotification(_ sender: Notification) {
         switch sender.name {
-        case Notification.Name.searchBarEditBegin:
-            showSearchBarTableView()
-            
-        case Notification.Name.searchBarEditEnd:
-            hideSearchBarTableView()
+//        case Notification.Name.searchBarEditBegin:
+//            showSearchBarTableView()
+//
+//        case Notification.Name.searchBarEditEnd:
+//            hideSearchBarTableView()
             
         case Notification.Name.searchBarDateBtnDidTap:
             let calendarVC = CalenderViewController()

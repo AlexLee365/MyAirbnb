@@ -14,8 +14,7 @@ import NVActivityIndicatorView
 class HouseDetailViewController: UIViewController {
     
     let tableView = UITableView()
-    let indicatorView = UIView()
-    
+    let placeholderView = UIView()
     
     let indicator = NVActivityIndicatorView(frame: .zero)
     let notiCenter = NotificationCenter.default
@@ -31,27 +30,25 @@ class HouseDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        
-        self.setIndicatorView()
-        self.showIdicator()
+        self.setAutoLayout()
+        self.configureViewsOptions()
         self.addNotificationObserver()
         
+        self.setPlaceholderView()
+        self.showIdicator()
         DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-            
             self.getServerData {
                 DispatchQueue.main.async {
-                    self.setAutoLayout()
-                    self.configureViewsOptions()
                     self.tableView.reloadData()
-                    self.indicatorView.isHidden = true
+                    
+                    UIView.animate(withDuration: 0.5, animations: {
+                        self.view.bringSubviewToFront(self.tableView)
+                        self.tableView.alpha = 1
+                    })
                     self.stopIndicator()
                 }
-                
             }
         }
-        
-       
     }
     
     private func setAutoLayout() {
@@ -66,6 +63,8 @@ class HouseDetailViewController: UIViewController {
     }
     
     private func configureViewsOptions() {
+        view.backgroundColor = .white
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(HouseDetailPicturesTableCell.self, forCellReuseIdentifier: HouseDetailPicturesTableCell.identifier)
@@ -76,11 +75,11 @@ class HouseDetailViewController: UIViewController {
         tableView.register(HouseDetailFacilityTableCell.self, forCellReuseIdentifier: HouseDetailFacilityTableCell.identifier)
         tableView.register(HouseDetailLocationTableCell.self, forCellReuseIdentifier: HouseDetailLocationTableCell.identifier)
         tableView.register(HouseDetailCheckInTableCell.self, forCellReuseIdentifier: HouseDetailCheckInTableCell.identifier)
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: StandardUIValue.shared.mainViewSideMargin, bottom: 0, right: StandardUIValue.shared.mainViewSideMargin)
         tableView.contentInsetAdjustmentBehavior = .never
         tableView.allowsSelection = false
-        tableView.separatorInset = UIEdgeInsets(top: 0, left: StandardUIValue.shared.mainViewSideMargin, bottom: 0, right: StandardUIValue.shared.mainViewSideMargin)
         
-        
+        tableView.alpha = 0
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 50
         
@@ -104,13 +103,17 @@ class HouseDetailViewController: UIViewController {
     
     func getServerData(completion: @escaping () -> ()) {
         let urlString = netWork.basicUrlString + "/rooms/\(roomID)/"
-        netWork.getJsonObjectFromAPI(urlString: urlString, urlForSpecificProcessing: nil) { (json) in
+        netWork.getJsonObjectFromAPI(urlString: urlString, urlForSpecificProcessing: nil) { (json, success) in
+            guard success else {
+                print("get serverData failed")
+                return
+            }
             guard let data = try? JSONSerialization.data(withJSONObject: json) else {
-                print("‼️ moveToHouseDetail noti error1")
+                print("‼️ moveToHouseDetail noti data convert error")
                 return
             }
             guard let result = try? self.jsonDecoder.decode(HouseDetailData.self, from: data) else {
-                print("‼️ moveToHouseDetail noti error1")
+                print("‼️ moveToHouseDetail noti result decoding convert error")
                 return
             }
             self.houseDetailData = result
@@ -119,47 +122,49 @@ class HouseDetailViewController: UIViewController {
         }
     }
     
-    private func setIndicatorView() {
+    private func setPlaceholderView() {
         let placeholderColor = #colorLiteral(red: 0.6902005672, green: 0.6860997081, blue: 0.6933541894, alpha: 0.3706389127)
-        indicatorView.backgroundColor = .white
-        view.addSubview(indicatorView)
-        indicatorView.snp.makeConstraints { (make) in
+        
+        placeholderView.backgroundColor = .white
+        view.addSubview(placeholderView)
+        placeholderView.snp.makeConstraints { (make) in
             make.top.leading.trailing.bottom.equalTo(view)
         }
         
         let imageView = UIImageView()
-        indicatorView.addSubview(imageView)
+        placeholderView.addSubview(imageView)
         imageView.snp.makeConstraints { (make) in
             make.top.leading.trailing.equalToSuperview()
             make.height.equalTo(250)
         }
         imageView.backgroundColor = placeholderColor
         
-        let hostView = UIView()
-        indicatorView.addSubview(hostView)
-        hostView.snp.makeConstraints { (make) in
-            make.top.equalTo(imageView.snp.bottom).offset(80)
-            make.trailing.equalTo(-20)
-            make.width.height.equalTo(80)
-        }
-        hostView.layer.cornerRadius = 40
-        hostView.clipsToBounds = true
-        hostView.backgroundColor = placeholderColor
-        
         let typeLabel = UILabel()
-        indicatorView.addSubview(typeLabel)
+        placeholderView.addSubview(typeLabel)
         typeLabel.snp.makeConstraints { (make) in
             make.top.equalTo(imageView.snp.bottom).offset(25)
             make.leading.equalTo(20)
         }
         
         let nameLabel = UILabel()
-        indicatorView.addSubview(nameLabel)
+        placeholderView.addSubview(nameLabel)
         nameLabel.snp.makeConstraints { (make) in
             make.top.equalTo(typeLabel.snp.bottom).offset(5)
             make.leading.equalTo(20)
             make.width.equalToSuperview().multipliedBy(0.8)
         }
+        
+        let hostView = UIView()
+        placeholderView.addSubview(hostView)
+        hostView.snp.makeConstraints { (make) in
+            make.top.equalTo(nameLabel.snp.bottom).offset(5)
+            make.trailing.equalTo(-20)
+            make.width.height.equalTo(80)
+        }
+        
+        hostView.layer.cornerRadius = 40
+        hostView.clipsToBounds = true
+        hostView.backgroundColor = placeholderColor
         
         typeLabel.text = typeLablePlaceholder
         typeLabel.font = .systemFont(ofSize: 12, weight: .bold)
@@ -172,7 +177,7 @@ class HouseDetailViewController: UIViewController {
     private func showIdicator() {
         let centerX = UIScreen.main.bounds.width/2
         let centerY = UIScreen.main.bounds.height/2
-        indicatorView.addSubview(indicator)
+        placeholderView.addSubview(indicator)
         indicator.frame = CGRect(x: centerX-15, y: centerY, width: 30, height: 30)
         indicator.type = .ballBeat
         indicator.color = StandardUIValue.shared.colorBlueGreen
@@ -180,11 +185,11 @@ class HouseDetailViewController: UIViewController {
     }
     
     private func startIndicator() {
-        view.bringSubviewToFront(indicatorView)
+        view.bringSubviewToFront(placeholderView)
         indicator.startAnimating()
     }
     private func stopIndicator() {
-        view.sendSubviewToBack(indicatorView)
+        view.sendSubviewToBack(placeholderView)
         indicator.stopAnimating()
     }
 
@@ -245,16 +250,8 @@ extension HouseDetailViewController: UITableViewDelegate, UITableViewDataSource 
             return houseDetailCheckInTableCell
         default : break
         }
-        
         return UITableViewCell()
     }
-    
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        if indexPath.row == 1 {
-//            return 800
-//        }
-//        return UITableView.automaticDimension
-//    }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
 //        print(scrollView.contentOffset)

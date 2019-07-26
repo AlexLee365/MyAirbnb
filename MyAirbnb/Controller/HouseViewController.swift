@@ -12,7 +12,7 @@ class HouseViewController: UIViewController {
     
     let searchBarView: SearchBarView = {
         let searchBarView = SearchBarView()
-        searchBarView.searchImageBtn.setImage(UIImage(named: "back32"), for: .normal)
+        searchBarView.searchImageBtn.setImage(UIImage(named: "back33"), for: .normal)
         return searchBarView
     }()
     
@@ -56,6 +56,9 @@ class HouseViewController: UIViewController {
     
     private func configureViewsOptions() {
         view.backgroundColor = .white
+        
+        searchBarView.searchTF.text = "숙소"
+        
         
         navigationController?.interactivePopGestureRecognizer?.delegate = nil
         searchBarView.searchImageBtn.addTarget(self, action: #selector(searchImageBtnDidTap), for: .touchUpInside)

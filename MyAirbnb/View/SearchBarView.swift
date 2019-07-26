@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 protocol CalendarDelegate: class {
     func presentCalenderVC()
@@ -30,7 +31,8 @@ class SearchBarView: UIView {
     
     let autoCompleteTableView = UITableView()
     
-
+    let searchBarTableView = SearchBarTableView()
+    
     // MARK: - Properties
     var searchContainerTrailingInSearch: NSLayoutConstraint?
     
@@ -153,21 +155,30 @@ class SearchBarView: UIView {
         filterRemainsBtn.topAnchor.constraint(equalTo: filterStackView.topAnchor, constant: 0).isActive = true
         filterRemainsBtn.heightAnchor.constraint(equalTo: filterStackView.heightAnchor, multiplier: 1).isActive = true
         // =========================================================================================================
-        
-        self.addSubview(autoCompleteTableView)
-        autoCompleteTableView.translatesAutoresizingMaskIntoConstraints = false
-        autoCompleteTableView.topAnchor.constraint(equalTo: searchContainerView.bottomAnchor, constant: 5).isActive = true
-        autoCompleteTableView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        autoCompleteTableView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        let tableViewConstHeight = autoCompleteTableView.heightAnchor.constraint(equalToConstant: 0)
-        tableViewConstHeight.priority = UILayoutPriority(500)
-        tableViewConstHeight.isActive = true
+//
+//        self.addSubview(autoCompleteTableView)
+//        autoCompleteTableView.translatesAutoresizingMaskIntoConstraints = false
+//        autoCompleteTableView.topAnchor.constraint(equalTo: searchContainerView.bottomAnchor, constant: 5).isActive = true
+//        autoCompleteTableView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+//        autoCompleteTableView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+//        let tableViewConstHeight = autoCompleteTableView.heightAnchor.constraint(equalToConstant: 0)
+//        tableViewConstHeight.priority = UILayoutPriority(500)
+//        tableViewConstHeight.isActive = true
         
 //        let tableViewConstBottom = autoCompleteTableView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
 //        tableViewConstBottom.priority = UILayoutPriority(rawValue: 500)
 //        tableViewConstBottom.isActive = true
         
 //        self.bringSubviewToFront(filterStackView)
+        
+//        self.addSubview(searchBarTableView)
+//        searchBarTableView.snp.makeConstraints { (make) in
+//            make.top.equalTo(searchContainerView.snp.bottom).offset(10)
+//            make.leading.trailing.bottom.equalToSuperview()
+//        }
+//        searchBarTableView.alpha = 1
+////        searchBarTableView.isHidden = true
+//        searchBarTableView.isUserInteractionEnabled = false
     }
     
     private func configureViewsOptions() {
@@ -227,11 +238,6 @@ class SearchBarView: UIView {
         filterRemainsBtn.layer.cornerRadius = 5
         filterRemainsBtn.addTarget(self, action: #selector(filterRemainsBtnDidTap(_:)), for: .touchUpInside)
         
-        autoCompleteTableView.delegate = self
-        autoCompleteTableView.dataSource = self
-        autoCompleteTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-//        autoCompleteTableView.backgroundColor = .yellow
-        
     }
     
     @objc func searchCancelBtnDidTap(_ sender: UIButton) {  // 취소 버튼 => 수정종료
@@ -259,6 +265,14 @@ extension SearchBarView: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {   // 수정 시작
         notiCenter.post(name: .searchBarEditBegin, object: nil)
         
+        textEditBeginAnimation()
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {     // 수정 종료
+      textEditEndAnimation()
+    }
+    
+    private func textEditBeginAnimation() {
         self.searchContainerTrailingInSearch = self.searchContainerView.trailingAnchor.constraint(equalTo: self.searchCancelBtn.leadingAnchor, constant: 0)
         
         UIView.animate(withDuration: 0.15) {
@@ -267,7 +281,7 @@ extension SearchBarView: UITextFieldDelegate {
             
             self.layoutIfNeeded()
         }
-        self.bringSubviewToFront(autoCompleteTableView)
+        //        self.bringSubviewToFront(autoCompleteTableView)
         
         UIView.animate(withDuration: 0.3, delay: 0.3, usingSpringWithDamping: 1, initialSpringVelocity: 0.5, options: [.curveEaseIn], animations: {
             self.searchContainerTrailingInSearch?.priority = .defaultHigh
@@ -281,11 +295,9 @@ extension SearchBarView: UITextFieldDelegate {
         }) { (_) in
             self.searchImageBtn.isHidden = true
         }
-        
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {     // 수정 종료
-
+    private func textEditEndAnimation() {
         UIView.animateKeyframes(withDuration: 0.6, delay: 0, options: [], animations: {
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.3, animations: {
                 self.searchCancelBtn.layer.opacity = 0
@@ -294,7 +306,7 @@ extension SearchBarView: UITextFieldDelegate {
             })
             UIView.addKeyframe(withRelativeStartTime: 0.2, relativeDuration: 0.6, animations: {
                 self.searchContainerTrailingInSearch?.priority = .defaultLow
-
+                
                 self.searchTF.transform = CGAffineTransform.identity
                 self.searchImageBtn.isHidden = false
                 self.searchImageBtn.layer.opacity = 1

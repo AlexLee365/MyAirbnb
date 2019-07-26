@@ -13,7 +13,9 @@ import NVActivityIndicatorView
 
 class LaunchScreenViewController: UIViewController {
     
-    let imageView = UIImageView()
+    let backgroundGrayView = UIView()
+    let pinkAnimationView = UIView()
+    let logoImageView = UIImageView()
     
     var netWork = NetworkCommunicator()
     let kingfisher = ImageDownloader.default
@@ -23,60 +25,89 @@ class LaunchScreenViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        let activityData = ActivityData(size: CGSize(width: 25, height: 25), message: "testing", messageFont: .systemFont(ofSize: 13, weight: .bold), messageSpacing: 10, type: .ballPulse, color: .red, padding: 50, displayTimeThreshold: 1, minimumDisplayTime: 1, backgroundColor: .clear, textColor: .black)
-//
-//        NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData)
-        
-        
-//        startAnimating(CGSize(width: 40, height: 40), type: .ballPulse, color: StandardUIValue.shared.colorBlueGreen, displayTimeThreshold: 1, minimumDisplayTime: 1, backgroundColor: .white, textColor: nil, fadeInAnimation: nil)
-        
         setAutoLayout()
         configureViewsOptions()
+        startAnimation()
+        
         createCategoryData()
         createPlusHouseData()
         createFullImageHouseData()
         createLuxeHouseData()
         
-        getServerDataTest {
-            self.mainViewDataArray.append(MainViewData(data: self.houseDataArray, cellStyle: .fourSquare))
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             
-            DispatchQueue.main.async {
-                let tabbarVC = TabbarController()
-                guard let naviVC = tabbarVC.viewControllers!.first as? UINavigationController else {
-                    print("LaunchVC naviVC convert erorr")
-                    return
+            self.getServerDataTest {
+                self.mainViewDataArray.append(MainViewData(data: self.houseDataArray, cellStyle: .fourSquare))
+                
+                DispatchQueue.main.async {
+                    let tabbarVC = TabbarController()
+                    guard let naviVC = tabbarVC.viewControllers!.first as? UINavigationController else {
+                        print("LaunchVC naviVC convert erorr")
+                        return
+                    }
+                    
+                    guard let mainVC = naviVC.viewControllers.first as? MainViewController else {
+                        print("LaunchVC mainVC convert erorr")
+                        return
+                    }
+                    
+                    mainVC.mainView.mainViewDatas = self.mainViewDataArray
+                    
+                    self.present(tabbarVC, animated: false)
+                    
                 }
-                
-                guard let mainVC = naviVC.viewControllers.first as? MainViewController else {
-                    print("LaunchVC mainVC convert erorr")
-                    return
-                }
-                
-                print("--------------------------[Before present]--------------------------")
-                
-                mainVC.mainView.mainViewDatas = self.mainViewDataArray
-                
-                self.present(tabbarVC, animated: false)
-                
             }
             
             
             
         }
+        
     }
     
     private func setAutoLayout() {
-        view.addSubview(imageView)
-        imageView.snp.makeConstraints { (make) in
-            make.leading.trailing.top.bottom.equalToSuperview()
+        view.addSubview(backgroundGrayView)
+        backgroundGrayView.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview().offset(-50)
+            make.height.equalTo(150)
+            make.width.equalTo(150)
+        }
+        view.addSubview(pinkAnimationView)
+        pinkAnimationView.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview().offset(-130)
+            make.height.equalTo(100)
+            make.width.equalTo(150)
+        }
+        
+        view.addSubview(logoImageView)
+        logoImageView.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview().offset(-50)
+            make.width.equalTo(150)
         }
     }
     
     private func configureViewsOptions() {
         view.backgroundColor = .white
-        imageView.image = UIImage(named: "launchImage")
-        imageView.contentMode = .scaleAspectFit
+        backgroundGrayView.backgroundColor = #colorLiteral(red: 0.7848168612, green: 0.7801527381, blue: 0.7884028554, alpha: 0.3912403682)
+        pinkAnimationView.backgroundColor = StandardUIValue.shared.colorPink
+        
+        logoImageView.image = UIImage(named: "launchLogoImage")
+        logoImageView.contentMode = .scaleAspectFit
+    }
+    
+    private func startAnimation() {
+        UIView.animateKeyframes(withDuration: 1.6, delay: 0, options: [.repeat], animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.85, animations: {
+                self.pinkAnimationView.transform = CGAffineTransform(translationX: 0, y: 100)
+            })
+            UIView.addKeyframe(withRelativeStartTime: 0.85, relativeDuration: 0.15, animations: {
+                self.pinkAnimationView.alpha  = 0
+            })
+        }) { (_) in
+            print("LaunchScreenVC animation finished")
+        }
     }
     
     private func reArrangeMainViewDataArray() {
@@ -186,7 +217,11 @@ extension LaunchScreenViewController {
             + "/rooms/?search=seoul&ordering=price&page_size=5&page=1"
         
         
-        netWork.getJsonObjectFromAPI(urlString: urlString, urlForSpecificProcessing: nil) { (json) in
+        netWork.getJsonObjectFromAPI(urlString: urlString, urlForSpecificProcessing: nil) { (json, success) in
+            guard success else {
+                completion()
+                return
+            }
             guard let object = json as? [String: Any] else { print("object convert error"); return }
             
             let resultArray = object["results"] as! [[String: Any]]
