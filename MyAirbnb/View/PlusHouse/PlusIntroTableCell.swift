@@ -60,6 +60,7 @@ class PlusIntroTableCell: UITableViewCell {
         label.font = UIFont(name: "AirbnbCerealApp-Book", size: 18)
         label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
         label.numberOfLines = 0
+        label.setLineSpacing(lineSpacing: 3.0)
         return label
     }()
     

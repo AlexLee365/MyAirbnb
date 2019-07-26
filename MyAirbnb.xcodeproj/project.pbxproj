@@ -143,6 +143,9 @@
 		8D51903F22E9BAE3009D6792 /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51903E22E9BAE2009D6792 /* FooterView.swift */; };
 		8D51904122E9CCCD009D6792 /* FacilityTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51904022E9CCCD009D6792 /* FacilityTableCell.swift */; };
 		8D51904322E9D017009D6792 /* FacilityCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51904222E9D017009D6792 /* FacilityCollectionCell.swift */; };
+		8D51904522EAA165009D6792 /* HandicappedFacilityTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51904422EAA165009D6792 /* HandicappedFacilityTableCell.swift */; };
+		8D51904722EAAE56009D6792 /* MapTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51904622EAAE56009D6792 /* MapTableCell.swift */; };
+		8D51904922EAF40F009D6792 /* PlusMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51904822EAF40F009D6792 /* PlusMapViewController.swift */; };
 		9F10F3C31A75AE56BBBE8FE9 /* Pods_MyAirbnb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5895FA9D40FD45C305945B10 /* Pods_MyAirbnb.framework */; };
 /* End PBXBuildFile section */
 
@@ -305,6 +308,9 @@
 		8D51903E22E9BAE2009D6792 /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
 		8D51904022E9CCCD009D6792 /* FacilityTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacilityTableCell.swift; sourceTree = "<group>"; };
 		8D51904222E9D017009D6792 /* FacilityCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacilityCollectionCell.swift; sourceTree = "<group>"; };
+		8D51904422EAA165009D6792 /* HandicappedFacilityTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandicappedFacilityTableCell.swift; sourceTree = "<group>"; };
+		8D51904622EAAE56009D6792 /* MapTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTableCell.swift; sourceTree = "<group>"; };
+		8D51904822EAF40F009D6792 /* PlusMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusMapViewController.swift; sourceTree = "<group>"; };
 		D11C85972DEC34ABFE5E5A06 /* Pods-MyAirbnb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyAirbnb.debug.xcconfig"; path = "Target Support Files/Pods-MyAirbnb/Pods-MyAirbnb.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -426,15 +432,15 @@
 		4353B8EB22D085D3004BD807 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4353B8EF22D22782004BD807 /* SearchBarView.swift */,
+				4353BA3022DD7F41004BD807 /* SearchBarTableView.swift */,
+				4399345422E9831600FAE15C /* BottomInfoView.swift */,
 				8D51903522E97D52009D6792 /* PlusHouse */,
 				208BC8F222E08C6900EBDDBA /* Login */,
 				4353B8F522D3274E004BD807 /* Main */,
 				8D0D792122DB020600F61F0B /* House */,
 				8D0D787322D0898200F61F0B /* Trip */,
 				8D51902D22E82C41009D6792 /* Message */,
-				4353B8EF22D22782004BD807 /* SearchBarView.swift */,
-				4353BA3022DD7F41004BD807 /* SearchBarTableView.swift */,
-				4399345422E9831600FAE15C /* BottomInfoView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -643,6 +649,7 @@
 			isa = PBXGroup;
 			children = (
 				8D51903322E96FE7009D6792 /* PlusViewController.swift */,
+				8D51904822EAF40F009D6792 /* PlusMapViewController.swift */,
 			);
 			path = House;
 			sourceTree = "<group>";
@@ -657,6 +664,8 @@
 				8D51903E22E9BAE2009D6792 /* FooterView.swift */,
 				8D51904022E9CCCD009D6792 /* FacilityTableCell.swift */,
 				8D51904222E9D017009D6792 /* FacilityCollectionCell.swift */,
+				8D51904422EAA165009D6792 /* HandicappedFacilityTableCell.swift */,
+				8D51904622EAAE56009D6792 /* MapTableCell.swift */,
 			);
 			path = PlusHouse;
 			sourceTree = "<group>";
@@ -805,8 +814,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D51904522EAA165009D6792 /* HandicappedFacilityTableCell.swift in Sources */,
 				4353BA6122DF0F04004BD807 /* HouseView.swift in Sources */,
 				8D518FF622E1A3AB009D6792 /* CheckboxTableCell.swift in Sources */,
+				8D51904722EAAE56009D6792 /* MapTableCell.swift in Sources */,
 				8D0D793922DC9A2900F61F0B /* VideosDetailViewController.swift in Sources */,
 				8D0D78B022D48AE500F61F0B /* TopScrollView.swift in Sources */,
 				8D0D787222D0810300F61F0B /* SpecialTripTableViewCell.swift in Sources */,
@@ -822,6 +833,7 @@
 				43E36CD822E57627006C8AEF /* HouseDetailBedRoomsCollectCell.swift in Sources */,
 				4353B8F222D319F2004BD807 /* MainView.swift in Sources */,
 				4353B8EE22D088A3004BD807 /* TabbarController.swift in Sources */,
+				8D51904922EAF40F009D6792 /* PlusMapViewController.swift in Sources */,
 				20CD1F2122E303B1009641F4 /* MakePwPageViewContorller.swift in Sources */,
 				206C998A22E5B4AB002D3D55 /* PasswordView.swift in Sources */,
 				4353BA9122E09FD0004BD807 /* TestMessageViewController.swift in Sources */,
