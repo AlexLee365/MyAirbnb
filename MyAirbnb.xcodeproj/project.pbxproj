@@ -147,6 +147,7 @@
 		8D51904722EAAE56009D6792 /* MapTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51904622EAAE56009D6792 /* MapTableCell.swift */; };
 		8D51904B22EC1DAD009D6792 /* TripContentsTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51904A22EC1DAD009D6792 /* TripContentsTableCell.swift */; };
 		8D51904D22EC2647009D6792 /* ItemsProvidedTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51904C22EC2647009D6792 /* ItemsProvidedTableCell.swift */; };
+		8D51904F22EC3881009D6792 /* MemoTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51904E22EC3881009D6792 /* MemoTableCell.swift */; };
 		9F10F3C31A75AE56BBBE8FE9 /* Pods_MyAirbnb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5895FA9D40FD45C305945B10 /* Pods_MyAirbnb.framework */; };
 /* End PBXBuildFile section */
 
@@ -313,6 +314,7 @@
 		8D51904622EAAE56009D6792 /* MapTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTableCell.swift; sourceTree = "<group>"; };
 		8D51904A22EC1DAD009D6792 /* TripContentsTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripContentsTableCell.swift; sourceTree = "<group>"; };
 		8D51904C22EC2647009D6792 /* ItemsProvidedTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsProvidedTableCell.swift; sourceTree = "<group>"; };
+		8D51904E22EC3881009D6792 /* MemoTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoTableCell.swift; sourceTree = "<group>"; };
 		D11C85972DEC34ABFE5E5A06 /* Pods-MyAirbnb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyAirbnb.debug.xcconfig"; path = "Target Support Files/Pods-MyAirbnb/Pods-MyAirbnb.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -593,6 +595,7 @@
 				8D0D78B522D6060600F61F0B /* HostIntroTableViewCell.swift */,
 				8D51904A22EC1DAD009D6792 /* TripContentsTableCell.swift */,
 				8D51904C22EC2647009D6792 /* ItemsProvidedTableCell.swift */,
+				8D51904E22EC3881009D6792 /* MemoTableCell.swift */,
 				8D0D78D922D74BDC00F61F0B /* PlaceTableViewCell.swift */,
 			);
 			path = SeoulRecommendTrip;
@@ -870,6 +873,7 @@
 				4353BA6522DF0F4A004BD807 /* HouseTopLabelTableCell.swift in Sources */,
 				8D0D792722DB328900F61F0B /* HousePlusTableCell.swift in Sources */,
 				8D0D78AA22D4754200F61F0B /* SeoulRecommendTableViewCell.swift in Sources */,
+				8D51904F22EC3881009D6792 /* MemoTableCell.swift in Sources */,
 				4353B8F822D327C2004BD807 /* MainCategoryCollectCell.swift in Sources */,
 				4353BA2322DC40B5004BD807 /* FSCalendar.m in Sources */,
 				8D0D788C22D2220700F61F0B /* SeoulRecommenedTripTableViewCell.swift in Sources */,

@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import MapKit
 
 class SeoulRecommendedDetailViewController: UIViewController {
     
@@ -18,6 +19,8 @@ class SeoulRecommendedDetailViewController: UIViewController {
         tableView.register(HostIntroTableViewCell.self, forCellReuseIdentifier: HostIntroTableViewCell.identifier)
         tableView.register(PlaceTableViewCell.self, forCellReuseIdentifier: PlaceTableViewCell.identifier)
         tableView.register(TripContentsTableCell.self, forCellReuseIdentifier: TripContentsTableCell.identifier)
+        tableView.register(ItemsProvidedTableCell.self, forCellReuseIdentifier: ItemsProvidedTableCell.identifier)
+        tableView.register(MemoTableCell.self, forCellReuseIdentifier: MemoTableCell.identifier)
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
@@ -60,12 +63,14 @@ class SeoulRecommendedDetailViewController: UIViewController {
         return button
     }()
     
+    let notiCenter = NotificationCenter.default
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configure()
         setAutolayout()
+        addNotificationObserver()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -137,12 +142,29 @@ class SeoulRecommendedDetailViewController: UIViewController {
         return NSAttributedString(attributedString: result)
     }
     
+    // add notification observer for mapView tapped
+    private func addNotificationObserver() {
+        notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .mapViewDidTapInHouseDetailView, object: nil)
+    }
+    
+    @objc func receiveNotification(_ sender: Notification) {
+        print("mapView Did Tap Notification")
+        guard let userInfo = sender.userInfo as? [String: CLLocationCoordinate2D]
+            , let coordinate = userInfo["coordinate"]
+            else { print("‼️‼️‼️ noti userInfo convert error"); return }
+        
+        let mapVC = MapViewController()
+        mapVC.defaultLocation = coordinate
+        mapVC.circleColor = StandardUIValue.shared.colorBlueGreen
+        navigationController?.pushViewController(mapVC, animated: true)
+    }
+    
     
     private func setAutolayout() {
         tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: bottomView.topAnchor).isActive = true
         
         topView.translatesAutoresizingMaskIntoConstraints = false
         topView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
@@ -185,7 +207,7 @@ class SeoulRecommendedDetailViewController: UIViewController {
 
 extension SeoulRecommendedDetailViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 15
+        return 6
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -205,6 +227,12 @@ extension SeoulRecommendedDetailViewController: UITableViewDataSource {
         case 2:
             let tripContentsCell = tableView.dequeueReusableCell(withIdentifier: TripContentsTableCell.identifier, for: indexPath) as! TripContentsTableCell
             return tripContentsCell
+        case 3:
+            let itemsProvidedCell = tableView.dequeueReusableCell(withIdentifier: ItemsProvidedTableCell.identifier, for: indexPath) as! ItemsProvidedTableCell
+            return itemsProvidedCell
+        case 4:
+            let memoCell = tableView.dequeueReusableCell(withIdentifier: MemoTableCell.identifier, for: indexPath) as! MemoTableCell
+            return memoCell
         case 5:
             let placeCell = tableView.dequeueReusableCell(withIdentifier: PlaceTableViewCell.identifier, for: indexPath) as! PlaceTableViewCell
             placeCell.selectionStyle = .none
