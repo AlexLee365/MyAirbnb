@@ -170,13 +170,19 @@ extension UITapGestureRecognizer {
     }
 }
 
-extension NSMutableAttributedString {
+//extension NSMutableAttributedString {
+//
+//    func setColorForText(textForAttribute: String, withColor color: UIColor) {
+//        let range: NSRange = self.mutableString.range(of: textForAttribute, options: .caseInsensitive)
+//
+//        self.addAttribute(NSAttributedString.Key.foregroundColor, value: color, range: range)
+//    }
+//}
+
+extension UITableViewCell {
     
-    func setColorForText(textForAttribute: String, withColor color: UIColor) {
-        let range: NSRange = self.mutableString.range(of: textForAttribute, options: .caseInsensitive)
-        
-        self.addAttribute(NSAttributedString.Key.foregroundColor, value: color, range: range)
+    func hideSeparator() {
+        self.separatorInset = UIEdgeInsets(top: 0, left: UIScreen.main.bounds.width, bottom: 0, right: 0)
     }
 }
-
 

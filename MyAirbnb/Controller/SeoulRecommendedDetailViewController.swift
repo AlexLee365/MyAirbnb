@@ -235,6 +235,7 @@ extension SeoulRecommendedDetailViewController: UITableViewDataSource {
             return memoCell
         case 5:
             let placeCell = tableView.dequeueReusableCell(withIdentifier: PlaceTableViewCell.identifier, for: indexPath) as! PlaceTableViewCell
+            placeCell.hideSeparator()
             placeCell.selectionStyle = .none
             return placeCell
         default:
