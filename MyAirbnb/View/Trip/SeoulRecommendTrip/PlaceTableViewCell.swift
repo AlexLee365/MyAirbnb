@@ -14,7 +14,7 @@ class PlaceTableViewCell: UITableViewCell {
 
     let placeLabel: UILabel = {
         let label = UILabel()
-        label.configureTripDetailHostInfoTitle()
+        label.configureTripDetailTitle()
         label.text = "장소"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -22,9 +22,7 @@ class PlaceTableViewCell: UITableViewCell {
     
     let introLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
-        label.numberOfLines = 0
+        label.configureTripDetailDesc()
         label.text = "이 프로그램은 멜릭서의 오피스인 위워크(Wework) 선릉역 2호점에서 진행됩니다. 멜릭서 사무실도 둘러보고, 한국의 스타트업 회사와 코워킹 스페이스를 둘러보실 수도 있는 좋은 기회가 될 거에요 :)"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

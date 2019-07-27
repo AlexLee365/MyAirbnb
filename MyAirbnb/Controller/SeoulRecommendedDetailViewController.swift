@@ -14,6 +14,11 @@ class SeoulRecommendedDetailViewController: UIViewController {
     let tableView: UITableView = {
         let tableView = UITableView()
         tableView.contentInsetAdjustmentBehavior = .never
+        tableView.register(SeoulRecommendTableViewCell.self, forCellReuseIdentifier: SeoulRecommendTableViewCell.identifier)
+        tableView.register(HostIntroTableViewCell.self, forCellReuseIdentifier: HostIntroTableViewCell.identifier)
+        tableView.register(PlaceTableViewCell.self, forCellReuseIdentifier: PlaceTableViewCell.identifier)
+        tableView.register(TripContentsTableCell.self, forCellReuseIdentifier: TripContentsTableCell.identifier)
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -32,7 +37,7 @@ class SeoulRecommendedDetailViewController: UIViewController {
     let starImageLabel: UILabel = {
         let label = UILabel()
         label.text = String(repeating: "★", count: 5)
-        label.font = UIFont(name: "AirbnbCerealApp-Book", size: 12)
+        label.font = UIFont(name: "AirbnbCerealApp-Book", size: 13)
         label.textColor = .white
         return label
     }()
@@ -87,9 +92,6 @@ class SeoulRecommendedDetailViewController: UIViewController {
     private func configure() {
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(SeoulRecommendTableViewCell.self, forCellReuseIdentifier: SeoulRecommendTableViewCell.identifier)
-        tableView.register(HostIntroTableViewCell.self, forCellReuseIdentifier: HostIntroTableViewCell.identifier)
-        tableView.register(PlaceTableViewCell.self, forCellReuseIdentifier: PlaceTableViewCell.identifier)
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
         view.addSubview(tableView)
@@ -125,11 +127,11 @@ class SeoulRecommendedDetailViewController: UIViewController {
         ]
         
         // Find the 1st string in the whole string and set its attribute
-        result.setAttributes(attributesForFirstWord,
+        result.setAttributes(attributesForFirstWord as [NSAttributedString.Key : Any],
                              range: string.range(of: first))
         
         // Do the same thing for the 2nd string
-        result.setAttributes(attributesForSecondWord,
+        result.setAttributes(attributesForSecondWord as [NSAttributedString.Key : Any],
                              range: string.range(of: second))
         
         return NSAttributedString(attributedString: result)
@@ -200,6 +202,9 @@ extension SeoulRecommendedDetailViewController: UITableViewDataSource {
             let hostIntroCell = tableView.dequeueReusableCell(withIdentifier: HostIntroTableViewCell.identifier, for: indexPath) as! HostIntroTableViewCell
             hostIntroCell.selectionStyle = .none
             return hostIntroCell
+        case 2:
+            let tripContentsCell = tableView.dequeueReusableCell(withIdentifier: TripContentsTableCell.identifier, for: indexPath) as! TripContentsTableCell
+            return tripContentsCell
         case 5:
             let placeCell = tableView.dequeueReusableCell(withIdentifier: PlaceTableViewCell.identifier, for: indexPath) as! PlaceTableViewCell
             placeCell.selectionStyle = .none
@@ -248,35 +253,32 @@ extension SeoulRecommendedDetailViewController: UITableViewDelegate {
             UIView.animate(withDuration: 0.3) {
                 self.bottomView.backColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
                 
-//                let string = first + second as NSString
-//                let result = NSMutableAttributedString(string: string)
-//                let attributesForFirstWord = [
-//                    NSFontAttributeName : UIFont.boldSystemFontOfSize(60),
-//                    NSForegroundColorAttributeName : UIColor.blueColor(),
-//                    NSBackgroundColorAttributeName : UIColor.blackColor()
-//                ]
-//                let shadow = NSShadow()
-//                shadow.shadowColor = UIColor.darkGrayColor()
-//                shadow.shadowOffset = CGSize(width: 4, height: 4)
-//                let attributesForSecondWord = [
-//                    NSFontAttributeName : UIFont.boldSystemFontOfSize(30),
-//                    NSForegroundColorAttributeName : UIColor.whiteColor(),
-//                    NSBackgroundColorAttributeName : UIColor.greenColor(),
-//                    NSShadowAttributeName : shadow,
-//                ]
+                func attributedText(first: String, second: String) -> NSAttributedString{
+                    let string = first + second as NSString
+                    let result = NSMutableAttributedString(string: string as String)
+                    let attributesForFirstWord = [
+                        NSAttributedString.Key.font : UIFont(name: "AirbnbCerealApp-Bold", size: 17) ?? "",
+                        NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
+                        ] as [NSAttributedString.Key : Any]
+                    
+                    let attributesForSecondWord = [
+                        NSAttributedString.Key.font : UIFont(name: "AirbnbCerealApp-Book", size: 17) ?? "",
+                        NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.370555222, green: 0.3705646992, blue: 0.3705595732, alpha: 1)
+                        ] as [NSAttributedString.Key : Any]
+
+                    result.setAttributes(attributesForFirstWord, range: string.range(of: first))
+                    result.setAttributes(attributesForSecondWord, range: string.range(of: second))
+                    
+                    return NSAttributedString(attributedString: result)
+                }
                 
-                
-                let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: self.priceLabel.text!)
-                self.priceLabel.attributedText = self.attributedText(first: "₩40,000 ", second: "/인")
-                attributedString.setColorForText(textForAttribute: "₩40,000 ", withColor: #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1))
-                attributedString.setColorForText(textForAttribute: " /인", withColor: #colorLiteral(red: 0.370555222, green: 0.3705646992, blue: 0.3705595732, alpha: 1))
-                self.priceLabel.attributedText = attributedString
-                
+                self.priceLabel.attributedText = attributedText(first: "₩40,000 ", second: "/인")
                 self.starImageLabel.textColor = StandardUIValue.shared.colorBlueGreen
                 self.rateLabel.textColor = #colorLiteral(red: 0.5704585314, green: 0.5704723597, blue: 0.5704649091, alpha: 1)
                 self.seeDateBtn.backgroundColor = StandardUIValue.shared.colorPink
                 self.seeDateBtn.setTitleColor(.white, for: .normal)
             }
+            
         } else {
             self.priceLabel.attributedText = self.attributedText(first: "₩40,000 ", second: "/인")
             self.bottomView.backColor = .black

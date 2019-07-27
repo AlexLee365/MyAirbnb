@@ -42,9 +42,18 @@ extension UILabel {
         self.textColor = #colorLiteral(red: 0.3221844435, green: 0.3202747703, blue: 0.3236560524, alpha: 1)
     }
     
-    func configureTripDetailHostInfoTitle() {
-        self.font = UIFont.systemFont(ofSize: StandardUIValue.shared.sizeTitleBoldText, weight: .semibold)
-        self.textColor = #colorLiteral(red: 0.370555222, green: 0.3705646992, blue: 0.3705595732, alpha: 1)
+    func configureTripDetailTitle() {
+        self.font = UIFont(name: "AirbnbCerealApp-Medium", size: 18)
+        self.setLineSpacing(lineSpacing: 4)
+        self.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
+            UIFont.systemFont(ofSize: StandardUIValue.shared.sizeTitleBoldText, weight: .semibold)
+    }
+    
+    func configureTripDetailDesc() {
+        self.font = UIFont(name: "AirbnbCerealApp-Book", size: 16)
+        self.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
+        self.setLineSpacing(lineSpacing: 4)
+        self.numberOfLines = 0
     }
     
     func configureHouseDetailMainText() {

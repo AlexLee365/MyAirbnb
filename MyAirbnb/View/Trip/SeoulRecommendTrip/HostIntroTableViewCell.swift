@@ -19,7 +19,7 @@ class HostIntroTableViewCell: UITableViewCell {
     
     let hostIntroLabel: UILabel = {
         let label = UILabel()
-        label.configureTripDetailHostInfoTitle()
+        label.configureTripDetailTitle()
         label.text = "호스트 Hana님 소개"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
