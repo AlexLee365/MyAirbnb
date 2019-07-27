@@ -52,7 +52,9 @@ class HostIntroTableViewCell: UITableViewCell {
     
     let introBody: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+//        label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+        label.font = UIFont(name: "AirbnbCerealApp-Book", size: 17)
+        label.setLineSpacing(lineSpacing: 4)
         label.textColor = #colorLiteral(red: 0.4756349325, green: 0.4756467342, blue: 0.4756404161, alpha: 1)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -180,7 +182,6 @@ class HostIntroTableViewCell: UITableViewCell {
         introBody.topAnchor.constraint(equalTo: touchButton.bottomAnchor, constant: 5).isActive = true
         introBody.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: sideMargin).isActive = true
         introBody.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -sideMargin).isActive = true
-        //        introBody.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -sideMargin).isActive = true
         
         let space = UIView()
         space.backgroundColor = .yellow

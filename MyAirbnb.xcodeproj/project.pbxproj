@@ -145,7 +145,6 @@
 		8D51904322E9D017009D6792 /* FacilityCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51904222E9D017009D6792 /* FacilityCollectionCell.swift */; };
 		8D51904522EAA165009D6792 /* HandicappedFacilityTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51904422EAA165009D6792 /* HandicappedFacilityTableCell.swift */; };
 		8D51904722EAAE56009D6792 /* MapTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51904622EAAE56009D6792 /* MapTableCell.swift */; };
-		8D51904922EAF40F009D6792 /* PlusMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51904822EAF40F009D6792 /* PlusMapViewController.swift */; };
 		9F10F3C31A75AE56BBBE8FE9 /* Pods_MyAirbnb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5895FA9D40FD45C305945B10 /* Pods_MyAirbnb.framework */; };
 /* End PBXBuildFile section */
 
@@ -310,7 +309,6 @@
 		8D51904222E9D017009D6792 /* FacilityCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacilityCollectionCell.swift; sourceTree = "<group>"; };
 		8D51904422EAA165009D6792 /* HandicappedFacilityTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandicappedFacilityTableCell.swift; sourceTree = "<group>"; };
 		8D51904622EAAE56009D6792 /* MapTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTableCell.swift; sourceTree = "<group>"; };
-		8D51904822EAF40F009D6792 /* PlusMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusMapViewController.swift; sourceTree = "<group>"; };
 		D11C85972DEC34ABFE5E5A06 /* Pods-MyAirbnb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyAirbnb.debug.xcconfig"; path = "Target Support Files/Pods-MyAirbnb/Pods-MyAirbnb.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -649,7 +647,6 @@
 			isa = PBXGroup;
 			children = (
 				8D51903322E96FE7009D6792 /* PlusViewController.swift */,
-				8D51904822EAF40F009D6792 /* PlusMapViewController.swift */,
 			);
 			path = House;
 			sourceTree = "<group>";
@@ -833,7 +830,6 @@
 				43E36CD822E57627006C8AEF /* HouseDetailBedRoomsCollectCell.swift in Sources */,
 				4353B8F222D319F2004BD807 /* MainView.swift in Sources */,
 				4353B8EE22D088A3004BD807 /* TabbarController.swift in Sources */,
-				8D51904922EAF40F009D6792 /* PlusMapViewController.swift in Sources */,
 				20CD1F2122E303B1009641F4 /* MakePwPageViewContorller.swift in Sources */,
 				206C998A22E5B4AB002D3D55 /* PasswordView.swift in Sources */,
 				4353BA9122E09FD0004BD807 /* TestMessageViewController.swift in Sources */,
