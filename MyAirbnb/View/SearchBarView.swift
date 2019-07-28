@@ -224,7 +224,7 @@ class SearchBarView: UIView {
         filterDateBtn.layer.borderWidth = 0.5
         filterDateBtn.layer.cornerRadius = 5
         filterDateBtn.addTarget(self, action: #selector(filterDateBtnDidTap(_:)), for: .touchUpInside)
-        
+
         filterPeopleBtn.setTitle("    인원    ", for: .normal)
         filterPeopleBtn.setTitleColor(StandardUIValue.shared.colorRegularText, for: .normal)
         filterPeopleBtn.titleLabel?.font = .systemFont(ofSize: 13, weight: .semibold)
@@ -360,4 +360,6 @@ extension SearchBarView: UITableViewDelegate, UITableViewDataSource {
     
     
 }
+
+
 

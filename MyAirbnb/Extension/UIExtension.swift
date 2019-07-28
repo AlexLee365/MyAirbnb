@@ -180,9 +180,15 @@ extension UITapGestureRecognizer {
 //}
 
 extension UITableViewCell {
-    
     func hideSeparator() {
         self.separatorInset = UIEdgeInsets(top: 0, left: UIScreen.main.bounds.width, bottom: 0, right: 0)
     }
 }
 
+extension UIButton {
+    open override var isHighlighted: Bool {
+        didSet {
+            self.backgroundColor = isHighlighted ? #colorLiteral(red: 0.8454582095, green: 0.8404331207, blue: 0.8493215442, alpha: 0.4461151541) : UIColor.white
+        }
+    }
+}
