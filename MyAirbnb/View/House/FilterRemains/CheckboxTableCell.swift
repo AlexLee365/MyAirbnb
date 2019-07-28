@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import SnapKit
 
 class CheckboxTableCell: UITableViewCell {
     static let identifier = "CheckboxTableCell"
+    
     static let style = UITableViewCell.CellStyle.init(rawValue: 0)
     
     let title: UILabel = {
@@ -27,68 +29,80 @@ class CheckboxTableCell: UITableViewCell {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    var currentIndex = 0
     
-    override var isSelected: Bool {
-        willSet {
-            newValue ? isTrue() : isFalse()
-        }
-    }
+    var chekcBoxSelectedState = false
     
     var inputCheckboxData: CheckBoxData?
+    var checkBoxViewArray = [CheckBoxContainerView]()
     var customViewsAreMade = false
-    
-    
+    let notiCenter = NotificationCenter.default
+    var seeAllBtnArray = [UIButton]()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: UITableViewCell.CellStyle(rawValue: 0)!, reuseIdentifier: reuseIdentifier)
-        
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        print("--------------------------[Cell init]--------------------------")
         configure()
         setAutolayout()
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    var checkBoxViewArray = [CheckBoxContainerView]()
-    
-//    func setting(data: CheckBoxData) {
-//        title.text = data.title
-//        seeAllBtn.setTitle(data.buttonTitle, for: .normal)
-//
-//        for (_, value) in data.contentArray.enumerated() {
-//            let customView = CheckBoxContainerView()
-//
-//            customView.typeLabel.text = value.type
-//            checkBoxViewArray.append(customView)
-//        }
-//
-//        showThreeCheckBox()
-//    }
-    
-    func setData(inputData: CheckBoxData) {
-        title.text = inputData.title
-        seeAllBtn.setTitle(inputData.buttonTitle, for: .normal)
-        
-        makeContainerViews(viewsCount: inputCheckboxData?.contentArray.count ?? 0)
-        
-        for (index, value) in inputData.contentArray.enumerated() {
-            guard index < checkBoxViewArray.count else { break }
-            print(index)
-            checkBoxViewArray[index].typeLabel.text = value.type
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        guard setDataOnce == false else { return }
+        for checkboxView in checkBoxViewArray {
+            checkboxView.isHidden = true
         }
+//        seeAllBtnArray.last?.isHidden = true
     }
     
-    private func makeContainerViews(viewsCount: Int) {
-        guard customViewsAreMade == false else { return }
+    
+    private func configure() {
+        self.selectionStyle = .none
+        contentView.addSubview(title)
+        contentView.addSubview(seeAllBtn)
+    }
+    
+    private func setAutolayout() {
+        title.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 28).isActive = true
+        title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
         
-        print("makeContainerViews 함수 실행됨")
+        seeAllBtn.translatesAutoresizingMaskIntoConstraints = false
+        seeAllBtn.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20).isActive = true
+        seeAllBtn.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
+        seeAllBtn.heightAnchor.constraint(equalToConstant: 35).isActive = true
+    }
+    
+    
+    var setDataOnce = false
+    func setData(inputData: CheckBoxData) {
+        guard setDataOnce == false else { return }
+        title.text = inputData.title
+        seeAllBtn.setTitle(inputData.buttonTitle, for: .normal)
+        seeAllBtn.addTarget(self, action: #selector(seeAllBtnDidTap(_:)), for: .touchUpInside)
+        seeAllBtn.tag = 99
+        
+        let viewsCount = inputData.seeAllBtnState ? inputData.contentArray.count : 3
+        print("setData viewsCount: ", viewsCount)
+        
+        makeContainerViews(checkBoxData: inputData, viewsCount: viewsCount)
+        setCheckBoxState(contentArray: inputData.contentArray, viewsCount: viewsCount)
+        setDataOnce = true
+    }
+    
+    private func makeContainerViews(checkBoxData: CheckBoxData, viewsCount: Int) {
+        print("makeContainerViews")
+        checkBoxViewArray.removeAll()
         for index in 0..<viewsCount {
-            let customView = CheckBoxContainerView()
+            print("for문 ", index)
             
-            guard index < 3 else { break }
-
+            let customView = CheckBoxContainerView()
+            customView.checkBox.addTarget(self, action: #selector(checkBoxBtnDidTap(_:)), for: .touchUpInside)
+            customView.checkBox.tag = index
+            customView.typeLabel.text = checkBoxData.contentArray[index].type
             
             checkBoxViewArray.append(customView)
             
@@ -101,95 +115,63 @@ class CheckboxTableCell: UITableViewCell {
             switch index {
             case 0:
                 customView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 25).isActive = true
-            case 2:
+            case viewsCount-1:
+                // 마지막 customView => 바텀 추가적으로 잡아줌
                 customView.bottomAnchor.constraint(equalTo: seeAllBtn.topAnchor, constant: -25).isActive = true
                 fallthrough
             default:
                 customView.topAnchor.constraint(equalTo: checkBoxViewArray[index - 1].bottomAnchor, constant: 25).isActive = true
             }
+            print("type명: ", customView.typeLabel.text!)
         }
-        customViewsAreMade = true
+        
+//        let seeAllBtn = UIButton()
+//        contentView.addSubview(seeAllBtn)
+//        seeAllBtn.snp.makeConstraints { (make) in
+//            make.top.equalTo(checkBoxViewArray.last!.snp.bottom).offset(10)
+//            make.leading.equalTo(20)
+//            make.height.equalTo(35)
+//            make.bottom.equalTo(-10)
+//        }
+//        seeAllBtn.setTitle(checkBoxData.buttonTitle, for: .normal)
+//        seeAllBtn.addTarget(self, action: #selector(seeAllBtnDidTap(_:)), for: .touchUpInside)
+//        seeAllBtn.tag = 99
+//        seeAllBtn.setTitleColor(#colorLiteral(red: 0, green: 0.5690457821, blue: 0.5746168494, alpha: 1), for: .normal)
+//        seeAllBtn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+//        seeAllBtnArray.append(seeAllBtn)
+        
+        
+
         print("함수 내 customViewsAreMade:  \(customViewsAreMade), view갯수: \(checkBoxViewArray.count)")
     }
     
     
-    
-    
-//    private func showThreeCheckBox() {
-//        checkBoxViewArray.removeAll()
-//
-//    }
-
-//    private func showAllCheckBox() {
-//        checkBoxViewArray.removeAll()
-//
-//        for (index, view) in checkBoxViewArray.enumerated() {
-//            contentView.addSubview(view)
-//            checkBoxViewArray.append(view)
-//        }
-//    }
-    
-    
-//    var visibleCheckBox = [CheckBoxContainerView]()
-//
-//    private func showThreeCheckBox() {
-//        visibleCheckBox.removeAll()
-//
-//        for (index, view) in checkBoxViewArray.enumerated() {
-//            guard index < 3 else { return }
-//            visibleCheckBox.append(view)
-//            contentView.addSubview(view)
-//
-//            view.translatesAutoresizingMaskIntoConstraints = false
-//            view.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
-//            view.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20).isActive = true
-//
-//            switch index {
-//            case 0:
-//                view.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 25).isActive = true
-//            case 2:
-//                view.bottomAnchor.constraint(equalTo: seeAllBtn.topAnchor, constant: -25).isActive = true
-//                fallthrough
-//            default:
-//                view.topAnchor.constraint(equalTo: checkBoxViewArray[index - 1].bottomAnchor, constant: 25).isActive = true
-//            }
-//        }
-//    }
-
-    
-    
-    func isTrue() {
-        for i in checkBoxViewArray {
-            i.checkBox.layer.borderColor = UIColor.clear.cgColor
-            i.checkBox.backgroundColor = #colorLiteral(red: 0, green: 0.5690457821, blue: 0.5746168494, alpha: 1)
-        }
+    @objc func checkBoxBtnDidTap(_ sender: UIButton) {
+        print("button did Tap")
+        checkBoxViewArray[sender.tag].checkBtnSelectedState.toggle()
+        notiCenter.post(name: .facilitiesInsideChecked, object: sender, userInfo: ["index": currentIndex])
     }
     
-    func isFalse() {
-        for i in checkBoxViewArray {
-            i.checkBox.layer.borderColor = #colorLiteral(red: 0.6642242074, green: 0.6642400622, blue: 0.6642315388, alpha: 1)
-            i.checkBox.backgroundColor = .white
-        }
+    @objc func seeAllBtnDidTap(_ sender: UIButton) {
+        notiCenter.post(name: .facilitiesInsideSeeMoreBtnDidTap, object: sender, userInfo: ["index": currentIndex])
     }
-    
 
-    private func configure() {
-        self.selectionStyle = .none
+    
+    private func setCheckBoxState(contentArray: [Content], viewsCount: Int) {
         
-        contentView.addSubview(title)
-        contentView.addSubview(seeAllBtn)
-    }
-    
-    
-    private func setAutolayout() {
-        title.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 28).isActive = true
-        title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
+        print("--------------------------[setCheckBoxState]--------------------------")
+        print("viewCount: ", viewsCount)
+        for index in 0..<viewsCount {
+            print("for문 index: ", index)
+            let containerView = checkBoxViewArray[index]
+            containerView.checkBtnSelectedState = contentArray[index].checkBoxState
+        }
         
-        seeAllBtn.translatesAutoresizingMaskIntoConstraints = false
-        seeAllBtn.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20).isActive = true
-        seeAllBtn.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
-        seeAllBtn.heightAnchor.constraint(equalToConstant: 35).isActive = true
     }
+    
+
+    
+   
 }
 
 

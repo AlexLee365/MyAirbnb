@@ -52,6 +52,8 @@ class PriceRangeTableCell: UITableViewCell {
     
     var isDateSelected = true
     
+    let notiCenter = NotificationCenter.default
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -94,13 +96,13 @@ class PriceRangeTableCell: UITableViewCell {
     private func showPriceSlider() {
         subLabel.isHidden = true
     
-//        priceRangeLabel.text = "₩12,000 - ₩234,917"
+        priceRangeLabel.text = "₩12,000 - ₩234,917"
         avrPriceLabel.text = "평균 1박 요금은 ₩114,043입니다"
         
-        priceRangeLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 28).isActive = true
+        priceRangeLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 15).isActive = true
         priceRangeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
         
-        avrPriceLabel.topAnchor.constraint(equalTo: priceRangeLabel.bottomAnchor).isActive = true
+        avrPriceLabel.topAnchor.constraint(equalTo: priceRangeLabel.bottomAnchor, constant: 10).isActive = true
         avrPriceLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
 
         contentView.addSubview(sliderContainerView)

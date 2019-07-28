@@ -28,9 +28,9 @@ class SearchBarView: UIView {
     let searchTF = UITextField()
     let searchCancelBtn = UIButton()
     
-    let filterDateBtn = UIButton()
-    let filterPeopleBtn = UIButton()
-    let filterRemainsBtn = UIButton()
+    let filterDateBtn = UIButtonWithHighlightEffect()
+    let filterPeopleBtn = UIButtonWithHighlightEffect()
+    let filterRemainsBtn = UIButtonWithHighlightEffect()
     lazy var filterStackView = UIStackView(arrangedSubviews: [filterDateBtn, filterPeopleBtn, filterRemainsBtn])
     
     let autoCompleteTableView = UITableView()

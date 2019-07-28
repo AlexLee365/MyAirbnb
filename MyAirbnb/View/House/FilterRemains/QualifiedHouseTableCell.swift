@@ -74,6 +74,8 @@ class QualifiedHouseTableCell: UITableViewCell {
         return onOff
     }()
     
+    let notiCenter = NotificationCenter.default
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -92,20 +94,18 @@ class QualifiedHouseTableCell: UITableViewCell {
         contentView.addSubview(subLabel)
         contentView.addSubview(descLabel)
         switchOnOff.addTarget(self, action: #selector(mySwitchDidChange(_:)), for: .touchUpInside)
+        switchOnOff.tag = 0
         contentView.addSubview(switchOnOff)
         
         contentView.addSubview(subLabel2)
         contentView.addSubview(descLabel2)
         switchOnOff2.addTarget(self, action: #selector(mySwitchDidChange(_:)), for: .touchUpInside)
+        switchOnOff2.tag = 1
         contentView.addSubview(switchOnOff2)
     }
     
     @objc private func mySwitchDidChange(_ sender: UISwitch) {
-        if switchOnOff.isOn {
-            print("on")
-        } else {
-            print("off")
-        }
+        notiCenter.post(name: .houseGradeSwitchTapped, object: sender)
     }
     
     private func setAutolayout() {

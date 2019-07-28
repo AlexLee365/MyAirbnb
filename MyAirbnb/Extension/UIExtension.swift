@@ -22,9 +22,24 @@ extension Notification.Name {
     static let moveToHouseView = Notification.Name(rawValue: "MoveToHouseView")
     static let moveToHouseDetailView = Notification.Name("MoveToHouseDetailView")
     static let moveToPlusHouseDetailView = Notification.Name(rawValue: "MoveToPlusHouseDetailView")
+    
     static let mapViewDidTapInHouseDetailView = Notification.Name("MapViewDidTapInHouseDetailView")
     
-    // MARK: -
+    // MARK: - FilterRemainsVC
+    static let instantBookSwitchTapped = Notification.Name("InstantBookSwitchTapped")
+    static let houseGradeSwitchTapped = Notification.Name("HouseGradeSwitchTapped")
+    static let priceSliderDidChanged = Notification.Name("PriceSliderDidChanged")
+    static let houseTypeSwitchTapped = Notification.Name("HouseTypeSwitchTapped")
+    static let bedroomsCountChanged = Notification.Name("BedroomsCountChanged")
+    static let facilitiesInsideChecked = Notification.Name("FacilitiesInsideChecked")
+    static let facilitiesInsideSeeMoreBtnDidTap = Notification.Name("FacilitiesInsideSeeMoreBtnDidTap")
+    static let facilitiesOutsideChecked = Notification.Name("FacilitiesOutsideChecked")
+    static let facilitiesOutsideSeeMoreBtnDidTap = Notification.Name("FacilitiesOutsideSeeMoreBtnDidTap")
+    static let buildingTypeChecked = Notification.Name("BuildingTypeChecked")
+    static let buildingTypeSeeMoreBtnDidTap = Notification.Name("BuildingTypeSeeMoreBtnDidTap")
+    static let uniqueHouseChecked = Notification.Name("UniqueHouseChecked")
+    static let uniqueHouseSeeMoreBtnDidTap = Notification.Name("UniqueHouseSeeMoreBtnDidTap")
+    static let useRulesChecked = Notification.Name("UseRulesChecked")
 }
 
 extension UILabel {
@@ -185,10 +200,23 @@ extension UITableViewCell {
     }
 }
 
-extension UIButton {
+
+class UIButtonWithHighlightEffect: UIButton {
     open override var isHighlighted: Bool {
         didSet {
-            self.backgroundColor = isHighlighted ? #colorLiteral(red: 0.8454582095, green: 0.8404331207, blue: 0.8493215442, alpha: 0.4461151541) : UIColor.white
+            self.layer.backgroundColor = isHighlighted ? #colorLiteral(red: 0.8454582095, green: 0.8404331207, blue: 0.8493215442, alpha: 0.4461151541) : UIColor.clear.cgColor
+        }
+    }
+    
+    open override func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
+        let previousLocation = touch.previousLocation(in: self)
+        let currentLocation = touch.location(in: self)
+        
+        if previousLocation.y != currentLocation.y {
+            isHighlighted = false
+            return false
+        } else {
+            return true
         }
     }
 }

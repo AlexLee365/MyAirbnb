@@ -24,7 +24,7 @@ class HouseTypeTableCell: UITableViewCell {
     var checkBoxArray = [UIButton]()
     
     var houseDataArray = [(String, String)]()
-    
+    let notiCenter = NotificationCenter.default
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -108,6 +108,8 @@ class HouseTypeTableCell: UITableViewCell {
             sender.layer.borderColor = #colorLiteral(red: 0.6642242074, green: 0.6642400622, blue: 0.6642315388, alpha: 1)
             sender.backgroundColor = .white
         }
+        notiCenter.post(name: .houseTypeSwitchTapped, object: sender)
+        
     }
     
     private func setAutolayout() {

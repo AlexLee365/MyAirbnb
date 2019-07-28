@@ -20,20 +20,35 @@ class CheckBoxContainerView: UIView {
     
     let checkBox: UIButton = {
         let button = UIButton()
+        button.backgroundColor = .white
+        button.backgroundColor = .yellow
         button.layer.borderWidth = 1
-        button.layer.borderColor = #colorLiteral(red: 0.6642242074, green: 0.6642400622, blue: 0.6642315388, alpha: 1)
+        button.layer.borderColor = #colorLiteral(red: 0.6642242074, green: 0.6642400622, blue: 0.6642315388, alpha: 1)  
         button.layer.cornerRadius = 4
-        button.setImage(UIImage(named: "filterTick"), for: .selected)
+        button.setImage(UIImage(named: "filterTick"), for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
         button.imageEdgeInsets = UIEdgeInsets(top: 3, left: 3, bottom: 5, right: 3)
         button.translatesAutoresizingMaskIntoConstraints = false
+        
         return button
     }()
     
+    var checkBtnSelectedState = false {
+        didSet {
+            print("🔵🔵🔵 WillSet: ", checkBtnSelectedState)
+            if checkBtnSelectedState {
+                checkBox.backgroundColor = #colorLiteral(red: 0, green: 0.5690457821, blue: 0.5746168494, alpha: 1)
+                checkBox.layer.borderColor = UIColor.clear.cgColor
+            } else {
+                checkBox.backgroundColor = .white
+                checkBox.layer.borderColor = #colorLiteral(red: 0.6642242074, green: 0.6642400622, blue: 0.6642315388, alpha: 1)
+            }
+            checkBox.isSelected = checkBtnSelectedState
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         configure()
         setAutolayout()
     }
@@ -44,22 +59,8 @@ class CheckBoxContainerView: UIView {
     
     private func configure() {
         self.addSubview(typeLabel)
-        
-//        checkBox.addTarget(self, action: #selector(checkBoxBtnDidTap(_:)), for: .touchUpInside)
         self.addSubview(checkBox)
     }
-    
-//    @objc func checkBoxBtnDidTap(_ sender: UIButton) {
-//        sender.isSelected.toggle()
-//
-//        if sender.isSelected {
-//            sender.layer.borderColor = UIColor.clear.cgColor
-//            sender.backgroundColor = #colorLiteral(red: 0, green: 0.5690457821, blue: 0.5746168494, alpha: 1)
-//        } else {
-//            sender.layer.borderColor = #colorLiteral(red: 0.6642242074, green: 0.6642400622, blue: 0.6642315388, alpha: 1)
-//            sender.backgroundColor = .white
-//        }
-//    }
     
     private func setAutolayout() {
         typeLabel.topAnchor.constraint(equalTo: self.topAnchor).isActive = true

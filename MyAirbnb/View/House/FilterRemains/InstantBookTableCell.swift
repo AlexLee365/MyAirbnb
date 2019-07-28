@@ -38,10 +38,10 @@ class InstantBookTableCell: UITableViewCell {
         return onOff
     }()
     
+    let notiCenter = NotificationCenter.default
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
         configure()
         setAutolayout()
     }
@@ -60,11 +60,7 @@ class InstantBookTableCell: UITableViewCell {
     }
     
     @objc private func mySwitchDidChange(_ sender: UISwitch) {
-        if switchOnOff.isOn {
-            
-        } else {
-            
-        }
+        notiCenter.post(name: .instantBookSwitchTapped, object: sender)
     }
 
     private func setAutolayout() {

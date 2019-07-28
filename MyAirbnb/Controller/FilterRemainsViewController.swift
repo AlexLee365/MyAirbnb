@@ -7,6 +7,12 @@
 //
 
 import UIKit
+import SnapKit
+
+protocol FiltersDataTransferProtocol {
+    func sendDataInstantBook(isOn: Bool)
+    
+}
 
 class FilterRemainsViewController: UIViewController {
     
@@ -48,7 +54,7 @@ class FilterRemainsViewController: UIViewController {
     let tableView: UITableView = {
         let tableView = UITableView()
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-        tableView.rowHeight = UITableView.automaticDimension
+//        tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
         tableView.showsVerticalScrollIndicator = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -74,17 +80,24 @@ class FilterRemainsViewController: UIViewController {
         return button
     }()
     
+    var checkBoxDatas = [CheckBoxData]()
+    var checkBoxViewButtons = [[UIButton]]()
+    let notiCenter = NotificationCenter.default
+    
+    var offset: CGFloat = 0.0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        
         configure()
         setAutolayout()
+        createCheckBoxDatas()
+        addNotificationObserver()
     }
     
     
-    
     private func configure() {
+        view.backgroundColor = .white
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(InstantBookTableCell.self, forCellReuseIdentifier: InstantBookTableCell.identifier)
@@ -92,18 +105,19 @@ class FilterRemainsViewController: UIViewController {
         tableView.register(PriceRangeTableCell.self, forCellReuseIdentifier: PriceRangeTableCell.identifier)
         tableView.register(HouseTypeTableCell.self, forCellReuseIdentifier: HouseTypeTableCell.identifier)
         tableView.register(BedFilterTableCell.self, forCellReuseIdentifier: BedFilterTableCell.identifier)
-        tableView.register(CheckboxTableCell.self, forCellReuseIdentifier: CheckboxTableCell.identifier)
-        
+        tableView.register(CheckboxTableCell.self, forCellReuseIdentifier: "CheckboxTableCell0")
+        tableView.register(CheckboxTableCell.self, forCellReuseIdentifier: "CheckboxTableCell1")
+        tableView.register(CheckboxTableCell.self, forCellReuseIdentifier: "CheckboxTableCell2")
+        tableView.register(CheckboxTableCell.self, forCellReuseIdentifier: "CheckboxTableCell3")
+        tableView.register(CheckboxTableCell.self, forCellReuseIdentifier: "CheckboxTableCell4")
         
         view.addSubview(tableView)
-        
         view.addSubview(topView)
         
         removeAllBtn.addTarget(self, action: #selector(removeAllBtnDidTap(_:)), for: .touchUpInside)
         topView.addSubview(removeAllBtn)
         
         view.addSubview(bottomView)
-        
         bottomView.addSubview(showBtn)
     }
     
@@ -112,10 +126,10 @@ class FilterRemainsViewController: UIViewController {
     }
     
     @objc private func showBtnDidTap() {
-        guard let mainVC = presentingViewController as? MainViewController else { return }
-        
-        
-        guard let cellA = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? BedFilterTableCell else { return }
+//        guard let mainVC = presentingViewController as? MainViewController else { return }
+//
+//
+//        guard let cellA = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? BedFilterTableCell else { return }
 //        let dataA = (cellA.bathroomCount , ,)
     }
     
@@ -147,20 +161,75 @@ class FilterRemainsViewController: UIViewController {
         showBtn.heightAnchor.constraint(equalTo: bottomView.heightAnchor, multiplier: 0.63).isActive = true
     }
     
-    var checkBoxViewButtons = [[UIButton]]()
+    
+    
+    private func createCheckBoxDatas() {
+        checkBoxDatas = [
+            CheckBoxData(title: "편의시설",
+                         contentArray: [Content(type: "주방", checkBoxState: false),
+                                        Content(type: "샴푸", checkBoxState: false),
+                                        Content(type: "난방", checkBoxState: false),
+                                        Content(type: "에어컨", checkBoxState: false),
+                                        Content(type: "세탁기", checkBoxState: false),
+                                        Content(type: "건조기", checkBoxState: false),
+                                        Content(type: "무선 인터넷", checkBoxState: false),
+                                        Content(type: "아침식사", checkBoxState: false),
+                                        Content(type: "실내 벽난로", checkBoxState: false),
+                                        Content(type: "옷걸이", checkBoxState: false),
+                                        Content(type: "다리미", checkBoxState: false),
+                                        Content(type: "헤어드라이어", checkBoxState: false),
+                                        Content(type: "노트북 작업 공간", checkBoxState: false),
+                                        Content(type: "TV", checkBoxState: false),
+                                        Content(type: "아기침대", checkBoxState: false)],
+                         buttonTitle: "편의시설 모두 보기", seeAllBtnState: false),
+            
+            CheckBoxData(title: "시설",
+                         contentArray: [Content(type: "건물 내 무료 주차", checkBoxState: false),
+                                        Content(type: "헬스장", checkBoxState: false),
+                                        Content(type: "자쿠지", checkBoxState: false),
+                                        Content(type: "수영장", checkBoxState: false)],
+                         buttonTitle: "시설 모두 보기", seeAllBtnState: false),
+            
+            CheckBoxData(title: "건물 유형",
+                         contentArray: [Content(type: "주택", checkBoxState: false),
+                                        Content(type: "아파트", checkBoxState: false),
+                                        Content(type: "B&B", checkBoxState: false),
+                                        Content(type: "부티크 호텔", checkBoxState: false),
+                                        Content(type: "게스트 스위트", checkBoxState: false),
+                                        Content(type: "게스트용 별채", checkBoxState: false),
+                                        Content(type: "로프트", checkBoxState: false)],
+                         buttonTitle: "건물 유형 모두 보기", seeAllBtnState: false),
+            
+            CheckBoxData(title: "특색 있는 숙소",
+                         contentArray: [Content(type: "기차", checkBoxState: false),
+                                        Content(type: "농장 체험 숙박", checkBoxState: false),
+                                        Content(type: "담무소(이탈리아)", checkBoxState: false),
+                                        Content(type: "돔하우스", checkBoxState: false),
+                                        Content(type: "동굴", checkBoxState: false),
+                                        Content(type: "등대", checkBoxState: false)],
+                         buttonTitle: "특색 있는 숙소 모두 보기", seeAllBtnState: false),
+            
+            CheckBoxData(title: "숙소 이용규칙",
+                         contentArray: [Content(type: "이벤트/행사 가능", checkBoxState: false),
+                                        Content(type: "반려동물 입실 가능", checkBoxState: false),
+                                        Content(type: "흡연 가능", checkBoxState: false)],
+                         buttonTitle: nil, seeAllBtnState: false)
+        ]
+
+    }
     
     
 }
 
-// MARK: - UITableViewDataSource
 
+// MARK: - UITableViewDataSource
 extension FilterRemainsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 10
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("tableview indexPath: ", indexPath.row)
+        print("🔴🔴🔴 : ", "tableview indexPath: ", indexPath.row)
         
         switch indexPath.row {
         case 0:
@@ -181,73 +250,149 @@ extension FilterRemainsViewController: UITableViewDataSource {
         case 4:
             let bedCell = tableView.dequeueReusableCell(withIdentifier: BedFilterTableCell.identifier, for: indexPath) as! BedFilterTableCell
             return bedCell
-            
+
         case 5...9:
-            
-            let checkBoxCell = tableView.dequeueReusableCell(withIdentifier: CheckboxTableCell.identifier, for: indexPath) as! CheckboxTableCell
-            
-//            let checkBoxCell = UITableViewCell(style: UITableViewCell.CellStyle.init(rawValue: 0)!, reuseIdentifier: CheckboxTableCell.identifier) as! CheckboxTableCell
-        
-//            checkBoxCell.inputCheckboxData = checkBoxDatas[indexPath.row-5]
+            let checkBoxCell = tableView.dequeueReusableCell(withIdentifier: "CheckboxTableCell\(indexPath.row-5)", for: indexPath) as! CheckboxTableCell
             checkBoxCell.setData(inputData: checkBoxDatas[indexPath.row-5])
-
-//            let tempButtons = convenienceFacilityCell.checkBoxViewArray.compactMap { $0.checkBox }
-//            checkBoxViewButtons.insert(tempButtons, at: 0)
-//
-            return checkBoxCell
+            checkBoxCell.currentIndex = indexPath.row-5
             
-//        case 6:
-//            let facilityCell = tableView.dequeueReusableCell(withIdentifier: CheckboxTableCell.identifier, for: indexPath) as! CheckboxTableCell
-//
-//            facilityCell.setting(data: checkBoxDatas[1])
-//
-//            return facilityCell
-//
-//        case 7:
-//            let buildingTypeCell = tableView.dequeueReusableCell(withIdentifier: CheckboxTableCell.identifier, for: indexPath) as! CheckboxTableCell
-//
-//            buildingTypeCell.setting(data: checkBoxDatas[2])
-//
-//            return buildingTypeCell
-//
-//        case 8:
-//            let distictHouseCell = tableView.dequeueReusableCell(withIdentifier: CheckboxTableCell.identifier, for: indexPath) as! CheckboxTableCell
-//
-//            distictHouseCell.setting(data: checkBoxDatas[3])
-//
-//            return distictHouseCell
-//
-//        case 9:
-//            let houseRuleCell = tableView.dequeueReusableCell(withIdentifier: CheckboxTableCell.identifier, for: indexPath) as! CheckboxTableCell
-//
-//            houseRuleCell.setting(data: checkBoxDatas[4])
-
-//            return houseRuleCell
+            indexPath.row == 9 ? checkBoxCell.hideSeparator() : ()
+            return checkBoxCell
             
         default:
             return UITableViewCell()
         }
     }
+    
+    
 }
 
 // MARK: - TableviewTopViewDelegate
 
 extension FilterRemainsViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let cell = tableView.cellForRow(at: indexPath) as? CheckboxTableCell else { return }
-        
-//        cell.isTrue()
-//        switch checkBoxDatas[indexPath.row].contentArray[indexPath.row].checkBoxState {
-//        case true:
-//            cell.isTrue()
-//        case false:
-//            cell.isFalse()
-//        }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+       offset = tableView.contentOffset.y
     }
 }
 
 extension FilterRemainsViewController: TableviewTopViewDelegate {
     func popView() {
         dismiss(animated: true, completion: nil)
+    }
+}
+
+
+
+
+// Notification
+extension FilterRemainsViewController {
+//    static let instantBookSwitchTapped = Notification.Name("InstantBookSwitchTapped")
+//    static let houseGradeSwitchTapped = Notification.Name("HouseGradeSwitchTapped")
+//    static let priceSliderDidChanged = Notification.Name("PriceSliderDidChanged")
+//    static let houseTypeSwitchTapped = Notification.Name("HouseTypeSwitchTapped")
+//    static let bedroomsCountChanged = Notification.Name("BedroomsCountChanged")
+//    static let facilitiesInsideChecked = Notification.Name("FacilitiesInsideChecked")
+//    static let facilitiesInsideSeeMoreBtnDidTap = Notification.Name("FacilitiesInsideSeeMoreBtnDidTap")
+//    static let facilitiesOutsideChecked = Notification.Name("FacilitiesOutsideChecked")
+//    static let facilitiesOutsideSeeMoreBtnDidTap = Notification.Name("FacilitiesOutsideSeeMoreBtnDidTap")
+//    static let buildingTypeChecked = Notification.Name("BuildingTypeChecked")
+//    static let buildingTypeSeeMoreBtnDidTap = Notification.Name("BuildingTypeSeeMoreBtnDidTap")
+//    static let uniqueHouseChecked = Notification.Name("UniqueHouseChecked")
+//    static let uniqueHouseSeeMoreBtnDidTap = Notification.Name("UniqueHouseSeeMoreBtnDidTap")
+//    static let useRulesChecked = Notification.Name("UseRulesChecked")
+    
+    private func addNotificationObserver() {
+        notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .instantBookSwitchTapped, object: nil)
+        notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .houseGradeSwitchTapped, object: nil)
+        notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .priceSliderDidChanged, object: nil)
+        notiCenter.addObserver(self, selector: #selector(receiveNotiHouseType(_:)), name: .houseTypeSwitchTapped, object: nil)
+        notiCenter.addObserver(self, selector: #selector(receiveNotiBedrooms(_:)), name: .bedroomsCountChanged, object: nil)
+        notiCenter.addObserver(self, selector: #selector(receiveNotiFacilitiesInside(_:)), name: .facilitiesInsideChecked, object: nil)
+        notiCenter.addObserver(self, selector: #selector(receiveNotiFacilitiesInside(_:)), name: .facilitiesInsideSeeMoreBtnDidTap, object: nil)
+        notiCenter.addObserver(self, selector: #selector(receiveNotiFacilitiesOutside(_:)), name: .facilitiesOutsideChecked, object: nil)
+        notiCenter.addObserver(self, selector: #selector(receiveNotiFacilitiesOutside(_:)), name: .facilitiesOutsideSeeMoreBtnDidTap, object: nil)
+        notiCenter.addObserver(self, selector: #selector(receivecNotiBuildingType(_:)), name: .buildingTypeChecked, object: nil)
+        notiCenter.addObserver(self, selector: #selector(receivecNotiBuildingType(_:)), name: .buildingTypeSeeMoreBtnDidTap, object: nil)
+        notiCenter.addObserver(self, selector: #selector(receiveNotiUniqueHouse(_:)), name: .uniqueHouseChecked, object: nil)
+        notiCenter.addObserver(self, selector: #selector(receiveNotiUniqueHouse(_:)), name: .uniqueHouseSeeMoreBtnDidTap, object: nil)
+        notiCenter.addObserver(self, selector: #selector(receiveNotiUseRules), name: .useRulesChecked, object: nil)
+    }
+    
+    @objc func receiveNotification(_ sender: Notification) {
+        switch sender.name {
+        case Notification.Name.instantBookSwitchTapped:
+            print("noti instant")
+            guard let switching = sender.object as? UISwitch else { return }
+            print(switching.isOn)
+            
+        case Notification.Name.houseGradeSwitchTapped:
+            print("noti housegrade")
+            guard let switching = sender.object as? UISwitch else { return }
+            print(switching.tag)
+            print(switching.isOn)
+            
+        case Notification.Name.priceSliderDidChanged:
+            print("noti priceslider")
+            
+            
+        default: break
+        }
+    }
+    
+    @objc func receiveNotiHouseType(_ sender: Notification) {
+        print("noti housetype")
+        guard let button = sender.object as? UIButton else { return }
+        print(button.tag)
+        print(button.isSelected)
+    }
+    
+    @objc func receiveNotiBedrooms(_ sender: Notification) {
+        print("noti bedrooms")
+        guard let userInfo = sender.userInfo
+            , let count = userInfo["count"] as? (Int, Int, Int)
+            else { return }
+        print(count)
+    }
+    
+    @objc func receiveNotiFacilitiesInside(_ sender: Notification) {
+        print("noti facility inside")
+        guard let button = sender.object as? UIButton
+            , let userInfo = sender.userInfo
+            , let index = userInfo["index"] as? Int
+            else { return }
+        
+        
+        
+        guard button.tag != 99 else {
+            checkBoxDatas[index].seeAllBtnState = true
+            let checkBoxCell = tableView.cellForRow(at: IndexPath(row: index+5, section: 0)) as! CheckboxTableCell
+            checkBoxCell.setDataOnce = false
+//            tableView.reloadData()
+            tableView.reloadRows(at: [IndexPath(row: index+5, section: 0)], with: .fade)
+            return
+        }
+        checkBoxDatas[index].contentArray[button.tag].checkBoxState = button.isSelected
+        print(button.isSelected)
+    }
+    
+    @objc func receiveNotiFacilitiesOutside(_ sender: Notification) {
+        print("noti facility outside")
+        
+    }
+    
+    @objc func receivecNotiBuildingType(_ sender: Notification) {
+        print("noti building type}")
+        
+    }
+    
+    @objc func receiveNotiUniqueHouse(_ sender: Notification) {
+        print("noti uniqueHouse")
+    }
+    
+    @objc func receiveNotiUseRules(_ sender: Notification) {
+        print("noti useRules")
     }
 }

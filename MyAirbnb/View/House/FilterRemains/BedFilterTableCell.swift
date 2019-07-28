@@ -62,6 +62,8 @@ class BedFilterTableCell: UITableViewCell {
         }
     }
     
+    let notiCenter = NotificationCenter.default
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -114,6 +116,7 @@ class BedFilterTableCell: UITableViewCell {
         default:
             break
         }
+        notiCenter.post(name: .bedroomsCountChanged, object: nil, userInfo: ["count": (bedCount, bedroomCount, bathroomCount)])
     }
     
     @objc func plusBtnDidTap(_ sender: UIButton) {
@@ -127,6 +130,7 @@ class BedFilterTableCell: UITableViewCell {
         default:
             break
         }
+        notiCenter.post(name: .bedroomsCountChanged, object: nil, userInfo: ["count": (bedCount, bedroomCount, bathroomCount)])
     }
     
     
