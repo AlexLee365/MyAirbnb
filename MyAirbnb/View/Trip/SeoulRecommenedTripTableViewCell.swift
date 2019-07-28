@@ -71,17 +71,8 @@ class SeoulRecommenedTripTableViewCell: UITableViewCell {
     }
     
     
-    override var isHighlighted: Bool {
-        didSet {
-            seeAllbtn.backgroundColor = isHighlighted ? .lightGray : .white
-        }
-    }
-    
-    
     private func configure() {
         contentView.addSubview(titleLabel)
-        
-        isHighlighted = false
         
         seeAllbtn.clipsToBounds = true
         seeAllbtn.layer.cornerRadius = 3
@@ -102,7 +93,7 @@ class SeoulRecommenedTripTableViewCell: UITableViewCell {
     }
     
     @objc private func seeAllBtnDidTap(_ sender: UIButton) {
-        isHighlighted = true
+        
     }
     
     
