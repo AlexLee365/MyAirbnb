@@ -16,7 +16,7 @@ class TripAllViewController: UIViewController {
         static let linesOnScreen: CGFloat = 1
         static let lineSpacing: CGFloat = 23.0
         static let itemSpacing: CGFloat = 13.0
-        static let edgeInsets = UIEdgeInsets(top: 30, left: 20, bottom: 50, right: 20)
+        static let edgeInsets = UIEdgeInsets(top: 30, left: 20, bottom: 40, right: 20)
         
         static let nextOffset: CGFloat = 90
     }
