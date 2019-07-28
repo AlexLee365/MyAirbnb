@@ -136,6 +136,7 @@ extension PlusViewController: UITableViewDataSource {
             return handicappedFacilityCell
         case 4:
             let mapCell = tableView.dequeueReusableCell(withIdentifier: MapTableCell.identifier, for: indexPath) as! MapTableCell
+            mapCell.hideSeparator()
             return mapCell
         default:
             return UITableViewCell()

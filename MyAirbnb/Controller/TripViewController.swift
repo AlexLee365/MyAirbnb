@@ -38,6 +38,10 @@ class TripViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         tabBarController?.tabBar.isHidden = false
         searchBarView.useCase = .inTripVC
     }
@@ -85,7 +89,7 @@ class TripViewController: UIViewController {
         tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
 
         searchBarView.translatesAutoresizingMaskIntoConstraints = false
         searchBarView.topAnchor.constraint(equalTo: safeGuide.topAnchor).isActive = true

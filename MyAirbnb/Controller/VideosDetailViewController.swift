@@ -26,6 +26,7 @@ class VideosDetailViewController: UIViewController {
     let tableView: UITableView = {
         let tableView = UITableView()
         tableView.contentInsetAdjustmentBehavior = .never
+        tableView.separatorStyle = .none
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -34,6 +35,10 @@ class VideosDetailViewController: UIViewController {
     
     let topView = TableviewTopView()
     
+    let scheduleImages = ["schedule1", "schedule2", "schedule3"]
+    let contentsArray = [("Lake Crescent & the Pacific Coast", "Ferry across the Puget Sound. Walk Marymere Falls & Ruby Beach. Coastal campfire & dinner!"), ("Hoh Rainforest & Vanishing Silence", "Hike along the pristine Hoh River. Discover silence in the giant trees of Hoh Rainforest!"), ("Hike Hurricane Ridge", "Climb to Hurricane Ridge and explore new heights in the panoramic Olympic Mountain range.")]
+
+    let lineImages = ["line1", "line2", "line3"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,6 +96,7 @@ class VideosDetailViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(VideosDetailTableCell.self, forCellReuseIdentifier: VideosDetailTableCell.identifier)
+        tableView.register(TripScheduleTableCell.self, forCellReuseIdentifier: TripScheduleTableCell.identifier)
         view.addSubview(tableView)
         
         topView.delegate = self
@@ -117,7 +123,7 @@ class VideosDetailViewController: UIViewController {
 
 extension VideosDetailViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 15
+        return 1 + scheduleImages.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -125,6 +131,26 @@ extension VideosDetailViewController: UITableViewDataSource {
         case 0:
             let videoCell = tableView.dequeueReusableCell(withIdentifier: VideosDetailTableCell.identifier, for: indexPath) as! VideosDetailTableCell
             return videoCell
+            
+        case 1...scheduleImages.count:
+            let tripScheduleCell = tableView.dequeueReusableCell(withIdentifier: TripScheduleTableCell.identifier, for: indexPath) as! TripScheduleTableCell
+            
+            tripScheduleCell.dayLabel.text = "\(indexPath.row)일차"
+            tripScheduleCell.programImage.image = UIImage(named: scheduleImages[indexPath.row - 1])
+            tripScheduleCell.titleLabel.text = contentsArray[indexPath.row - 1].0
+            tripScheduleCell.descLabel.text = contentsArray[indexPath.row - 1].1
+            
+            switch indexPath.row {
+            case 1:
+                tripScheduleCell.lineImage.image = UIImage(named: lineImages[indexPath.row - 1])
+            case scheduleImages.count:
+                tripScheduleCell.lineImage.image = UIImage(named: lineImages[indexPath.row - 1])
+            default:
+                tripScheduleCell.lineImage.image = UIImage(named: lineImages[indexPath.row - 1])
+            }
+            
+            return tripScheduleCell
+            
         default:
             return UITableViewCell()
         }

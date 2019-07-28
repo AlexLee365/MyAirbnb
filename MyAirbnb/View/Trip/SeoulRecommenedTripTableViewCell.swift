@@ -45,7 +45,7 @@ class SeoulRecommenedTripTableViewCell: UITableViewCell {
         return collectionView
     }()
     
-    let button: UIButton = {
+    let seeAllbtn: UIButton = {
         let button = UIButton()
         button.setTitle("서울의 트립 모두 보기", for: .normal)
         button.setTitleColor(#colorLiteral(red: 0, green: 0.5690457821, blue: 0.5746168494, alpha: 1), for: .normal)
@@ -70,12 +70,23 @@ class SeoulRecommenedTripTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    override var isHighlighted: Bool {
+        didSet {
+            seeAllbtn.backgroundColor = isHighlighted ? .lightGray : .white
+        }
+    }
+    
+    
     private func configure() {
         contentView.addSubview(titleLabel)
         
-        button.clipsToBounds = true
-        button.layer.cornerRadius = 3
-        contentView.addSubview(button)
+        isHighlighted = false
+        
+        seeAllbtn.clipsToBounds = true
+        seeAllbtn.layer.cornerRadius = 3
+        seeAllbtn.addTarget(self, action: #selector(seeAllBtnDidTap(_:)), for: .touchUpInside)
+        contentView.addSubview(seeAllbtn)
         
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -90,19 +101,24 @@ class SeoulRecommenedTripTableViewCell: UITableViewCell {
         contentView.addSubview(collectionView)
     }
     
+    @objc private func seeAllBtnDidTap(_ sender: UIButton) {
+        isHighlighted = true
+    }
+    
+    
     private func setAutolayout() {
         titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
         
-        button.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
-        button.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        button.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.9).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        seeAllbtn.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
+        seeAllbtn.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        seeAllbtn.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.9).isActive = true
+        seeAllbtn.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         collectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10).isActive = true
         collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        collectionView.bottomAnchor.constraint(equalTo: button.topAnchor, constant: -15).isActive = true
+        collectionView.bottomAnchor.constraint(equalTo: seeAllbtn.topAnchor, constant: -15).isActive = true
     }
 }
 

@@ -110,7 +110,6 @@ class MapTableCell: UITableViewCell {
     }
     
     @objc private func mapViewDidTap(_ sender: UITapGestureRecognizer) {
-        print("mapViewDidTap")
         notiCenter.post(name: .mapViewDidTapInHouseDetailView, object: nil, userInfo: ["coordinate": currentCoordinate])
     }
     

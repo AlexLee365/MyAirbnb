@@ -41,7 +41,6 @@ class MapViewController: UIViewController {
         view.addSubview(mapView)
         mapView.snp.makeConstraints { (make) in
             make.leading.trailing.top.bottom.equalToSuperview()
-//            make.leading.equalTo(50)
         }
         
         view.addSubview(clearView)
@@ -50,11 +49,11 @@ class MapViewController: UIViewController {
             make.width.equalTo(20)
         }
         
-//        view.addSubview(dismissBtn)
-//        dismissBtn.snp.makeConstraints { (make) in
-//            make.leading.top.equalTo(safeGuide).offset(10)
-//            make.width.height.equalTo(35)
-//        }
+        view.addSubview(dismissBtn)
+        dismissBtn.snp.makeConstraints { (make) in
+            make.leading.top.equalTo(safeGuide).offset(10)
+            make.width.height.equalTo(35)
+        }
         
         
     }
@@ -69,9 +68,16 @@ class MapViewController: UIViewController {
         
         clearView.backgroundColor = .clear
         
-        dismissBtn.setImage(UIImage(named: "backBtnImage"), for: .normal)
+        dismissBtn.setImage(UIImage(named: "backWhite"), for: .normal)
+        dismissBtn.addTarget(self, action: #selector(dismissBtnDidTap(_:)), for: .touchUpInside)
         
         drawCircleInMap(centerCoordinate: defaultLocation)
+    }
+    
+    
+    @objc private func dismissBtnDidTap(_ sender: UIButton) {
+        let prevVC = presentingViewController as? UIViewController
+        navigationController?.popViewController(animated: true)
     }
     
     private func drawCircleInMap(centerCoordinate: CLLocationCoordinate2D) {
