@@ -39,12 +39,18 @@ class TripScheduleTableCell: UITableViewCell {
         return label
     }()
     
-    let lineImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        return imageView
-    }()
+//    let lineImage: UIImageView = {
+//        let imageView = UIImageView()
+//        imageView.contentMode = .scaleAspectFill
+//        imageView.clipsToBounds = true
+//        return imageView
+//    }()
+//
+//    let linearView: UIView = {
+//        let view = UIView()
+//        view.backgroundColor = #colorLiteral(red: 0.1298420429, green: 0.1298461258, blue: 0.1298439503, alpha: 1)
+//        return view
+//    }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -58,7 +64,8 @@ class TripScheduleTableCell: UITableViewCell {
     }
     
     private func configure() {
-        contentView.addSubview(lineImage)
+//        contentView.addSubview(lineImage)
+//        contentView.addSubview(linearView)
         contentView.addSubview(dayLabel)
         contentView.addSubview(programImage)
         contentView.addSubview(titleLabel)
@@ -66,16 +73,23 @@ class TripScheduleTableCell: UITableViewCell {
     }
     
     private func setAutolayout() {
-        lineImage.snp.makeConstraints { (make) in
-            make.top.equalTo(20)
-            make.leading.equalTo(5)
-            make.width.equalTo(10)
-            make.height.equalToSuperview()
-        }
+//        lineImage.snp.makeConstraints { (make) in
+//            make.top.equalTo(20)
+//            make.leading.equalTo(5)
+//            make.width.equalTo(10)
+//            make.height.equalToSuperview()
+//        }
+        
+//        linearView.snp.makeConstraints { (make) in
+//            make.top.equalTo(dayLabel.snp.top)
+//            make.leading.equalTo(20)
+//            make.width.equalTo(3)
+//        }
         
         dayLabel.snp.makeConstraints { (make) in
             make.top.equalTo(20)
-            make.leading.equalTo(lineImage.snp.trailing).offset(5)
+//            make.leading.equalTo(lineImage.snp.trailing).offset(5)
+            make.leading.equalTo(40)
         }
         
         programImage.snp.makeConstraints { (make) in

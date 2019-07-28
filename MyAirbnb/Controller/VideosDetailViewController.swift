@@ -40,6 +40,8 @@ class VideosDetailViewController: UIViewController {
 
     let lineImages = ["line1", "line2", "line3"]
     
+    var linearViewArray = [UIView]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -140,17 +142,51 @@ extension VideosDetailViewController: UITableViewDataSource {
             tripScheduleCell.titleLabel.text = contentsArray[indexPath.row - 1].0
             tripScheduleCell.descLabel.text = contentsArray[indexPath.row - 1].1
             
-            switch indexPath.row {
-            case 1:
-                tripScheduleCell.lineImage.image = UIImage(named: lineImages[indexPath.row - 1])
-            case scheduleImages.count:
-                tripScheduleCell.lineImage.image = UIImage(named: lineImages[indexPath.row - 1])
-            default:
-                tripScheduleCell.lineImage.image = UIImage(named: lineImages[indexPath.row - 1])
+            for i in 0..<scheduleImages.count {
+                let linearView: UIView = {
+                    let view = UIView()
+                    view.backgroundColor = #colorLiteral(red: 0.1298420429, green: 0.1298461258, blue: 0.1298439503, alpha: 1)
+                    return view
+                }()
+                
+                linearViewArray.append(linearView)
+            }
+            
+            for i in 0..<linearViewArray.count {
+                tripScheduleCell.contentView.addSubview(linearViewArray[i])
+                
+                linearViewArray[i].snp.makeConstraints { (make) in
+                    make.leading.equalTo(tripScheduleCell.contentView.snp.leading).offset(20)
+                    make.width.equalTo(0.5)
+                }
+                
+                switch indexPath.row {
+                case 1:
+                    linearViewArray[i].snp.makeConstraints { (make) in
+                        make.top.equalTo(tripScheduleCell.dayLabel.snp.top)
+//                        make.height.equalTo(tripScheduleCell.contentView.snp.height).multipliedBy(0.9)
+                        make.bottom.equalTo(tripScheduleCell.contentView)
+                    }
+                case scheduleImages.count:
+                    linearViewArray[i].snp.makeConstraints { (make) in
+                        make.top.equalTo(tripScheduleCell.contentView)
+                        make.bottom.equalTo(tripScheduleCell.dayLabel.snp.centerY)
+                    }
+//                    tripScheduleCell.descLabel.snp.makeConstraints { (make) in
+//                        make.bottom.equalTo(-20)
+//                    }
+//                    fallthrough
+                default:
+                    linearViewArray[i].snp.makeConstraints { (make) in
+                        make.top.equalTo(tripScheduleCell.contentView)
+                        make.height.equalTo(tripScheduleCell.contentView.snp.height)
+                        make.bottom.equalTo(tripScheduleCell.contentView)
+                    }
+                }
             }
             
             return tripScheduleCell
-            
+        
         default:
             return UITableViewCell()
         }
