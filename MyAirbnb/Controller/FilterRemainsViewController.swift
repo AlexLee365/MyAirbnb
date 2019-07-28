@@ -83,6 +83,7 @@ class FilterRemainsViewController: UIViewController {
     var checkBoxDatas = [CheckBoxData]()
     var checkBoxViewButtons = [[UIButton]]()
     let notiCenter = NotificationCenter.default
+    var isDateSelected = false
     
     var offset: CGFloat = 0.0
     
@@ -242,6 +243,7 @@ extension FilterRemainsViewController: UITableViewDataSource {
             
         case 2:
             let priceRangeCell = tableView.dequeueReusableCell(withIdentifier: PriceRangeTableCell.identifier, for: indexPath) as! PriceRangeTableCell
+            priceRangeCell.isDateSelected = self.isDateSelected
             return priceRangeCell
             
         case 3:
@@ -289,21 +291,6 @@ extension FilterRemainsViewController: TableviewTopViewDelegate {
 
 // Notification
 extension FilterRemainsViewController {
-//    static let instantBookSwitchTapped = Notification.Name("InstantBookSwitchTapped")
-//    static let houseGradeSwitchTapped = Notification.Name("HouseGradeSwitchTapped")
-//    static let priceSliderDidChanged = Notification.Name("PriceSliderDidChanged")
-//    static let houseTypeSwitchTapped = Notification.Name("HouseTypeSwitchTapped")
-//    static let bedroomsCountChanged = Notification.Name("BedroomsCountChanged")
-//    static let facilitiesInsideChecked = Notification.Name("FacilitiesInsideChecked")
-//    static let facilitiesInsideSeeMoreBtnDidTap = Notification.Name("FacilitiesInsideSeeMoreBtnDidTap")
-//    static let facilitiesOutsideChecked = Notification.Name("FacilitiesOutsideChecked")
-//    static let facilitiesOutsideSeeMoreBtnDidTap = Notification.Name("FacilitiesOutsideSeeMoreBtnDidTap")
-//    static let buildingTypeChecked = Notification.Name("BuildingTypeChecked")
-//    static let buildingTypeSeeMoreBtnDidTap = Notification.Name("BuildingTypeSeeMoreBtnDidTap")
-//    static let uniqueHouseChecked = Notification.Name("UniqueHouseChecked")
-//    static let uniqueHouseSeeMoreBtnDidTap = Notification.Name("UniqueHouseSeeMoreBtnDidTap")
-//    static let useRulesChecked = Notification.Name("UseRulesChecked")
-    
     private func addNotificationObserver() {
         notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .instantBookSwitchTapped, object: nil)
         notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .houseGradeSwitchTapped, object: nil)
@@ -367,11 +354,12 @@ extension FilterRemainsViewController {
         
         
         guard button.tag != 99 else {
-            checkBoxDatas[index].seeAllBtnState = true
+            checkBoxDatas[index].seeAllBtnState.toggle()
             let checkBoxCell = tableView.cellForRow(at: IndexPath(row: index+5, section: 0)) as! CheckboxTableCell
             checkBoxCell.setDataOnce = false
 //            tableView.reloadData()
             tableView.reloadRows(at: [IndexPath(row: index+5, section: 0)], with: .fade)
+            tableView.scrollToRow(at: IndexPath(row: index+5, section: 0), at: .top, animated: true)
             return
         }
         checkBoxDatas[index].contentArray[button.tag].checkBoxState = button.isSelected

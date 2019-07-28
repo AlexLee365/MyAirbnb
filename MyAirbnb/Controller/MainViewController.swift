@@ -207,6 +207,7 @@ extension MainViewController {
             
         case Notification.Name.searchBarFilterBtnDidTap:
             let filterRemainsVC = FilterRemainsViewController()
+            filterRemainsVC.isDateSelected = (searchBarView.selectedDateString == "날짜") ? false : true
             present(filterRemainsVC, animated: true)
             
         case Notification.Name.moveToHouseView:

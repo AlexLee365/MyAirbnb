@@ -81,9 +81,11 @@ class CheckboxTableCell: UITableViewCell {
     func setData(inputData: CheckBoxData) {
         guard setDataOnce == false else { return }
         title.text = inputData.title
-        seeAllBtn.setTitle(inputData.buttonTitle, for: .normal)
+        let buttonTitle = inputData.seeAllBtnState ? "\(inputData.title) 닫기" : "\(inputData.title) 모두 보기"
+        seeAllBtn.setTitle(buttonTitle, for: .normal)
         seeAllBtn.addTarget(self, action: #selector(seeAllBtnDidTap(_:)), for: .touchUpInside)
         seeAllBtn.tag = 99
+        (inputData.buttonTitle == nil) ? (seeAllBtn.isHidden = true) : ()
         
         let viewsCount = inputData.seeAllBtnState ? inputData.contentArray.count : 3
         print("setData viewsCount: ", viewsCount)
