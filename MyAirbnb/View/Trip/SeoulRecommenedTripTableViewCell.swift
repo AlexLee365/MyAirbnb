@@ -10,7 +10,9 @@ import UIKit
 
 protocol SeoulRecommenedTripTableViewCellDelegate: class {
     func pushVC()
+    func pushVCForBtn()
 }
+
 
 class SeoulRecommenedTripTableViewCell: UITableViewCell {
     
@@ -93,7 +95,7 @@ class SeoulRecommenedTripTableViewCell: UITableViewCell {
     }
     
     @objc private func seeAllBtnDidTap(_ sender: UIButton) {
-        
+        delegate?.pushVCForBtn()
     }
     
     

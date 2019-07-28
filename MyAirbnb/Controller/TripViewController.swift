@@ -201,6 +201,11 @@ extension TripViewController: SeoulRecommenedTripTableViewCellDelegate {
         let detailVC = SeoulRecommendedDetailViewController()
         navigationController?.pushViewController(detailVC, animated: true)
     }
+    
+    func pushVCForBtn() {
+        let tripAllVC = TripAllViewController()
+        navigationController?.pushViewController(tripAllVC, animated: false)
+    }
 }
 
 

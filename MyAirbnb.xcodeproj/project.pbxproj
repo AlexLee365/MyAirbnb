@@ -151,6 +151,7 @@
 		8D51904F22EC3881009D6792 /* MemoTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51904E22EC3881009D6792 /* MemoTableCell.swift */; };
 		8D51905122EC5C1C009D6792 /* LuxeHouseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51905022EC5C1C009D6792 /* LuxeHouseViewController.swift */; };
 		8D51907122EC667A009D6792 /* TripScheduleTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51907022EC667A009D6792 /* TripScheduleTableCell.swift */; };
+		8D51907422ED6040009D6792 /* TripAllViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51907322ED6040009D6792 /* TripAllViewController.swift */; };
 		9F10F3C31A75AE56BBBE8FE9 /* Pods_MyAirbnb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5895FA9D40FD45C305945B10 /* Pods_MyAirbnb.framework */; };
 /* End PBXBuildFile section */
 
@@ -321,6 +322,7 @@
 		8D51904E22EC3881009D6792 /* MemoTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoTableCell.swift; sourceTree = "<group>"; };
 		8D51905022EC5C1C009D6792 /* LuxeHouseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LuxeHouseViewController.swift; sourceTree = "<group>"; };
 		8D51907022EC667A009D6792 /* TripScheduleTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripScheduleTableCell.swift; sourceTree = "<group>"; };
+		8D51907322ED6040009D6792 /* TripAllViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripAllViewController.swift; sourceTree = "<group>"; };
 		D11C85972DEC34ABFE5E5A06 /* Pods-MyAirbnb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyAirbnb.debug.xcconfig"; path = "Target Support Files/Pods-MyAirbnb/Pods-MyAirbnb.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -415,6 +417,7 @@
 			isa = PBXGroup;
 			children = (
 				8D51903222E96F94009D6792 /* House */,
+				8D51907222ED5FD8009D6792 /* Trip */,
 				2080604222DDE6C5008672D9 /* LoginControllers */,
 				4313F09122E83FA2003BB3D1 /* LaunchScreenViewController.swift */,
 				4353B8ED22D088A3004BD807 /* TabbarController.swift */,
@@ -685,6 +688,14 @@
 			path = PlusHouse;
 			sourceTree = "<group>";
 		};
+		8D51907222ED5FD8009D6792 /* Trip */ = {
+			isa = PBXGroup;
+			children = (
+				8D51907322ED6040009D6792 /* TripAllViewController.swift */,
+			);
+			path = Trip;
+			sourceTree = "<group>";
+		};
 		C61D96A808C126AE8EE65879 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -917,6 +928,7 @@
 				8D51903922E987FD009D6792 /* PlusIntroCollectionCell.swift in Sources */,
 				43E36CDC22E59B03006C8AEF /* HouseDetailLocationTableCell.swift in Sources */,
 				43E36CDA22E586D4006C8AEF /* HouseDetailFacilityCollectCell.swift in Sources */,
+				8D51907422ED6040009D6792 /* TripAllViewController.swift in Sources */,
 				4353BA2422DC40B5004BD807 /* FSCalendarCollectionViewLayout.m in Sources */,
 				8D0D787022D07DE600F61F0B /* TripIntroTableViewCell.swift in Sources */,
 				4313F08A22E81A67003BB3D1 /* NetworkCommunicator.swift in Sources */,
