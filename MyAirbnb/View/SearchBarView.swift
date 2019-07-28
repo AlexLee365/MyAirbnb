@@ -18,6 +18,10 @@ protocol CalendarDelegate: class {
 class SearchBarView: UIView {
     // SearchBarView must have a more than 120 height
     
+    enum UseCase {
+        case inMainVC, inTripVC, inHouseVC
+    }
+    
     // MARK: - UI Properties
     let searchContainerView = UIView()
     let searchImageBtn = UIButton()
@@ -41,13 +45,12 @@ class SearchBarView: UIView {
     
     let notiCenter = NotificationCenter.default
     
+    var useCase: UseCase = .inMainVC
+    
     var selectedDatesArray = [Date]()
     var selectedDateString = "날짜" {
         didSet {
-            
             filterDateBtn.setTitle("    \(selectedDateString)    ", for: .normal)
-//            let widthConst = selectedDateString.size(withAttributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 13, weight: .semibold)]).width
-//            filterDateBtn.frame.size.width = widthConst
             
             if selectedDateString == "날짜" {
                 filterDateBtn.setTitleColor(StandardUIValue.shared.colorRegularText, for: .normal)
@@ -104,7 +107,7 @@ class SearchBarView: UIView {
         let searchContainerTrailing = searchContainerView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -sideMargin)
         searchContainerTrailing.priority = UILayoutPriority(rawValue: 500)
         searchContainerTrailing.isActive = true
-//        searchContainerView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -15).isActive = true
+        //        searchContainerView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -15).isActive = true
         searchContainerView.heightAnchor.constraint(equalToConstant: 45).isActive = true
         
         // =================================== searchContainerView begin ===================================
@@ -145,40 +148,40 @@ class SearchBarView: UIView {
         // =================================== filterStackview begin ===================================
         filterDateBtn.topAnchor.constraint(equalTo: filterStackView.topAnchor, constant: 0).isActive = true
         filterDateBtn.heightAnchor.constraint(equalTo: filterStackView.heightAnchor, multiplier: 1).isActive = true
-//        filterDateBtn.widthAnchor.constraint(equalToConstant: widthConst).isActive = true
+        //        filterDateBtn.widthAnchor.constraint(equalToConstant: widthConst).isActive = true
         
-//        filterPeopleBtn.leadingAnchor.constraint(equalTo: filterDateBtn.trailingAnchor, constant: 8).isActive = true
+        //        filterPeopleBtn.leadingAnchor.constraint(equalTo: filterDateBtn.trailingAnchor, constant: 8).isActive = true
         filterPeopleBtn.topAnchor.constraint(equalTo: filterStackView.topAnchor, constant: 0).isActive = true
         filterPeopleBtn.heightAnchor.constraint(equalTo: filterStackView.heightAnchor, multiplier: 1).isActive = true
         
-//        filterRemainsBtn.leadingAnchor.constraint(equalTo: filterPeopleBtn.trailingAnchor, constant: 8).isActive = true
+        //        filterRemainsBtn.leadingAnchor.constraint(equalTo: filterPeopleBtn.trailingAnchor, constant: 8).isActive = true
         filterRemainsBtn.topAnchor.constraint(equalTo: filterStackView.topAnchor, constant: 0).isActive = true
         filterRemainsBtn.heightAnchor.constraint(equalTo: filterStackView.heightAnchor, multiplier: 1).isActive = true
         // =========================================================================================================
-//
-//        self.addSubview(autoCompleteTableView)
-//        autoCompleteTableView.translatesAutoresizingMaskIntoConstraints = false
-//        autoCompleteTableView.topAnchor.constraint(equalTo: searchContainerView.bottomAnchor, constant: 5).isActive = true
-//        autoCompleteTableView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-//        autoCompleteTableView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-//        let tableViewConstHeight = autoCompleteTableView.heightAnchor.constraint(equalToConstant: 0)
-//        tableViewConstHeight.priority = UILayoutPriority(500)
-//        tableViewConstHeight.isActive = true
+        //
+        //        self.addSubview(autoCompleteTableView)
+        //        autoCompleteTableView.translatesAutoresizingMaskIntoConstraints = false
+        //        autoCompleteTableView.topAnchor.constraint(equalTo: searchContainerView.bottomAnchor, constant: 5).isActive = true
+        //        autoCompleteTableView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        //        autoCompleteTableView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        //        let tableViewConstHeight = autoCompleteTableView.heightAnchor.constraint(equalToConstant: 0)
+        //        tableViewConstHeight.priority = UILayoutPriority(500)
+        //        tableViewConstHeight.isActive = true
         
-//        let tableViewConstBottom = autoCompleteTableView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
-//        tableViewConstBottom.priority = UILayoutPriority(rawValue: 500)
-//        tableViewConstBottom.isActive = true
+        //        let tableViewConstBottom = autoCompleteTableView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+        //        tableViewConstBottom.priority = UILayoutPriority(rawValue: 500)
+        //        tableViewConstBottom.isActive = true
         
-//        self.bringSubviewToFront(filterStackView)
+        //        self.bringSubviewToFront(filterStackView)
         
-//        self.addSubview(searchBarTableView)
-//        searchBarTableView.snp.makeConstraints { (make) in
-//            make.top.equalTo(searchContainerView.snp.bottom).offset(10)
-//            make.leading.trailing.bottom.equalToSuperview()
-//        }
-//        searchBarTableView.alpha = 1
-////        searchBarTableView.isHidden = true
-//        searchBarTableView.isUserInteractionEnabled = false
+        //        self.addSubview(searchBarTableView)
+        //        searchBarTableView.snp.makeConstraints { (make) in
+        //            make.top.equalTo(searchContainerView.snp.bottom).offset(10)
+        //            make.leading.trailing.bottom.equalToSuperview()
+        //        }
+        //        searchBarTableView.alpha = 1
+        ////        searchBarTableView.isHidden = true
+        //        searchBarTableView.isUserInteractionEnabled = false
     }
     
     private func configureViewsOptions() {
@@ -242,7 +245,7 @@ class SearchBarView: UIView {
     
     @objc func searchCancelBtnDidTap(_ sender: UIButton) {  // 취소 버튼 => 수정종료
         searchTF.resignFirstResponder()
-        searchTF.text = ""
+        
         notiCenter.post(name: .searchBarEditEnd, object: nil)
     }
     
@@ -262,14 +265,32 @@ class SearchBarView: UIView {
 
 
 extension SearchBarView: UITextFieldDelegate {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        print("tf should begin editing")
+        self.searchTF.text = ""
+        return true
+    }
+    
+   
+    
     func textFieldDidBeginEditing(_ textField: UITextField) {   // 수정 시작
+        print("SearchBarView TF did begin editing")
         notiCenter.post(name: .searchBarEditBegin, object: nil)
         
         textEditBeginAnimation()
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {     // 수정 종료
-      textEditEndAnimation()
+        print("SearchBarView TF did end editing")
+//        print(useCase)
+       
+        textEditEndAnimation()
+    }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        print("tf should end editing")
+       
+        return true
     }
     
     private func textEditBeginAnimation() {
@@ -281,14 +302,14 @@ extension SearchBarView: UITextFieldDelegate {
             
             self.layoutIfNeeded()
         }
-        //        self.bringSubviewToFront(autoCompleteTableView)
         
         UIView.animate(withDuration: 0.3, delay: 0.3, usingSpringWithDamping: 1, initialSpringVelocity: 0.5, options: [.curveEaseIn], animations: {
             self.searchContainerTrailingInSearch?.priority = .defaultHigh
             self.searchContainerTrailingInSearch?.isActive = true
-            
             self.layoutIfNeeded()
-        })
+        }) { (_) in
+            
+        }
         
         UIView.animate(withDuration: 0.5, delay: 0.4, options: [], animations: {
             self.searchCancelBtn.layer.opacity = 1
@@ -298,6 +319,7 @@ extension SearchBarView: UITextFieldDelegate {
     }
     
     private func textEditEndAnimation() {
+        
         UIView.animateKeyframes(withDuration: 0.6, delay: 0, options: [], animations: {
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.3, animations: {
                 self.searchCancelBtn.layer.opacity = 0
@@ -312,7 +334,16 @@ extension SearchBarView: UITextFieldDelegate {
                 self.searchImageBtn.layer.opacity = 1
                 self.layoutIfNeeded()
             })
-        })
+        }) { (_) in
+            switch self.useCase {
+            case .inMainVC:
+                self.searchTF.text = ""
+            case .inHouseVC:
+                self.searchTF.text = "숙소"
+            case .inTripVC:
+                self.searchTF.text = "트립"
+            }
+        }
     }
 }
 

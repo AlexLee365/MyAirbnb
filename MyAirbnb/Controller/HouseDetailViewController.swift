@@ -98,6 +98,7 @@ class HouseDetailViewController: UIViewController {
         
         let mapVC = MapViewController()
         mapVC.defaultLocation = coordinate
+        mapVC.circleColor = StandardUIValue.shared.colorBlueGreen
         navigationController?.pushViewController(mapVC, animated: true)
     }
     

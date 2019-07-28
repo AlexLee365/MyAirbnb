@@ -22,7 +22,7 @@ class TripViewController: UIViewController {
     
     let searchBarView: SearchBarView = {
         let searchBarView = SearchBarView()
-        searchBarView.searchImageBtn.setImage(UIImage(named: "back32"), for: .normal)
+        searchBarView.searchImageBtn.setImage(UIImage(named: "back33"), for: .normal)
         searchBarView.backgroundColor = .clear
         return searchBarView
     }()
@@ -39,6 +39,7 @@ class TripViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
         tabBarController?.tabBar.isHidden = false
+        searchBarView.useCase = .inTripVC
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -57,7 +58,6 @@ class TripViewController: UIViewController {
     }
     
     private func configure() {
-        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.backgroundColor = .white
@@ -71,9 +71,9 @@ class TripViewController: UIViewController {
         
         view.addSubview(searchBarView)
         searchBarView.filterStackView.isHidden = true
-
-        view.addSubview(searchBarBackgroundView)
+        searchBarView.searchTF.text = "트립"
         
+        view.addSubview(searchBarBackgroundView)
         view.bringSubviewToFront(searchBarView)
     }
     

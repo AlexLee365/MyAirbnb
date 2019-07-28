@@ -59,18 +59,15 @@ class CalenderViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-       
-        
         setBackgroundView()
         setCalendar()
         setAutoLayout()
         configureViewsOptions()
-        
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         setAnimation()
-        
         
         guard beginDatesArray.count > 0 else { return }
         calendar.select(beginDatesArray.first!)
@@ -81,14 +78,11 @@ class CalenderViewController: UIViewController {
         if beginDatesArray.count > 1 {
             print(" 😘 ", selectedDatesArray)
             selectDateCells()
-            
-           
         }
-        
     }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-    
         dismiss(animated: false, completion: nil)
     }
     
@@ -141,6 +135,7 @@ class CalenderViewController: UIViewController {
             leadingConst += letterPadding
             ( i == 6 ) ? (weekdayLabel = label) : ()
         }
+        
         containerView.addSubview(seperateLineViewTop)
         seperateLineViewTop.translatesAutoresizingMaskIntoConstraints = false
         seperateLineViewTop.topAnchor.constraint(equalTo: weekdayLabel.bottomAnchor, constant: 5).isActive = true
@@ -174,7 +169,6 @@ class CalenderViewController: UIViewController {
     }
     
     private func configureViewsOptions() {
-        
         containerView.backgroundColor = .white
         containerView.layer.cornerRadius = 5
         containerView.alpha = 0
@@ -213,8 +207,8 @@ class CalenderViewController: UIViewController {
         calendar.pagingEnabled = false
         calendar.scrollDirection = .vertical
         calendar.allowsMultipleSelection = true
-        
         calendar.today = nil
+        calendar.placeholderType = .none
         
         calendar.appearance.headerDateFormat = "M"
         calendar.headerHeight = 35
@@ -335,11 +329,6 @@ extension CalenderViewController: FSCalendarDelegate, FSCalendarDataSource {
         let selectDay = dateFormatter.string(from: date)
         print("currentDay: ", currentDay)
         print("selectDay: ", selectDay)
-        
-        if currentDay == selectDay {
-            //            return false
-        }
-        
         
         return true
     }
