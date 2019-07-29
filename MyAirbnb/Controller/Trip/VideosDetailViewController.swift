@@ -37,10 +37,8 @@ class VideosDetailViewController: UIViewController {
     
     let scheduleImages = ["schedule1", "schedule2", "schedule3"]
     let contentsArray = [("Lake Crescent & the Pacific Coast", "Ferry across the Puget Sound. Walk Marymere Falls & Ruby Beach. Coastal campfire & dinner!"), ("Hoh Rainforest & Vanishing Silence", "Hike along the pristine Hoh River. Discover silence in the giant trees of Hoh Rainforest!"), ("Hike Hurricane Ridge", "Climb to Hurricane Ridge and explore new heights in the panoramic Olympic Mountain range.")]
-
-    let lineImages = ["line1", "line2", "line3"]
     
-    var linearViewArray = [UIView]()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -141,45 +139,8 @@ extension VideosDetailViewController: UITableViewDataSource {
             tripScheduleCell.programImage.image = UIImage(named: scheduleImages[indexPath.row - 1])
             tripScheduleCell.titleLabel.text = contentsArray[indexPath.row - 1].0
             tripScheduleCell.descLabel.text = contentsArray[indexPath.row - 1].1
-            
-            for i in 0..<scheduleImages.count {
-                let linearView: UIView = {
-                    let view = UIView()
-                    view.backgroundColor = #colorLiteral(red: 0.1298420429, green: 0.1298461258, blue: 0.1298439503, alpha: 1)
-                    return view
-                }()
-                
-                linearViewArray.append(linearView)
-            }
-            
-            for i in 0..<linearViewArray.count {
-                tripScheduleCell.contentView.addSubview(linearViewArray[i])
-                
-                linearViewArray[i].snp.makeConstraints { (make) in
-                    make.leading.equalTo(tripScheduleCell.contentView.snp.leading).offset(20)
-                    make.width.equalTo(0.5)
-                }
-                
-                switch indexPath.row {
-                case 1:
-                    linearViewArray[i].snp.makeConstraints { (make) in
-                        make.top.equalTo(tripScheduleCell.dayLabel.snp.top)
-                        make.height.equalTo(tripScheduleCell.contentView.snp.height).multipliedBy(0.9)
-//                        make.bottom.equalTo(tripScheduleCell.contentView)
-                    }
-                case scheduleImages.count:
-                    linearViewArray[i].snp.makeConstraints { (make) in
-                        make.top.equalTo(tripScheduleCell.contentView)
-                        make.bottom.equalTo(tripScheduleCell.dayLabel.snp.centerY)
-                    }
-                default:
-                    linearViewArray[i].snp.makeConstraints { (make) in
-                        make.top.equalTo(tripScheduleCell.contentView)
-                        make.height.equalTo(tripScheduleCell.contentView)
-//                        make.bottom.equalTo(tripScheduleCell.contentView)
-                    }
-                }
-            }
+            tripScheduleCell.tripTotalDays = contentsArray.count
+            tripScheduleCell.currentIndex = indexPath.row
             
             return tripScheduleCell
         
