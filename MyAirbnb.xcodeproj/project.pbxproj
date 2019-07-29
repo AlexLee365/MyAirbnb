@@ -345,14 +345,9 @@
 		2080604222DDE6C5008672D9 /* LoginControllers */ = {
 			isa = PBXGroup;
 			children = (
-
 				4353BA5622DECE9F004BD807 /* SignUpMainViewController.swift */,
 				4353BA5522DECE9F004BD807 /* MakeIdPageViewController.swift */,
-
 				4353B90F22D6DCCB004BD807 /* LoginTestViewController.swift */,
-				4353BA5222DECE9F004BD807 /* ConfirmNoticeViewController.swift */,
-				4353BA5122DECE9F004BD807 /* FindPassWordPageViewController.swift */,
-
 				4353BA5322DECE9F004BD807 /* InputPhoneNumberViewController.swift */,
 				20CD1F2022E303B1009641F4 /* MakePwPageViewContorller.swift */,
 				20CD1F2222E303F4009641F4 /* ConfirmBirthDayViewController.swift */,
@@ -809,28 +804,11 @@
 			files = (
 			);
 			inputFileListPaths = (
-
 				"${PODS_ROOT}/Target Support Files/Pods-MyAirbnb/Pods-MyAirbnb-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-MyAirbnb/Pods-MyAirbnb-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MyAirbnb/Pods-MyAirbnb-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
-				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
-				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
-
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1146,13 +1124,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 64WAG22Y2J;
+				DEVELOPMENT_TEAM = 5AVJM299X4;
 				INFOPLIST_FILE = MyAirbnb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = kr.doyeong.MyAirbnb;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.AlexLee0427.MyAirbnb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "./FSCalendar/Objc-Bridge-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -1166,13 +1144,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 64WAG22Y2J;
+				DEVELOPMENT_TEAM = 5AVJM299X4;
 				INFOPLIST_FILE = MyAirbnb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = kr.doyeong.MyAirbnb;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.AlexLee0427.MyAirbnb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "./FSCalendar/Objc-Bridge-Header.h";
 				SWIFT_VERSION = 5.0;
