@@ -11,7 +11,7 @@ import UIKit
 class AllHousesTableCell: UITableViewCell {
     static let identifier = "AllHousesTableCell"
     
-    var images = ["categoryImage", "houseSample", "luxeSample", "MainFullImage", "roomImage"]
+    var images = ["roomSample3", "houseSample", "luxeSample", "MainFullImage", "categoryHouseImage"]
     
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -104,9 +104,9 @@ class AllHousesTableCell: UITableViewCell {
         scrollView.heightAnchor.constraint(equalToConstant: tempHeight).isActive = true
         
         likeBtn.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 10).isActive = true
-        likeBtn.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -10).isActive = true
-        likeBtn.widthAnchor.constraint(equalToConstant: 30).isActive = true
-        likeBtn.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        likeBtn.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -15).isActive = true
+        likeBtn.widthAnchor.constraint(equalToConstant: 25).isActive = true
+        likeBtn.heightAnchor.constraint(equalToConstant: 25).isActive = true
         
         pageController.translatesAutoresizingMaskIntoConstraints = false
         pageController.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -8).isActive = true

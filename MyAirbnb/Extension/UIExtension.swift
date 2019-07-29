@@ -21,9 +21,25 @@ extension Notification.Name {
     // MARK: - House
     static let moveToHouseView = Notification.Name(rawValue: "MoveToHouseView")
     static let moveToHouseDetailView = Notification.Name("MoveToHouseDetailView")
+    static let moveToPlusHouseDetailView = Notification.Name(rawValue: "MoveToPlusHouseDetailView")
     
+    static let mapViewDidTapInHouseDetailView = Notification.Name("MapViewDidTapInHouseDetailView")
     
-    // MARK: -
+    // MARK: - FilterRemainsVC
+    static let instantBookSwitchTapped = Notification.Name("InstantBookSwitchTapped")
+    static let houseGradeSwitchTapped = Notification.Name("HouseGradeSwitchTapped")
+    static let priceSliderDidChanged = Notification.Name("PriceSliderDidChanged")
+    static let houseTypeSwitchTapped = Notification.Name("HouseTypeSwitchTapped")
+    static let bedroomsCountChanged = Notification.Name("BedroomsCountChanged")
+    static let facilitiesInsideChecked = Notification.Name("FacilitiesInsideChecked")
+    static let facilitiesInsideSeeMoreBtnDidTap = Notification.Name("FacilitiesInsideSeeMoreBtnDidTap")
+    static let facilitiesOutsideChecked = Notification.Name("FacilitiesOutsideChecked")
+    static let facilitiesOutsideSeeMoreBtnDidTap = Notification.Name("FacilitiesOutsideSeeMoreBtnDidTap")
+    static let buildingTypeChecked = Notification.Name("BuildingTypeChecked")
+    static let buildingTypeSeeMoreBtnDidTap = Notification.Name("BuildingTypeSeeMoreBtnDidTap")
+    static let uniqueHouseChecked = Notification.Name("UniqueHouseChecked")
+    static let uniqueHouseSeeMoreBtnDidTap = Notification.Name("UniqueHouseSeeMoreBtnDidTap")
+    static let useRulesChecked = Notification.Name("UseRulesChecked")
 }
 
 extension UILabel {
@@ -41,9 +57,18 @@ extension UILabel {
         self.textColor = #colorLiteral(red: 0.3221844435, green: 0.3202747703, blue: 0.3236560524, alpha: 1)
     }
     
-    func configureTripDetailHostInfoTitle() {
-        self.font = UIFont.systemFont(ofSize: StandardUIValue.shared.sizeTitleBoldText, weight: .semibold)
-        self.textColor = #colorLiteral(red: 0.370555222, green: 0.3705646992, blue: 0.3705595732, alpha: 1)
+    func configureTripDetailTitle() {
+        self.font = UIFont(name: "AirbnbCerealApp-Medium", size: 18)
+        self.setLineSpacing(lineSpacing: 4)
+        self.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
+            UIFont.systemFont(ofSize: StandardUIValue.shared.sizeTitleBoldText, weight: .semibold)
+    }
+    
+    func configureTripDetailDesc() {
+        self.font = UIFont(name: "AirbnbCerealApp-Book", size: 16)
+        self.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
+        self.setLineSpacing(lineSpacing: 4)
+        self.numberOfLines = 0
     }
     
     func configureHouseDetailMainText() {
@@ -53,10 +78,31 @@ extension UILabel {
     
     func configureHouseDetailSubText() {
         self.textColor = StandardUIValue.shared.colorRegularText
-        self.font = .systemFont(ofSize: 13, weight: .regular)
+        self.font = .systemFont(ofSize: 14, weight: .regular)
         self.numberOfLines = 0
     }
     
+    // MARK: - For UILabel Line Spacing
+    
+    func setLineSpacing(lineSpacing: CGFloat = 0.0, lineHeightMultiple: CGFloat = 0.0) {
+        
+        guard let labelText = self.text else { return }
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = lineSpacing
+        paragraphStyle.lineHeightMultiple = lineHeightMultiple
+        
+        let attributedString:NSMutableAttributedString
+        if let labelattributedText = self.attributedText {
+            attributedString = NSMutableAttributedString(attributedString: labelattributedText)
+        } else {
+            attributedString = NSMutableAttributedString(string: labelText)
+        }
+        
+        attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attributedString.length))
+        
+        self.attributedText = attributedString
+    }
     
     
     // MARK: - For read more action
@@ -139,5 +185,38 @@ extension UITapGestureRecognizer {
     }
 }
 
+//extension NSMutableAttributedString {
+//
+//    func setColorForText(textForAttribute: String, withColor color: UIColor) {
+//        let range: NSRange = self.mutableString.range(of: textForAttribute, options: .caseInsensitive)
+//
+//        self.addAttribute(NSAttributedString.Key.foregroundColor, value: color, range: range)
+//    }
+//}
+
+extension UITableViewCell {
+    func hideSeparator() {
+        self.separatorInset = UIEdgeInsets(top: 0, left: UIScreen.main.bounds.width, bottom: 0, right: 0)
+    }
+}
 
 
+class UIButtonWithHighlightEffect: UIButton {
+    open override var isHighlighted: Bool {
+        didSet {
+            self.layer.backgroundColor = isHighlighted ? #colorLiteral(red: 0.8454582095, green: 0.8404331207, blue: 0.8493215442, alpha: 0.4461151541) : UIColor.clear.cgColor
+        }
+    }
+    
+    open override func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
+        let previousLocation = touch.previousLocation(in: self)
+        let currentLocation = touch.location(in: self)
+        
+        if previousLocation.y != currentLocation.y {
+            isHighlighted = false
+            return false
+        } else {
+            return true
+        }
+    }
+}

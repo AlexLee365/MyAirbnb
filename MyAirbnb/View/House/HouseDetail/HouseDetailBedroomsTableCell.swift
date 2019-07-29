@@ -16,6 +16,8 @@ class HouseDetailBedroomsTableCell: UITableViewCell {
     let layout = UICollectionViewFlowLayout()
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     
+    var bedRoomCount = 0
+    
     private enum Metric {
         static let lineSpacing: CGFloat = 20
         static let itemSpacing: CGFloat = 0
@@ -88,7 +90,7 @@ class HouseDetailBedroomsTableCell: UITableViewCell {
 
 extension HouseDetailBedroomsTableCell: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return bedRoomCount
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

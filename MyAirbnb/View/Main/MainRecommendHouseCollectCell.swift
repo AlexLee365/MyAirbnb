@@ -60,6 +60,7 @@ class MainRecommendHouseCollectCell: UICollectionViewCell {
         
         houseGradeImageView.centerYAnchor.constraint(equalTo: firstStackView.centerYAnchor).isActive = true
         houseGradeImageView.heightAnchor.constraint(equalTo: firstStackView.heightAnchor).isActive = true
+        houseGradeImageView.widthAnchor.constraint(equalToConstant: 25).isActive = true
         dateAndGuestLabel.centerYAnchor.constraint(equalTo: firstStackView.centerYAnchor).isActive = true
         
         contentView.addSubview(houseNameLabel)
@@ -101,7 +102,7 @@ class MainRecommendHouseCollectCell: UICollectionViewCell {
         
         houseGradeImageView.image = UIImage(named: "houseGrade_Plus")
         houseGradeImageView.contentMode = .scaleAspectFit
-        houseGradeImageView.widthAnchor.constraint(equalToConstant: 25).isActive = true
+        
         
         dateAndGuestLabel.text = "7월14일 - 7월17일 ・ 게스트 2명"
         dateAndGuestLabel.font = .systemFont(ofSize: 8, weight: .bold)
@@ -126,5 +127,13 @@ class MainRecommendHouseCollectCell: UICollectionViewCell {
         ratingAndHostInfoLabel.font = .systemFont(ofSize: 8, weight: .regular)
         ratingAndHostInfoLabel.textColor = #colorLiteral(red: 0.3221844435, green: 0.3202747703, blue: 0.3236560524, alpha: 1)
         ratingAndHostInfoLabel.sizeToFit()
+    }
+    
+    func setData(plusHouseData: HousePlusDataInList) {
+        mainImageView.image = plusHouseData.houseMainImage
+        dateAndGuestLabel.text = "검증됨 ・ \(plusHouseData.houseLocation)"
+        houseNameLabel.text = plusHouseData.houseName
+        ratingImageLabel.text = plusHouseData.drawStarsWithHouseRate()
+        ratingAndHostInfoLabel.text = "\(plusHouseData.houseRateCount) ・ 슈퍼호스트"
     }
 }

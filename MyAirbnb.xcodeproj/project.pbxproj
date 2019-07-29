@@ -20,6 +20,10 @@
 		20CD1F1F22E302F5009641F4 /* AlarmConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CD1F1E22E302F5009641F4 /* AlarmConfirmViewController.swift */; };
 		20CD1F2122E303B1009641F4 /* MakePwPageViewContorller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CD1F2022E303B1009641F4 /* MakePwPageViewContorller.swift */; };
 		20CD1F2322E303F4009641F4 /* ConfirmBirthDayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CD1F2222E303F4009641F4 /* ConfirmBirthDayViewController.swift */; };
+		4313F08822E5DE0A003BB3D1 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4313F08722E5DE0A003BB3D1 /* MapViewController.swift */; };
+		4313F08A22E81A67003BB3D1 /* NetworkCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4313F08922E81A67003BB3D1 /* NetworkCommunicator.swift */; };
+		4313F09222E83FA2003BB3D1 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4313F09122E83FA2003BB3D1 /* LaunchScreenViewController.swift */; };
+		4313F09422E8478E003BB3D1 /* MainViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4313F09322E8478E003BB3D1 /* MainViewData.swift */; };
 		4353B8D222CF51F6004BD807 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353B8D122CF51F6004BD807 /* AppDelegate.swift */; };
 		4353B8DC22CF51F9004BD807 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4353B8DA22CF51F9004BD807 /* LaunchScreen.storyboard */; };
 		4353B8E422D0797E004BD807 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353B8E322D0797E004BD807 /* MainViewController.swift */; };
@@ -71,15 +75,18 @@
 		4353BA6922DF11CC004BD807 /* HouseDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA6822DF11CC004BD807 /* HouseDetailViewController.swift */; };
 		4353BA6B22DF20B8004BD807 /* HouseDetailBasicInfoTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA6A22DF20B8004BD807 /* HouseDetailBasicInfoTableCell.swift */; };
 		4353BA8F22E09FC5004BD807 /* TestSaveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA8E22E09FC5004BD807 /* TestSaveViewController.swift */; };
-		4353BA9122E09FD0004BD807 /* TestMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA9022E09FD0004BD807 /* TestMessageViewController.swift */; };
 		4353BA9722E1A06D004BD807 /* HouseDetailIntroductionTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA9622E1A06D004BD807 /* HouseDetailIntroductionTableCell.swift */; };
 		4353BA9922E1A2B4004BD807 /* HouseDetailStayingDaysTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA9822E1A2B4004BD807 /* HouseDetailStayingDaysTableCell.swift */; };
 		4353BA9B22E1A335004BD807 /* HouseDetailFacilityTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA9A22E1A335004BD807 /* HouseDetailFacilityTableCell.swift */; };
 		4353BA9D22E1A398004BD807 /* HouseDetailBedroomsTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA9C22E1A398004BD807 /* HouseDetailBedroomsTableCell.swift */; };
+		4399345322E9515600FAE15C /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4399345222E9515600FAE15C /* AppIcon.xcassets */; };
+		4399345522E9831600FAE15C /* BottomInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4399345422E9831600FAE15C /* BottomInfoView.swift */; };
+		4399347522E9B12700FAE15C /* HouseDetailData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4399347422E9B12700FAE15C /* HouseDetailData.swift */; };
 		43E36CD822E57627006C8AEF /* HouseDetailBedRoomsCollectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E36CD722E57627006C8AEF /* HouseDetailBedRoomsCollectCell.swift */; };
 		43E36CDA22E586D4006C8AEF /* HouseDetailFacilityCollectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E36CD922E586D4006C8AEF /* HouseDetailFacilityCollectCell.swift */; };
 		43E36CDC22E59B03006C8AEF /* HouseDetailLocationTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E36CDB22E59B03006C8AEF /* HouseDetailLocationTableCell.swift */; };
 		43E36CDE22E5AC77006C8AEF /* HouseDetailCheckInTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E36CDD22E5AC77006C8AEF /* HouseDetailCheckInTableCell.swift */; };
+		43F5AA8722EB2683007511E1 /* SearchBarTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F5AA8622EB2683007511E1 /* SearchBarTableCell.swift */; };
 		8D0D786E22D07C9300F61F0B /* TripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D786D22D07C9300F61F0B /* TripViewController.swift */; };
 		8D0D787022D07DE600F61F0B /* TripIntroTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D786F22D07DE600F61F0B /* TripIntroTableViewCell.swift */; };
 		8D0D787222D0810300F61F0B /* SpecialTripTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D787122D0810300F61F0B /* SpecialTripTableViewCell.swift */; };
@@ -92,7 +99,6 @@
 		8D0D788E22D222A400F61F0B /* TripInfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D788D22D222A400F61F0B /* TripInfoCollectionViewCell.swift */; };
 		8D0D789222D333BF00F61F0B /* TodaySeoulExperienceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D789122D333BF00F61F0B /* TodaySeoulExperienceTableViewCell.swift */; };
 		8D0D789A22D3610C00F61F0B /* SeoulRecommendedDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D789922D3610C00F61F0B /* SeoulRecommendedDetailViewController.swift */; };
-		8D0D789D22D3729000F61F0B /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D789C22D3729000F61F0B /* Protocols.swift */; };
 		8D0D78A122D4598200F61F0B /* TripIntroData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D78A022D4598200F61F0B /* TripIntroData.swift */; };
 		8D0D78A322D459AC00F61F0B /* SpecialTripData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D78A222D459AC00F61F0B /* SpecialTripData.swift */; };
 		8D0D78A522D459C900F61F0B /* SeoulRecommendedTripData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D78A422D459C900F61F0B /* SeoulRecommendedTripData.swift */; };
@@ -102,7 +108,6 @@
 		8D0D78AE22D485B000F61F0B /* SeoulRecommendDetailData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D78AD22D485B000F61F0B /* SeoulRecommendDetailData.swift */; };
 		8D0D78B022D48AE500F61F0B /* TopScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D78AF22D48AE500F61F0B /* TopScrollView.swift */; };
 		8D0D78B222D4B71500F61F0B /* TableviewTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D78B122D4B71500F61F0B /* TableviewTopView.swift */; };
-		8D0D78B422D5E5E600F61F0B /* BottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D78B322D5E5E600F61F0B /* BottomView.swift */; };
 		8D0D78B622D6060600F61F0B /* HostIntroTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D78B522D6060600F61F0B /* HostIntroTableViewCell.swift */; };
 		8D0D78DA22D74BDC00F61F0B /* PlaceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D78D922D74BDC00F61F0B /* PlaceTableViewCell.swift */; };
 		8D0D78DC22D74D2F00F61F0B /* PlaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D78DB22D74D2F00F61F0B /* PlaceData.swift */; };
@@ -127,7 +132,28 @@
 		8D518FF422E0A222009D6792 /* RangeSliderTrackLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D518FF322E0A222009D6792 /* RangeSliderTrackLayer.swift */; };
 		8D518FF622E1A3AB009D6792 /* CheckboxTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D518FF522E1A3AB009D6792 /* CheckboxTableCell.swift */; };
 		8D518FF822E1A57E009D6792 /* HouseTypeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D518FF722E1A57E009D6792 /* HouseTypeTableCell.swift */; };
-		8D518FFA22E1AA2A009D6792 /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D518FF922E1AA2A009D6792 /* Checkbox.swift */; };
+		8D51902222E57DA8009D6792 /* BedFilterTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51902122E57DA8009D6792 /* BedFilterTableCell.swift */; };
+		8D51902622E5B54D009D6792 /* CheckboxContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51902522E5B54D009D6792 /* CheckboxContainerView.swift */; };
+		8D51902A22E5B7DD009D6792 /* CheckBoxData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51902922E5B7DD009D6792 /* CheckBoxData.swift */; };
+		8D51902C22E81811009D6792 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51902B22E81811009D6792 /* MessageViewController.swift */; };
+		8D51902F22E82C8F009D6792 /* MsgListTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51902E22E82C8F009D6792 /* MsgListTableCell.swift */; };
+		8D51903122E8472A009D6792 /* ChatRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51903022E8472A009D6792 /* ChatRoomViewController.swift */; };
+		8D51903422E96FE8009D6792 /* PlusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51903322E96FE7009D6792 /* PlusViewController.swift */; };
+		8D51903722E97D92009D6792 /* PlusIntroTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51903622E97D92009D6792 /* PlusIntroTableCell.swift */; };
+		8D51903922E987FD009D6792 /* PlusIntroCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51903822E987FD009D6792 /* PlusIntroCollectionCell.swift */; };
+		8D51903B22E9AC21009D6792 /* BrowsePhotosTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51903A22E9AC20009D6792 /* BrowsePhotosTableCell.swift */; };
+		8D51903D22E9AF88009D6792 /* BrowsePhotosCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51903C22E9AF88009D6792 /* BrowsePhotosCollectionCell.swift */; };
+		8D51903F22E9BAE3009D6792 /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51903E22E9BAE2009D6792 /* FooterView.swift */; };
+		8D51904122E9CCCD009D6792 /* FacilityTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51904022E9CCCD009D6792 /* FacilityTableCell.swift */; };
+		8D51904322E9D017009D6792 /* FacilityCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51904222E9D017009D6792 /* FacilityCollectionCell.swift */; };
+		8D51904522EAA165009D6792 /* HandicappedFacilityTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51904422EAA165009D6792 /* HandicappedFacilityTableCell.swift */; };
+		8D51904722EAAE56009D6792 /* MapTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51904622EAAE56009D6792 /* MapTableCell.swift */; };
+		8D51904B22EC1DAD009D6792 /* TripContentsTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51904A22EC1DAD009D6792 /* TripContentsTableCell.swift */; };
+		8D51904D22EC2647009D6792 /* ItemsProvidedTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51904C22EC2647009D6792 /* ItemsProvidedTableCell.swift */; };
+		8D51904F22EC3881009D6792 /* MemoTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51904E22EC3881009D6792 /* MemoTableCell.swift */; };
+		8D51905122EC5C1C009D6792 /* LuxeHouseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51905022EC5C1C009D6792 /* LuxeHouseViewController.swift */; };
+		8D51907122EC667A009D6792 /* TripScheduleTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51907022EC667A009D6792 /* TripScheduleTableCell.swift */; };
+		8D51907422ED6040009D6792 /* TripAllViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51907322ED6040009D6792 /* TripAllViewController.swift */; };
 		9F10F3C31A75AE56BBBE8FE9 /* Pods_MyAirbnb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5895FA9D40FD45C305945B10 /* Pods_MyAirbnb.framework */; };
 /* End PBXBuildFile section */
 
@@ -146,6 +172,10 @@
 		20CD1F1E22E302F5009641F4 /* AlarmConfirmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmConfirmViewController.swift; sourceTree = "<group>"; };
 		20CD1F2022E303B1009641F4 /* MakePwPageViewContorller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakePwPageViewContorller.swift; sourceTree = "<group>"; };
 		20CD1F2222E303F4009641F4 /* ConfirmBirthDayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmBirthDayViewController.swift; sourceTree = "<group>"; };
+		4313F08722E5DE0A003BB3D1 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		4313F08922E81A67003BB3D1 /* NetworkCommunicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCommunicator.swift; sourceTree = "<group>"; };
+		4313F09122E83FA2003BB3D1 /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
+		4313F09322E8478E003BB3D1 /* MainViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewData.swift; sourceTree = "<group>"; };
 		4353B8CE22CF51F6004BD807 /* MyAirbnb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyAirbnb.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4353B8D122CF51F6004BD807 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4353B8DB22CF51F9004BD807 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -217,15 +247,18 @@
 		4353BA6822DF11CC004BD807 /* HouseDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailViewController.swift; sourceTree = "<group>"; };
 		4353BA6A22DF20B8004BD807 /* HouseDetailBasicInfoTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailBasicInfoTableCell.swift; sourceTree = "<group>"; };
 		4353BA8E22E09FC5004BD807 /* TestSaveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSaveViewController.swift; sourceTree = "<group>"; };
-		4353BA9022E09FD0004BD807 /* TestMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestMessageViewController.swift; sourceTree = "<group>"; };
 		4353BA9622E1A06D004BD807 /* HouseDetailIntroductionTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailIntroductionTableCell.swift; sourceTree = "<group>"; };
 		4353BA9822E1A2B4004BD807 /* HouseDetailStayingDaysTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailStayingDaysTableCell.swift; sourceTree = "<group>"; };
 		4353BA9A22E1A335004BD807 /* HouseDetailFacilityTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailFacilityTableCell.swift; sourceTree = "<group>"; };
 		4353BA9C22E1A398004BD807 /* HouseDetailBedroomsTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailBedroomsTableCell.swift; sourceTree = "<group>"; };
+		4399345222E9515600FAE15C /* AppIcon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AppIcon.xcassets; sourceTree = "<group>"; };
+		4399345422E9831600FAE15C /* BottomInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomInfoView.swift; sourceTree = "<group>"; };
+		4399347422E9B12700FAE15C /* HouseDetailData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailData.swift; sourceTree = "<group>"; };
 		43E36CD722E57627006C8AEF /* HouseDetailBedRoomsCollectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailBedRoomsCollectCell.swift; sourceTree = "<group>"; };
 		43E36CD922E586D4006C8AEF /* HouseDetailFacilityCollectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailFacilityCollectCell.swift; sourceTree = "<group>"; };
 		43E36CDB22E59B03006C8AEF /* HouseDetailLocationTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailLocationTableCell.swift; sourceTree = "<group>"; };
 		43E36CDD22E5AC77006C8AEF /* HouseDetailCheckInTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailCheckInTableCell.swift; sourceTree = "<group>"; };
+		43F5AA8622EB2683007511E1 /* SearchBarTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarTableCell.swift; sourceTree = "<group>"; };
 		5895FA9D40FD45C305945B10 /* Pods_MyAirbnb.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyAirbnb.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D0D786D22D07C9300F61F0B /* TripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripViewController.swift; sourceTree = "<group>"; };
 		8D0D786F22D07DE600F61F0B /* TripIntroTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripIntroTableViewCell.swift; sourceTree = "<group>"; };
@@ -239,7 +272,6 @@
 		8D0D788D22D222A400F61F0B /* TripInfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripInfoCollectionViewCell.swift; sourceTree = "<group>"; };
 		8D0D789122D333BF00F61F0B /* TodaySeoulExperienceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaySeoulExperienceTableViewCell.swift; sourceTree = "<group>"; };
 		8D0D789922D3610C00F61F0B /* SeoulRecommendedDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeoulRecommendedDetailViewController.swift; sourceTree = "<group>"; };
-		8D0D789C22D3729000F61F0B /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Protocols.swift; path = MyAirbnb/Controller/Protocols.swift; sourceTree = SOURCE_ROOT; };
 		8D0D78A022D4598200F61F0B /* TripIntroData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripIntroData.swift; sourceTree = "<group>"; };
 		8D0D78A222D459AC00F61F0B /* SpecialTripData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialTripData.swift; sourceTree = "<group>"; };
 		8D0D78A422D459C900F61F0B /* SeoulRecommendedTripData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeoulRecommendedTripData.swift; sourceTree = "<group>"; };
@@ -249,7 +281,6 @@
 		8D0D78AD22D485B000F61F0B /* SeoulRecommendDetailData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeoulRecommendDetailData.swift; sourceTree = "<group>"; };
 		8D0D78AF22D48AE500F61F0B /* TopScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopScrollView.swift; sourceTree = "<group>"; };
 		8D0D78B122D4B71500F61F0B /* TableviewTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableviewTopView.swift; sourceTree = "<group>"; };
-		8D0D78B322D5E5E600F61F0B /* BottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomView.swift; sourceTree = "<group>"; };
 		8D0D78B522D6060600F61F0B /* HostIntroTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostIntroTableViewCell.swift; sourceTree = "<group>"; };
 		8D0D78D922D74BDC00F61F0B /* PlaceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceTableViewCell.swift; sourceTree = "<group>"; };
 		8D0D78DB22D74D2F00F61F0B /* PlaceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceData.swift; sourceTree = "<group>"; };
@@ -274,7 +305,28 @@
 		8D518FF322E0A222009D6792 /* RangeSliderTrackLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSliderTrackLayer.swift; sourceTree = "<group>"; };
 		8D518FF522E1A3AB009D6792 /* CheckboxTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxTableCell.swift; sourceTree = "<group>"; };
 		8D518FF722E1A57E009D6792 /* HouseTypeTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseTypeTableCell.swift; sourceTree = "<group>"; };
-		8D518FF922E1AA2A009D6792 /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
+		8D51902122E57DA8009D6792 /* BedFilterTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BedFilterTableCell.swift; sourceTree = "<group>"; };
+		8D51902522E5B54D009D6792 /* CheckboxContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxContainerView.swift; sourceTree = "<group>"; };
+		8D51902922E5B7DD009D6792 /* CheckBoxData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxData.swift; sourceTree = "<group>"; };
+		8D51902B22E81811009D6792 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
+		8D51902E22E82C8F009D6792 /* MsgListTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MsgListTableCell.swift; sourceTree = "<group>"; };
+		8D51903022E8472A009D6792 /* ChatRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomViewController.swift; sourceTree = "<group>"; };
+		8D51903322E96FE7009D6792 /* PlusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusViewController.swift; sourceTree = "<group>"; };
+		8D51903622E97D92009D6792 /* PlusIntroTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusIntroTableCell.swift; sourceTree = "<group>"; };
+		8D51903822E987FD009D6792 /* PlusIntroCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusIntroCollectionCell.swift; sourceTree = "<group>"; };
+		8D51903A22E9AC20009D6792 /* BrowsePhotosTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowsePhotosTableCell.swift; sourceTree = "<group>"; };
+		8D51903C22E9AF88009D6792 /* BrowsePhotosCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowsePhotosCollectionCell.swift; sourceTree = "<group>"; };
+		8D51903E22E9BAE2009D6792 /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
+		8D51904022E9CCCD009D6792 /* FacilityTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacilityTableCell.swift; sourceTree = "<group>"; };
+		8D51904222E9D017009D6792 /* FacilityCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacilityCollectionCell.swift; sourceTree = "<group>"; };
+		8D51904422EAA165009D6792 /* HandicappedFacilityTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandicappedFacilityTableCell.swift; sourceTree = "<group>"; };
+		8D51904622EAAE56009D6792 /* MapTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTableCell.swift; sourceTree = "<group>"; };
+		8D51904A22EC1DAD009D6792 /* TripContentsTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripContentsTableCell.swift; sourceTree = "<group>"; };
+		8D51904C22EC2647009D6792 /* ItemsProvidedTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsProvidedTableCell.swift; sourceTree = "<group>"; };
+		8D51904E22EC3881009D6792 /* MemoTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoTableCell.swift; sourceTree = "<group>"; };
+		8D51905022EC5C1C009D6792 /* LuxeHouseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LuxeHouseViewController.swift; sourceTree = "<group>"; };
+		8D51907022EC667A009D6792 /* TripScheduleTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripScheduleTableCell.swift; sourceTree = "<group>"; };
+		8D51907322ED6040009D6792 /* TripAllViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripAllViewController.swift; sourceTree = "<group>"; };
 		D11C85972DEC34ABFE5E5A06 /* Pods-MyAirbnb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyAirbnb.debug.xcconfig"; path = "Target Support Files/Pods-MyAirbnb/Pods-MyAirbnb.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -293,8 +345,14 @@
 		2080604222DDE6C5008672D9 /* LoginControllers */ = {
 			isa = PBXGroup;
 			children = (
+
 				4353BA5622DECE9F004BD807 /* SignUpMainViewController.swift */,
 				4353BA5522DECE9F004BD807 /* MakeIdPageViewController.swift */,
+
+				4353B90F22D6DCCB004BD807 /* LoginTestViewController.swift */,
+				4353BA5222DECE9F004BD807 /* ConfirmNoticeViewController.swift */,
+				4353BA5122DECE9F004BD807 /* FindPassWordPageViewController.swift */,
+
 				4353BA5322DECE9F004BD807 /* InputPhoneNumberViewController.swift */,
 				20CD1F2022E303B1009641F4 /* MakePwPageViewContorller.swift */,
 				20CD1F2222E303F4009641F4 /* ConfirmBirthDayViewController.swift */,
@@ -347,13 +405,13 @@
 			isa = PBXGroup;
 			children = (
 				4353B8D122CF51F6004BD807 /* AppDelegate.swift */,
-				8D0D789B22D3727000F61F0B /* Protocol */,
 				4353B8EC22D085D5004BD807 /* Model */,
 				4353B8EB22D085D3004BD807 /* View */,
 				4353B8EA22D085D2004BD807 /* Controller */,
 				4353B8DA22CF51F9004BD807 /* LaunchScreen.storyboard */,
 				4353B8DD22CF51F9004BD807 /* Info.plist */,
 				4353B90B22D4B755004BD807 /* Assets.xcassets */,
+				4399345222E9515600FAE15C /* AppIcon.xcassets */,
 				8D0D788222D209AB00F61F0B /* Font */,
 				4353B8E922D085D0004BD807 /* Extension */,
 			);
@@ -371,22 +429,14 @@
 		4353B8EA22D085D2004BD807 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				2080604222DDE6C5008672D9 /* LoginControllers */,
+				4313F09122E83FA2003BB3D1 /* LaunchScreenViewController.swift */,
 				4353B8ED22D088A3004BD807 /* TabbarController.swift */,
-				4353B8E322D0797E004BD807 /* MainViewController.swift */,
-				4353B9FB22DC3A69004BD807 /* CalenderViewController.swift */,
-				4353BA3222DDB7CF004BD807 /* FilterPeopleViewController.swift */,
-				4353BA3422DDB7DA004BD807 /* FilterRemainsViewController.swift */,
-				8D0D789922D3610C00F61F0B /* SeoulRecommendedDetailViewController.swift */,
-				4353B90F22D6DCCB004BD807 /* LoginTestViewController.swift */,
+				43F5AA8B22EE9EFE007511E1 /* Main */,
+				8D51903222E96F94009D6792 /* House */,
+				8D51907222ED5FD8009D6792 /* Trip */,
+				43F5AA8A22EE9EB5007511E1 /* Message */,
+				2080604222DDE6C5008672D9 /* LoginControllers */,
 				4353BA8E22E09FC5004BD807 /* TestSaveViewController.swift */,
-				4353BA9022E09FD0004BD807 /* TestMessageViewController.swift */,
-				8D0D792222DB02D900F61F0B /* HouseViewController.swift */,
-				4353BA6822DF11CC004BD807 /* HouseDetailViewController.swift */,
-				8D0D786D22D07C9300F61F0B /* TripViewController.swift */,
-				8D0D794122DDE50900F61F0B /* AVFoundationViewController.swift */,
-				8D0D793822DC9A2900F61F0B /* VideosDetailViewController.swift */,
-				8D0D793422DC5F0700F61F0B /* TripLocalHostingViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -394,12 +444,16 @@
 		4353B8EB22D085D3004BD807 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4353B8EF22D22782004BD807 /* SearchBarView.swift */,
+				4353BA3022DD7F41004BD807 /* SearchBarTableView.swift */,
+				43F5AA8622EB2683007511E1 /* SearchBarTableCell.swift */,
+				4399345422E9831600FAE15C /* BottomInfoView.swift */,
+				8D0D787322D0898200F61F0B /* Trip */,
+				8D51903522E97D52009D6792 /* PlusHouse */,
 				208BC8F222E08C6900EBDDBA /* Login */,
 				4353B8F522D3274E004BD807 /* Main */,
 				8D0D792122DB020600F61F0B /* House */,
-				8D0D787322D0898200F61F0B /* Trip */,
-				4353B8EF22D22782004BD807 /* SearchBarView.swift */,
-				4353BA3022DD7F41004BD807 /* SearchBarTableView.swift */,
+				8D51902D22E82C41009D6792 /* Message */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -408,6 +462,8 @@
 			isa = PBXGroup;
 			children = (
 				4353B90322D484FA004BD807 /* StandardUIValue.swift */,
+				4313F09322E8478E003BB3D1 /* MainViewData.swift */,
+				4399347422E9B12700FAE15C /* HouseDetailData.swift */,
 				8D0D78A022D4598200F61F0B /* TripIntroData.swift */,
 				8D0D78A222D459AC00F61F0B /* SpecialTripData.swift */,
 				8D0D78A422D459C900F61F0B /* SeoulRecommendedTripData.swift */,
@@ -415,7 +471,9 @@
 				8D0D78A622D459E200F61F0B /* TodaySeoulExperienceData.swift */,
 				8D0D78DB22D74D2F00F61F0B /* PlaceData.swift */,
 				8D0D78DD22D864F700F61F0B /* SpecialTripDetailData.swift */,
+				8D51902922E5B7DD009D6792 /* CheckBoxData.swift */,
 				206C998722E5B451002D3D55 /* KeyboardNotiCenter.swift */,
+				4313F08922E81A67003BB3D1 /* NetworkCommunicator.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -501,6 +559,26 @@
 			path = HouseDetail;
 			sourceTree = "<group>";
 		};
+		43F5AA8A22EE9EB5007511E1 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				8D51902B22E81811009D6792 /* MessageViewController.swift */,
+				8D51903022E8472A009D6792 /* ChatRoomViewController.swift */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
+		43F5AA8B22EE9EFE007511E1 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				4353B8E322D0797E004BD807 /* MainViewController.swift */,
+				4353B9FB22DC3A69004BD807 /* CalenderViewController.swift */,
+				4353BA3222DDB7CF004BD807 /* FilterPeopleViewController.swift */,
+				4353BA3422DDB7DA004BD807 /* FilterRemainsViewController.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
 		8D0D787322D0898200F61F0B /* Trip */ = {
 			isa = PBXGroup;
 			children = (
@@ -527,24 +605,17 @@
 			path = Font;
 			sourceTree = "<group>";
 		};
-		8D0D789B22D3727000F61F0B /* Protocol */ = {
-			isa = PBXGroup;
-			children = (
-				8D0D789C22D3729000F61F0B /* Protocols.swift */,
-			);
-			name = Protocol;
-			path = Model/MyAirbnb/Model/Protocol;
-			sourceTree = "<group>";
-		};
 		8D0D78A822D474FE00F61F0B /* SeoulRecommendTrip */ = {
 			isa = PBXGroup;
 			children = (
 				8D0D78B122D4B71500F61F0B /* TableviewTopView.swift */,
 				8D0D78AF22D48AE500F61F0B /* TopScrollView.swift */,
 				8D0D78AB22D47AA700F61F0B /* InfoView.swift */,
-				8D0D78B322D5E5E600F61F0B /* BottomView.swift */,
 				8D0D78A922D4754200F61F0B /* SeoulRecommendTableViewCell.swift */,
 				8D0D78B522D6060600F61F0B /* HostIntroTableViewCell.swift */,
+				8D51904A22EC1DAD009D6792 /* TripContentsTableCell.swift */,
+				8D51904C22EC2647009D6792 /* ItemsProvidedTableCell.swift */,
+				8D51904E22EC3881009D6792 /* MemoTableCell.swift */,
 				8D0D78D922D74BDC00F61F0B /* PlaceTableViewCell.swift */,
 			);
 			path = SeoulRecommendTrip;
@@ -573,6 +644,7 @@
 				8D0D793D22DD6C1600F61F0B /* VideoView.swift */,
 				8D0D794322DDE64900F61F0B /* VideoCollectionViewCell.swift */,
 				8D0D793B22DCA57B00F61F0B /* VideosDetailTableCell.swift */,
+				8D51907022EC667A009D6792 /* TripScheduleTableCell.swift */,
 			);
 			path = LocalHosting;
 			sourceTree = "<group>";
@@ -586,10 +658,60 @@
 				8D518FF122E090D7009D6792 /* PriceRangeSlider.swift */,
 				8D518FF322E0A222009D6792 /* RangeSliderTrackLayer.swift */,
 				8D518FF722E1A57E009D6792 /* HouseTypeTableCell.swift */,
+				8D51902122E57DA8009D6792 /* BedFilterTableCell.swift */,
 				8D518FF522E1A3AB009D6792 /* CheckboxTableCell.swift */,
-				8D518FF922E1AA2A009D6792 /* Checkbox.swift */,
+				8D51902522E5B54D009D6792 /* CheckboxContainerView.swift */,
 			);
 			path = FilterRemains;
+			sourceTree = "<group>";
+		};
+		8D51902D22E82C41009D6792 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				8D51902E22E82C8F009D6792 /* MsgListTableCell.swift */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
+		8D51903222E96F94009D6792 /* House */ = {
+			isa = PBXGroup;
+			children = (
+				8D0D792222DB02D900F61F0B /* HouseViewController.swift */,
+				4353BA6822DF11CC004BD807 /* HouseDetailViewController.swift */,
+				8D51903322E96FE7009D6792 /* PlusViewController.swift */,
+				8D51905022EC5C1C009D6792 /* LuxeHouseViewController.swift */,
+				4313F08722E5DE0A003BB3D1 /* MapViewController.swift */,
+			);
+			path = House;
+			sourceTree = "<group>";
+		};
+		8D51903522E97D52009D6792 /* PlusHouse */ = {
+			isa = PBXGroup;
+			children = (
+				8D51903622E97D92009D6792 /* PlusIntroTableCell.swift */,
+				8D51903822E987FD009D6792 /* PlusIntroCollectionCell.swift */,
+				8D51903A22E9AC20009D6792 /* BrowsePhotosTableCell.swift */,
+				8D51903C22E9AF88009D6792 /* BrowsePhotosCollectionCell.swift */,
+				8D51903E22E9BAE2009D6792 /* FooterView.swift */,
+				8D51904022E9CCCD009D6792 /* FacilityTableCell.swift */,
+				8D51904222E9D017009D6792 /* FacilityCollectionCell.swift */,
+				8D51904422EAA165009D6792 /* HandicappedFacilityTableCell.swift */,
+				8D51904622EAAE56009D6792 /* MapTableCell.swift */,
+			);
+			path = PlusHouse;
+			sourceTree = "<group>";
+		};
+		8D51907222ED5FD8009D6792 /* Trip */ = {
+			isa = PBXGroup;
+			children = (
+				8D0D789922D3610C00F61F0B /* SeoulRecommendedDetailViewController.swift */,
+				8D51907322ED6040009D6792 /* TripAllViewController.swift */,
+				8D0D786D22D07C9300F61F0B /* TripViewController.swift */,
+				8D0D794122DDE50900F61F0B /* AVFoundationViewController.swift */,
+				8D0D793822DC9A2900F61F0B /* VideosDetailViewController.swift */,
+				8D0D793422DC5F0700F61F0B /* TripLocalHostingViewController.swift */,
+			);
+			path = Trip;
 			sourceTree = "<group>";
 		};
 		C61D96A808C126AE8EE65879 /* Pods */ = {
@@ -671,6 +793,7 @@
 			files = (
 				4353B8DC22CF51F9004BD807 /* LaunchScreen.storyboard in Resources */,
 				8D0D788822D20A0400F61F0B /* AirbnbCereal-Medium.ttf in Resources */,
+				4399345322E9515600FAE15C /* AppIcon.xcassets in Resources */,
 				8D0D788622D20A0000F61F0B /* AirbnbCereal-Bold.ttf in Resources */,
 				8D0D788722D20A0200F61F0B /* AirbnbCereal-Book.ttf in Resources */,
 				4353B90C22D4B755004BD807 /* Assets.xcassets in Resources */,
@@ -686,11 +809,28 @@
 			files = (
 			);
 			inputFileListPaths = (
+
 				"${PODS_ROOT}/Target Support Files/Pods-MyAirbnb/Pods-MyAirbnb-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-MyAirbnb/Pods-MyAirbnb-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MyAirbnb/Pods-MyAirbnb-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -726,8 +866,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D51904522EAA165009D6792 /* HandicappedFacilityTableCell.swift in Sources */,
 				4353BA6122DF0F04004BD807 /* HouseView.swift in Sources */,
 				8D518FF622E1A3AB009D6792 /* CheckboxTableCell.swift in Sources */,
+				8D51904722EAAE56009D6792 /* MapTableCell.swift in Sources */,
 				8D0D793922DC9A2900F61F0B /* VideosDetailViewController.swift in Sources */,
 				8D0D78B022D48AE500F61F0B /* TopScrollView.swift in Sources */,
 				8D0D787222D0810300F61F0B /* SpecialTripTableViewCell.swift in Sources */,
@@ -735,17 +877,20 @@
 				8D0D78A322D459AC00F61F0B /* SpecialTripData.swift in Sources */,
 				4353BA5822DECE9F004BD807 /* FindPassWordPageViewController.swift in Sources */,
 				8D0D793122DB841900F61F0B /* AllHousesTableCell.swift in Sources */,
+				8D51903F22E9BAE3009D6792 /* FooterView.swift in Sources */,
 				8D0D789222D333BF00F61F0B /* TodaySeoulExperienceTableViewCell.swift in Sources */,
 				8D0D78DC22D74D2F00F61F0B /* PlaceData.swift in Sources */,
 				20CD1F1F22E302F5009641F4 /* AlarmConfirmViewController.swift in Sources */,
 				208BC8F622E08CBC00EBDDBA /* KeyboardTopView.swift in Sources */,
 				43E36CD822E57627006C8AEF /* HouseDetailBedRoomsCollectCell.swift in Sources */,
+				8D51905122EC5C1C009D6792 /* LuxeHouseViewController.swift in Sources */,
 				4353B8F222D319F2004BD807 /* MainView.swift in Sources */,
 				4353B8EE22D088A3004BD807 /* TabbarController.swift in Sources */,
 				20CD1F2122E303B1009641F4 /* MakePwPageViewContorller.swift in Sources */,
 				206C998A22E5B4AB002D3D55 /* PasswordView.swift in Sources */,
-				4353BA9122E09FD0004BD807 /* TestMessageViewController.swift in Sources */,
 				4353B8FD22D47C02004BD807 /* UIExtension.swift in Sources */,
+				8D51902F22E82C8F009D6792 /* MsgListTableCell.swift in Sources */,
+				8D51903122E8472A009D6792 /* ChatRoomViewController.swift in Sources */,
 				4353BA2D22DC40B5004BD807 /* FSCalendarAppearance.m in Sources */,
 				4353BA5E22DECE9F004BD807 /* LoginPageViewController.swift in Sources */,
 				8D0D78A722D459E200F61F0B /* TodaySeoulExperienceData.swift in Sources */,
@@ -757,7 +902,6 @@
 				8D0D78DA22D74BDC00F61F0B /* PlaceTableViewCell.swift in Sources */,
 				8D518FEE22E06F29009D6792 /* QualifiedHouseTableCell.swift in Sources */,
 				8D0D78DE22D864F700F61F0B /* SpecialTripDetailData.swift in Sources */,
-				8D0D789D22D3729000F61F0B /* Protocols.swift in Sources */,
 				4353BA2122DC40B5004BD807 /* FSCalendarCell.m in Sources */,
 				4353BA3522DDB7DA004BD807 /* FilterRemainsViewController.swift in Sources */,
 				8D0D78AE22D485B000F61F0B /* SeoulRecommendDetailData.swift in Sources */,
@@ -767,23 +911,25 @@
 				20081F8022EEBCB200BAB0FD /* StatusChangeBtn.swift in Sources */,
 				8D0D793522DC5F0700F61F0B /* TripLocalHostingViewController.swift in Sources */,
 				8D0D788E22D222A400F61F0B /* TripInfoCollectionViewCell.swift in Sources */,
-				8D0D78B422D5E5E600F61F0B /* BottomView.swift in Sources */,
 				8D0D786E22D07C9300F61F0B /* TripViewController.swift in Sources */,
 				4353BA3122DD7F41004BD807 /* SearchBarTableView.swift in Sources */,
 				20081F7C22EEBC6300BAB0FD /* InputPhoneNumberView.swift in Sources */,
 				4353BA3322DDB7CF004BD807 /* FilterPeopleViewController.swift in Sources */,
 				4353B91222D73B80004BD807 /* FourSquareTableCell.swift in Sources */,
+				8D51904B22EC1DAD009D6792 /* TripContentsTableCell.swift in Sources */,
 				4353BA6522DF0F4A004BD807 /* HouseTopLabelTableCell.swift in Sources */,
 				20081F7E22EEBC8300BAB0FD /* InputEmailView.swift in Sources */,
 				8D0D792722DB328900F61F0B /* HousePlusTableCell.swift in Sources */,
 				8D0D78AA22D4754200F61F0B /* SeoulRecommendTableViewCell.swift in Sources */,
+				8D51904F22EC3881009D6792 /* MemoTableCell.swift in Sources */,
 				4353B8F822D327C2004BD807 /* MainCategoryCollectCell.swift in Sources */,
 				4353BA2322DC40B5004BD807 /* FSCalendar.m in Sources */,
 				8D0D788C22D2220700F61F0B /* SeoulRecommenedTripTableViewCell.swift in Sources */,
-				8D518FFA22E1AA2A009D6792 /* Checkbox.swift in Sources */,
+				4313F08822E5DE0A003BB3D1 /* MapViewController.swift in Sources */,
 				8D518FF222E090D7009D6792 /* PriceRangeSlider.swift in Sources */,
 				4353B8F422D31D68004BD807 /* MainCategoryTableCell.swift in Sources */,
 				43E36CDE22E5AC77006C8AEF /* HouseDetailCheckInTableCell.swift in Sources */,
+				4313F09222E83FA2003BB3D1 /* LaunchScreenViewController.swift in Sources */,
 				4353BA2522DC40B5004BD807 /* FSCalendarWeekdayView.m in Sources */,
 				4353BA5C22DECE9F004BD807 /* MakeIdPageViewController.swift in Sources */,
 				20CD1F2322E303F4009641F4 /* ConfirmBirthDayViewController.swift in Sources */,
@@ -791,25 +937,37 @@
 				4353BA6B22DF20B8004BD807 /* HouseDetailBasicInfoTableCell.swift in Sources */,
 				208BC8F822E08DA200EBDDBA /* PickNationalNumberViewController.swift in Sources */,
 				8D0D78AC22D47AA700F61F0B /* InfoView.swift in Sources */,
+				4313F09422E8478E003BB3D1 /* MainViewData.swift in Sources */,
+				8D51903422E96FE8009D6792 /* PlusViewController.swift in Sources */,
+				8D51904122E9CCCD009D6792 /* FacilityTableCell.swift in Sources */,
 				4353B91822D75605004BD807 /* MainLuxeHouseCollectCell.swift in Sources */,
 				8D0D792F22DB7B2600F61F0B /* AllHouseLabelTableCell.swift in Sources */,
+				4399345522E9831600FAE15C /* BottomInfoView.swift in Sources */,
+				4399347522E9B12700FAE15C /* HouseDetailData.swift in Sources */,
 				4353BA2822DC40B5004BD807 /* FSCalendarConstants.m in Sources */,
 				20081F7A22EEBC4C00BAB0FD /* KeyboardTopViewNextBtn.swift in Sources */,
 				8D0D787522D089AD00F61F0B /* TripIntroCollectionViewCell.swift in Sources */,
+				8D51903B22E9AC21009D6792 /* BrowsePhotosTableCell.swift in Sources */,
 				4353BA9922E1A2B4004BD807 /* HouseDetailStayingDaysTableCell.swift in Sources */,
 				4353BA2922DC40B5004BD807 /* FSCalendarCalculator.m in Sources */,
 				8D518FF822E1A57E009D6792 /* HouseTypeTableCell.swift in Sources */,
 				4353B8F022D22782004BD807 /* SearchBarView.swift in Sources */,
 				4353B91022D6DCCB004BD807 /* LoginTestViewController.swift in Sources */,
+				8D51903922E987FD009D6792 /* PlusIntroCollectionCell.swift in Sources */,
 				43E36CDC22E59B03006C8AEF /* HouseDetailLocationTableCell.swift in Sources */,
 				43E36CDA22E586D4006C8AEF /* HouseDetailFacilityCollectCell.swift in Sources */,
+				8D51907422ED6040009D6792 /* TripAllViewController.swift in Sources */,
 				4353BA2422DC40B5004BD807 /* FSCalendarCollectionViewLayout.m in Sources */,
 				8D0D787022D07DE600F61F0B /* TripIntroTableViewCell.swift in Sources */,
+				4313F08A22E81A67003BB3D1 /* NetworkCommunicator.swift in Sources */,
 				8D0D788A22D20B9100F61F0B /* SpecialTripCollectionViewCell.swift in Sources */,
 				8D0D792522DB29B200F61F0B /* HouseLuxeTableCell.swift in Sources */,
+				8D51902622E5B54D009D6792 /* CheckboxContainerView.swift in Sources */,
 				4353B9FC22DC3A69004BD807 /* CalenderViewController.swift in Sources */,
 				4353B90822D48EB8004BD807 /* MainRecommendHouseCollectCell.swift in Sources */,
+				8D51902A22E5B7DD009D6792 /* CheckBoxData.swift in Sources */,
 				4353BA9722E1A06D004BD807 /* HouseDetailIntroductionTableCell.swift in Sources */,
+				8D51903722E97D92009D6792 /* PlusIntroTableCell.swift in Sources */,
 				4353B90E22D5AE12004BD807 /* MainFullImageTableCell.swift in Sources */,
 				8D0D794422DDE64900F61F0B /* VideoCollectionViewCell.swift in Sources */,
 				4353BA5B22DECE9F004BD807 /* OptionLoginPageViewController.swift in Sources */,
@@ -817,6 +975,7 @@
 				4353BA2022DC40B5004BD807 /* FSCalendarDelegationFactory.m in Sources */,
 				4353B91422D73E0D004BD807 /* FourSquareCollectCell.swift in Sources */,
 				4353B8E422D0797E004BD807 /* MainViewController.swift in Sources */,
+				43F5AA8722EB2683007511E1 /* SearchBarTableCell.swift in Sources */,
 				4353BA8F22E09FC5004BD807 /* TestSaveViewController.swift in Sources */,
 				8D0D794222DDE50900F61F0B /* AVFoundationViewController.swift in Sources */,
 				8D0D789A22D3610C00F61F0B /* SeoulRecommendedDetailViewController.swift in Sources */,
@@ -826,19 +985,25 @@
 				4353BA5922DECE9F004BD807 /* ConfirmNoticeViewController.swift in Sources */,
 				4353BA6722DF10A0004BD807 /* HouseDetailPicturesTableCell.swift in Sources */,
 				4353BA2B22DC40B5004BD807 /* FSCalendarTransitionCoordinator.m in Sources */,
+				8D51902C22E81811009D6792 /* MessageViewController.swift in Sources */,
+				8D51903D22E9AF88009D6792 /* BrowsePhotosCollectionCell.swift in Sources */,
 				4353BA1F22DC40B5004BD807 /* FSCalendarDelegationProxy.m in Sources */,
 				4353BA2622DC40B5004BD807 /* FSCalendarSeparatorDecorationView.m in Sources */,
 				4353BA9D22E1A398004BD807 /* HouseDetailBedroomsTableCell.swift in Sources */,
+				8D51904322E9D017009D6792 /* FacilityCollectionCell.swift in Sources */,
 				8D518FF022E07769009D6792 /* PriceRangeTableCell.swift in Sources */,
 				8D0D792322DB02D900F61F0B /* HouseViewController.swift in Sources */,
 				8D0D793E22DD6C1600F61F0B /* VideoView.swift in Sources */,
 				4353BA1E22DC40B5004BD807 /* FSCalendarCollectionView.m in Sources */,
 				4353BA6922DF11CC004BD807 /* HouseDetailViewController.swift in Sources */,
+				8D51902222E57DA8009D6792 /* BedFilterTableCell.swift in Sources */,
 				4353B8D222CF51F6004BD807 /* AppDelegate.swift in Sources */,
 				206C998822E5B451002D3D55 /* KeyboardNotiCenter.swift in Sources */,
 				4353B91622D755F1004BD807 /* MainLuxeHouseTableCell.swift in Sources */,
 				8D0D78B622D6060600F61F0B /* HostIntroTableViewCell.swift in Sources */,
 				4353B90422D484FA004BD807 /* StandardUIValue.swift in Sources */,
+				8D51907122EC667A009D6792 /* TripScheduleTableCell.swift in Sources */,
+				8D51904D22EC2647009D6792 /* ItemsProvidedTableCell.swift in Sources */,
 				8D0D793322DB86A100F61F0B /* AllHousesScrollImageView.swift in Sources */,
 				4353BA5D22DECE9F004BD807 /* SignUpMainViewController.swift in Sources */,
 				8D0D792922DB367800F61F0B /* HousePlusCollectionCell.swift in Sources */,

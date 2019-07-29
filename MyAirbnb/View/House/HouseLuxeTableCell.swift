@@ -124,6 +124,7 @@ extension HouseLuxeTableCell: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("collectionView Cell didSelect \(indexPath.item)")
         
-        notiCenter.post(name: .moveToHouseDetailView, object: nil)
+//        notiCenter.post(name: .moveToHouseDetailView, object: nil,
+//                        userInfo: ["roomID": data.id, "type": data.houseType, "houseName": data.houseName])
     }
 }

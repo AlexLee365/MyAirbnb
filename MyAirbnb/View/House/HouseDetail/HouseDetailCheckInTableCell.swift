@@ -68,5 +68,10 @@ class HouseDetailCheckInTableCell: UITableViewCell {
         label.numberOfLines = 0
     }
     
+    func setData(checkIn: String, checkOut: String) {
+        checkInLabel.text = "체크인\n14:00 이후"
+        checkOutLabel.text = "체크아웃\n11:00"
+    }
+    
 
 }

@@ -55,6 +55,7 @@ class MainLuxeHouseCollectCell: UICollectionViewCell {
         
         houseGradeImageView.centerYAnchor.constraint(equalTo: firstStackView.centerYAnchor).isActive = true
         houseGradeImageView.heightAnchor.constraint(equalTo: firstStackView.heightAnchor).isActive = true
+        houseGradeImageView.widthAnchor.constraint(equalToConstant: 25).isActive = true
         dateAndGuestLabel.centerYAnchor.constraint(equalTo: firstStackView.centerYAnchor).isActive = true
         
         contentView.addSubview(houseNameLabel)
@@ -81,10 +82,10 @@ class MainLuxeHouseCollectCell: UICollectionViewCell {
         
         houseGradeImageView.image = UIImage(named: "houseGrade_Luxe")
         houseGradeImageView.contentMode = .scaleAspectFit
-        houseGradeImageView.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        
         
         dateAndGuestLabel.text = "검증됨 ・ 우븟"
-        dateAndGuestLabel.font = .systemFont(ofSize: 10, weight: .bold)
+        dateAndGuestLabel.font = .systemFont(ofSize: 8, weight: .bold)
         dateAndGuestLabel.textColor = UIColor(red:0.20, green:0.00, blue:0.47, alpha:1.0)
         dateAndGuestLabel.textAlignment = .left
         
@@ -94,5 +95,11 @@ class MainLuxeHouseCollectCell: UICollectionViewCell {
         houseNameLabel.textColor = #colorLiteral(red: 0.3221844435, green: 0.3202747703, blue: 0.3236560524, alpha: 1)
         
        
+    }
+    
+    func setData(luxeHouseData: HouseLuxeDataInList) {
+        mainImageView.image = luxeHouseData.houseMainImage
+        dateAndGuestLabel.text = "검증됨 ・ \(luxeHouseData.houseLocation)"
+        houseNameLabel.text = luxeHouseData.houseName
     }
 }

@@ -11,13 +11,17 @@ import UIKit
 class FourSquareTableCell: UITableViewCell {
     static let identifier = "FourSquareTableCell"
     
+    // MARK: - UI Properties
     let titleLabel = UILabel()
     let layout = UICollectionViewFlowLayout()
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-    
-    let collectionViewCellWidth: CGFloat = ( UIScreen.main.bounds.width - (StandardUIValue.shared.mainViewSideMargin * 2) - 15 ) / 2
 
     let seeMoreBtn = UIButton()
+    
+    // MARK: - Properties
+    let notiCenter = NotificationCenter.default
+    let collectionViewCellWidth: CGFloat = ( UIScreen.main.bounds.width - (StandardUIValue.shared.mainViewSideMargin * 2) - 15 ) / 2
+    var normalHouseDataArray = [HouseDataInList]()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -93,20 +97,29 @@ class FourSquareTableCell: UITableViewCell {
 
 extension FourSquareTableCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return normalHouseDataArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FourSquareCollectCell.identifier, for: indexPath) as! FourSquareCollectCell
         
-        let titleText = ["Villa San Gennariello B&B", "Villa Amonteera, Luxury with Fantastic Ocean Vision", "Amazing and Extremely Central Flat", "Unique Cave House"]
-        cell.houseNameLabel.text = titleText[indexPath.item]
+//        let titleText = ["Villa San Gennariello B&B", "Villa Amonteera, Luxury with Fantastic Ocean Vision", "Amazing and Extremely Central Flat", "Unique Cave House"]
+//        cell.houseNameLabel.text = titleText[indexPath.item]
+        
+        cell.setData(houseData: normalHouseDataArray[indexPath.row])
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionViewCellWidth, height: collectionViewCellWidth * 1.25)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let data = normalHouseDataArray[indexPath.row]
+        
+        notiCenter.post(name: .moveToHouseDetailView, object: nil,
+                        userInfo: ["roomID": data.id, "type": data.houseType, "houseName": data.houseName])
     }
     
     

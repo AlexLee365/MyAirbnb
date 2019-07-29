@@ -11,6 +11,7 @@ import UIKit
 class PriceRangeTableCell: UITableViewCell {
     static let identifier = "PriceRangeTableCell"
     
+    // MARK: - UI Properties
     let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 17.8, weight: .semibold)
@@ -22,7 +23,7 @@ class PriceRangeTableCell: UITableViewCell {
     
     let subLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16)
+        label.font = UIFont.systemFont(ofSize: 15)
         label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
         label.text = "요금을 확인하려면 여행 날짜를 입력하세요"
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -31,7 +32,7 @@ class PriceRangeTableCell: UITableViewCell {
     
     let priceRangeLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = UIFont.systemFont(ofSize: 13)
 //        label.text = "₩12,000 - ₩234,917"
         label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -40,7 +41,7 @@ class PriceRangeTableCell: UITableViewCell {
     
     let avrPriceLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = UIFont.systemFont(ofSize: 13)
 //        label.text = "평균 1박 요금은 ₩114,043입니다"
         label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -50,23 +51,40 @@ class PriceRangeTableCell: UITableViewCell {
     let sliderContainerView = UIView()
     let rangeSlider = PriceRangeSlider(frame: .zero)
     
+    // MARK: - Properties
+    var lowerPrice = 12000 {
+        didSet {
+            let num1 = limitFractionDigits(to: String(lowerPrice))
+            let num2 = limitFractionDigits(to: String(upperPrice))
+            priceRangeLabel.text = "₩\(num1) - ₩\(num2)"
+        }
+    }
+    var upperPrice = 1000000 {
+        didSet {
+            let num1 = limitFractionDigits(to: String(lowerPrice))
+            let num2 = limitFractionDigits(to: String(upperPrice))
+            priceRangeLabel.text = "₩\(num1) - ₩\(num2)"
+        }
+    }
+    
+    let notiCenter = NotificationCenter.default
+    lazy var difference = upperPrice - lowerPrice
     var isDateSelected = true
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
         configure()
         setAutolayout()
-        
-        if isDateSelected == true {
-            showPriceSlider()
-        }
     }
  
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        isDateSelected ? showPriceSlider() : ()
+    }
     
     private func configure() {
         self.selectionStyle = .none
@@ -94,13 +112,16 @@ class PriceRangeTableCell: UITableViewCell {
     private func showPriceSlider() {
         subLabel.isHidden = true
     
-//        priceRangeLabel.text = "₩12,000 - ₩234,917"
+//        priceRangeLabel.text = "₩12,000 - ₩1,000,000"
+        let num1 = limitFractionDigits(to: String(lowerPrice))
+        let num2 = limitFractionDigits(to: String(upperPrice))
+        priceRangeLabel.text = "₩\(num1) - ₩\(num2)"
         avrPriceLabel.text = "평균 1박 요금은 ₩114,043입니다"
         
-        priceRangeLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 28).isActive = true
+        priceRangeLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20).isActive = true
         priceRangeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
         
-        avrPriceLabel.topAnchor.constraint(equalTo: priceRangeLabel.bottomAnchor).isActive = true
+        avrPriceLabel.topAnchor.constraint(equalTo: priceRangeLabel.bottomAnchor, constant: 2).isActive = true
         avrPriceLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
 
         contentView.addSubview(sliderContainerView)
@@ -128,21 +149,18 @@ class PriceRangeTableCell: UITableViewCell {
     }
     
     @objc func rangeSliderValueChanged(_ rangeSlider: PriceRangeSlider) {
-//        let values = "(\(rangeSlider.lowerValue) \(rangeSlider.upperValue))"
-//        print("Range slider value changed: \(values)")
-        
-//        let numberFormatter = NumberFormatter()
-//        numberFormatter.numberStyle = .decimal
-//        numberFormatter.maximumFractionDigits = 0
-//        let minPrice = 12000
-//        let maxPrice = 1000000
-//        priceRangeLabel.text = numberFormatter.string(from: NSNumber(value: minPrice))
+        lowerPrice = 12000 + Int ( Double(difference) * Double(rangeSlider.lowerValue) )
+        upperPrice = Int( Double(rangeSlider.upperValue) * 1000000.0 )
     }
     
-//    private func limitFractionDigits(to numString: String) -> String {
+    private func limitFractionDigits(to numString: String) -> String {
 //        guard let number = Double(numString) else { return "0" }
-//        let formatter = NumberFormatter()
-//        numberFormatter.numberStyle = .decimal
-//        numberFormatter.maximumFractionDigits = 0
-//    }
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = 0
+        let num = formatter.number(from: numString) ?? 0
+        let result = formatter.string(from: num) ?? ""
+        return result
+    }
+    
 }

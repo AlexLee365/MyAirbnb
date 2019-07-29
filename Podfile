@@ -8,5 +8,6 @@ target 'MyAirbnb' do
   # Pods for MyAirbnb
 
   pod 'SnapKit', '~> 5.0.0'
-
+  pod 'Kingfisher', '~> 5.0'
+  pod 'NVActivityIndicatorView'
 end

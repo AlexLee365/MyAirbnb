@@ -59,7 +59,7 @@ class HouseDetailPicturesTableCell: UITableViewCell {
         scrollView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         scrollView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1).isActive = true
         scrollView.heightAnchor.constraint(equalToConstant: 250).isActive = true
-        scrollView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        scrollView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0).isActive = true
         
         self.addSubview(pageController)
         pageController.translatesAutoresizingMaskIntoConstraints = false
