@@ -71,7 +71,6 @@
 		4353BA6922DF11CC004BD807 /* HouseDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA6822DF11CC004BD807 /* HouseDetailViewController.swift */; };
 		4353BA6B22DF20B8004BD807 /* HouseDetailBasicInfoTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA6A22DF20B8004BD807 /* HouseDetailBasicInfoTableCell.swift */; };
 		4353BA8F22E09FC5004BD807 /* TestSaveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA8E22E09FC5004BD807 /* TestSaveViewController.swift */; };
-		4353BA9122E09FD0004BD807 /* TestMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA9022E09FD0004BD807 /* TestMessageViewController.swift */; };
 		4353BA9722E1A06D004BD807 /* HouseDetailIntroductionTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA9622E1A06D004BD807 /* HouseDetailIntroductionTableCell.swift */; };
 		4353BA9922E1A2B4004BD807 /* HouseDetailStayingDaysTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA9822E1A2B4004BD807 /* HouseDetailStayingDaysTableCell.swift */; };
 		4353BA9B22E1A335004BD807 /* HouseDetailFacilityTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA9A22E1A335004BD807 /* HouseDetailFacilityTableCell.swift */; };
@@ -96,7 +95,6 @@
 		8D0D788E22D222A400F61F0B /* TripInfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D788D22D222A400F61F0B /* TripInfoCollectionViewCell.swift */; };
 		8D0D789222D333BF00F61F0B /* TodaySeoulExperienceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D789122D333BF00F61F0B /* TodaySeoulExperienceTableViewCell.swift */; };
 		8D0D789A22D3610C00F61F0B /* SeoulRecommendedDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D789922D3610C00F61F0B /* SeoulRecommendedDetailViewController.swift */; };
-		8D0D789D22D3729000F61F0B /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D789C22D3729000F61F0B /* Protocols.swift */; };
 		8D0D78A122D4598200F61F0B /* TripIntroData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D78A022D4598200F61F0B /* TripIntroData.swift */; };
 		8D0D78A322D459AC00F61F0B /* SpecialTripData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D78A222D459AC00F61F0B /* SpecialTripData.swift */; };
 		8D0D78A522D459C900F61F0B /* SeoulRecommendedTripData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D78A422D459C900F61F0B /* SeoulRecommendedTripData.swift */; };
@@ -241,7 +239,6 @@
 		4353BA6822DF11CC004BD807 /* HouseDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailViewController.swift; sourceTree = "<group>"; };
 		4353BA6A22DF20B8004BD807 /* HouseDetailBasicInfoTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailBasicInfoTableCell.swift; sourceTree = "<group>"; };
 		4353BA8E22E09FC5004BD807 /* TestSaveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSaveViewController.swift; sourceTree = "<group>"; };
-		4353BA9022E09FD0004BD807 /* TestMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestMessageViewController.swift; sourceTree = "<group>"; };
 		4353BA9622E1A06D004BD807 /* HouseDetailIntroductionTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailIntroductionTableCell.swift; sourceTree = "<group>"; };
 		4353BA9822E1A2B4004BD807 /* HouseDetailStayingDaysTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailStayingDaysTableCell.swift; sourceTree = "<group>"; };
 		4353BA9A22E1A335004BD807 /* HouseDetailFacilityTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailFacilityTableCell.swift; sourceTree = "<group>"; };
@@ -267,7 +264,6 @@
 		8D0D788D22D222A400F61F0B /* TripInfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripInfoCollectionViewCell.swift; sourceTree = "<group>"; };
 		8D0D789122D333BF00F61F0B /* TodaySeoulExperienceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaySeoulExperienceTableViewCell.swift; sourceTree = "<group>"; };
 		8D0D789922D3610C00F61F0B /* SeoulRecommendedDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeoulRecommendedDetailViewController.swift; sourceTree = "<group>"; };
-		8D0D789C22D3729000F61F0B /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Protocols.swift; path = MyAirbnb/Controller/Protocols.swift; sourceTree = SOURCE_ROOT; };
 		8D0D78A022D4598200F61F0B /* TripIntroData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripIntroData.swift; sourceTree = "<group>"; };
 		8D0D78A222D459AC00F61F0B /* SpecialTripData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialTripData.swift; sourceTree = "<group>"; };
 		8D0D78A422D459C900F61F0B /* SeoulRecommendedTripData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeoulRecommendedTripData.swift; sourceTree = "<group>"; };
@@ -341,6 +337,7 @@
 		2080604222DDE6C5008672D9 /* LoginControllers */ = {
 			isa = PBXGroup;
 			children = (
+				4353B90F22D6DCCB004BD807 /* LoginTestViewController.swift */,
 				4353BA5222DECE9F004BD807 /* ConfirmNoticeViewController.swift */,
 				4353BA5122DECE9F004BD807 /* FindPassWordPageViewController.swift */,
 				4353BA5322DECE9F004BD807 /* InputPhoneNumberViewController.swift */,
@@ -391,7 +388,6 @@
 			isa = PBXGroup;
 			children = (
 				4353B8D122CF51F6004BD807 /* AppDelegate.swift */,
-				8D0D789B22D3727000F61F0B /* Protocol */,
 				4353B8EC22D085D5004BD807 /* Model */,
 				4353B8EB22D085D3004BD807 /* View */,
 				4353B8EA22D085D2004BD807 /* Controller */,
@@ -416,28 +412,14 @@
 		4353B8EA22D085D2004BD807 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				8D51903222E96F94009D6792 /* House */,
-				8D51907222ED5FD8009D6792 /* Trip */,
-				2080604222DDE6C5008672D9 /* LoginControllers */,
 				4313F09122E83FA2003BB3D1 /* LaunchScreenViewController.swift */,
 				4353B8ED22D088A3004BD807 /* TabbarController.swift */,
-				4353B8E322D0797E004BD807 /* MainViewController.swift */,
-				4353B9FB22DC3A69004BD807 /* CalenderViewController.swift */,
-				4353BA3222DDB7CF004BD807 /* FilterPeopleViewController.swift */,
-				4353BA3422DDB7DA004BD807 /* FilterRemainsViewController.swift */,
-				8D0D789922D3610C00F61F0B /* SeoulRecommendedDetailViewController.swift */,
-				4353B90F22D6DCCB004BD807 /* LoginTestViewController.swift */,
+				43F5AA8B22EE9EFE007511E1 /* Main */,
+				8D51903222E96F94009D6792 /* House */,
+				8D51907222ED5FD8009D6792 /* Trip */,
+				43F5AA8A22EE9EB5007511E1 /* Message */,
+				2080604222DDE6C5008672D9 /* LoginControllers */,
 				4353BA8E22E09FC5004BD807 /* TestSaveViewController.swift */,
-				4353BA9022E09FD0004BD807 /* TestMessageViewController.swift */,
-				8D0D792222DB02D900F61F0B /* HouseViewController.swift */,
-				4353BA6822DF11CC004BD807 /* HouseDetailViewController.swift */,
-				8D0D786D22D07C9300F61F0B /* TripViewController.swift */,
-				8D0D794122DDE50900F61F0B /* AVFoundationViewController.swift */,
-				8D0D793822DC9A2900F61F0B /* VideosDetailViewController.swift */,
-				8D0D793422DC5F0700F61F0B /* TripLocalHostingViewController.swift */,
-				4313F08722E5DE0A003BB3D1 /* MapViewController.swift */,
-				8D51902B22E81811009D6792 /* MessageViewController.swift */,
-				8D51903022E8472A009D6792 /* ChatRoomViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -445,11 +427,11 @@
 		4353B8EB22D085D3004BD807 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				8D0D787322D0898200F61F0B /* Trip */,
 				4353B8EF22D22782004BD807 /* SearchBarView.swift */,
 				4353BA3022DD7F41004BD807 /* SearchBarTableView.swift */,
 				43F5AA8622EB2683007511E1 /* SearchBarTableCell.swift */,
 				4399345422E9831600FAE15C /* BottomInfoView.swift */,
+				8D0D787322D0898200F61F0B /* Trip */,
 				8D51903522E97D52009D6792 /* PlusHouse */,
 				208BC8F222E08C6900EBDDBA /* Login */,
 				4353B8F522D3274E004BD807 /* Main */,
@@ -560,6 +542,26 @@
 			path = HouseDetail;
 			sourceTree = "<group>";
 		};
+		43F5AA8A22EE9EB5007511E1 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				8D51902B22E81811009D6792 /* MessageViewController.swift */,
+				8D51903022E8472A009D6792 /* ChatRoomViewController.swift */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
+		43F5AA8B22EE9EFE007511E1 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				4353B8E322D0797E004BD807 /* MainViewController.swift */,
+				4353B9FB22DC3A69004BD807 /* CalenderViewController.swift */,
+				4353BA3222DDB7CF004BD807 /* FilterPeopleViewController.swift */,
+				4353BA3422DDB7DA004BD807 /* FilterRemainsViewController.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
 		8D0D787322D0898200F61F0B /* Trip */ = {
 			isa = PBXGroup;
 			children = (
@@ -584,15 +586,6 @@
 				8D0D788522D209FB00F61F0B /* AirbnbCereal-Medium.ttf */,
 			);
 			path = Font;
-			sourceTree = "<group>";
-		};
-		8D0D789B22D3727000F61F0B /* Protocol */ = {
-			isa = PBXGroup;
-			children = (
-				8D0D789C22D3729000F61F0B /* Protocols.swift */,
-			);
-			name = Protocol;
-			path = Model/MyAirbnb/Model/Protocol;
 			sourceTree = "<group>";
 		};
 		8D0D78A822D474FE00F61F0B /* SeoulRecommendTrip */ = {
@@ -666,8 +659,11 @@
 		8D51903222E96F94009D6792 /* House */ = {
 			isa = PBXGroup;
 			children = (
+				8D0D792222DB02D900F61F0B /* HouseViewController.swift */,
+				4353BA6822DF11CC004BD807 /* HouseDetailViewController.swift */,
 				8D51903322E96FE7009D6792 /* PlusViewController.swift */,
 				8D51905022EC5C1C009D6792 /* LuxeHouseViewController.swift */,
+				4313F08722E5DE0A003BB3D1 /* MapViewController.swift */,
 			);
 			path = House;
 			sourceTree = "<group>";
@@ -691,7 +687,12 @@
 		8D51907222ED5FD8009D6792 /* Trip */ = {
 			isa = PBXGroup;
 			children = (
+				8D0D789922D3610C00F61F0B /* SeoulRecommendedDetailViewController.swift */,
 				8D51907322ED6040009D6792 /* TripAllViewController.swift */,
+				8D0D786D22D07C9300F61F0B /* TripViewController.swift */,
+				8D0D794122DDE50900F61F0B /* AVFoundationViewController.swift */,
+				8D0D793822DC9A2900F61F0B /* VideosDetailViewController.swift */,
+				8D0D793422DC5F0700F61F0B /* TripLocalHostingViewController.swift */,
 			);
 			path = Trip;
 			sourceTree = "<group>";
@@ -862,7 +863,6 @@
 				4353B8EE22D088A3004BD807 /* TabbarController.swift in Sources */,
 				20CD1F2122E303B1009641F4 /* MakePwPageViewContorller.swift in Sources */,
 				206C998A22E5B4AB002D3D55 /* PasswordView.swift in Sources */,
-				4353BA9122E09FD0004BD807 /* TestMessageViewController.swift in Sources */,
 				4353B8FD22D47C02004BD807 /* UIExtension.swift in Sources */,
 				8D51902F22E82C8F009D6792 /* MsgListTableCell.swift in Sources */,
 				8D51903122E8472A009D6792 /* ChatRoomViewController.swift in Sources */,
@@ -877,7 +877,6 @@
 				8D0D78DA22D74BDC00F61F0B /* PlaceTableViewCell.swift in Sources */,
 				8D518FEE22E06F29009D6792 /* QualifiedHouseTableCell.swift in Sources */,
 				8D0D78DE22D864F700F61F0B /* SpecialTripDetailData.swift in Sources */,
-				8D0D789D22D3729000F61F0B /* Protocols.swift in Sources */,
 				4353BA2122DC40B5004BD807 /* FSCalendarCell.m in Sources */,
 				4353BA3522DDB7DA004BD807 /* FilterRemainsViewController.swift in Sources */,
 				8D0D78AE22D485B000F61F0B /* SeoulRecommendDetailData.swift in Sources */,
