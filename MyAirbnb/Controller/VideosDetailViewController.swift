@@ -164,23 +164,19 @@ extension VideosDetailViewController: UITableViewDataSource {
                 case 1:
                     linearViewArray[i].snp.makeConstraints { (make) in
                         make.top.equalTo(tripScheduleCell.dayLabel.snp.top)
-//                        make.height.equalTo(tripScheduleCell.contentView.snp.height).multipliedBy(0.9)
-                        make.bottom.equalTo(tripScheduleCell.contentView)
+                        make.height.equalTo(tripScheduleCell.contentView.snp.height).multipliedBy(0.9)
+//                        make.bottom.equalTo(tripScheduleCell.contentView)
                     }
                 case scheduleImages.count:
                     linearViewArray[i].snp.makeConstraints { (make) in
                         make.top.equalTo(tripScheduleCell.contentView)
                         make.bottom.equalTo(tripScheduleCell.dayLabel.snp.centerY)
                     }
-//                    tripScheduleCell.descLabel.snp.makeConstraints { (make) in
-//                        make.bottom.equalTo(-20)
-//                    }
-//                    fallthrough
                 default:
                     linearViewArray[i].snp.makeConstraints { (make) in
                         make.top.equalTo(tripScheduleCell.contentView)
-                        make.height.equalTo(tripScheduleCell.contentView.snp.height)
-                        make.bottom.equalTo(tripScheduleCell.contentView)
+                        make.height.equalTo(tripScheduleCell.contentView)
+//                        make.bottom.equalTo(tripScheduleCell.contentView)
                     }
                 }
             }
