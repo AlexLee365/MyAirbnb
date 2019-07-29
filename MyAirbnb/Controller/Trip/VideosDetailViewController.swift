@@ -29,6 +29,14 @@ class VideosDetailViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
+        
+        tableView.register(VideosDetailTableCell.self, forCellReuseIdentifier: VideosDetailTableCell.identifier)
+        tableView.register(ProgramDescriptionTableCell.self, forCellReuseIdentifier: ProgramDescriptionTableCell.identifier)
+        tableView.register(ItemsProvidingTableCell.self, forCellReuseIdentifier: ItemsProvidingTableCell.identifier)
+        tableView.register(ImagesCollectionTableCell.self, forCellReuseIdentifier: ImagesCollectionTableCell.identifier)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(TripScheduleTableCell.self, forCellReuseIdentifier: TripScheduleTableCell.identifier)
+        
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -38,7 +46,7 @@ class VideosDetailViewController: UIViewController {
     let scheduleImages = ["schedule1", "schedule2", "schedule3"]
     let contentsArray = [("Lake Crescent & the Pacific Coast", "Ferry across the Puget Sound. Walk Marymere Falls & Ruby Beach. Coastal campfire & dinner!"), ("Hoh Rainforest & Vanishing Silence", "Hike along the pristine Hoh River. Discover silence in the giant trees of Hoh Rainforest!"), ("Hike Hurricane Ridge", "Climb to Hurricane Ridge and explore new heights in the panoramic Olympic Mountain range.")]
     
-    
+    let imageCollectionArray = ["videoDetailImage1", "videoDetailImage2", "videoDetailImage3", "videoDetailImage4", "videoDetailImage5", "videoDetailImage6", "videoDetailImage7"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,8 +103,7 @@ class VideosDetailViewController: UIViewController {
         
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(VideosDetailTableCell.self, forCellReuseIdentifier: VideosDetailTableCell.identifier)
-        tableView.register(TripScheduleTableCell.self, forCellReuseIdentifier: TripScheduleTableCell.identifier)
+        
         view.addSubview(tableView)
         
         topView.delegate = self
@@ -122,8 +129,9 @@ class VideosDetailViewController: UIViewController {
 // MARK: - UITableViewDataSource
 
 extension VideosDetailViewController: UITableViewDataSource {
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1 + scheduleImages.count
+        return 5 + scheduleImages.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -132,13 +140,41 @@ extension VideosDetailViewController: UITableViewDataSource {
             let videoCell = tableView.dequeueReusableCell(withIdentifier: VideosDetailTableCell.identifier, for: indexPath) as! VideosDetailTableCell
             return videoCell
             
-        case 1...scheduleImages.count:
-            let tripScheduleCell = tableView.dequeueReusableCell(withIdentifier: TripScheduleTableCell.identifier, for: indexPath) as! TripScheduleTableCell
+        case 1:
+            let programDescCell = tableView.dequeueReusableCell(withIdentifier: ProgramDescriptionTableCell.identifier, for: indexPath) as! ProgramDescriptionTableCell
+            return programDescCell
             
-            tripScheduleCell.dayLabel.text = "\(indexPath.row)일차"
-            tripScheduleCell.programImage.image = UIImage(named: scheduleImages[indexPath.row - 1])
-            tripScheduleCell.titleLabel.text = contentsArray[indexPath.row - 1].0
-            tripScheduleCell.descLabel.text = contentsArray[indexPath.row - 1].1
+        case 2:
+            let imageCollectionCell = tableView.dequeueReusableCell(withIdentifier: ImagesCollectionTableCell.identifier, for: indexPath) as! ImagesCollectionTableCell
+            
+            imageCollectionCell.firstImage.image = UIImage(named: imageCollectionArray[indexPath.row - 2])
+            imageCollectionCell.secondImage.image = UIImage(named: imageCollectionArray[indexPath.row - 1])
+            imageCollectionCell.thirdImage.image = UIImage(named: imageCollectionArray[indexPath.row])
+            imageCollectionCell.fourthImage.image = UIImage(named: imageCollectionArray[indexPath.row + 1])
+            imageCollectionCell.fifthImage.image = UIImage(named: imageCollectionArray[indexPath.row + 2])
+            imageCollectionCell.sixthImage.image = UIImage(named: imageCollectionArray[indexPath.row + 3])
+            imageCollectionCell.seventhImage.image = UIImage(named: imageCollectionArray[indexPath.row + 4])
+            
+            return imageCollectionCell
+            
+        case 3:
+            let itemsCell = tableView.dequeueReusableCell(withIdentifier: ItemsProvidingTableCell.identifier, for: indexPath) as! ItemsProvidingTableCell
+            return itemsCell
+            
+        case 4:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+            cell.textLabel?.text = "여행 일정표"
+            cell.textLabel?.font = UIFont(name: "AirbnbCerealApp-Bold", size: 25)
+            cell.textLabel?.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
+            cell.selectionStyle = .none
+            return cell
+            
+        case 5...(scheduleImages.count + 4):
+            let tripScheduleCell = tableView.dequeueReusableCell(withIdentifier: TripScheduleTableCell.identifier, for: indexPath) as! TripScheduleTableCell
+            tripScheduleCell.dayLabel.text = "\(indexPath.row - 4)일차"
+            tripScheduleCell.programImage.image = UIImage(named: scheduleImages[indexPath.row - 5])
+            tripScheduleCell.titleLabel.text = contentsArray[indexPath.row - 5].0
+            tripScheduleCell.descLabel.text = contentsArray[indexPath.row - 5].1
             tripScheduleCell.tripTotalDays = contentsArray.count
             tripScheduleCell.currentIndex = indexPath.row
             

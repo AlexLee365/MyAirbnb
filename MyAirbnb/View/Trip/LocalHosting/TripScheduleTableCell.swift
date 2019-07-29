@@ -67,9 +67,9 @@ class TripScheduleTableCell: UITableViewCell {
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
         switch currentIndex {
-        case 1:
+        case 5:
             lineTopView.isHidden = true
-        case tripTotalDays:
+        case tripTotalDays + 4:
             lineView.isHidden = true
         default: break
         }
@@ -99,7 +99,7 @@ class TripScheduleTableCell: UITableViewCell {
     
     private func setAutolayout() {
         dayLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(20)
+            make.top.equalTo(5)
             make.leading.equalTo(40)
         }
         
