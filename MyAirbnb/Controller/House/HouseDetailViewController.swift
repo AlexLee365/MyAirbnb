@@ -211,7 +211,7 @@ extension HouseDetailViewController: UITableViewDelegate, UITableViewDataSource 
             return houseDetailPicturesTableCell
         case 1:
             let houseDetailBasicInfoTableCell = tableView.dequeueReusableCell(withIdentifier: HouseDetailBasicInfoTableCell.identifier, for: indexPath) as! HouseDetailBasicInfoTableCell
-            houseDetailBasicInfoTableCell.setData(type: data.roomType, name: data.title, state: "서울", hostName: data.host, hostImage: nil, capacity: data.capacity, bedroom: data.bedroom, bathroom: data.bathroom)
+            houseDetailBasicInfoTableCell.setData(type: data.roomType, name: data.title, state: data.state, hostName: data.host[0] ?? "", hostImage: nil, capacity: data.capacity, bedroom: data.bedroom, bathroom: data.bathroom)
             
             return houseDetailBasicInfoTableCell
         case 2:
@@ -240,7 +240,7 @@ extension HouseDetailViewController: UITableViewDelegate, UITableViewDataSource 
         case 6:
             let houseDetailLocationTableCell = tableView.dequeueReusableCell(withIdentifier: HouseDetailLocationTableCell.identifier, for: indexPath) as! HouseDetailLocationTableCell
             
-            houseDetailLocationTableCell.setData(state: "서울", LocationDescription: "", address: data.address)
+            houseDetailLocationTableCell.setData(state: data.host[0] ?? "", LocationDescription: "", address: data.address)
             
             return houseDetailLocationTableCell
         case 7:
