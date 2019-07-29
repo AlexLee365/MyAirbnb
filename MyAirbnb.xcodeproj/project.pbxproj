@@ -3,10 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		20081F7A22EEBC4C00BAB0FD /* KeyboardTopViewNextBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20081F7922EEBC4C00BAB0FD /* KeyboardTopViewNextBtn.swift */; };
+		20081F7C22EEBC6300BAB0FD /* InputPhoneNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20081F7B22EEBC6300BAB0FD /* InputPhoneNumberView.swift */; };
+		20081F7E22EEBC8300BAB0FD /* InputEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20081F7D22EEBC8300BAB0FD /* InputEmailView.swift */; };
+		20081F8022EEBCB200BAB0FD /* StatusChangeBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20081F7F22EEBCB200BAB0FD /* StatusChangeBtn.swift */; };
 		206C998822E5B451002D3D55 /* KeyboardNotiCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206C998722E5B451002D3D55 /* KeyboardNotiCenter.swift */; };
 		206C998A22E5B4AB002D3D55 /* PasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206C998922E5B4AB002D3D55 /* PasswordView.swift */; };
 		208BC8F422E08C9300EBDDBA /* TopBarItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208BC8F322E08C9300EBDDBA /* TopBarItemView.swift */; };
@@ -155,6 +159,10 @@
 
 /* Begin PBXFileReference section */
 		1B374C2A2B972FE4E8580B8D /* Pods-MyAirbnb.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyAirbnb.release.xcconfig"; path = "Target Support Files/Pods-MyAirbnb/Pods-MyAirbnb.release.xcconfig"; sourceTree = "<group>"; };
+		20081F7922EEBC4C00BAB0FD /* KeyboardTopViewNextBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardTopViewNextBtn.swift; sourceTree = "<group>"; };
+		20081F7B22EEBC6300BAB0FD /* InputPhoneNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputPhoneNumberView.swift; sourceTree = "<group>"; };
+		20081F7D22EEBC8300BAB0FD /* InputEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputEmailView.swift; sourceTree = "<group>"; };
+		20081F7F22EEBCB200BAB0FD /* StatusChangeBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusChangeBtn.swift; sourceTree = "<group>"; };
 		206C998722E5B451002D3D55 /* KeyboardNotiCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardNotiCenter.swift; sourceTree = "<group>"; };
 		206C998922E5B4AB002D3D55 /* PasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordView.swift; sourceTree = "<group>"; };
 		208BC8F322E08C9300EBDDBA /* TopBarItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarItemView.swift; sourceTree = "<group>"; };
@@ -337,18 +345,23 @@
 		2080604222DDE6C5008672D9 /* LoginControllers */ = {
 			isa = PBXGroup;
 			children = (
+
+				4353BA5622DECE9F004BD807 /* SignUpMainViewController.swift */,
+				4353BA5522DECE9F004BD807 /* MakeIdPageViewController.swift */,
+
 				4353B90F22D6DCCB004BD807 /* LoginTestViewController.swift */,
 				4353BA5222DECE9F004BD807 /* ConfirmNoticeViewController.swift */,
 				4353BA5122DECE9F004BD807 /* FindPassWordPageViewController.swift */,
+
 				4353BA5322DECE9F004BD807 /* InputPhoneNumberViewController.swift */,
+				20CD1F2022E303B1009641F4 /* MakePwPageViewContorller.swift */,
 				20CD1F2222E303F4009641F4 /* ConfirmBirthDayViewController.swift */,
 				4353BA5722DECE9F004BD807 /* LoginPageViewController.swift */,
-				4353BA5522DECE9F004BD807 /* MakeIdPageViewController.swift */,
-				4353BA5422DECE9F004BD807 /* OptionLoginPageViewController.swift */,
-				4353BA5622DECE9F004BD807 /* SignUpMainViewController.swift */,
-				208BC8F722E08DA200EBDDBA /* PickNationalNumberViewController.swift */,
 				20CD1F1E22E302F5009641F4 /* AlarmConfirmViewController.swift */,
-				20CD1F2022E303B1009641F4 /* MakePwPageViewContorller.swift */,
+				4353BA5122DECE9F004BD807 /* FindPassWordPageViewController.swift */,
+				4353BA5422DECE9F004BD807 /* OptionLoginPageViewController.swift */,
+				4353BA5222DECE9F004BD807 /* ConfirmNoticeViewController.swift */,
+				208BC8F722E08DA200EBDDBA /* PickNationalNumberViewController.swift */,
 			);
 			path = LoginControllers;
 			sourceTree = "<group>";
@@ -358,7 +371,11 @@
 			children = (
 				208BC8F322E08C9300EBDDBA /* TopBarItemView.swift */,
 				208BC8F522E08CBC00EBDDBA /* KeyboardTopView.swift */,
+				20081F7922EEBC4C00BAB0FD /* KeyboardTopViewNextBtn.swift */,
+				20081F7B22EEBC6300BAB0FD /* InputPhoneNumberView.swift */,
+				20081F7D22EEBC8300BAB0FD /* InputEmailView.swift */,
 				20CD1F1C22E3028A009641F4 /* InputEmailAndPhoneView.swift */,
+				20081F7F22EEBCB200BAB0FD /* StatusChangeBtn.swift */,
 				206C998922E5B4AB002D3D55 /* PasswordView.swift */,
 			);
 			path = Login;
@@ -792,6 +809,13 @@
 			files = (
 			);
 			inputFileListPaths = (
+
+				"${PODS_ROOT}/Target Support Files/Pods-MyAirbnb/Pods-MyAirbnb-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MyAirbnb/Pods-MyAirbnb-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-MyAirbnb/Pods-MyAirbnb-frameworks.sh",
@@ -806,6 +830,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -883,14 +908,17 @@
 				8D0D78A122D4598200F61F0B /* TripIntroData.swift in Sources */,
 				8D518FEC22DF280B009D6792 /* InstantBookTableCell.swift in Sources */,
 				4353BA5A22DECE9F004BD807 /* InputPhoneNumberViewController.swift in Sources */,
+				20081F8022EEBCB200BAB0FD /* StatusChangeBtn.swift in Sources */,
 				8D0D793522DC5F0700F61F0B /* TripLocalHostingViewController.swift in Sources */,
 				8D0D788E22D222A400F61F0B /* TripInfoCollectionViewCell.swift in Sources */,
 				8D0D786E22D07C9300F61F0B /* TripViewController.swift in Sources */,
 				4353BA3122DD7F41004BD807 /* SearchBarTableView.swift in Sources */,
+				20081F7C22EEBC6300BAB0FD /* InputPhoneNumberView.swift in Sources */,
 				4353BA3322DDB7CF004BD807 /* FilterPeopleViewController.swift in Sources */,
 				4353B91222D73B80004BD807 /* FourSquareTableCell.swift in Sources */,
 				8D51904B22EC1DAD009D6792 /* TripContentsTableCell.swift in Sources */,
 				4353BA6522DF0F4A004BD807 /* HouseTopLabelTableCell.swift in Sources */,
+				20081F7E22EEBC8300BAB0FD /* InputEmailView.swift in Sources */,
 				8D0D792722DB328900F61F0B /* HousePlusTableCell.swift in Sources */,
 				8D0D78AA22D4754200F61F0B /* SeoulRecommendTableViewCell.swift in Sources */,
 				8D51904F22EC3881009D6792 /* MemoTableCell.swift in Sources */,
@@ -917,6 +945,7 @@
 				4399345522E9831600FAE15C /* BottomInfoView.swift in Sources */,
 				4399347522E9B12700FAE15C /* HouseDetailData.swift in Sources */,
 				4353BA2822DC40B5004BD807 /* FSCalendarConstants.m in Sources */,
+				20081F7A22EEBC4C00BAB0FD /* KeyboardTopViewNextBtn.swift in Sources */,
 				8D0D787522D089AD00F61F0B /* TripIntroCollectionViewCell.swift in Sources */,
 				8D51903B22E9AC21009D6792 /* BrowsePhotosTableCell.swift in Sources */,
 				4353BA9922E1A2B4004BD807 /* HouseDetailStayingDaysTableCell.swift in Sources */,
@@ -1117,7 +1146,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = G4MM77V7NH;
+				DEVELOPMENT_TEAM = 64WAG22Y2J;
 				INFOPLIST_FILE = MyAirbnb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1137,7 +1166,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = G4MM77V7NH;
+				DEVELOPMENT_TEAM = 64WAG22Y2J;
 				INFOPLIST_FILE = MyAirbnb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
