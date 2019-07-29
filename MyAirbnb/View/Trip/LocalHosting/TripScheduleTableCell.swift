@@ -14,7 +14,9 @@ class TripScheduleTableCell: UITableViewCell {
     
     let dayLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "AirbnbCerealApp-Book", size: 11)
+        label.setLineSpacing(lineSpacing: 3)
+        label.font = UIFont(name: "AirbnbCerealApp-Book", size: 14)
+        label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
         return label
     }()
     
@@ -28,14 +30,18 @@ class TripScheduleTableCell: UITableViewCell {
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "AirbnbCerealApp-Bold", size: 12)
+        label.setLineSpacing(lineSpacing: 3)
+        label.font = UIFont(name: "AirbnbCerealApp-Bold", size: 15)
+        label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
         return label
     }()
     
     let descLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.font = UIFont(name: "AirbnbCerealApp-Book", size: 11)
+        label.setLineSpacing(lineSpacing: 3)
+        label.font = UIFont(name: "AirbnbCerealApp-Book", size: 14)
+        label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
         return label
     }()
     
@@ -88,7 +94,6 @@ class TripScheduleTableCell: UITableViewCell {
         
         dayLabel.snp.makeConstraints { (make) in
             make.top.equalTo(20)
-//            make.leading.equalTo(lineImage.snp.trailing).offset(5)
             make.leading.equalTo(40)
         }
         
