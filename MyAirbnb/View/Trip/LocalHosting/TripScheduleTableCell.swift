@@ -45,18 +45,13 @@ class TripScheduleTableCell: UITableViewCell {
         return label
     }()
     
-//    let lineImage: UIImageView = {
-//        let imageView = UIImageView()
-//        imageView.contentMode = .scaleAspectFill
-//        imageView.clipsToBounds = true
-//        return imageView
-//    }()
-//
-//    let linearView: UIView = {
-//        let view = UIView()
-//        view.backgroundColor = #colorLiteral(red: 0.1298420429, green: 0.1298461258, blue: 0.1298439503, alpha: 1)
-//        return view
-//    }()
+    let lineTopView = UIView()
+    let lineView = UIView()
+    let lineCircleView = UIView()
+    
+    var tripTotalDays = 0
+    var currentIndex = 0
+    
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -69,29 +64,40 @@ class TripScheduleTableCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        switch currentIndex {
+        case 1:
+            lineTopView.isHidden = true
+        case tripTotalDays:
+            lineView.isHidden = true
+        default: break
+        }
+    }
+    
     private func configure() {
-//        contentView.addSubview(lineImage)
-//        contentView.addSubview(linearView)
+        self.selectionStyle = .none
+        
         contentView.addSubview(dayLabel)
         contentView.addSubview(programImage)
         contentView.addSubview(titleLabel)
         contentView.addSubview(descLabel)
+
+        lineView.backgroundColor = .gray
+        contentView.addSubview(lineView)
+        
+        lineTopView.backgroundColor = .gray
+        contentView.addSubview(lineTopView)
+
+        lineCircleView.backgroundColor = .white
+        lineCircleView.layer.borderWidth = 1.2
+        lineCircleView.layer.borderColor = UIColor.gray.cgColor
+        lineCircleView.clipsToBounds = true
+        lineCircleView.layer.cornerRadius = 3.0
+        contentView.addSubview(lineCircleView)
     }
     
     private func setAutolayout() {
-//        lineImage.snp.makeConstraints { (make) in
-//            make.top.equalTo(20)
-//            make.leading.equalTo(5)
-//            make.width.equalTo(10)
-//            make.height.equalToSuperview()
-//        }
-        
-//        linearView.snp.makeConstraints { (make) in
-//            make.top.equalTo(dayLabel.snp.top)
-//            make.leading.equalTo(20)
-//            make.width.equalTo(3)
-//        }
-        
         dayLabel.snp.makeConstraints { (make) in
             make.top.equalTo(20)
             make.leading.equalTo(40)
@@ -114,6 +120,26 @@ class TripScheduleTableCell: UITableViewCell {
             make.leading.equalTo(dayLabel.snp.leading)
             make.trailing.equalTo(-20)
             make.bottom.equalTo(-20)
+        }
+        
+        lineTopView.snp.makeConstraints { (make) in
+            make.leading.equalTo(20)
+            make.top.equalToSuperview()
+            make.width.equalTo(1.2)
+            make.bottom.equalTo(dayLabel.snp.centerY)
+        }
+        
+        lineView.snp.makeConstraints { (make) in
+            make.leading.equalTo(20)
+            make.width.equalTo(1.2)
+            make.top.equalTo(dayLabel.snp.centerY)
+            make.bottom.equalToSuperview()
+        }
+        
+        lineCircleView.snp.makeConstraints { (make) in
+            make.centerX.equalTo(lineView.snp.centerX)
+            make.centerY.equalTo(dayLabel.snp.centerY)
+            make.width.height.equalTo(6)
         }
     }
 }
