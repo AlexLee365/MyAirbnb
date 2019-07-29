@@ -125,6 +125,9 @@
 		8D0D793E22DD6C1600F61F0B /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D793D22DD6C1600F61F0B /* VideoView.swift */; };
 		8D0D794222DDE50900F61F0B /* AVFoundationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D794122DDE50900F61F0B /* AVFoundationViewController.swift */; };
 		8D0D794422DDE64900F61F0B /* VideoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D794322DDE64900F61F0B /* VideoCollectionViewCell.swift */; };
+		8D4FDA0C22EF4F5A00E31CF5 /* InfoCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDA0B22EF4F5A00E31CF5 /* InfoCategoryView.swift */; };
+		8D4FDA0E22EF661B00E31CF5 /* VideoHostInfoTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDA0D22EF661B00E31CF5 /* VideoHostInfoTableCell.swift */; };
+		8D4FDA1022EF6F2000E31CF5 /* VisitingPlaceTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDA0F22EF6F2000E31CF5 /* VisitingPlaceTableCell.swift */; };
 		8D518FEC22DF280B009D6792 /* InstantBookTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D518FEB22DF280B009D6792 /* InstantBookTableCell.swift */; };
 		8D518FEE22E06F29009D6792 /* QualifiedHouseTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D518FED22E06F29009D6792 /* QualifiedHouseTableCell.swift */; };
 		8D518FF022E07769009D6792 /* PriceRangeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D518FEF22E07769009D6792 /* PriceRangeTableCell.swift */; };
@@ -158,7 +161,6 @@
 		8D51907C22EEDEEB009D6792 /* ItemsProvidingTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51907B22EEDEEB009D6792 /* ItemsProvidingTableCell.swift */; };
 		8D51907E22EEE19A009D6792 /* ProvidingItemsCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51907D22EEE19A009D6792 /* ProvidingItemsCollectionCell.swift */; };
 		8D51908022EF0EAE009D6792 /* ImagesCollectionTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51907F22EF0EAE009D6792 /* ImagesCollectionTableCell.swift */; };
-		8D51908222EF227B009D6792 /* InfoCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D51908122EF227B009D6792 /* InfoCollectionCell.swift */; };
 		9F10F3C31A75AE56BBBE8FE9 /* Pods_MyAirbnb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5895FA9D40FD45C305945B10 /* Pods_MyAirbnb.framework */; };
 /* End PBXBuildFile section */
 
@@ -303,6 +305,9 @@
 		8D0D793D22DD6C1600F61F0B /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 		8D0D794122DDE50900F61F0B /* AVFoundationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVFoundationViewController.swift; sourceTree = "<group>"; };
 		8D0D794322DDE64900F61F0B /* VideoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCollectionViewCell.swift; sourceTree = "<group>"; };
+		8D4FDA0B22EF4F5A00E31CF5 /* InfoCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCategoryView.swift; sourceTree = "<group>"; };
+		8D4FDA0D22EF661B00E31CF5 /* VideoHostInfoTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoHostInfoTableCell.swift; sourceTree = "<group>"; };
+		8D4FDA0F22EF6F2000E31CF5 /* VisitingPlaceTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitingPlaceTableCell.swift; sourceTree = "<group>"; };
 		8D518FEB22DF280B009D6792 /* InstantBookTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstantBookTableCell.swift; sourceTree = "<group>"; };
 		8D518FED22E06F29009D6792 /* QualifiedHouseTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QualifiedHouseTableCell.swift; sourceTree = "<group>"; };
 		8D518FEF22E07769009D6792 /* PriceRangeTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceRangeTableCell.swift; sourceTree = "<group>"; };
@@ -336,7 +341,6 @@
 		8D51907B22EEDEEB009D6792 /* ItemsProvidingTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsProvidingTableCell.swift; sourceTree = "<group>"; };
 		8D51907D22EEE19A009D6792 /* ProvidingItemsCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvidingItemsCollectionCell.swift; sourceTree = "<group>"; };
 		8D51907F22EF0EAE009D6792 /* ImagesCollectionTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesCollectionTableCell.swift; sourceTree = "<group>"; };
-		8D51908122EF227B009D6792 /* InfoCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCollectionCell.swift; sourceTree = "<group>"; };
 		D11C85972DEC34ABFE5E5A06 /* Pods-MyAirbnb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyAirbnb.debug.xcconfig"; path = "Target Support Files/Pods-MyAirbnb/Pods-MyAirbnb.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -649,12 +653,14 @@
 				8D0D793D22DD6C1600F61F0B /* VideoView.swift */,
 				8D0D794322DDE64900F61F0B /* VideoCollectionViewCell.swift */,
 				8D0D793B22DCA57B00F61F0B /* VideosDetailTableCell.swift */,
-				8D51908122EF227B009D6792 /* InfoCollectionCell.swift */,
+				8D4FDA0B22EF4F5A00E31CF5 /* InfoCategoryView.swift */,
 				8D51907922EED888009D6792 /* ProgramDescriptionTableCell.swift */,
 				8D51907B22EEDEEB009D6792 /* ItemsProvidingTableCell.swift */,
 				8D51907D22EEE19A009D6792 /* ProvidingItemsCollectionCell.swift */,
 				8D51907F22EF0EAE009D6792 /* ImagesCollectionTableCell.swift */,
 				8D51907022EC667A009D6792 /* TripScheduleTableCell.swift */,
+				8D4FDA0D22EF661B00E31CF5 /* VideoHostInfoTableCell.swift */,
+				8D4FDA0F22EF6F2000E31CF5 /* VisitingPlaceTableCell.swift */,
 			);
 			path = LocalHosting;
 			sourceTree = "<group>";
@@ -878,6 +884,7 @@
 				43E36CD822E57627006C8AEF /* HouseDetailBedRoomsCollectCell.swift in Sources */,
 				8D51905122EC5C1C009D6792 /* LuxeHouseViewController.swift in Sources */,
 				4353B8F222D319F2004BD807 /* MainView.swift in Sources */,
+				8D4FDA0E22EF661B00E31CF5 /* VideoHostInfoTableCell.swift in Sources */,
 				4353B8EE22D088A3004BD807 /* TabbarController.swift in Sources */,
 				20CD1F2122E303B1009641F4 /* MakePwPageViewContorller.swift in Sources */,
 				206C998A22E5B4AB002D3D55 /* PasswordView.swift in Sources */,
@@ -894,6 +901,7 @@
 				208BC8F422E08C9300EBDDBA /* TopBarItemView.swift in Sources */,
 				8D0D78DA22D74BDC00F61F0B /* PlaceTableViewCell.swift in Sources */,
 				8D518FEE22E06F29009D6792 /* QualifiedHouseTableCell.swift in Sources */,
+				8D4FDA0C22EF4F5A00E31CF5 /* InfoCategoryView.swift in Sources */,
 				8D0D78DE22D864F700F61F0B /* SpecialTripDetailData.swift in Sources */,
 				4353BA2122DC40B5004BD807 /* FSCalendarCell.m in Sources */,
 				4353BA3522DDB7DA004BD807 /* FilterRemainsViewController.swift in Sources */,
@@ -952,7 +960,6 @@
 				8D51903922E987FD009D6792 /* PlusIntroCollectionCell.swift in Sources */,
 				43E36CDC22E59B03006C8AEF /* HouseDetailLocationTableCell.swift in Sources */,
 				43E36CDA22E586D4006C8AEF /* HouseDetailFacilityCollectCell.swift in Sources */,
-				8D51908222EF227B009D6792 /* InfoCollectionCell.swift in Sources */,
 				8D51907422ED6040009D6792 /* TripAllViewController.swift in Sources */,
 				4353BA2422DC40B5004BD807 /* FSCalendarCollectionViewLayout.m in Sources */,
 				8D0D787022D07DE600F61F0B /* TripIntroTableViewCell.swift in Sources */,
@@ -963,6 +970,7 @@
 				8D51902622E5B54D009D6792 /* CheckboxContainerView.swift in Sources */,
 				4353B9FC22DC3A69004BD807 /* CalenderViewController.swift in Sources */,
 				4353B90822D48EB8004BD807 /* MainRecommendHouseCollectCell.swift in Sources */,
+				8D4FDA1022EF6F2000E31CF5 /* VisitingPlaceTableCell.swift in Sources */,
 				8D51902A22E5B7DD009D6792 /* CheckBoxData.swift in Sources */,
 				4353BA9722E1A06D004BD807 /* HouseDetailIntroductionTableCell.swift in Sources */,
 				8D51903722E97D92009D6792 /* PlusIntroTableCell.swift in Sources */,

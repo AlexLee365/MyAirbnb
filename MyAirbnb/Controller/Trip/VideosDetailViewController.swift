@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import MapKit
 
 class VideosDetailViewController: UIViewController {
     
@@ -36,23 +37,67 @@ class VideosDetailViewController: UIViewController {
         tableView.register(ImagesCollectionTableCell.self, forCellReuseIdentifier: ImagesCollectionTableCell.identifier)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.register(TripScheduleTableCell.self, forCellReuseIdentifier: TripScheduleTableCell.identifier)
+        tableView.register(VideoHostInfoTableCell.self, forCellReuseIdentifier: VideoHostInfoTableCell.identifier)
+        tableView.register(VisitingPlaceTableCell.self, forCellReuseIdentifier: VisitingPlaceTableCell.identifier)
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
     
     let topView = TableviewTopView()
+    let bottomView = BottomInfoView()
+    
+    let priceLabel: UILabel = {
+        let label = UILabel()
+        label.text = "₩40,000 /인"
+        label.font = UIFont(name: "AirbnbCerealApp-Bold", size: 17)
+        label.textColor = .white
+        return label
+    }()
+    
+    let starImageLabel: UILabel = {
+        let label = UILabel()
+        label.text = String(repeating: "★", count: 5)
+        label.font = UIFont(name: "AirbnbCerealApp-Book", size: 13)
+        label.textColor = .white
+        return label
+    }()
+    
+    let rateLabel: UILabel = {
+        let label = UILabel()
+        label.text = "201"
+        label.textColor = .white
+        label.font = UIFont(name: "AirbnbCerealApp-Book", size: 12)
+        return label
+    }()
+    
+    let seeDateBtn: UIButton = {
+        let button = UIButton()
+        button.setTitle("날짜 보기", for: .normal)
+        button.titleLabel?.font = UIFont(name: "AirbnbCerealApp-Bold", size: 14.5)
+        button.layer.cornerRadius = 5
+        button.setTitleColor(#colorLiteral(red: 0.370555222, green: 0.3705646992, blue: 0.3705595732, alpha: 1), for: .normal)
+        button.backgroundColor = .white
+        return button
+    }()
+
     
     let scheduleImages = ["schedule1", "schedule2", "schedule3"]
     let contentsArray = [("Lake Crescent & the Pacific Coast", "Ferry across the Puget Sound. Walk Marymere Falls & Ruby Beach. Coastal campfire & dinner!"), ("Hoh Rainforest & Vanishing Silence", "Hike along the pristine Hoh River. Discover silence in the giant trees of Hoh Rainforest!"), ("Hike Hurricane Ridge", "Climb to Hurricane Ridge and explore new heights in the panoramic Olympic Mountain range.")]
     
     let imageCollectionArray = ["videoDetailImage1", "videoDetailImage2", "videoDetailImage3", "videoDetailImage4", "videoDetailImage5", "videoDetailImage6", "videoDetailImage7"]
     
+    
+    let notiCenter = NotificationCenter.default
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configure()
         setAutolayout()
+        
+        addNotificationObserver()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,31 +109,7 @@ class VideosDetailViewController: UIViewController {
         super.viewDidAppear(animated)
         startAnimate()
     }
-    
-    func startAnimate() {
-        UIView.animate(withDuration: 0.7, delay: 0.7, options: [], animations: {
-            self.videoImageView.alpha = 0
-            self.player.play()
-            self.view.layoutIfNeeded()
-        })
-    }
-    
-    func setting(data: [String: String]) {
-        let url = URL(string: data["videoUrl"]!)
-        let playerItem = AVPlayerItem(url: url!)
-        player = AVPlayer(playerItem: playerItem)
-        
-        let playerLayer = AVPlayerLayer(player: player)
-        
-        let tempSize = CGSize(width: view.frame.width, height: 500)
 
-        playerLayer.frame = CGRect(origin: .zero, size: tempSize)
-        playerLayer.videoGravity = .resizeAspectFill
-        videoView.layer.addSublayer(playerLayer)
-        
-        videoImageView.image = UIImage(named: data["image"]!)
-        videoImageView.frame = CGRect(origin: .zero, size: tempSize)
-    }
     
     private func configure() {
         view.backgroundColor = .white
@@ -103,11 +124,16 @@ class VideosDetailViewController: UIViewController {
         
         tableView.dataSource = self
         tableView.delegate = self
-        
         view.addSubview(tableView)
         
         topView.delegate = self
         view.addSubview(topView)
+        
+        view.addSubview(bottomView)
+        bottomView.addSubview(priceLabel)
+        bottomView.addSubview(starImageLabel)
+        bottomView.addSubview(rateLabel)
+        bottomView.addSubview(seeDateBtn)
     }
     
     private func setAutolayout() {
@@ -116,13 +142,85 @@ class VideosDetailViewController: UIViewController {
         tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: guide.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: guide.trailingAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: bottomView.topAnchor).isActive = true
         
         topView.translatesAutoresizingMaskIntoConstraints = false
         topView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         topView.leadingAnchor.constraint(equalTo: guide.leadingAnchor).isActive = true
         topView.trailingAnchor.constraint(equalTo: guide.trailingAnchor).isActive = true
         topView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.1).isActive = true
+        
+        let height = UIScreen.main.bounds.height * 0.12
+        
+        bottomView.snp.makeConstraints { (make) in
+            make.height.equalTo(height)
+            make.leading.trailing.bottom.equalToSuperview()
+        }
+        
+        priceLabel.snp.makeConstraints { (make) in
+            make.leading.top.equalTo(20)
+        }
+        
+        starImageLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(priceLabel.snp.bottom).offset(5)
+            make.leading.equalTo(20)
+        }
+        
+        rateLabel.snp.makeConstraints { (make) in
+            make.centerY.equalTo(starImageLabel.snp.centerY)
+            make.leading.equalTo(starImageLabel.snp.trailing).offset(3)
+        }
+        
+        seeDateBtn.snp.makeConstraints { (make) in
+            make.centerY.equalToSuperview()
+            make.trailing.equalTo(-20)
+            make.height.equalToSuperview().multipliedBy(0.64)
+            make.width.equalTo(150)
+        }
+    }
+    
+    
+    func startAnimate() {
+        UIView.animate(withDuration: 0.7, delay: 0.7, options: [], animations: {
+            self.videoImageView.alpha = 0
+            self.player.play()
+            self.view.layoutIfNeeded()
+        })
+    }
+    
+    
+    func setting(data: [String: String]) {
+        let url = URL(string: data["videoUrl"]!)
+        let playerItem = AVPlayerItem(url: url!)
+        player = AVPlayer(playerItem: playerItem)
+        
+        let playerLayer = AVPlayerLayer(player: player)
+        
+        let tempSize = CGSize(width: view.frame.width, height: 500)
+        
+        playerLayer.frame = CGRect(origin: .zero, size: tempSize)
+        playerLayer.videoGravity = .resizeAspectFill
+        videoView.layer.addSublayer(playerLayer)
+        
+        videoImageView.image = UIImage(named: data["image"]!)
+        videoImageView.frame = CGRect(origin: .zero, size: tempSize)
+    }
+    
+    
+    private func addNotificationObserver() {
+        notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .mapViewDidTapInHouseDetailView, object: nil)
+    }
+    
+    @objc func receiveNotification(_ sender: Notification) {
+        print("mapView Did Tap Notification")
+        guard let userInfo = sender.userInfo as? [String: CLLocationCoordinate2D]
+            , let coordinate = userInfo["coordinate"]
+            else { print("‼️‼️‼️ noti userInfo convert error"); return }
+        
+        let mapVC = MapViewController()
+        mapVC.defaultLocation = coordinate
+        mapVC.circleColor = StandardUIValue.shared.colorBlueGreen
+        navigationController?.pushViewController(mapVC, animated: true)
     }
 }
 
@@ -131,7 +229,7 @@ class VideosDetailViewController: UIViewController {
 extension VideosDetailViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5 + scheduleImages.count
+        return 7 + scheduleImages.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -180,6 +278,16 @@ extension VideosDetailViewController: UITableViewDataSource {
             
             return tripScheduleCell
         
+        case (scheduleImages.count + 5):
+            let hostCell = tableView.dequeueReusableCell(withIdentifier: VideoHostInfoTableCell.identifier, for: indexPath) as! VideoHostInfoTableCell
+            
+            return hostCell
+            
+        case (scheduleImages.count + 6):
+            let visitingPlaceCell = tableView.dequeueReusableCell(withIdentifier: VisitingPlaceTableCell.identifier, for: indexPath) as! VisitingPlaceTableCell
+            
+            return visitingPlaceCell
+            
         default:
             return UITableViewCell()
         }
@@ -189,6 +297,32 @@ extension VideosDetailViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 
 extension VideosDetailViewController: UITableViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) else { return }
+        
+        let cellHeight = cell.frame.height
+        let currentY = scrollView.contentOffset.y
+        let bottomViewHeight = bottomView.frame.height
+        
+        if currentY >= cellHeight - bottomViewHeight {
+            UIView.animate(withDuration: 0.3) {
+                self.bottomView.backColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                self.priceLabel.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
+                self.starImageLabel.textColor = StandardUIValue.shared.colorBlueGreen
+                self.rateLabel.textColor = #colorLiteral(red: 0.5704585314, green: 0.5704723597, blue: 0.5704649091, alpha: 1)
+                self.seeDateBtn.backgroundColor = StandardUIValue.shared.colorPink
+                self.seeDateBtn.setTitleColor(.white, for: .normal)
+            }
+            
+        } else {
+            self.bottomView.backColor = .black
+            self.priceLabel.textColor = .white
+            self.starImageLabel.textColor = .white
+            self.rateLabel.textColor = .white
+            self.seeDateBtn.backgroundColor = .white
+            self.seeDateBtn.setTitleColor(#colorLiteral(red: 0.370555222, green: 0.3705646992, blue: 0.3705595732, alpha: 1), for: .normal)
+        }
+    }
 }
 
 // MARK: - TableviewTopViewDelegate
