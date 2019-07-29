@@ -6,7 +6,7 @@ PODS:
   - SnapKit (5.0.0)
 
 DEPENDENCIES:
-  - Kingfisher (~> 5.0)
+  - Kingfisher (~> 5.7.0)
   - NVActivityIndicatorView
   - SnapKit (~> 5.0.0)
 
@@ -21,6 +21,6 @@ SPEC CHECKSUMS:
   NVActivityIndicatorView: b19ddab2576f805cbe0fb2306cba3476e09a1dea
   SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
 
-PODFILE CHECKSUM: 79c76beb57802b5c655f008fc6a265c8295d577d
+PODFILE CHECKSUM: e1cfbfcd4046f7a80b3f355a1a3f571e23f3e155
 
 COCOAPODS: 1.7.1
