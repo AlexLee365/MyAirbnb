@@ -200,13 +200,15 @@ class SignUpMainViewController: UIViewController {
         signUpBtn.translatesAutoresizingMaskIntoConstraints = false
         optionBtn.translatesAutoresizingMaskIntoConstraints = false
         
+        let btnHeight = view.frame.height - (view.frame.height - 50)
+        let optionHeight = view.frame.height - (view.frame.height - 15)
         
         NSLayoutConstraint.activate([
             facebookLoginBtn.centerXAnchor.constraint(equalTo: mainScrollView.centerXAnchor),
             facebookLoginBtn.topAnchor.constraint(equalTo: secondWelcomMsgLbl.bottomAnchor, constant: 30),
             facebookLoginBtn.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor, constant: 20),
             facebookLoginBtn.trailingAnchor.constraint(equalTo: mainScrollView.trailingAnchor, constant: -20),
-            facebookLoginBtn.heightAnchor.constraint(equalToConstant: 50),
+            facebookLoginBtn.heightAnchor.constraint(equalToConstant: btnHeight),
             
             
             
@@ -214,13 +216,13 @@ class SignUpMainViewController: UIViewController {
             signUpBtn.topAnchor.constraint(equalTo:facebookLoginBtn.bottomAnchor, constant: 15),
             signUpBtn.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor, constant: 20),
             signUpBtn.trailingAnchor.constraint(equalTo: mainScrollView.trailingAnchor, constant: -20),
-            signUpBtn.heightAnchor.constraint(equalToConstant: 50),
+            signUpBtn.heightAnchor.constraint(equalToConstant: btnHeight),
             
             
             
             optionBtn.topAnchor.constraint(equalTo: signUpBtn.bottomAnchor, constant: 40),
             optionBtn.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor, constant: 20),
-            optionBtn.heightAnchor.constraint(equalToConstant: 15),
+            optionBtn.heightAnchor.constraint(equalToConstant: optionHeight),
             ])
         //        optionBtn.backgroundColor = .black
     }

@@ -23,7 +23,7 @@ class InputPhoneNumberViewController: UIViewController {
     // 전화번호
     let phoneNumberTitle = UILabel()
     let inputPhoneNumberTxtField = UITextField()
-    let pickNationalNumberBtn = UIButton(type: .custom)
+    //    let pickNationalNumberBtn = UIButton(type: .custom)
     let underLine = UILabel()
     let topDescriptionLbl = UILabel()
     let rejectReceptionMsgLbl = UILabel()
@@ -32,8 +32,6 @@ class InputPhoneNumberViewController: UIViewController {
     var bottomLayout: NSLayoutConstraint!
     var keyboardHeight: CGFloat = 0
     var bottomInsets: CGFloat = 0
-    
-    let makePwVC = MakePwPageViewContorller()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -107,12 +105,12 @@ class InputPhoneNumberViewController: UIViewController {
     private func addViews() {
         view.addSubview(topBarItem)
         view.addSubview(inputPhoneScrollView)
-        //        view.addSubview(keyboardTopViewItem)
+        view.addSubview(keyboardTopViewItem)
         
-        inputPhoneScrollView.addSubview(keyboardTopViewItem)
+        //        inputPhoneScrollView.addSubview(keyboardTopViewItem)
         inputPhoneScrollView.addSubview(mainTitle)
         inputPhoneScrollView.addSubview(phoneNumberTitle)
-        inputPhoneScrollView.addSubview(pickNationalNumberBtn)
+        //        inputPhoneScrollView.addSubview(pickNationalNumberBtn)
         inputPhoneScrollView.addSubview(inputPhoneNumberTxtField)
         inputPhoneScrollView.addSubview(underLine)
         inputPhoneScrollView.addSubview(topDescriptionLbl)
@@ -121,7 +119,7 @@ class InputPhoneNumberViewController: UIViewController {
     }
     
     private func txtFieldSetup() {
-        inputPhoneNumberTxtField.keyboardType = .phonePad
+        inputPhoneNumberTxtField.keyboardType = .emailAddress
         inputPhoneNumberTxtField.autocorrectionType = .no
     }
     
@@ -145,7 +143,7 @@ class InputPhoneNumberViewController: UIViewController {
         topBarItem.translatesAutoresizingMaskIntoConstraints = false
         mainTitle.translatesAutoresizingMaskIntoConstraints = false
         phoneNumberTitle.translatesAutoresizingMaskIntoConstraints = false
-        pickNationalNumberBtn.translatesAutoresizingMaskIntoConstraints = false
+        //        pickNationalNumberBtn.translatesAutoresizingMaskIntoConstraints = false
         inputPhoneNumberTxtField.translatesAutoresizingMaskIntoConstraints = false
         underLine.translatesAutoresizingMaskIntoConstraints = false
         topDescriptionLbl.translatesAutoresizingMaskIntoConstraints = false
@@ -175,12 +173,12 @@ class InputPhoneNumberViewController: UIViewController {
             phoneNumberTitle.leadingAnchor.constraint(equalTo: inputPhoneScrollView.leadingAnchor, constant: 20),
             phoneNumberTitle.widthAnchor.constraint(equalToConstant: labelWidth),
             
-            pickNationalNumberBtn.topAnchor.constraint(equalTo: phoneNumberTitle.bottomAnchor, constant: 15),
-            pickNationalNumberBtn.leadingAnchor.constraint(equalTo: inputPhoneScrollView.leadingAnchor, constant: 20),
-            pickNationalNumberBtn.widthAnchor.constraint(equalToConstant: nationalBtnWidth),
+            //            pickNationalNumberBtn.topAnchor.constraint(equalTo: phoneNumberTitle.bottomAnchor, constant: 15),
+            //            pickNationalNumberBtn.leadingAnchor.constraint(equalTo: inputPhoneScrollView.leadingAnchor, constant: 20),
+            //            pickNationalNumberBtn.widthAnchor.constraint(equalToConstant: nationalBtnWidth),
             
             inputPhoneNumberTxtField.topAnchor.constraint(equalTo: phoneNumberTitle.bottomAnchor, constant: 15),
-            inputPhoneNumberTxtField.leadingAnchor.constraint(equalTo: pickNationalNumberBtn.trailingAnchor, constant: 5),
+            inputPhoneNumberTxtField.leadingAnchor.constraint(equalTo: inputPhoneScrollView.leadingAnchor, constant: 20),
             //            inputPhoneNumberTxtField.trailingAnchor.constraint(equalTo: inputPhoneScrollView.trailingAnchor, constant: inputNumberWidth),
             inputPhoneNumberTxtField.widthAnchor.constraint(equalToConstant: inputNumberWidth),
             
@@ -226,22 +224,22 @@ class InputPhoneNumberViewController: UIViewController {
         // 스크롤뷰 백그라운드 컬러
         inputPhoneScrollView.backgroundColor = .clear
         
-        pickNationalNumberBtn.backgroundColor = .white
+        //        pickNationalNumberBtn.backgroundColor = .white
         
-        mainTitle.text = "전화번호를 입력하세요."
+        mainTitle.text = "이메일을 입력하세요."
         mainTitle.textColor = .white
         mainTitle.font = UIFont.systemFont(ofSize: 28, weight: UIFont.Weight(7))
         
-        phoneNumberTitle.text = "전화번호"
+        phoneNumberTitle.text = "이메일 주소"
         phoneNumberTitle.textColor = .white
         phoneNumberTitle.font = UIFont.boldSystemFont(ofSize: 15)
         
-        pickNationalNumberBtn.setTitle("+82", for: .normal)
-        pickNationalNumberBtn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
-        pickNationalNumberBtn.setTitleColor(UIColor.init(displayP3Red: 0.238, green: 0.448, blue: 0.576, alpha: 1.0), for: .normal)
-        pickNationalNumberBtn.titleLabel?.textAlignment = .center
-        pickNationalNumberBtn.addTarget(self, action: #selector(didTapPickNationalNumberBtn(_:)), for: .touchUpInside)
-        pickNationalNumberBtn.layer.cornerRadius = 5
+        //        pickNationalNumberBtn.setTitle("+82", for: .normal)
+        //        pickNationalNumberBtn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        //        pickNationalNumberBtn.setTitleColor(UIColor.init(displayP3Red: 0.238, green: 0.448, blue: 0.576, alpha: 1.0), for: .normal)
+        //        pickNationalNumberBtn.titleLabel?.textAlignment = .center
+        //        pickNationalNumberBtn.addTarget(self, action: #selector(didTapPickNationalNumberBtn(_:)), for: .touchUpInside)
+        //        pickNationalNumberBtn.layer.cornerRadius = 5
         
         inputPhoneNumberTxtField.font = UIFont.systemFont(ofSize: 28)
         inputPhoneNumberTxtField.textColor = .white
@@ -285,7 +283,12 @@ class InputPhoneNumberViewController: UIViewController {
 
 extension InputPhoneNumberViewController: KeyboardTopViewDelegate {
     func pushView() {
+        let makePwVC = MakePwPageViewContorller()
         navigationController?.pushViewController(makePwVC, animated: true)
+        
+        let userName = inputPhoneNumberTxtField.text ?? ""
+        
+        UserDefaults.standard.set(userName, forKey: "username")
     }
 }
 

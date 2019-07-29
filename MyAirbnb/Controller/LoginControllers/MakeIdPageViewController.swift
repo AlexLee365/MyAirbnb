@@ -338,8 +338,17 @@ class MakeIdPageViewController: UIViewController {
     
     // "다음" 버튼 액션
     @objc private func didTapNextBtn(_ sender: UIButton) {
+        
+        //        if (firstNameInputTitle.text?.isEmpty)!
+        
         let phoneNumberVC = InputPhoneNumberViewController()
         navigationController?.pushViewController(phoneNumberVC, animated: true)
+        
+        let firstName = firstNameInputTxtField.text ?? ""
+        let lastName = lastNameInputTxtField.text ?? ""
+        
+        UserDefaults.standard.set(firstName, forKey: "firstname")
+        UserDefaults.standard.set(lastName, forKey: "lastname")
     }
 }
 
@@ -398,5 +407,3 @@ extension MakeIdPageViewController: TopBarItemViewDelegate {
     
     
 }
-
-

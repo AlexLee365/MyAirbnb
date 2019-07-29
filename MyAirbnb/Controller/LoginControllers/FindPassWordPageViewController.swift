@@ -99,7 +99,7 @@ class FindPassWordPageViewController: UIViewController {
         
         findPassWordSubTitle.text = "비밀번호를 다시 설정하려면 이메일을 입력하세요."
         findPassWordSubTitle.textColor = .white
-        findPassWordSubTitle.font = UIFont.systemFont(ofSize: 18)
+        findPassWordSubTitle.font = UIFont.systemFont(ofSize: 17)
         
     }
     

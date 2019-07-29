@@ -11,14 +11,16 @@ import UIKit
 class MakePwPageViewContorller: UIViewController {
     
     let topBarItem = TopBarItemView()
-    let keyboardTopViewItem = KeyboardTopView()
+    let keyboardTopViewItem = KeyboardTopViewNextBtn()
     let makePwScrollView = UIScrollView()
     let makePwTitleLbl = UILabel()
     let makePwSubTitleLbl = UILabel()
     let inputPwTxtField = UITextField()
     let underLine = UILabel()
-    let keyboardNotiCenter = KeyboardNotiCenter()
     
+    var bottomLayout: NSLayoutConstraint!
+    var keyboardHeight: CGFloat = 0
+    var bottomInsets: CGFloat = 0
     
     
     
@@ -40,7 +42,7 @@ class MakePwPageViewContorller: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        keyboardNotiCenter.registForKeyboardNotification(self)
+        registForKeyboardNotification()
         
     }
     
@@ -49,18 +51,56 @@ class MakePwPageViewContorller: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        keyboardNotiCenter.unregistForKeyboardNotification(self)
+        unregistForKeyboardNotification()
     }
     
     override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        print("safeAreaInsets", view.safeAreaInsets.bottom)
+        // iphone의 맨 아래 부분 -> iphone X 버전부터 , 홈버튼이 없어진 이후 밑에 생김
+        bottomInsets = view.safeAreaInsets.bottom
+    }
+    
+    // 가려지는 nextBtn을 키보드 위에 붙이기 위해 사용한 노티센터
+    private func registForKeyboardNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    // 노티센터 옵저버 해제
+    private func unregistForKeyboardNotification() {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    // 키보드에 의해 가려지는 nextBtn 과 nextBtnBackground 키보드와 함께 올리기
+    @objc func keyboardWillShow(_ sender: Notification) {
+        let userInfo: NSDictionary = sender.userInfo! as NSDictionary
+        let keyboardFrame: NSValue = userInfo.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as! NSValue
+        let keyboardRect = keyboardFrame.cgRectValue
         
+        print("키보드 높이 : \(keyboardRect.height)")
+        keyboardHeight = keyboardRect.height - bottomInsets
+        print("safeAreaInsets을 뺀 키보드 높이 : \(keyboardHeight)")
+        bottomLayout.constant = -keyboardHeight
+    }
+    
+    // 키보드에 의해 가려지는 nextBtn 과 nextBtnBackground 키보드와 내리기
+    @objc func keyboardWillHide(_ sender: Notification) {
+        
+        let userInfo: NSDictionary = sender.userInfo! as NSDictionary
+        let hideKeyboardFrame: NSValue = userInfo.value(forKey: UIResponder.keyboardFrameBeginUserInfoKey) as! NSValue
+        let hideKeyboardRect = hideKeyboardFrame.cgRectValue
+        let hideKeyboardHeight = hideKeyboardRect.height
+        print("내려간 키보드 높이 : \(hideKeyboardHeight)")
+        bottomLayout.constant = 0
     }
     
     private func setupItems() {
         view.addSubview(topBarItem)
         view.addSubview(makePwScrollView)
+        view.addSubview(keyboardTopViewItem)
         
-        makePwScrollView.addSubview(keyboardTopViewItem)
         makePwScrollView.addSubview(makePwTitleLbl)
         makePwScrollView.addSubview(makePwSubTitleLbl)
         makePwScrollView.addSubview(inputPwTxtField)
@@ -75,8 +115,9 @@ class MakePwPageViewContorller: UIViewController {
         let underLineHeight = view.frame.height - (view.frame.height - 2)
         let underLineWidth = view.frame.width - (20 * 2)
         let scrollViewHeight = view.frame.height / 4
-        let keyboardTopViewHeight = view.frame.height - (view.frame.height - 80)
-        let keyboardTopViewWidth = view.frame.width
+        let keyboardTopViewItemHeight = view.frame.height - (view.frame.height - 80)
+        let keyboardTopViewItemWidth = view.frame.width
+        
         
         let guide = view.safeAreaLayoutGuide
         
@@ -121,11 +162,11 @@ class MakePwPageViewContorller: UIViewController {
             
             ])
         
-        keyboardNotiCenter.bottomLayout = keyboardTopViewItem.bottomAnchor.constraint(equalTo: guide.bottomAnchor)
-        keyboardNotiCenter.bottomLayout.isActive = true
+        bottomLayout = keyboardTopViewItem.bottomAnchor.constraint(equalTo: guide.bottomAnchor)
+        bottomLayout.isActive = true
         keyboardTopViewItem.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 0).isActive = true
-        keyboardTopViewItem.widthAnchor.constraint(equalToConstant: keyboardTopViewWidth).isActive = true
-        keyboardTopViewItem.heightAnchor.constraint(equalToConstant: keyboardTopViewHeight).isActive = true
+        keyboardTopViewItem.widthAnchor.constraint(equalToConstant: keyboardTopViewItemWidth).isActive = true
+        keyboardTopViewItem.heightAnchor.constraint(equalToConstant: keyboardTopViewItemHeight).isActive = true
     }
     
     private func setupConfigure() {
@@ -152,7 +193,7 @@ class MakePwPageViewContorller: UIViewController {
         makePwScrollView.contentSize.width = view.frame.width
         makePwScrollView.contentSize.height = view.frame.height / 3.8
         
-        makePwScrollView.backgroundColor = .orange
+        makePwScrollView.backgroundColor = .clear
         inputPwTxtField.backgroundColor = .clear
         
         inputPwTxtField.autocorrectionType = .no
@@ -174,12 +215,23 @@ extension MakePwPageViewContorller: TopBarItemViewDelegate {
     }
 }
 
-extension MakePwPageViewContorller: KeyboardTopViewDelegate {
+extension MakePwPageViewContorller: KeyboardTopViewNextBtnDelegate {
     func pushView() {
         
         let birthDayVC = ConfirmBirthDayViewController()
         
         navigationController?.pushViewController(birthDayVC, animated: true)
+        
+        let makePassword = inputPwTxtField.text ?? ""
+        UserDefaults.standard.set(makePassword, forKey: "password")
+        
+        
+        let username = UserDefaults.standard.string(forKey: "username")!
+        let password = UserDefaults.standard.string(forKey: "password")!
+        let firstName = UserDefaults.standard.string(forKey: "firstname")!
+        let lastName = UserDefaults.standard.string(forKey: "lastname")!
+        
+        loginPost(username: username, password: password, firstName: firstName, lastName: lastName)
     }
     
     

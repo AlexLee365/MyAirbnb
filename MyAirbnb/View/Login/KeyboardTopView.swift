@@ -18,7 +18,8 @@ class KeyboardTopView: UIView {
     weak var delegate: KeyboardTopViewDelegate?
     
     let nextBtn = UIButton(type: .custom)
-    let statusChangeBtn = UIButton(type: .custom)
+    //    let statusChangeBtn = UIButton(type: .custom)
+    let statusChangeButton = StatusChangeBtn()
     
     override init(frame: CGRect) {
         super .init(frame: frame)
@@ -34,15 +35,17 @@ class KeyboardTopView: UIView {
     
     private func setupButtons() {
         self.addSubview(nextBtn)
-        self.addSubview(statusChangeBtn)
+        //        self.addSubview(statusChangeBtn)
+        self.addSubview(statusChangeButton)
     }
     
     private func setupLayout() {
         nextBtn.translatesAutoresizingMaskIntoConstraints = false
-        statusChangeBtn.translatesAutoresizingMaskIntoConstraints = false
+        //        statusChangeBtn.translatesAutoresizingMaskIntoConstraints = false
+        statusChangeButton.translatesAutoresizingMaskIntoConstraints = false
         
         let btnHeight = self.frame.height - (self.frame.height - 80)
-        let btnWidth = self.frame.width - (self.frame.width - 80)
+        let btnWidth = self.frame.width - (self.frame.width - 100)
         let statusBtnWidth = self.frame.width - (self.frame.width - 120)
         
         NSLayoutConstraint.activate([
@@ -51,14 +54,22 @@ class KeyboardTopView: UIView {
             nextBtn.widthAnchor.constraint(equalToConstant: btnWidth),
             nextBtn.heightAnchor.constraint(equalToConstant: btnHeight),
             
-            statusChangeBtn.topAnchor.constraint(equalTo: self.topAnchor),
-            statusChangeBtn.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            statusChangeBtn.widthAnchor.constraint(equalToConstant: statusBtnWidth),
-            statusChangeBtn.heightAnchor.constraint(equalToConstant: btnHeight),
+            //            statusChangeBtn.topAnchor.constraint(equalTo: self.topAnchor),
+            //            statusChangeBtn.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            //            statusChangeBtn.widthAnchor.constraint(equalToConstant: statusBtnWidth),
+            //            statusChangeBtn.heightAnchor.constraint(equalToConstant: btnHeight),
+            
+            statusChangeButton.topAnchor.constraint(equalTo: self.topAnchor),
+            statusChangeButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            statusChangeButton.widthAnchor.constraint(equalToConstant: btnWidth),
+            statusChangeButton.heightAnchor.constraint(equalToConstant: btnHeight),
+            
+            
+            
             ])
         
         //        오토레이아웃 테스트용
-        //        statusChangeBtn.backgroundColor = .black
+        //        statusChangeButton.backgroundColor = .black
         //        nextBtn.backgroundColor = .black
     }
     
@@ -68,13 +79,14 @@ class KeyboardTopView: UIView {
         nextBtn.setTitleColor(.white, for: .selected)
         nextBtn.addTarget(self, action: #selector(didTapNextBtn(_:)), for: .touchUpInside)
         
-        statusChangeBtn.setTitle("이메일 주소 사용", for: .normal)
-        statusChangeBtn.setTitle("전화번호 사용", for: .selected)
-        statusChangeBtn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
-        statusChangeBtn.setTitleColor(.white, for: .normal)
-        statusChangeBtn.setTitleColor(.white, for: .selected)
-        statusChangeBtn.titleLabel?.textAlignment = .center
-        statusChangeBtn.addTarget(self, action: #selector(didTapStatusChangeBtn(_:)), for: .touchUpInside)
+        //        statusChangeBtn.setTitle("이메일 주소 사용", for: .normal)
+        //        statusChangeBtn.setTitle("전화번호 사용", for: .selected)
+        //        statusChangeBtn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
+        //        statusChangeBtn.setTitleColor(.white, for: .normal)
+        //        statusChangeBtn.setTitleColor(.white, for: .selected)
+        //        statusChangeBtn.titleLabel?.textAlignment = .center
+        //        statusChangeBtn.addTarget(self, action: #selector(didTapStatusChangeBtn(_:)), for: .touchUpInside)
+        statusChangeButton.addTarget(self, action: #selector(didTapStatusChangeBtn(_:)), for: .touchUpInside)
     }
     
     @objc private func didTapNextBtn(_ sender: UIButton) {
@@ -82,7 +94,7 @@ class KeyboardTopView: UIView {
     }
     
     @objc private func didTapStatusChangeBtn(_ sender: UIButton) {
-        print("토글 버튼 만들어서 사용해야 됨")
+        
     }
     
 }
