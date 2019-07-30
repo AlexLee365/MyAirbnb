@@ -1,14 +1,14 @@
 //
-//  InputPhoneNumberViewController.swift
+//  InputEmailViewController.swift
 //  MyAirbnb
 //
-//  Created by 김광준 on 11/07/2019.
+//  Created by 김광준 on 30/07/2019.
 //  Copyright © 2019 Alex Lee. All rights reserved.
 //
 
 import UIKit
 
-class InputPhoneNumberViewController: UIViewController {
+class InputEmailViewController: UIViewController {
     
     
     let inputPhoneScrollView = UIScrollView()
@@ -22,7 +22,7 @@ class InputPhoneNumberViewController: UIViewController {
     
     // 전화번호
     let phoneNumberTitle = UILabel()
-    let inputPhoneNumberTxtField = UITextField()
+    let inputEmailTxtField = UITextField()
     //    let pickNationalNumberBtn = UIButton(type: .custom)
     let underLine = UILabel()
     let topDescriptionLbl = UILabel()
@@ -32,6 +32,8 @@ class InputPhoneNumberViewController: UIViewController {
     var bottomLayout: NSLayoutConstraint!
     var keyboardHeight: CGFloat = 0
     var bottomInsets: CGFloat = 0
+    
+    let checkMark = UIImageView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,7 +61,7 @@ class InputPhoneNumberViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        self.inputPhoneNumberTxtField.becomeFirstResponder()
+        self.inputEmailTxtField.becomeFirstResponder()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -107,20 +109,21 @@ class InputPhoneNumberViewController: UIViewController {
         view.addSubview(inputPhoneScrollView)
         view.addSubview(keyboardTopViewItem)
         
-        //        inputPhoneScrollView.addSubview(keyboardTopViewItem)
+        
         inputPhoneScrollView.addSubview(mainTitle)
         inputPhoneScrollView.addSubview(phoneNumberTitle)
         //        inputPhoneScrollView.addSubview(pickNationalNumberBtn)
-        inputPhoneScrollView.addSubview(inputPhoneNumberTxtField)
+        inputPhoneScrollView.addSubview(inputEmailTxtField)
         inputPhoneScrollView.addSubview(underLine)
         inputPhoneScrollView.addSubview(topDescriptionLbl)
         inputPhoneScrollView.addSubview(rejectReceptionMsgLbl)
         inputPhoneScrollView.addSubview(receptionSwitch)
+        inputPhoneScrollView.addSubview(checkMark)
     }
     
     private func txtFieldSetup() {
-        inputPhoneNumberTxtField.keyboardType = .emailAddress
-        inputPhoneNumberTxtField.autocorrectionType = .no
+        inputEmailTxtField.keyboardType = .emailAddress
+        inputEmailTxtField.autocorrectionType = .no
     }
     
     private func layout() {
@@ -134,6 +137,8 @@ class InputPhoneNumberViewController: UIViewController {
         let receptionLblHeight = view.frame.height - (view.frame.height - 55)
         let keyboardTopViewItemHeight = view.frame.height - (view.frame.height - 80)
         let keyboardTopViewItemWidth = view.frame.width
+        let checkMarkWidth = view.frame.width - (view.frame.width - 28)
+        let checkMarkHeight = view.frame.height - (view.frame.height - 20)
         
         
         inputPhoneScrollView.contentSize.width = view.frame.width
@@ -144,12 +149,13 @@ class InputPhoneNumberViewController: UIViewController {
         mainTitle.translatesAutoresizingMaskIntoConstraints = false
         phoneNumberTitle.translatesAutoresizingMaskIntoConstraints = false
         //        pickNationalNumberBtn.translatesAutoresizingMaskIntoConstraints = false
-        inputPhoneNumberTxtField.translatesAutoresizingMaskIntoConstraints = false
+        inputEmailTxtField.translatesAutoresizingMaskIntoConstraints = false
         underLine.translatesAutoresizingMaskIntoConstraints = false
         topDescriptionLbl.translatesAutoresizingMaskIntoConstraints = false
         rejectReceptionMsgLbl.translatesAutoresizingMaskIntoConstraints = false
         receptionSwitch.translatesAutoresizingMaskIntoConstraints = false
         keyboardTopViewItem.translatesAutoresizingMaskIntoConstraints = false
+        checkMark.translatesAutoresizingMaskIntoConstraints = false
         
         
         let guide = view.safeAreaLayoutGuide
@@ -177,12 +183,12 @@ class InputPhoneNumberViewController: UIViewController {
             //            pickNationalNumberBtn.leadingAnchor.constraint(equalTo: inputPhoneScrollView.leadingAnchor, constant: 20),
             //            pickNationalNumberBtn.widthAnchor.constraint(equalToConstant: nationalBtnWidth),
             
-            inputPhoneNumberTxtField.topAnchor.constraint(equalTo: phoneNumberTitle.bottomAnchor, constant: 15),
-            inputPhoneNumberTxtField.leadingAnchor.constraint(equalTo: inputPhoneScrollView.leadingAnchor, constant: 20),
+            inputEmailTxtField.topAnchor.constraint(equalTo: phoneNumberTitle.bottomAnchor, constant: 15),
+            inputEmailTxtField.leadingAnchor.constraint(equalTo: inputPhoneScrollView.leadingAnchor, constant: 20),
             //            inputPhoneNumberTxtField.trailingAnchor.constraint(equalTo: inputPhoneScrollView.trailingAnchor, constant: inputNumberWidth),
-            inputPhoneNumberTxtField.widthAnchor.constraint(equalToConstant: inputNumberWidth),
+            inputEmailTxtField.widthAnchor.constraint(equalToConstant: inputNumberWidth),
             
-            underLine.topAnchor.constraint(equalTo: inputPhoneNumberTxtField.bottomAnchor, constant: 10),
+            underLine.topAnchor.constraint(equalTo: inputEmailTxtField.bottomAnchor, constant: 10),
             underLine.leadingAnchor.constraint(equalTo: inputPhoneScrollView.leadingAnchor, constant: 20),
             underLine.widthAnchor.constraint(equalToConstant: labelWidth),
             underLine.heightAnchor.constraint(equalToConstant: underLineHeight),
@@ -201,6 +207,12 @@ class InputPhoneNumberViewController: UIViewController {
             receptionSwitch.leadingAnchor.constraint(equalTo: rejectReceptionMsgLbl.trailingAnchor, constant: 20),
             //            receptionSwitch.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -20),
             //            receptionSwitch.heightAnchor.constraint(equalToConstant: switchHeight),
+            
+            checkMark.topAnchor.constraint(equalTo: phoneNumberTitle.bottomAnchor, constant: 15),
+            checkMark.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -20),
+            checkMark.widthAnchor.constraint(equalToConstant: checkMarkWidth),
+            checkMark.heightAnchor.constraint(equalToConstant: checkMarkHeight),
+            
             ])
         
         bottomLayout = keyboardTopViewItem.bottomAnchor.constraint(equalTo: guide.bottomAnchor)
@@ -241,10 +253,11 @@ class InputPhoneNumberViewController: UIViewController {
         //        pickNationalNumberBtn.addTarget(self, action: #selector(didTapPickNationalNumberBtn(_:)), for: .touchUpInside)
         //        pickNationalNumberBtn.layer.cornerRadius = 5
         
-        inputPhoneNumberTxtField.font = UIFont.systemFont(ofSize: 28)
-        inputPhoneNumberTxtField.textColor = .white
-        inputPhoneNumberTxtField.textAlignment = .left
-        inputPhoneNumberTxtField.backgroundColor = .clear
+        inputEmailTxtField.font = UIFont.systemFont(ofSize: 28)
+        inputEmailTxtField.textColor = .white
+        inputEmailTxtField.textAlignment = .left
+        inputEmailTxtField.backgroundColor = .clear
+        inputEmailTxtField.addTarget(self, action: #selector(whenEditingEmailTxtField(_:)), for: .allEditingEvents)
         
         underLine.backgroundColor = .white
         
@@ -271,6 +284,20 @@ class InputPhoneNumberViewController: UIViewController {
         receptionSwitch.layer.borderColor = UIColor.white.cgColor
         receptionSwitch.layer.borderWidth = 2
         receptionSwitch.layer.cornerRadius = receptionSwitch.frame.height / 2
+        
+        checkMark.image = UIImage.init(named: "checkMark")
+        checkMark.isHidden = true
+        checkMark.backgroundColor = .clear
+    }
+    
+    @objc private func whenEditingEmailTxtField(_ sender: UITextField) {
+        if (sender.text?.isEmpty)! == true {
+            checkMark.isHidden = true
+            keyboardTopViewItem.nextBtn.isSelected = false
+        } else if (sender.text?.isEmpty)! == false {
+            checkMark.isHidden = false
+            keyboardTopViewItem.nextBtn.isSelected = true
+        }
     }
     
     @objc private func didTapPickNationalNumberBtn(_ sender: UIButton) {
@@ -279,25 +306,33 @@ class InputPhoneNumberViewController: UIViewController {
         present(pickNationalPhoneNumberVC, animated: true, completion: nil)
     }
     
+    
+    
 }
 
-extension InputPhoneNumberViewController: KeyboardTopViewDelegate {
+extension InputEmailViewController: KeyboardTopViewDelegate {
     func pushView() {
+        
+        if (inputEmailTxtField.text?.isEmpty)! {
+            print("must filled email address")
+            return
+        }
+        
         let makePwVC = MakePwPageViewContorller()
         navigationController?.pushViewController(makePwVC, animated: true)
         
-        let userName = inputPhoneNumberTxtField.text ?? ""
+        let email = inputEmailTxtField.text ?? ""
         
-        UserDefaults.standard.set(userName, forKey: "username")
+        UserDefaults.standard.set(email, forKey: "email")
     }
 }
 
-extension InputPhoneNumberViewController: TopBarItemViewDelegate {
+extension InputEmailViewController: TopBarItemViewDelegate {
     func popView() {
         navigationController?.popViewController(animated: true)
     }
 }
 
-extension InputPhoneNumberViewController: UITextFieldDelegate {
+extension InputEmailViewController: UITextFieldDelegate {
     
 }

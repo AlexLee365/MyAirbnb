@@ -18,6 +18,7 @@
 		208BC8F422E08C9300EBDDBA /* TopBarItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208BC8F322E08C9300EBDDBA /* TopBarItemView.swift */; };
 		208BC8F622E08CBC00EBDDBA /* KeyboardTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208BC8F522E08CBC00EBDDBA /* KeyboardTopView.swift */; };
 		208BC8F822E08DA200EBDDBA /* PickNationalNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208BC8F722E08DA200EBDDBA /* PickNationalNumberViewController.swift */; };
+		20C2D0BC22F06DF5001D813F /* InputEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C2D0BB22F06DF5001D813F /* InputEmailViewController.swift */; };
 		20CD1F1D22E3028A009641F4 /* InputEmailAndPhoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CD1F1C22E3028A009641F4 /* InputEmailAndPhoneView.swift */; };
 		20CD1F1F22E302F5009641F4 /* AlarmConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CD1F1E22E302F5009641F4 /* AlarmConfirmViewController.swift */; };
 		20CD1F2122E303B1009641F4 /* MakePwPageViewContorller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CD1F2022E303B1009641F4 /* MakePwPageViewContorller.swift */; };
@@ -65,7 +66,6 @@
 		4353BA3322DDB7CF004BD807 /* FilterPeopleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA3222DDB7CF004BD807 /* FilterPeopleViewController.swift */; };
 		4353BA3522DDB7DA004BD807 /* FilterRemainsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA3422DDB7DA004BD807 /* FilterRemainsViewController.swift */; };
 		4353BA5822DECE9F004BD807 /* FindPassWordPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA5122DECE9F004BD807 /* FindPassWordPageViewController.swift */; };
-		4353BA5A22DECE9F004BD807 /* InputPhoneNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA5322DECE9F004BD807 /* InputPhoneNumberViewController.swift */; };
 		4353BA5B22DECE9F004BD807 /* OptionLoginPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA5422DECE9F004BD807 /* OptionLoginPageViewController.swift */; };
 		4353BA5C22DECE9F004BD807 /* MakeIdPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA5522DECE9F004BD807 /* MakeIdPageViewController.swift */; };
 		4353BA5D22DECE9F004BD807 /* SignUpMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA5622DECE9F004BD807 /* SignUpMainViewController.swift */; };
@@ -184,6 +184,7 @@
 		208BC8F322E08C9300EBDDBA /* TopBarItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarItemView.swift; sourceTree = "<group>"; };
 		208BC8F522E08CBC00EBDDBA /* KeyboardTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardTopView.swift; sourceTree = "<group>"; };
 		208BC8F722E08DA200EBDDBA /* PickNationalNumberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickNationalNumberViewController.swift; sourceTree = "<group>"; };
+		20C2D0BB22F06DF5001D813F /* InputEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputEmailViewController.swift; sourceTree = "<group>"; };
 		20CD1F1C22E3028A009641F4 /* InputEmailAndPhoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputEmailAndPhoneView.swift; sourceTree = "<group>"; };
 		20CD1F1E22E302F5009641F4 /* AlarmConfirmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmConfirmViewController.swift; sourceTree = "<group>"; };
 		20CD1F2022E303B1009641F4 /* MakePwPageViewContorller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakePwPageViewContorller.swift; sourceTree = "<group>"; };
@@ -251,7 +252,6 @@
 		4353BA3222DDB7CF004BD807 /* FilterPeopleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPeopleViewController.swift; sourceTree = "<group>"; };
 		4353BA3422DDB7DA004BD807 /* FilterRemainsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterRemainsViewController.swift; sourceTree = "<group>"; };
 		4353BA5122DECE9F004BD807 /* FindPassWordPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindPassWordPageViewController.swift; sourceTree = "<group>"; };
-		4353BA5322DECE9F004BD807 /* InputPhoneNumberViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputPhoneNumberViewController.swift; sourceTree = "<group>"; };
 		4353BA5422DECE9F004BD807 /* OptionLoginPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionLoginPageViewController.swift; sourceTree = "<group>"; };
 		4353BA5522DECE9F004BD807 /* MakeIdPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeIdPageViewController.swift; sourceTree = "<group>"; };
 		4353BA5622DECE9F004BD807 /* SignUpMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpMainViewController.swift; sourceTree = "<group>"; };
@@ -375,7 +375,7 @@
 			children = (
 				4353BA5622DECE9F004BD807 /* SignUpMainViewController.swift */,
 				4353BA5522DECE9F004BD807 /* MakeIdPageViewController.swift */,
-				4353BA5322DECE9F004BD807 /* InputPhoneNumberViewController.swift */,
+				20C2D0BB22F06DF5001D813F /* InputEmailViewController.swift */,
 				4353B90F22D6DCCB004BD807 /* LoginTestViewController.swift */,
 				20CD1F2022E303B1009641F4 /* MakePwPageViewContorller.swift */,
 				20CD1F2222E303F4009641F4 /* ConfirmBirthDayViewController.swift */,
@@ -930,7 +930,6 @@
 				8D0D78AE22D485B000F61F0B /* SeoulRecommendDetailData.swift in Sources */,
 				8D0D78A122D4598200F61F0B /* TripIntroData.swift in Sources */,
 				8D518FEC22DF280B009D6792 /* InstantBookTableCell.swift in Sources */,
-				4353BA5A22DECE9F004BD807 /* InputPhoneNumberViewController.swift in Sources */,
 				20081F8022EEBCB200BAB0FD /* StatusChangeBtn.swift in Sources */,
 				8D0D793522DC5F0700F61F0B /* TripLocalHostingViewController.swift in Sources */,
 				8D0D788E22D222A400F61F0B /* TripInfoCollectionViewCell.swift in Sources */,
@@ -979,6 +978,7 @@
 				8D51903B22E9AC21009D6792 /* BrowsePhotosTableCell.swift in Sources */,
 				4353BA9922E1A2B4004BD807 /* HouseDetailStayingDaysTableCell.swift in Sources */,
 				4353BA2922DC40B5004BD807 /* FSCalendarCalculator.m in Sources */,
+				20C2D0BC22F06DF5001D813F /* InputEmailViewController.swift in Sources */,
 				8D51907A22EED888009D6792 /* ProgramDescriptionTableCell.swift in Sources */,
 				8D518FF822E1A57E009D6792 /* HouseTypeTableCell.swift in Sources */,
 				4353B8F022D22782004BD807 /* SearchBarView.swift in Sources */,
