@@ -67,7 +67,7 @@ class TripAllViewController: UIViewController {
         }
         
         collectionView.snp.makeConstraints { (make) in
-            make.top.equalTo(searchBarView.snp.bottom)
+            make.top.equalTo(searchBarView.snp.bottom).offset(10)
             make.leading.trailing.equalTo(guide)
             make.bottom.equalToSuperview()
         }

@@ -43,13 +43,22 @@ class ItemsProvidedTableCell: UITableViewCell {
         
         switch item {
         case "음료":
-            imageString = "drinks"
+            imageString = "trip_drinksIcon"
         case "티켓":
-            imageString = "ticket"
+            imageString = "trip_ticketIcon"
         case "장비":
-            imageString = "tools"
+            imageString = "trip_toolsIcon"
+        case "생수":
+            imageString = "trip_drinksIcon"
+        case "음식":
+            imageString = "trip_snacksIcon"
+        case "간식":
+            imageString = "trip_snacksIcon"
+        case "교통편":
+            imageString = "trip_transportIcon"
         default: break
         }
+        
         return UIImage(named: imageString) ?? UIImage()
     }
     
@@ -108,7 +117,6 @@ class ItemsProvidedTableCell: UITableViewCell {
                 
                 labelConfigArray[i].1.snp.makeConstraints { (make) in
                     make.top.equalTo(titleLabel.snp.bottom).offset(25)
-                    make.width.height.equalTo(8)
                 }
                 
             case labelConfigArray.count - 1:

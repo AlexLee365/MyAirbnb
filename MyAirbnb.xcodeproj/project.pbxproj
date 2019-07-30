@@ -131,6 +131,10 @@
 		8D4FDA0C22EF4F5A00E31CF5 /* InfoCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDA0B22EF4F5A00E31CF5 /* InfoCategoryView.swift */; };
 		8D4FDA0E22EF661B00E31CF5 /* VideoHostInfoTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDA0D22EF661B00E31CF5 /* VideoHostInfoTableCell.swift */; };
 		8D4FDA1022EF6F2000E31CF5 /* VisitingPlaceTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDA0F22EF6F2000E31CF5 /* VisitingPlaceTableCell.swift */; };
+		8D4FDA1222F0041D00E31CF5 /* OtherCityTripTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDA1122F0041D00E31CF5 /* OtherCityTripTableCell.swift */; };
+		8D4FDA3622F00A3E00E31CF5 /* OtherCityTripCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDA3522F00A3E00E31CF5 /* OtherCityTripCollectionCell.swift */; };
+		8D4FDA3822F0249700E31CF5 /* WorldAdventureTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDA3722F0249700E31CF5 /* WorldAdventureTableCell.swift */; };
+		8D4FDA3A22F0277800E31CF5 /* WorldAdventureCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDA3922F0277800E31CF5 /* WorldAdventureCollectionCell.swift */; };
 		8D518FEC22DF280B009D6792 /* InstantBookTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D518FEB22DF280B009D6792 /* InstantBookTableCell.swift */; };
 		8D518FEE22E06F29009D6792 /* QualifiedHouseTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D518FED22E06F29009D6792 /* QualifiedHouseTableCell.swift */; };
 		8D518FF022E07769009D6792 /* PriceRangeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D518FEF22E07769009D6792 /* PriceRangeTableCell.swift */; };
@@ -314,6 +318,10 @@
 		8D4FDA0B22EF4F5A00E31CF5 /* InfoCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCategoryView.swift; sourceTree = "<group>"; };
 		8D4FDA0D22EF661B00E31CF5 /* VideoHostInfoTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoHostInfoTableCell.swift; sourceTree = "<group>"; };
 		8D4FDA0F22EF6F2000E31CF5 /* VisitingPlaceTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitingPlaceTableCell.swift; sourceTree = "<group>"; };
+		8D4FDA1122F0041D00E31CF5 /* OtherCityTripTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherCityTripTableCell.swift; sourceTree = "<group>"; };
+		8D4FDA3522F00A3E00E31CF5 /* OtherCityTripCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherCityTripCollectionCell.swift; sourceTree = "<group>"; };
+		8D4FDA3722F0249700E31CF5 /* WorldAdventureTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldAdventureTableCell.swift; sourceTree = "<group>"; };
+		8D4FDA3922F0277800E31CF5 /* WorldAdventureCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldAdventureCollectionCell.swift; sourceTree = "<group>"; };
 		8D518FEB22DF280B009D6792 /* InstantBookTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstantBookTableCell.swift; sourceTree = "<group>"; };
 		8D518FED22E06F29009D6792 /* QualifiedHouseTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QualifiedHouseTableCell.swift; sourceTree = "<group>"; };
 		8D518FEF22E07769009D6792 /* PriceRangeTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceRangeTableCell.swift; sourceTree = "<group>"; };
@@ -605,8 +613,12 @@
 				8D0D787122D0810300F61F0B /* SpecialTripTableViewCell.swift */,
 				8D0D788922D20B9100F61F0B /* SpecialTripCollectionViewCell.swift */,
 				8D0D788B22D2220700F61F0B /* SeoulRecommenedTripTableViewCell.swift */,
+				8D4FDA3722F0249700E31CF5 /* WorldAdventureTableCell.swift */,
+				8D4FDA3922F0277800E31CF5 /* WorldAdventureCollectionCell.swift */,
 				8D0D789122D333BF00F61F0B /* TodaySeoulExperienceTableViewCell.swift */,
 				8D0D788D22D222A400F61F0B /* TripInfoCollectionViewCell.swift */,
+				8D4FDA1122F0041D00E31CF5 /* OtherCityTripTableCell.swift */,
+				8D4FDA3522F00A3E00E31CF5 /* OtherCityTripCollectionCell.swift */,
 				8D0D78A822D474FE00F61F0B /* SeoulRecommendTrip */,
 				8D0D793A22DCA53C00F61F0B /* LocalHosting */,
 			);
@@ -885,6 +897,7 @@
 				8D0D78A322D459AC00F61F0B /* SpecialTripData.swift in Sources */,
 				4353BA5822DECE9F004BD807 /* FindPassWordPageViewController.swift in Sources */,
 				8D0D793122DB841900F61F0B /* AllHousesTableCell.swift in Sources */,
+				8D4FDA1222F0041D00E31CF5 /* OtherCityTripTableCell.swift in Sources */,
 				8D51903F22E9BAE3009D6792 /* FooterView.swift in Sources */,
 				8D0D789222D333BF00F61F0B /* TodaySeoulExperienceTableViewCell.swift in Sources */,
 				8D0D78DC22D74D2F00F61F0B /* PlaceData.swift in Sources */,
@@ -943,12 +956,14 @@
 				4353B8F422D31D68004BD807 /* MainCategoryTableCell.swift in Sources */,
 				43E36CDE22E5AC77006C8AEF /* HouseDetailCheckInTableCell.swift in Sources */,
 				4313F09222E83FA2003BB3D1 /* LaunchScreenViewController.swift in Sources */,
+				8D4FDA3622F00A3E00E31CF5 /* OtherCityTripCollectionCell.swift in Sources */,
 				4353BA2522DC40B5004BD807 /* FSCalendarWeekdayView.m in Sources */,
 				4353BA5C22DECE9F004BD807 /* MakeIdPageViewController.swift in Sources */,
 				20CD1F2322E303F4009641F4 /* ConfirmBirthDayViewController.swift in Sources */,
 				8D518FF422E0A222009D6792 /* RangeSliderTrackLayer.swift in Sources */,
 				4353BA6B22DF20B8004BD807 /* HouseDetailBasicInfoTableCell.swift in Sources */,
 				208BC8F822E08DA200EBDDBA /* PickNationalNumberViewController.swift in Sources */,
+				8D4FDA3A22F0277800E31CF5 /* WorldAdventureCollectionCell.swift in Sources */,
 				8D51908022EF0EAE009D6792 /* ImagesCollectionTableCell.swift in Sources */,
 				8D0D78AC22D47AA700F61F0B /* InfoView.swift in Sources */,
 				4313F09422E8478E003BB3D1 /* MainViewData.swift in Sources */,
@@ -967,6 +982,7 @@
 				8D51907A22EED888009D6792 /* ProgramDescriptionTableCell.swift in Sources */,
 				8D518FF822E1A57E009D6792 /* HouseTypeTableCell.swift in Sources */,
 				4353B8F022D22782004BD807 /* SearchBarView.swift in Sources */,
+				8D4FDA3822F0249700E31CF5 /* WorldAdventureTableCell.swift in Sources */,
 				4353B91022D6DCCB004BD807 /* LoginTestViewController.swift in Sources */,
 				8D51903922E987FD009D6792 /* PlusIntroCollectionCell.swift in Sources */,
 				43E36CDC22E59B03006C8AEF /* HouseDetailLocationTableCell.swift in Sources */,

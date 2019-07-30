@@ -15,14 +15,14 @@ class TodaySeoulExperienceTableViewCell: UITableViewCell {
         static let itemsInLine: CGFloat = 2
         static let linesOnScreen: CGFloat = 2
         static let lineSpacing: CGFloat = 13.0
-        static let itemSpacing: CGFloat = 30.0
+        static let itemSpacing: CGFloat = 25.0
         static let edgeInsets = UIEdgeInsets(top: 5, left: 20, bottom: 5, right: 20)
     }
     
     let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "오늘 서울에서 경험할 수 있는 트립"
-        label.font = UIFont.systemFont(ofSize: 23, weight: .bold)
+        label.font = UIFont(name: "AirbnbCerealApp-Bold", size: 23)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
         return label
@@ -62,6 +62,8 @@ class TodaySeoulExperienceTableViewCell: UITableViewCell {
     
     
     private func configure() {
+        self.selectionStyle = .none
+        
         contentView.addSubview(titleLabel)
         
         button.clipsToBounds = true
@@ -129,7 +131,7 @@ extension TodaySeoulExperienceTableViewCell: UICollectionViewDataSource {
 
 extension TodaySeoulExperienceTableViewCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
+   
         let lineSpacing = UI.lineSpacing * (UI.linesOnScreen - 1)
         let horizontalInset = UI.edgeInsets.left + UI.edgeInsets.right
         let itemSpacing = UI.itemSpacing * (UI.itemsInLine - 1)

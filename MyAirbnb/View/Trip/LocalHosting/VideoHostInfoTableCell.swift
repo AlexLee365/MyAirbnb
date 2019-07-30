@@ -25,7 +25,7 @@ class VideoHostInfoTableCell: UITableViewCell {
         image.image = UIImage(named: "videoHost")
         image.contentMode = .scaleAspectFill
         image.clipsToBounds = true
-        image.layer.cornerRadius = 30
+        image.layer.cornerRadius = 50
         return image
     }()
     
@@ -96,7 +96,7 @@ class VideoHostInfoTableCell: UITableViewCell {
         hostImage.snp.makeConstraints { (make) in
             make.top.equalTo(titleLabel.snp.bottom).offset(15)
             make.leading.equalTo(20)
-            make.width.height.equalTo(60)
+            make.width.height.equalTo(100)
         }
         
         hostNameLabel.snp.makeConstraints { (make) in

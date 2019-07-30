@@ -33,7 +33,7 @@ class SeoulRecommenedTripTableViewCell: UITableViewCell {
     let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "서울의 추천 트립"
-        label.font = UIFont.systemFont(ofSize: 23, weight: .bold)
+        label.font = UIFont(name: "AirbnbCerealApp-Bold", size: 23)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
         return label
@@ -60,7 +60,6 @@ class SeoulRecommenedTripTableViewCell: UITableViewCell {
     }()
     
     
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -74,6 +73,8 @@ class SeoulRecommenedTripTableViewCell: UITableViewCell {
     
     
     private func configure() {
+        self.selectionStyle = .none
+        
         contentView.addSubview(titleLabel)
         
         seeAllbtn.clipsToBounds = true
@@ -100,7 +101,7 @@ class SeoulRecommenedTripTableViewCell: UITableViewCell {
     
     
     private func setAutolayout() {
-        titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 30).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
         
         seeAllbtn.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true

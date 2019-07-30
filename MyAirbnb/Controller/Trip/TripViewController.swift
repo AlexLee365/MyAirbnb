@@ -10,7 +10,21 @@ import UIKit
 
 class TripViewController: UIViewController {
 
-    let tableView = UITableView()
+    let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.backgroundColor = .white
+        tableView.contentInsetAdjustmentBehavior = .never
+        tableView.separatorStyle = .none
+        
+        tableView.register(TripIntroTableViewCell.self, forCellReuseIdentifier: TripIntroTableViewCell.identifier)
+        tableView.register(SpecialTripTableViewCell.self, forCellReuseIdentifier: SpecialTripTableViewCell.identifier)
+        tableView.register(SeoulRecommenedTripTableViewCell.self, forCellReuseIdentifier: SeoulRecommenedTripTableViewCell.identifier)
+        tableView.register(WorldAdventureTableCell.self, forCellReuseIdentifier: WorldAdventureTableCell.identifier)
+        tableView.register(TodaySeoulExperienceTableViewCell.self, forCellReuseIdentifier: TodaySeoulExperienceTableViewCell.identifier)
+        tableView.register(OtherCityTripTableCell.self, forCellReuseIdentifier: OtherCityTripTableCell.identifier)
+        
+        return tableView
+    }()
     
     let searchBarBackgroundView: UIView = {
         let view = UIView()
@@ -64,13 +78,7 @@ class TripViewController: UIViewController {
     private func configure() {
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.backgroundColor = .white
-        tableView.contentInsetAdjustmentBehavior = .never
-        tableView.separatorStyle = .none
-        tableView.register(TripIntroTableViewCell.self, forCellReuseIdentifier: TripIntroTableViewCell.identifier)
-        tableView.register(SpecialTripTableViewCell.self, forCellReuseIdentifier: SpecialTripTableViewCell.identifier)
-        tableView.register(SeoulRecommenedTripTableViewCell.self, forCellReuseIdentifier: SeoulRecommenedTripTableViewCell.identifier)
-        tableView.register(TodaySeoulExperienceTableViewCell.self, forCellReuseIdentifier: TodaySeoulExperienceTableViewCell.identifier)
+        
         view.addSubview(tableView)
         
         view.addSubview(searchBarView)
@@ -109,60 +117,53 @@ class TripViewController: UIViewController {
 
 extension TripViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 6
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if indexPath.row == 0 {
-            tableView.rowHeight = 545
-
+        switch indexPath.row {
+        case 0:
             let introCell = tableView.dequeueReusableCell(withIdentifier: TripIntroTableViewCell.identifier, for: indexPath) as! TripIntroTableViewCell
             
             introCell.delegate = self
-            introCell.backgroundColor = .black
-            introCell.selectionStyle = .none
             
             return introCell
             
-        } else if indexPath.row == 1 {
-            tableView.rowHeight = 530
-            
+        case 1:
             let specialTripCell = tableView.dequeueReusableCell(withIdentifier: SpecialTripTableViewCell.identifier, for: indexPath) as! SpecialTripTableViewCell
-            
-            specialTripCell.selectionStyle = .none
-            
             return specialTripCell
             
-        } else if indexPath.row == 2 {
-            tableView.rowHeight = 545
-            
+        case 2:
             let seoulRecommendedTripCell = tableView.dequeueReusableCell(withIdentifier: SeoulRecommenedTripTableViewCell.identifier, for: indexPath) as! SeoulRecommenedTripTableViewCell
             
-            seoulRecommendedTripCell.selectionStyle = .none
             seoulRecommendedTripCell.delegate = self
             
             return seoulRecommendedTripCell
             
-        } else if indexPath.row == 3 {
-            tableView.rowHeight = 900
+        case 3:
+            let worldAdventureCell = tableView.dequeueReusableCell(withIdentifier: WorldAdventureTableCell.identifier, for: indexPath) as! WorldAdventureTableCell
+            return worldAdventureCell
             
+        case 4:
             let todaySeoulExperienceCell = tableView.dequeueReusableCell(withIdentifier: TodaySeoulExperienceTableViewCell.identifier, for: indexPath) as! TodaySeoulExperienceTableViewCell
-            
-            todaySeoulExperienceCell.selectionStyle = .none
-            
             return todaySeoulExperienceCell
             
+        case 5:
+            let otherCityTripCell = tableView.dequeueReusableCell(withIdentifier: OtherCityTripTableCell.identifier, for: indexPath) as! OtherCityTripTableCell
+            return otherCityTripCell
+            
+        default:
+            return UITableViewCell()
         }
-        return UITableViewCell()
     }
 }
+
 
 // MARK: - UITableViewDelegate
 
 extension TripViewController: UITableViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
         
         // scrollView offset이 (cell.height - backgroundview.height) 일때 opacity가 1이되야함
         // scrollView offset이 대략 200전부터 opacity가 변하기 시작하도록 함
@@ -179,6 +180,25 @@ extension TripViewController: UITableViewDelegate {
             isStatusBarWhite = true
         }
         setNeedsStatusBarAppearanceUpdate()
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.row {
+        case 0:
+            return 545
+        case 1:
+            return 530
+        case 2:
+            return 555
+        case 3:
+            return 810
+        case 4:
+           return 900
+        case 5:
+            return 300
+        default:
+            return 0
+        }
     }
 }
 
