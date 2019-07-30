@@ -25,39 +25,6 @@ struct Category: MainViewDataProtocol {
     let subTitle: String
 }
 
-
-//struct HouseDataInList: MainViewDataProtocol {
-//    let id: Int
-//    let houseImage: UIImage?
-//    let houseGarde: String = "default"
-//    let houseType: String
-//    let houseLocation: String
-//    let houseName: String
-//    var houseTotalRate: Double
-//    var houseRateCount: Int = 0
-//    let hostGrade: String?
-//
-//    func drawStarsWithHouseRate() -> String {
-//        var starCount = 0
-//
-//        switch houseTotalRate {
-//        case 0..<1.1:
-//            starCount = 1
-//        case 1.1..<2.1:
-//            starCount = 2
-//        case 2.1..<3.1:
-//            starCount = 3
-//        case 3.1..<4.1:
-//            starCount = 4
-//        case 4.1...5:
-//            starCount = 5
-//        default:
-//            starCount = 5
-//        }
-//        return String(repeating: "★", count: starCount)
-//    }
-//}
-
 struct HouseDataInList: Codable, MainViewDataProtocol {
     let id: Int
     let host, title: String
