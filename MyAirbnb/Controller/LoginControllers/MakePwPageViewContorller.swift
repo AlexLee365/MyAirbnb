@@ -231,7 +231,7 @@ extension MakePwPageViewContorller: KeyboardTopViewNextBtnDelegate {
         let firstName = UserDefaults.standard.string(forKey: "firstname")!
         let lastName = UserDefaults.standard.string(forKey: "lastname")!
         
-//        loginPost(username: username, password: password, firstName: firstName, lastName: lastName)
+        loginPost(username: username, password: password, firstName: firstName, lastName: lastName)
     }
     
     

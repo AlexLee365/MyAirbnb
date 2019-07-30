@@ -139,10 +139,22 @@ class AlarmConfirmViewController: UIViewController {
     
     // 버튼 액션
     @objc private func didTapConfirmBtn(_ sender: UIButton) {
+        
+        // 메인 페이지랑 연결
+        let mainVC = MainViewController()
+        navigationController?.pushViewController(mainVC, animated: true)
+        
+        
         print("tapped ConfirmBtn")
     }
     
     @objc private func didTapSkipBtn(_ sender: UIButton) {
+        
+        // 메인 페이지랑 연결
+        let mainVC = MainViewController()
+        navigationController?.pushViewController(mainVC, animated: true)
+        
+        
         print("tapped SkipBtn")
     }
     
