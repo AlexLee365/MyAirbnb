@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class AllHousesTableCell: UITableViewCell {
     static let identifier = "AllHousesTableCell"
@@ -66,10 +67,12 @@ class AllHousesTableCell: UITableViewCell {
         return label
     }()
     
+    var imageViewArray = [UIImageView]()
+    var imageStringArray = [String]()
+    var currentIndex = 0
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
         configure()
         setAutolayout()
     }
@@ -79,6 +82,8 @@ class AllHousesTableCell: UITableViewCell {
     }
     
     private func configure() {
+        self.selectionStyle = .none
+        
         scrollView.delegate = self
         contentView.addSubview(scrollView)
         
@@ -140,11 +145,22 @@ class AllHousesTableCell: UITableViewCell {
             let tempFrame = CGRect(origin: tempPoint, size: tempSize)
             
             let uiView = AllHousesScrollImageView(frame: tempFrame)
-            uiView.imageView.image = UIImage(named: images[i])
+            uiView.imageView.image = UIImage()
+            uiView.imageView.backgroundColor = #colorLiteral(red: 0.8933986425, green: 0.8880880475, blue: 0.8974809647, alpha: 0.2499464897)
             
             scrollView.addSubview(uiView)
+            imageViewArray.append(uiView.imageView)
         }
         scrollView.contentSize = CGSize(width: ((frame.size.width - 40) * CGFloat(images.count)), height: tempHeight-5)
+    }
+    
+    func setData(houseData: HouseDataInList) {
+        imageViewArray.first?.image = houseData.imageArray.first ?? UIImage(named: "")
+        houseTypeLabel.text = "\(houseData.roomType) ・ \(houseData.state)"
+        houseNameLabel.text = houseData.title
+        ratingImageLabel.text = houseData.drawStarsWithHouseRate()
+        ratingAndHostInfoLabel.text = "\(houseData.reservations) ・ \(houseData.superHost ?? "일반 호스트")"
+        imageStringArray = [houseData.image, houseData.image1, houseData.image2, houseData.image3, houseData.image4]
     }
 }
 
@@ -152,7 +168,44 @@ extension AllHousesTableCell: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let frame = UIScreen.main.bounds
-        let page = (scrollView.contentOffset.x / (frame.size.width - 40))
-        pageController.currentPage = Int(page)
+        let page = Int( (scrollView.contentOffset.x / (frame.size.width - 40)) )
+        pageController.currentPage = page
+        
+        getNextImageAndSaveImageCaches(page: page)
+    }
+    
+    
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+//        let frame = UIScreen.main.bounds
+//        let page = Int( (scrollView.contentOffset.x / (frame.size.width - 40)) )
+        
+//        let urls = imageStringArray.map{ URL(string: $0)! }
+//        let prefetcher = ImagePrefetcher(urls: urls)
+//        prefetcher.start()
+    
+    }
+    
+    private func getNextImageAndSaveImageCaches(page: Int) {
+        guard let url = URL(string: imageStringArray[page]) else { print("‼️ scrollview image url convert "); return }
+        let resource = ImageResource(downloadURL: url, cacheKey: "scrollView cache \(currentIndex) : \(page)")
+        imageViewArray[page].kf.setImage(with: resource, placeholder: nil, options: [], progressBlock: nil) { (result) in
+            
+        }
+        
+        imageViewArray[page].kf.setImage(with: resource, placeholder: nil, options: [.transition(.flipFromBottom(1.0))], completionHandler: { (result) in
+            for i in page+1..<self.imageStringArray.count {
+                guard let url = URL(string: self.imageStringArray[i]) else { print("‼️ scrollview image url convert in for"); return }
+
+                ImageDownloader.default.downloadImage(with: url, completionHandler: { (result) in
+                    switch result {
+                    case .success(let value):
+                        ImageCache.default.store(value.image, forKey: "scrollView cache \(self.currentIndex) : \(i)")
+                    case .failure(let error):
+                        print("‼️ : ", error.localizedDescription)
+                    }
+                })
+            }
+        })
     }
 }

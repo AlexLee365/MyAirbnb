@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import SnapKit
+import Kingfisher
 import NVActivityIndicatorView
 
 class HouseDetailViewController: UIViewController {
@@ -18,12 +19,14 @@ class HouseDetailViewController: UIViewController {
     
     let indicator = NVActivityIndicatorView(frame: .zero)
     let notiCenter = NotificationCenter.default
+    let kingfisher = ImageDownloader.default
     
     let netWork = NetworkCommunicator()
     let jsonDecoder = JSONDecoder()
     var houseDetailData: HouseDetailData?
     var cellCountAfterDataRoad = 0
     var roomID = 0
+    var imageArray = [UIImage]()
     
     var typeLablePlaceholder = ""
     var nameLabelPlaceholder = ""
@@ -104,6 +107,7 @@ class HouseDetailViewController: UIViewController {
     
     func getServerData(completion: @escaping () -> ()) {
         let urlString = netWork.basicUrlString + "/rooms/\(roomID)/"
+        
         netWork.getJsonObjectFromAPI(urlString: urlString, urlForSpecificProcessing: nil) { (json, success) in
             guard success else {
                 print("get serverData failed")
@@ -119,7 +123,24 @@ class HouseDetailViewController: UIViewController {
             }
             self.houseDetailData = result
             self.cellCountAfterDataRoad = 8
-            completion()
+            let imageStringArray = [result.image, result.image1, result.image2, result.image3, result.image4]
+            
+            
+            for i in 0..<imageStringArray.count{
+                guard let url = URL(string: imageStringArray[i] ?? "") else { print("houseDetail getServerData imageUrl convert failed"); return }
+                self.kingfisher.downloadImage(with: url, options: [], progressBlock: nil, completionHandler: { (result) in
+                    switch result {
+                    case .success(let value) :
+                        self.imageArray.append(value.image)
+                    case .failure(let error):
+                        print("kingfisher image download failed: ", error.localizedDescription)
+                    }
+                    if (i == imageStringArray.count - 1) {
+                        completion()
+                    }
+                    
+                })
+            }
         }
     }
     
@@ -207,6 +228,7 @@ extension HouseDetailViewController: UITableViewDelegate, UITableViewDataSource 
         switch indexPath.row {
         case 0:
             let houseDetailPicturesTableCell = tableView.dequeueReusableCell(withIdentifier: HouseDetailPicturesTableCell.identifier, for: indexPath) as! HouseDetailPicturesTableCell
+            houseDetailPicturesTableCell.images = imageArray
             
             return houseDetailPicturesTableCell
         case 1:
@@ -233,22 +255,19 @@ extension HouseDetailViewController: UITableViewDelegate, UITableViewDataSource 
             return houseDetailStayingDaysTableCell
         case 5:
             let houseDetailFacilityTableCell = tableView.dequeueReusableCell(withIdentifier: HouseDetailFacilityTableCell.identifier, for: indexPath) as! HouseDetailFacilityTableCell
-            
             houseDetailFacilityTableCell.facilitiesArray = data.facilities
-            
             return houseDetailFacilityTableCell
+            
         case 6:
             let houseDetailLocationTableCell = tableView.dequeueReusableCell(withIdentifier: HouseDetailLocationTableCell.identifier, for: indexPath) as! HouseDetailLocationTableCell
-            
-            houseDetailLocationTableCell.setData(state: data.host[0] ?? "", LocationDescription: "", address: data.address)
-            
+            houseDetailLocationTableCell.setData(state: data.state, LocationDescription: data.locationalDescription, address: data.address)
             return houseDetailLocationTableCell
+            
         case 7:
             let houseDetailCheckInTableCell = tableView.dequeueReusableCell(withIdentifier: HouseDetailCheckInTableCell.identifier, for: indexPath) as! HouseDetailCheckInTableCell
-            
             houseDetailCheckInTableCell.setData(checkIn: "", checkOut: "")
-            
             return houseDetailCheckInTableCell
+            
         default : break
         }
         return UITableViewCell()

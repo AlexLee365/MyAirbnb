@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class CalenderViewController: UIViewController {
     
@@ -26,6 +27,10 @@ class CalenderViewController: UIViewController {
     // MARK: - Properties
     let currentDate = Date()
     let dateFormatter = DateFormatter()
+    let notiCenter = NotificationCenter.default
+    let netWork = NetworkCommunicator()
+    let jsonDecoder = JSONDecoder()
+    let kingfisher = ImageDownloader.default
     
     var beginDatesArray = [Date]() {
         didSet {
@@ -254,26 +259,30 @@ class CalenderViewController: UIViewController {
         guard let tabbarVC = presentingViewController as? TabbarController else { print("tabbarVC convert error"); return }
         guard let naviVC = tabbarVC.viewControllers?.first as? UINavigationController else { print("navi convert error"); return }
         
+        
         if let mainVC = naviVC.viewControllers.first as? MainViewController {
             print("mainVC")
+            
             if self.selectedDatesString == "날짜 선택" {
                 mainVC.searchBarView.selectedDatesArray.removeAll()
                 mainVC.searchBarView.selectedDateString = "날짜"
+                
+                
             } else {
                 mainVC.searchBarView.selectedDateString = selectedDatesString
                 mainVC.searchBarView.selectedDatesArray = selectedDatesArray
             }
-            print("🔵🔵🔵 resultBtn => serachBar selectedDatesArray: ", mainVC.searchBarView.selectedDatesArray)
             
-            
-            UIView.animate(withDuration: 0.2, animations: {
-                self.backgroundView.alpha = 0
-                self.containerView.transform = CGAffineTransform.identity
-                self.containerView.alpha = 0
-            }) { (_) in
-               
-                self.dismiss(animated: false, completion: nil)
+            getServerData { (houseDataArray) in
+                for i in houseDataArray {
+                    print("--------------------------[]--------------------------")
+                    print(i)
+                }
             }
+            
+            self.notiCenter.post(name: .searchBarDateResultBtnDidTap, object: nil)
+            
+            dismissWithAnimation()
             
         }
 //        else if let tripVC = presentingViewController as? TripViewController {
@@ -305,6 +314,57 @@ class CalenderViewController: UIViewController {
             self.containerView.alpha = 0
         }) { (_) in
             self.dismiss(animated: false, completion: nil)
+        }
+    }
+    
+    private func dismissWithAnimation() {
+        UIView.animate(withDuration: 0.2, animations: {
+            self.backgroundView.alpha = 0
+            self.containerView.transform = CGAffineTransform.identity
+            self.containerView.alpha = 0
+        }) { (_) in
+            self.dismiss(animated: false, completion: nil)
+        }
+    }
+    
+    private func getServerData(completion: @escaping ([HouseDataInList]) -> ()) {
+        let startDate = selectedDatesArray.first?.getDateStringFormatYearMonthDay(dateFormat: "yyyy-MM-dd") ?? ""
+        let endDate = selectedDatesArray.last?.getDateStringFormatYearMonthDay(dateFormat: "yyyy-MM-dd") ?? ""
+        let urlString = netWork.basicUrlString
+            + "/rooms/?search=seoul&ordering=total_rating&page_size=5&page=1"
+            + "&start_date=\(startDate)&end_date=\(endDate)"
+        
+        netWork.getJsonObjectFromAPI(urlString: urlString, urlForSpecificProcessing: nil) { (json, success) in
+            guard success else {
+                return
+            }
+            
+            guard let object = json as? [String: Any]
+                , let resultArray = object["results"] as? [[String: Any]]
+                else { print("object convert error"); return }
+            
+            guard let data = try? JSONSerialization.data(withJSONObject: resultArray) else {
+                print("‼️ CalendarVC data convert error")
+                return
+            }
+            guard var houseArray = try? self.jsonDecoder.decode([HouseDataInList].self, from: data) else {
+                print("‼️ CalendarVC result decoding convert error")
+                return
+            }
+            
+            for i in 0..<houseArray.count {
+                guard let url = URL(string: houseArray[i].image) else { print("‼️ CalendarVC kingfisher url "); return }
+                self.kingfisher.downloadImage(with: url, completionHandler: { (result) in
+                    switch result {
+                    case .success(let value):
+                        houseArray[i].imageArray.append(value.image)
+                    case .failure(let error):
+                        print("‼️ LaunchVC kinfisher: ", error.localizedDescription)
+                    }
+                    
+                    (i == houseArray.count - 1) ? completion(houseArray) : ()
+                })
+            }
         }
     }
 

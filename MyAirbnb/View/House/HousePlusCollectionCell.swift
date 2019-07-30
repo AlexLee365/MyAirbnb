@@ -79,6 +79,7 @@ class HousePlusCollectionCell: UICollectionViewCell {
     }
     
     private func configureViewsOptions() {
+        
         mainImageView.contentMode = .scaleAspectFill
         mainImageView.image = UIImage(named: "houseSample")
         mainImageView.layer.masksToBounds = true

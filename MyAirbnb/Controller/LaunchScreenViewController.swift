@@ -19,6 +19,7 @@ class LaunchScreenViewController: UIViewController {
     
     var netWork = NetworkCommunicator()
     let kingfisher = ImageDownloader.default
+    let jsonDecoder = JSONDecoder()
     
     var mainViewDataArray = [MainViewData]()
     var houseDataArray = [HouseDataInList]()
@@ -41,15 +42,16 @@ class LaunchScreenViewController: UIViewController {
                 
                 DispatchQueue.main.async {
                     let tabbarVC = TabbarController()
-                    guard let naviVC = tabbarVC.viewControllers!.first as? UINavigationController else {
-                        print("LaunchVC naviVC convert erorr")
+                    guard let naviVC = tabbarVC.viewControllers!.first as? UINavigationController
+                        , let mainVC = naviVC.viewControllers.first as? MainViewController else {
+                        print("LaunchVC naviVC, mainVC convert error")
                         return
                     }
                     
-                    guard let mainVC = naviVC.viewControllers.first as? MainViewController else {
-                        print("LaunchVC mainVC convert erorr")
-                        return
-                    }
+//                    guard let mainVC = naviVC.viewControllers.first as? MainViewController else {
+//                        print("LaunchVC mainVC convert erorr")
+//                        return
+//                    }
                     
                     mainVC.mainView.mainViewDatas = self.mainViewDataArray
                     
@@ -57,8 +59,6 @@ class LaunchScreenViewController: UIViewController {
                     
                 }
             }
-            
-            
             
         }
         
@@ -216,44 +216,40 @@ extension LaunchScreenViewController {
         let urlString = netWork.basicUrlString
             + "/rooms/?search=seoul&ordering=price&page_size=5&page=1"
         
-        
         netWork.getJsonObjectFromAPI(urlString: urlString, urlForSpecificProcessing: nil) { (json, success) in
             guard success else {
-                completion()
                 return
             }
-            guard let object = json as? [String: Any] else { print("object convert error"); return }
             
-            let resultArray = object["results"] as! [[String: Any]]
-            print("🔵🔵🔵 value ")
+            guard let object = json as? [String: Any]
+                , let resultArray = object["results"] as? [[String: Any]]
+                else { print("object convert error"); return }
             
+            guard let data = try? JSONSerialization.data(withJSONObject: resultArray) else {
+                print("‼️ LaunchVC data convert error")
+                return
+            }
+            guard var houseArray = try? self.jsonDecoder.decode([HouseDataInList].self, from: data) else {
+                print("‼️ LaunchVC result decoding convert error")
+                return
+            }
             
-            for (index, roomData) in resultArray.enumerated() {
-                print("index \(index)")
-                guard let id = roomData["id"] as? Int
-                    , let title = roomData["title"] as? String
-                    , let imageString = roomData["image"] as? String
-                    , let imageUrl = URL(string: imageString)
-                    , let roomType = roomData["room_type"] as? String
-                    , let rate = roomData["total_rating"] as? Double
-                    else { print("roomData convert error"); return }
-                
-                self.kingfisher.downloadImage(with: imageUrl, completionHandler: { (image, error, url, data) in
-                    //                    guard let image = image else { print("image convert error"); return }
-                    
-                    let houseDataInList = HouseDataInList(id: id, houseImage: image, houseType: roomType, houseLocation: "서울", houseName: title, houseTotalRate: rate, houseRateCount: 20)
-                    self.houseDataArray.append(houseDataInList)
-                    
-                    (index == resultArray.count-1) ? completion() : ()
+            for i in 0..<houseArray.count {
+                guard let url = URL(string: houseArray[i].image) else { print("‼️ LaunchVC kingfisher url "); return }
+                self.kingfisher.downloadImage(with: url, completionHandler: { (result) in
+                    switch result {
+                    case .success(let value):
+                        houseArray[i].imageArray.append(value.image)
+                    case .failure(let error):
+                        print("‼️ LaunchVC kinfisher: ", error.localizedDescription)
+                    }
+                    self.houseDataArray.append(houseArray[i])
+                    (i == houseArray.count - 1) ? completion() : ()
                 })
-                //                (index == resultArray.count-1) ? completion() : ()
             }
         }
+        
     }
     
     
 }
-
-
-//            let encoding = String.Encoding(rawValue: CFStringConvertEncodingToNSStringEncoding(0x0422))1
-//            if let messageString = String(cString: recevieCstring, encoding: encoding) { print(messageString)

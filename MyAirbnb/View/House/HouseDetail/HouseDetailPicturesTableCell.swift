@@ -17,7 +17,8 @@ class HouseDetailPicturesTableCell: UITableViewCell {
     
     
     // MARK: - Properties
-    var images = ["roomSample1", "roomSample2", "roomSample3", "roomSample4", "roomSample5"]
+//    var images = ["roomSample1", "roomSample2", "roomSample3", "roomSample4", "roomSample5"]
+    var images = [UIImage]()
     var pictureViews = [AllHousesScrollImageView]()
     var tempHeight = (UIScreen.main.bounds.width - 40) * 0.62
 
@@ -45,6 +46,7 @@ class HouseDetailPicturesTableCell: UITableViewCell {
         if setLayout == false {
             print("🔵🔵🔵 tableCell Frame: ", self.frame)
             tempHeight = self.frame.height
+            
             
             createScrollViews()
             
@@ -74,11 +76,8 @@ class HouseDetailPicturesTableCell: UITableViewCell {
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.backgroundColor = .white
         
-        pageController.numberOfPages = images.count
         pageController.pageIndicatorTintColor = .lightGray
         pageController.currentPageIndicatorTintColor = .white
-        
-        
     }
     
     private func createScrollViews() {
@@ -91,12 +90,14 @@ class HouseDetailPicturesTableCell: UITableViewCell {
             let tempFrame = CGRect(origin: tempPoint, size: tempSize)
             
             let pictureView = AllHousesScrollImageView(frame: tempFrame)
-            pictureView.imageView.image = UIImage(named: images[i])
+//            pictureView.imageView.image = UIImage(named: images[i])
+            pictureView.imageView.image = images[i]
             
             
             scrollView.addSubview(pictureView)
             pictureViews.append(pictureView)
         }
+        pageController.numberOfPages = images.count
         scrollView.contentSize = CGSize(width: (frame.size.width * CGFloat(images.count) ), height: tempHeight)
     }
 }

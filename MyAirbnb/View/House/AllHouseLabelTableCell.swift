@@ -32,6 +32,7 @@ class AllHouseLabelTableCell: UITableViewCell {
     }
     
     private func configure() {
+        self.selectionStyle = .none
         contentView.addSubview(titleLabel)
     }
     

@@ -33,6 +33,7 @@ class HouseTopLabelTableCell: UITableViewCell {
     
     private func configure() {
         contentView.addSubview(topLabel)
+        self.selectionStyle = .none
     }
     
     private func setAutolayout() {

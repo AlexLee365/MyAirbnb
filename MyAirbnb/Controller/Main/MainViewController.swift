@@ -9,6 +9,7 @@
 import UIKit
 import SnapKit
 import NVActivityIndicatorView
+import Kingfisher
 
 class MainViewController: UIViewController {
     
@@ -26,6 +27,7 @@ class MainViewController: UIViewController {
     let jsonDecoder = JSONDecoder()
     let notiCenter = NotificationCenter.default
     let netWork = NetworkCommunicator()
+    let kingfisher = ImageDownloader.default
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -156,10 +158,12 @@ class MainViewController: UIViewController {
         indicator.type = .ballBeat
         indicator.color = StandardUIValue.shared.colorBlueGreen
     }
+    
     private func startIndicator() {
         view.bringSubviewToFront(indicatorView)
         indicator.startAnimating()
     }
+    
     private func stopIndicator() {
         view.sendSubviewToBack(indicatorView)
         indicator.stopAnimating()
@@ -172,6 +176,7 @@ extension MainViewController {
         notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .searchBarEditBegin, object: nil)
         notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .searchBarEditEnd, object: nil)
         notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .searchBarDateBtnDidTap, object: nil)
+        notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .searchBarDateResultBtnDidTap, object: nil)
         notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .searchBarPeopleBtnDidTap, object: nil)
         notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .searchBarFilterBtnDidTap, object: nil)
         notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .moveToHouseView, object: nil)
@@ -198,6 +203,9 @@ extension MainViewController {
             
             present(calendarVC, animated: false)
             
+        case Notification.Name.searchBarDateResultBtnDidTap:
+            print("")
+            
         case Notification.Name.searchBarPeopleBtnDidTap:
             let filterPeopleVC = FilterPeopleViewController()
             filterPeopleVC.selectedPeople = searchBarView.selectedPeople
@@ -212,9 +220,13 @@ extension MainViewController {
             
         case Notification.Name.moveToHouseView:
             startIndicator()
-            DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-                let houseVC = HouseViewController()
-                self.navigationController?.pushViewController(houseVC, animated: false)
+            
+            getServerHouseDataInList { (housedataArray) in
+                DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+                    let houseVC = HouseViewController()
+                    houseVC.houseView.houseDataArray = housedataArray
+                    self.navigationController?.pushViewController(houseVC, animated: false)
+                }
             }
             
         case Notification.Name.moveToHouseDetailView:
@@ -235,6 +247,44 @@ extension MainViewController {
             navigationController?.pushViewController(plusHouseVC, animated: true)
             
         default : break
+        }
+    }
+    
+    
+    
+    private func getServerHouseDataInList(completion: @escaping ([HouseDataInList]) -> ()) {
+        let urlString = netWork.basicUrlString
+            + "/rooms/?search=seoul&ordering=price&page_size=5&page=1"
+        
+        netWork.getJsonObjectFromAPI(urlString: urlString, urlForSpecificProcessing: nil) { (json, success) in
+            guard success else {
+                return
+            }
+            guard let object = json as? [String: Any]
+                , let resultArray = object["results"] as? [[String: Any]]
+                else { print("object convert error"); return }
+            
+            guard let data = try? JSONSerialization.data(withJSONObject: resultArray) else {
+                print("‼️ LaunchVC data convert error")
+                return
+            }
+            guard var houseArray = try? self.jsonDecoder.decode([HouseDataInList].self, from: data) else {
+                print("‼️ LaunchVC result decoding convert error")
+                return
+            }
+            
+            for i in 0..<houseArray.count {
+                guard let url = URL(string: houseArray[i].image) else { print("‼️ LaunchVC kingfisher url "); return }
+                self.kingfisher.downloadImage(with: url, completionHandler: { (result) in
+                    switch result {
+                    case .success(let value):
+                        houseArray[i].imageArray.append(value.image)
+                    case .failure(let error):
+                        print("‼️ LaunchVC kinfisher: ", error.localizedDescription)
+                    }
+                    (i == houseArray.count - 1) ? completion(houseArray) : ()
+                })
+            }
         }
     }
 }

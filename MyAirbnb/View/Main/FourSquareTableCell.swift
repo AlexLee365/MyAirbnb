@@ -119,7 +119,7 @@ extension FourSquareTableCell: UICollectionViewDelegate, UICollectionViewDataSou
         let data = normalHouseDataArray[indexPath.row]
         
         notiCenter.post(name: .moveToHouseDetailView, object: nil,
-                        userInfo: ["roomID": data.id, "type": data.houseType, "houseName": data.houseName])
+                        userInfo: ["roomID": data.id, "type": data.roomType, "houseName": data.title])
     }
     
     

@@ -53,7 +53,7 @@ class HouseDetailLocationTableCell: UITableViewCell {
         
         self.addSubview(subTitleLabel)
         subTitleLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(titleLabel.snp.bottom).offset(topBottomMargin)
+            make.top.equalTo(titleLabel.snp.bottom).offset(topBottomMargin/2)
             make.leading.equalTo(sideMargin)
         }
         
@@ -137,8 +137,8 @@ class HouseDetailLocationTableCell: UITableViewCell {
     }
     
     func setData(state: String, LocationDescription: String, address: String) {
-        subTitleLabel.text = "\(state), 한국"
-//        descriptionLabel.text = LocationDescription
+        subTitleLabel.text = "\(state), South Korea"
+        descriptionLabel.text = LocationDescription
         setMapView(addressString: address)
     }
     

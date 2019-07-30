@@ -71,6 +71,8 @@ class HouseLuxeTableCell: UITableViewCell {
     }
     
     private func configureViewsOptions() {
+        self.selectionStyle = .none
+        
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(MainLuxeHouseCollectCell.self, forCellWithReuseIdentifier: MainLuxeHouseCollectCell.identifier)

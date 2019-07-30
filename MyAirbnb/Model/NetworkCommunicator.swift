@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import Kingfisher
 
 class NetworkCommunicator {
     let basicUrlString = "http://airbnb.tthae.com/api"
+    private let kingfisher = ImageDownloader.default
     
     func getJsonObjectFromAPI(urlString: String = "", urlForSpecificProcessing incomingUrl: URL?, completion: @escaping (Any, _ success: Bool) -> ()) {
         // url 매개변수 값을 넣으면 url로 URLSession API호출 진행 (밖에서 url을 별도 처리해주고 넣어줘야할경우 사용)
@@ -62,5 +64,22 @@ class NetworkCommunicator {
             let url = URL(string: translateAPIString)
             else { print("[getUrlFromKoreanText] convertUrl failed"); return nil }
         return url
+    }
+    
+    func getUIImageArrayFromUrlStringArray(imageUrlStringArray: [String], completion: @escaping ([UIImage]) -> ()) {
+        var imageArray = [UIImage]()
+        for (index, urlString) in imageUrlStringArray.enumerated() {
+            guard let url = URL(string: urlString) else { print("‼️ networkCommunicator getuiimage url convert "); return }
+            kingfisher.downloadImage(with: url) { (result) in
+                switch result {
+                case .success(let value):
+                    imageArray.append(value.image)
+                case .failure(let error):
+                    print("networkCommunicator result error: ", error.localizedDescription)
+                }
+                (index == imageUrlStringArray.count-1) ? completion(imageArray) : ()
+            }
+            
+        }
     }
 }

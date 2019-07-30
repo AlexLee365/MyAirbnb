@@ -73,6 +73,8 @@ class HousePlusTableCell: UITableViewCell {
     }
     
     private func configure() {
+        self.selectionStyle = .none
+        
         contentView.addSubview(titleLabel)
         
         contentView.addSubview(subLabel)

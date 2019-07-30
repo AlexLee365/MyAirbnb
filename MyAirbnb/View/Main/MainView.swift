@@ -23,8 +23,6 @@ class MainView: UIView {
         super.init(frame: frame)
         setAutoLayout()
         configureViewsOptions()
-
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -46,7 +44,6 @@ class MainView: UIView {
         mainTableView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 1).isActive = true
         //        mainTableView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
         //        mainTableView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0).isActive = true
-        
     }
     
     private func configureViewsOptions() {
@@ -59,20 +56,9 @@ class MainView: UIView {
         mainTableView.register(FourSquareTableCell.self, forCellReuseIdentifier: FourSquareTableCell.identifier)
         mainTableView.allowsSelection = false
         
-        
-        //        mainTableView.separatorStyle = .none
-        
-        //        mainTableView.rowHeight = 500
         mainTableView.rowHeight = UITableView.automaticDimension
         mainTableView.estimatedRowHeight = 200
     }
-    
-    private func setData() {
-        
-    }
-    
-    
-    
     
 }
 
@@ -82,7 +68,6 @@ extension MainView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let houseData = mainViewDatas[indexPath.row]
         
         switch houseData.cellStyle {
@@ -146,43 +131,7 @@ extension MainView: UITableViewDelegate, UITableViewDataSource {
             
         default: break
         }
-        
-        
-        //        switch indexPath.row {
-        //        case 0 :
-        //            let CategoryCell = tableView.dequeueReusableCell(withIdentifier: MainCategoryTableCell.identifier, for: indexPath) as! MainCategoryTableCell
-        //
-        //            CategoryCell.titleLabel.text = "Jung Jin Alex님, 무엇을 찾고 계신가요?"
-        //            return CategoryCell
-        //
-        //
-        //        case 1 :
-        //            let RecommendHoseCell = tableView.dequeueReusableCell(withIdentifier: MainRecommendHouseTableCell.identifier, for: indexPath) as! MainRecommendHouseTableCell
-        //
-        //            RecommendHoseCell.titleLabel.text = "여행 예약을 완료하세요"
-        //            return RecommendHoseCell
-        //
-        //        case 2 :
-        //            let fullImageCell = tableView.dequeueReusableCell(withIdentifier: MainFullImageTableCell.identifier, for: indexPath) as! MainFullImageTableCell
-        //
-        //            fullImageCell.fullImageView.image = UIImage(named: "MainFullImage")
-        //            return fullImageCell
-        //
-        //        case 3:
-        //            let luxeHouseCell = tableView.dequeueReusableCell(withIdentifier: MainLuxeHouseTableCell.identifier, for: indexPath) as! MainLuxeHouseTableCell
-        //            return luxeHouseCell
-        //
-        //        case 4:
-        //            let allWorldsFourSquareCell = tableView.dequeueReusableCell(withIdentifier: FourSquareTableCell.identifier, for: indexPath) as! FourSquareTableCell
-        //
-        //            allWorldsFourSquareCell.titleLabel.text = "전 세계 숙소"
-        //            return allWorldsFourSquareCell
-        //
-        //        default : break
-        //        }
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: MainCategoryTableCell.identifier, for: indexPath)
-        return cell
+      return UITableViewCell()
     }
     
     

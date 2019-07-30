@@ -293,7 +293,7 @@ class HouseDetailBasicInfoTableCell: UITableViewCell {
     func setData(type: String, name: String, state: String, hostName: String, hostImage: UIImage?, capacity: Int, bedroom: Int, bathroom: Int) {
         typeTopLabel.text = type
         nameLabel.text = name
-        locationLabel.text = "\(state), 한국"
+        locationLabel.text = "\(state), South Korea"
         hostNameLabel.text = "호스트: \(hostName)님"
         hostImageView.image = hostImage ?? UIImage(named: "hostSample1")
         typeLabel.text = type

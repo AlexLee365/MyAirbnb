@@ -24,7 +24,6 @@ class FourSquareCollectCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         setAutoLayout()
         configureViewsOptions()
     }
@@ -107,11 +106,11 @@ class FourSquareCollectCell: UICollectionViewCell {
     }
     
     func setData(houseData: HouseDataInList) {
-        mainImageView.image = houseData.houseImage ?? UIImage(named: "houseSample")
-        detailLabel.text = "\(houseData.houseType) ・ \(houseData.houseLocation)"
-        houseNameLabel.text = houseData.houseName
+        mainImageView.image = houseData.imageArray.first ?? UIImage(named: "houseSample")
+        detailLabel.text = "\(houseData.roomType) ・ \(houseData.state)"
+        houseNameLabel.text = houseData.title
         ratingImageLabel.text = houseData.drawStarsWithHouseRate()
-        ratingAndHostInfoLabel.text = "\(houseData.houseRateCount) ・ \(houseData.hostGrade)"
+        ratingAndHostInfoLabel.text = "\(houseData.reservations) ・ \(houseData.superHost ?? "일반 호스트")"
     }
     
     

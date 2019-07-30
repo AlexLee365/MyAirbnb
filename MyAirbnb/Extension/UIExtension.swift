@@ -14,8 +14,11 @@ extension Notification.Name {
     static let searchBarEditEnd = Notification.Name(rawValue: "SearchBarEditEnd")
     
     static let searchBarDateBtnDidTap = Notification.Name(rawValue: "SearchBarDateBtnDidTap")
+    static let searchBarDateResultBtnDidTap = Notification.Name(rawValue: "SearchBarDateResultBtnDidTap")
     static let searchBarPeopleBtnDidTap = Notification.Name(rawValue: "SearchBarPeopleBtnDidTap")
+    static let searchBarPeopleResultBtnDidTap = Notification.Name("SearchBarPeopleResultBtnDidTap")
     static let searchBarFilterBtnDidTap = Notification.Name(rawValue: "SearchBarFilterBtnDidTap")
+    static let searchBarFilterResultBtnDidTap = Notification.Name("SearchBarFilterResultBtnDidTap")
     
     
     // MARK: - House
@@ -218,5 +221,15 @@ class UIButtonWithHighlightEffect: UIButton {
         } else {
             return true
         }
+    }
+}
+
+
+extension Date {
+    func getDateStringFormatYearMonthDay(dateFormat: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = dateFormat
+        let dateString = dateFormatter.string(from: self)
+        return dateString
     }
 }

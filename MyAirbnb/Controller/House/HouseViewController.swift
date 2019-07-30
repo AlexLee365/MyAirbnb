@@ -20,6 +20,7 @@ class HouseViewController: UIViewController {
     
     let notiCenter = NotificationCenter.default
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewsOptions()
