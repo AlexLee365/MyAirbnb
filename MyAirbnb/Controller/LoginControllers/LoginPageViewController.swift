@@ -41,6 +41,8 @@ class LoginPageViewController: UIViewController {
     
     let alarmConfirmVC = AlarmConfirmViewController()
     
+    var netWork = NetworkCommunicator()
+    
     
     
     
@@ -63,7 +65,7 @@ class LoginPageViewController: UIViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        print("safeAreaInsets", view.safeAreaInsets.bottom)
+        //        print("safeAreaInsets", view.safeAreaInsets.bottom)
         // iphone의 맨 아래 부분 -> iphone X 버전부터 , 홈버튼이 없어진 이후 밑에 생김
         bottomInsets = view.safeAreaInsets.bottom
     }
@@ -92,9 +94,9 @@ class LoginPageViewController: UIViewController {
         let keyboardFrame: NSValue = userInfo.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as! NSValue
         let keyboardRect = keyboardFrame.cgRectValue
         
-        print("키보드 높이 : \(keyboardRect.height)")
+        //        print("키보드 높이 : \(keyboardRect.height)")
         keyboardHeight = keyboardRect.height - bottomInsets
-        print("safeAreaInsets을 뺀 키보드 높이 : \(keyboardHeight)")
+        //        print("safeAreaInsets을 뺀 키보드 높이 : \(keyboardHeight)")
         bottomLayout.constant = -keyboardHeight
     }
     
@@ -104,7 +106,7 @@ class LoginPageViewController: UIViewController {
         let hideKeyboardFrame: NSValue = userInfo.value(forKey: UIResponder.keyboardFrameBeginUserInfoKey) as! NSValue
         let hideKeyboardRect = hideKeyboardFrame.cgRectValue
         let hideKeyboardHeight = hideKeyboardRect.height
-        print("내려간 키보드 높이 : \(hideKeyboardHeight)")
+        //        print("내려간 키보드 높이 : \(hideKeyboardHeight)")
         bottomLayout.constant = 0
     }
     
@@ -362,7 +364,81 @@ class LoginPageViewController: UIViewController {
         loginBtn.addTarget(self, action: #selector(didTapLoginBtn(_:)), for: .touchUpInside)
     }
     @objc private func didTapLoginBtn(_ sender: UIButton) {
-        present(alarmConfirmVC, animated: true, completion: nil)
+        
+        // validation
+        if (emailTxtField.text?.isEmpty)! || (passwordTxtField.text?.isEmpty)! {
+            //desplay alert message
+            print("email and password field must filled")
+            
+            return
+        }
+        
+        // send HTTP request
+        // 토큰 요청 코드
+        let myUrl = URL(string: "http://airbnb.tthae.com/api/accounts/get_token/")
+        
+        
+        var request = URLRequest(url: myUrl!)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "content-type")
+        
+        let username = emailTxtField.text
+        let password = passwordTxtField.text
+        
+        let postString = ["username" : username!, "password" : password!] as [String : String]
+        
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: postString, options: .prettyPrinted)
+        } catch let error {
+            print(error.localizedDescription)
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: request) {
+            (data: Data?, response: URLResponse?, error: Error?) in
+            
+            if error != nil
+            {
+                print("error=\(String(describing: error))")
+                return
+            }
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                
+                if let parseJSON = json {
+                    let accessToken = parseJSON["token"] as? String
+//                    let userID = parseJSON["uesr"] as? Int
+                    print("🔵🔵🔵 Access Token: \(String(describing: accessToken!))")
+                    
+                    
+                    if (accessToken?.isEmpty)! {
+                        print("could not successful get Token")
+                        return
+                    }
+                    
+                    DispatchQueue.main.sync {
+                        // 토큰이 성공적으로 받아지면 메인 페이지로 이동 하게되는 코드 작성
+                        // 테스트용 빈 페이지 띄우기
+                        let sucessVC = SucessViewController()
+                        self.present(sucessVC, animated: true, completion: nil)
+                        
+                        // 알림 뷰 컨트롤러로 가기
+//                        let AlarmVC = AlarmConfirmViewController()
+//                        self.navigationController?.pushViewController(AlarmVC, animated: true)
+                    }
+                    
+                } else {
+                    print(error)
+                }
+                
+            } catch {
+                print(error)
+            }
+            
+        }
+        task.resume()
+        
     }
     
     @objc private func didTapUsePhoneNumberBtn(_ sender: UIButton) {
