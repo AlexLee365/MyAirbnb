@@ -108,7 +108,6 @@ class SeoulRecommendedDetailViewController: UIViewController {
         
         priceLabel.attributedText = attributedText(first: "₩40,000 ", second: "/인")
         bottomView.addSubview(priceLabel)
-        
         bottomView.addSubview(starImageLabel)
         bottomView.addSubview(rateLabel)
         bottomView.addSubview(seeDateBtn)
