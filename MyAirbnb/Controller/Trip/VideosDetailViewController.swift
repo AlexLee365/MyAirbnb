@@ -99,10 +99,10 @@ class VideosDetailViewController: UIViewController {
         
         addNotificationObserver()
     }
-    
+        
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.navigationBar.barStyle = .default
+        navigationController?.navigationBar.barStyle = .blackTranslucent
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -300,6 +300,26 @@ extension VideosDetailViewController: UITableViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) else { return }
         
+        let becomeWhiteEndPoint = cell.frame.height - topView.frame.height
+        let becomeWhiteStartPoint = becomeWhiteEndPoint
+        
+        let opacity = ( scrollView.contentOffset.y - becomeWhiteStartPoint ) / (becomeWhiteEndPoint - becomeWhiteStartPoint)
+        
+        if scrollView.contentOffset.y >= cell.frame.height {
+            self.navigationController?.self.navigationBar.barStyle = .default
+            topView.backgroundColor = .white
+            topView.backButton.setImage(UIImage(named: "backBlack"), for: .normal)
+            topView.heartButton.setImage(UIImage(named: "heartBlack"), for: .normal)
+            topView.shareButton.setImage(UIImage(named: "shareBlack"), for: .normal)
+            
+        } else {
+            self.navigationController?.self.navigationBar.barStyle = .blackTranslucent
+            topView.backgroundColor = .clear
+            topView.backButton.setImage(UIImage(named: "backWhite"), for: .normal)
+            topView.heartButton.setImage(UIImage(named: "heartWhite"), for: .normal)
+            topView.shareButton.setImage(UIImage(named: "shareWhite"), for: .normal)
+        }
+        
         let cellHeight = cell.frame.height
         let currentY = scrollView.contentOffset.y
         let bottomViewHeight = bottomView.frame.height
@@ -321,6 +341,8 @@ extension VideosDetailViewController: UITableViewDelegate {
             self.rateLabel.textColor = .white
             self.seeDateBtn.backgroundColor = .white
             self.seeDateBtn.setTitleColor(#colorLiteral(red: 0.370555222, green: 0.3705646992, blue: 0.3705595732, alpha: 1), for: .normal)
+            
+            
         }
     }
 }

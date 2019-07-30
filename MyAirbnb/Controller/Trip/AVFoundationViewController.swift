@@ -87,8 +87,15 @@ class AVFoundationViewController: UIViewController {
         super.viewDidAppear(animated)
         print("viewDidAppear")
         
-        cells[beginPageCount].startAnimate()
+        isAnimate = true
         cells[pageCount].startAnimate()
+        
+        let movePoint = CGPoint(x: view.frame.width * CGFloat(beginPageCount), y: 0)
+        
+        print(movePoint)
+        collectionView.setContentOffset(movePoint, animated: true)
+        
+//        cells[beginPageCount].startAnimate()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -97,7 +104,7 @@ class AVFoundationViewController: UIViewController {
     }
     
     var isLayout = true
-    
+    var isAnimate = false
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         if isLayout {
@@ -172,16 +179,20 @@ extension AVFoundationViewController: UICollectionViewDataSource {
 
 extension AVFoundationViewController: UICollectionViewDelegate {
     
-//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//        cells[indexPath.item].startAnimate()
-//
-//    }
-//    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//        cells[indexPath.item].endAnimate()
-//    }
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if isAnimate {
+            cells[indexPath.item].startAnimate()
+        }
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        cells[indexPath.item].endAnimate()
+    }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         pageCount = Int(scrollView.bounds.minX / scrollView.bounds.width)
+        beginPageCount = pageCount
     }
 }
 
@@ -189,7 +200,10 @@ extension AVFoundationViewController: UICollectionViewDelegate {
 
 extension AVFoundationViewController: VideoCollectionViewCellDelegate {
     func pushView() {
+        cells.forEach { $0.endAnimate() }
+        
         let videosDetailVC = VideosDetailViewController()
+        
         navigationController?.pushViewController(videosDetailVC, animated: true)
     }
 }

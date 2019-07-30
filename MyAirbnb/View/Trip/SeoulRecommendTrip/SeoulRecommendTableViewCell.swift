@@ -29,12 +29,16 @@ class SeoulRecommendTableViewCell: UITableViewCell {
     
     let tempHeight = UIScreen.main.bounds.height * 0.8
     
+    var offSet: CGFloat = 0
+    var scrollingTimer = Timer()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         configure()
         setAutolayout()
+        
+        self.offSet = 0
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -45,8 +49,9 @@ class SeoulRecommendTableViewCell: UITableViewCell {
         contentView.addSubview(scrollView)
         
         createScrollViews()
-        
         createInfoViews()
+        
+        scrollingTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(scrollAutomatically(_:)), userInfo: nil, repeats: true)
     }
     
     private func setAutolayout() {
@@ -108,6 +113,24 @@ class SeoulRecommendTableViewCell: UITableViewCell {
             default:
                 value.topAnchor.constraint(equalTo: infoViewArray[index - 1].bottomAnchor, constant: 20).isActive = true
             }
+        }
+    }
+    
+    @objc private func scrollAutomatically(_ sender: Timer) {
+        let totalPossibleOffset = CGFloat(images.count - 1) * UIScreen.main.bounds.size.width
+        if offSet == totalPossibleOffset {
+            offSet = 0 // come back to the first image after the last image
+        } else {
+            offSet += UIScreen.main.bounds.size.width
+        }
+        
+        DispatchQueue.main.async() {
+            UIView.animate(withDuration: 0.3,
+                           delay: 0,
+                           options: UIView.AnimationOptions.curveLinear,
+                           animations: {
+                            self.scrollView.contentOffset.x = CGFloat(self.offSet) },
+                           completion: nil)
         }
     }
 }

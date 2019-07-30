@@ -116,7 +116,7 @@ class TripInfoCollectionViewCell: UICollectionViewCell {
         imageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        imageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.6).isActive = true
+        imageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.58).isActive = true
         
         heartButton.topAnchor.constraint(equalTo: imageView.topAnchor, constant: 5).isActive = true
         heartButton.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -5).isActive = true

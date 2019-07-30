@@ -93,8 +93,9 @@ class TripIntroTableViewCell: UITableViewCell {
 //    }
     
     private func configure() {
-        
 //        contentView.addSubview(gradientView)
+        self.backgroundColor = .black
+        self.selectionStyle = .none
         
         contentView.addSubview(redTitleLabel)
         contentView.addSubview(introTitleLabel)
