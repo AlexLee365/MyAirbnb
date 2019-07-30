@@ -43,6 +43,12 @@ class MainViewController: UIViewController {
         searchBarView.useCase = .inMainVC
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        searchBarView.searchTF.resignFirstResponder()
+        searchBarView.searchTF.text = ""
+    }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         hideSearchBarTableView()
@@ -175,6 +181,7 @@ extension MainViewController {
     private func addNotificationObserver() {
         notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .searchBarEditBegin, object: nil)
         notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .searchBarEditEnd, object: nil)
+        notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .searchBarEnterPressed, object: nil)
         notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .searchBarDateBtnDidTap, object: nil)
         notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .searchBarDateResultBtnDidTap, object: nil)
         notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .searchBarPeopleBtnDidTap, object: nil)
@@ -192,6 +199,46 @@ extension MainViewController {
         case Notification.Name.searchBarEditEnd:
             hideSearchBarTableView()
             
+        case Notification.Name.searchBarEnterPressed:
+            startIndicator()
+            guard let userInfo = sender.userInfo
+                , let textResult = userInfo["result"] as? String else {
+                    print("‼️ MainVC serachbar enter noti userinfo ")
+                    return
+            }
+            
+            let urlString = netWork.basicUrlString
+                + "/rooms/?search=\(textResult)&ordering=total_rating&page_size=5&page=1"
+            
+            let houseviewDataIntroLabel = HouseViewData(
+                data: [HouseIntroLabelDataInList(intro: "여행 날짜와 게스트 인원수를 입력하면 1박당 총 요금을 확인할 수 있습니다. 관광세가 추가로 부과될 수 있습니다.")],
+                cellStyle: .introLabel)
+            
+            let houseviewDataTitleLabel = HouseViewData(
+                data: [HouseTitleLabelDataInList(title: "300개 이상의 숙소 모두 둘러보기")], cellStyle: .titleLabel)
+           
+            getServerHouseDataInList(urlString: urlString) { (houseDataArray, success) in
+                
+                DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+                    let houseVC = HouseViewController()
+                    
+                    switch success {
+                    case true:
+                        let houseviewDataNormal = HouseViewData(data: houseDataArray!, cellStyle: .normalHouse)
+                        houseVC.houseView.houseViewDatas
+                            = [houseviewDataIntroLabel, houseviewDataTitleLabel, houseviewDataNormal]
+                    case false:
+                        let houseviewDataIntroLabel = HouseViewData(
+                            data: [HouseIntroLabelDataInList(intro: "숙소 결과가 없습니다.")],
+                            cellStyle: .introLabel)
+                        houseVC.houseView.houseViewDatas
+                            = [houseviewDataIntroLabel]
+                    }
+                    houseVC.searchWord = textResult
+                    self.navigationController?.pushViewController(houseVC, animated: false)
+                }
+            }
+            
         case Notification.Name.searchBarDateBtnDidTap:
             let calendarVC = CalenderViewController()
             calendarVC.modalPresentationStyle = .overFullScreen
@@ -204,7 +251,18 @@ extension MainViewController {
             present(calendarVC, animated: false)
             
         case Notification.Name.searchBarDateResultBtnDidTap:
-            print("")
+            print("🔴🔴🔴 : ")
+            guard let userInfo = sender.userInfo
+                , let houseDataArray = userInfo["houseViewDataArray"] as? [HouseViewData] else {
+                    print("‼️ MainVC SearchBar resultBtn noti userinfo ")
+                    return
+            }
+            
+            let houseVC = HouseViewController()
+            houseVC.houseView.houseViewDatas = houseDataArray
+            houseVC.searchBarView.selectedDatesArray = searchBarView.selectedDatesArray
+            houseVC.searchBarView.selectedDateString = searchBarView.selectedDateString
+            self.navigationController?.pushViewController(houseVC, animated: false)
             
         case Notification.Name.searchBarPeopleBtnDidTap:
             let filterPeopleVC = FilterPeopleViewController()
@@ -220,14 +278,30 @@ extension MainViewController {
             
         case Notification.Name.moveToHouseView:
             startIndicator()
+            let urlString = netWork.basicUrlString
+                + "/rooms/?search=seoul&ordering=price&page_size=5&page=1"
             
-            getServerHouseDataInList { (housedataArray) in
-                DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+            let luxeData = mainView.mainViewDatas.filter{$0.cellStyle == .luxe}.map{$0.data as! [HouseLuxeDataInList]}.first ?? []
+            let plusData = mainView.mainViewDatas.filter{$0.cellStyle == .plus}.map{$0.data as! [HousePlusDataInList]}.first ?? []
+            
+            let houseviewDataIntroLabel = HouseViewData(
+                data: [HouseIntroLabelDataInList(intro: "여행 날짜와 게스트 인원수를 입력하면 1박당 총 요금을 확인할 수 있습니다. 관광세가 추가로 부과될 수 있습니다.")],
+                cellStyle: .introLabel)
+            let houseviewDataLuxe = HouseViewData(data: luxeData, cellStyle: .luxe)
+            let houseviewDataPlus = HouseViewData(data: plusData, cellStyle: .plus)
+            let houseviewDataTitleLabel = HouseViewData(
+                data: [HouseTitleLabelDataInList(title: "300개 이상의 숙소 모두 둘러보기")], cellStyle: .titleLabel)
+            
+            getServerHouseDataInList(urlString: urlString) { (housedataArray, success) in
+                let houseviewDataNormal = HouseViewData(data: housedataArray!, cellStyle: .normalHouse)
+                DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
                     let houseVC = HouseViewController()
-                    houseVC.houseView.houseDataArray = housedataArray
+                    houseVC.houseView.houseViewDatas
+                        = [houseviewDataIntroLabel, houseviewDataLuxe, houseviewDataPlus, houseviewDataTitleLabel, houseviewDataNormal]
                     self.navigationController?.pushViewController(houseVC, animated: false)
                 }
             }
+            
             
         case Notification.Name.moveToHouseDetailView:
             guard let userInfo = sender.userInfo as? [String: Any]
@@ -252,12 +326,10 @@ extension MainViewController {
     
     
     
-    private func getServerHouseDataInList(completion: @escaping ([HouseDataInList]) -> ()) {
-        let urlString = netWork.basicUrlString
-            + "/rooms/?search=seoul&ordering=price&page_size=5&page=1"
-        
+    private func getServerHouseDataInList(urlString: String, completion: @escaping ([HouseDataInList]?, Bool) -> ()) {
         netWork.getJsonObjectFromAPI(urlString: urlString, urlForSpecificProcessing: nil) { (json, success) in
             guard success else {
+                completion(nil, false)
                 return
             }
             guard let object = json as? [String: Any]
@@ -268,10 +340,13 @@ extension MainViewController {
                 print("‼️ LaunchVC data convert error")
                 return
             }
-            guard var houseArray = try? self.jsonDecoder.decode([HouseDataInList].self, from: data) else {
+            guard var houseArray = try? self.jsonDecoder.decode([HouseDataInList].self, from: data)
+                , houseArray.count > 0 else {
                 print("‼️ LaunchVC result decoding convert error")
+                completion(nil, false)
                 return
             }
+            
             
             for i in 0..<houseArray.count {
                 guard let url = URL(string: houseArray[i].image) else { print("‼️ LaunchVC kingfisher url "); return }
@@ -282,7 +357,7 @@ extension MainViewController {
                     case .failure(let error):
                         print("‼️ LaunchVC kinfisher: ", error.localizedDescription)
                     }
-                    (i == houseArray.count - 1) ? completion(houseArray) : ()
+                    (i == houseArray.count - 1) ? completion(houseArray, true) : ()
                 })
             }
         }

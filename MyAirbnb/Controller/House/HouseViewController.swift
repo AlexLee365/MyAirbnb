@@ -15,11 +15,10 @@ class HouseViewController: UIViewController {
         searchBarView.searchImageBtn.setImage(UIImage(named: "back33"), for: .normal)
         return searchBarView
     }()
-    
     let houseView = HouseView()
     
     let notiCenter = NotificationCenter.default
-    
+    var searchWord: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,7 +58,7 @@ class HouseViewController: UIViewController {
     private func configureViewsOptions() {
         view.backgroundColor = .white
         
-        searchBarView.searchTF.text = "숙소"
+        searchBarView.searchTF.text = (searchWord == nil) ? "숙소" : "숙소 ・ \(searchWord ?? "")"
         
         
         navigationController?.interactivePopGestureRecognizer?.delegate = nil

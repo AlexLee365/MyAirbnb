@@ -12,6 +12,7 @@ import Kingfisher
 class NetworkCommunicator {
     let basicUrlString = "http://airbnb.tthae.com/api"
     private let kingfisher = ImageDownloader.default
+    private let jsonDecoder = JSONDecoder()
     
     func getJsonObjectFromAPI(urlString: String = "", urlForSpecificProcessing incomingUrl: URL?, completion: @escaping (Any, _ success: Bool) -> ()) {
         // url 매개변수 값을 넣으면 url로 URLSession API호출 진행 (밖에서 url을 별도 처리해주고 넣어줘야할경우 사용)
@@ -56,7 +57,7 @@ class NetworkCommunicator {
             
             print("⭐️⭐️ \(#file)-\(#function)-\(#line)  \n[jsonObject 데이터 결과]: ", jsonObject)
             completion(jsonObject, true)
-        }.resume()
+            }.resume()
     }
     
     func getUrlFromKoreanText(urlString: String) -> URL? {
@@ -79,7 +80,52 @@ class NetworkCommunicator {
                 }
                 (index == imageUrlStringArray.count-1) ? completion(imageArray) : ()
             }
+        }
+    }
+    
+    
+    
+    func getHouseServerData(urlString: String, completion: @escaping ([HouseDataInList]?, Bool) -> ()) {
+        
+        getJsonObjectFromAPI(urlString: urlString, urlForSpecificProcessing: nil) { (json, success) in
+            guard success else {
+                print("‼️ NetWorkCommunicator success failed")
+                completion(nil, false)
+                return
+            }
             
+            guard let object = json as? [String: Any]
+                , let resultArray = object["results"] as? [[String: Any]] else {
+                    print("‼️ NetWorkCommunicator object convert error")
+                    completion(nil, false)
+                    return
+            }
+            
+            guard let data = try? JSONSerialization.data(withJSONObject: resultArray) else {
+                print("‼️ NetWorkCommunicator data convert error")
+                completion(nil, false)
+                return
+            }
+            
+            guard var houseArray = try? self.jsonDecoder.decode([HouseDataInList].self, from: data)
+                , houseArray.count > 0 else {
+                    print("‼️ NetWorkCommunicator HouseDataInList decoding error")
+                    completion(nil, false)
+                    return
+            }
+            
+            for i in 0..<houseArray.count {
+                guard let url = URL(string: houseArray[i].image) else { print("‼️ NetWorkCommunicator kingfisher url error"); return }
+                self.kingfisher.downloadImage(with: url, completionHandler: { (result) in
+                    switch result {
+                    case .success(let value):
+                        houseArray[i].imageArray.append(value.image)
+                    case .failure(let error):
+                        print("‼️ LaunchVC kinfisher: ", error.localizedDescription)
+                    }
+                    (i == houseArray.count - 1) ? completion(houseArray, true) : ()
+                })
+            }
         }
     }
 }

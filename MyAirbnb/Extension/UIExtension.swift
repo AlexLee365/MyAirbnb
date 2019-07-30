@@ -8,43 +8,6 @@
 
 import UIKit
 
-extension Notification.Name {
-    // MARK: - SearchBarView
-    static let searchBarEditBegin = Notification.Name(rawValue: "SearchBarEditBegin")
-    static let searchBarEditEnd = Notification.Name(rawValue: "SearchBarEditEnd")
-    
-    static let searchBarDateBtnDidTap = Notification.Name(rawValue: "SearchBarDateBtnDidTap")
-    static let searchBarDateResultBtnDidTap = Notification.Name(rawValue: "SearchBarDateResultBtnDidTap")
-    static let searchBarPeopleBtnDidTap = Notification.Name(rawValue: "SearchBarPeopleBtnDidTap")
-    static let searchBarPeopleResultBtnDidTap = Notification.Name("SearchBarPeopleResultBtnDidTap")
-    static let searchBarFilterBtnDidTap = Notification.Name(rawValue: "SearchBarFilterBtnDidTap")
-    static let searchBarFilterResultBtnDidTap = Notification.Name("SearchBarFilterResultBtnDidTap")
-    
-    
-    // MARK: - House
-    static let moveToHouseView = Notification.Name(rawValue: "MoveToHouseView")
-    static let moveToHouseDetailView = Notification.Name("MoveToHouseDetailView")
-    static let moveToPlusHouseDetailView = Notification.Name(rawValue: "MoveToPlusHouseDetailView")
-    
-    static let mapViewDidTapInHouseDetailView = Notification.Name("MapViewDidTapInHouseDetailView")
-    
-    // MARK: - FilterRemainsVC
-    static let instantBookSwitchTapped = Notification.Name("InstantBookSwitchTapped")
-    static let houseGradeSwitchTapped = Notification.Name("HouseGradeSwitchTapped")
-    static let priceSliderDidChanged = Notification.Name("PriceSliderDidChanged")
-    static let houseTypeSwitchTapped = Notification.Name("HouseTypeSwitchTapped")
-    static let bedroomsCountChanged = Notification.Name("BedroomsCountChanged")
-    static let facilitiesInsideChecked = Notification.Name("FacilitiesInsideChecked")
-    static let facilitiesInsideSeeMoreBtnDidTap = Notification.Name("FacilitiesInsideSeeMoreBtnDidTap")
-    static let facilitiesOutsideChecked = Notification.Name("FacilitiesOutsideChecked")
-    static let facilitiesOutsideSeeMoreBtnDidTap = Notification.Name("FacilitiesOutsideSeeMoreBtnDidTap")
-    static let buildingTypeChecked = Notification.Name("BuildingTypeChecked")
-    static let buildingTypeSeeMoreBtnDidTap = Notification.Name("BuildingTypeSeeMoreBtnDidTap")
-    static let uniqueHouseChecked = Notification.Name("UniqueHouseChecked")
-    static let uniqueHouseSeeMoreBtnDidTap = Notification.Name("UniqueHouseSeeMoreBtnDidTap")
-    static let useRulesChecked = Notification.Name("UseRulesChecked")
-}
-
 extension UILabel {
     func configureMainTableViewCellsTitle() {   // MainView의 TableViewCell들의 타이틀 텍스트 설정을 통일시켜주는 메소드
         self.font = .systemFont(ofSize: StandardUIValue.shared.sizeTitleBoldText, weight: .bold)

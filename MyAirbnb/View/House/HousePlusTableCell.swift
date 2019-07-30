@@ -17,7 +17,6 @@ class HousePlusTableCell: UITableViewCell {
         static let lineSpacing: CGFloat = 13.0
         static let itemSpacing: CGFloat = 0
         static let edgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
-        
         static let nextOffset: CGFloat = 80
     }
     
@@ -59,7 +58,9 @@ class HousePlusTableCell: UITableViewCell {
         return button
     }()
     
+    let notiCenter = NotificationCenter.default
     let collectionViewCellWidth: CGFloat = UIScreen.main.bounds.width * 0.65
+    var plusHouseDataArray = [HousePlusDataInList]()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -120,12 +121,15 @@ class HousePlusTableCell: UITableViewCell {
 
 extension HousePlusTableCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return plusHouseDataArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HousePlusCollectionCell.identifier, for: indexPath) as! HousePlusCollectionCell
+        
+        cell.setData(plusHouseData: plusHouseDataArray[indexPath.row])
+        
         return cell
     }
 }
@@ -133,7 +137,9 @@ extension HousePlusTableCell: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate
 
 extension HousePlusTableCell: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        notiCenter.post(name: .moveToPlusHouseDetailView, object: nil)
+    }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout

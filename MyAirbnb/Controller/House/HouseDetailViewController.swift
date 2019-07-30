@@ -39,7 +39,7 @@ class HouseDetailViewController: UIViewController {
         
         self.setPlaceholderView()
         self.showIdicator()
-        DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
             self.getServerData {
                 DispatchQueue.main.async {
                     self.tableView.reloadData()

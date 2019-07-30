@@ -9,6 +9,7 @@
 import UIKit
 import SnapKit
 
+
 protocol CalendarDelegate: class {
     func presentCalenderVC()
     func presentPeopleVC()
@@ -28,23 +29,14 @@ class SearchBarView: UIView {
     let searchTF = UITextField()
     let searchCancelBtn = UIButton()
     
-    let filterDateBtn = UIButtonWithHighlightEffect()
-    let filterPeopleBtn = UIButtonWithHighlightEffect()
-    let filterRemainsBtn = UIButtonWithHighlightEffect()
+    let filterDateBtn = UIButton()
+    let filterPeopleBtn = UIButton()
+    let filterRemainsBtn = UIButton()
     lazy var filterStackView = UIStackView(arrangedSubviews: [filterDateBtn, filterPeopleBtn, filterRemainsBtn])
-    
-    let autoCompleteTableView = UITableView()
-    
-    let searchBarTableView = SearchBarTableView()
     
     // MARK: - Properties
     var searchContainerTrailingInSearch: NSLayoutConstraint?
-    
-    var tableViewConstHeightInEditing: NSLayoutConstraint?
-    var tableViewConstBottomInEditing: NSLayoutConstraint?
-    
     let notiCenter = NotificationCenter.default
-    
     var useCase: UseCase = .inMainVC
     
     var selectedDatesArray = [Date]()
@@ -83,11 +75,8 @@ class SearchBarView: UIView {
         }
     }
     
-    weak var delegate: CalendarDelegate?
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         setAutoLayout()
         configureViewsOptions()
     }
@@ -158,30 +147,6 @@ class SearchBarView: UIView {
         filterRemainsBtn.topAnchor.constraint(equalTo: filterStackView.topAnchor, constant: 0).isActive = true
         filterRemainsBtn.heightAnchor.constraint(equalTo: filterStackView.heightAnchor, multiplier: 1).isActive = true
         // =========================================================================================================
-        //
-        //        self.addSubview(autoCompleteTableView)
-        //        autoCompleteTableView.translatesAutoresizingMaskIntoConstraints = false
-        //        autoCompleteTableView.topAnchor.constraint(equalTo: searchContainerView.bottomAnchor, constant: 5).isActive = true
-        //        autoCompleteTableView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        //        autoCompleteTableView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        //        let tableViewConstHeight = autoCompleteTableView.heightAnchor.constraint(equalToConstant: 0)
-        //        tableViewConstHeight.priority = UILayoutPriority(500)
-        //        tableViewConstHeight.isActive = true
-        
-        //        let tableViewConstBottom = autoCompleteTableView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
-        //        tableViewConstBottom.priority = UILayoutPriority(rawValue: 500)
-        //        tableViewConstBottom.isActive = true
-        
-        //        self.bringSubviewToFront(filterStackView)
-        
-        //        self.addSubview(searchBarTableView)
-        //        searchBarTableView.snp.makeConstraints { (make) in
-        //            make.top.equalTo(searchContainerView.snp.bottom).offset(10)
-        //            make.leading.trailing.bottom.equalToSuperview()
-        //        }
-        //        searchBarTableView.alpha = 1
-        ////        searchBarTableView.isHidden = true
-        //        searchBarTableView.isUserInteractionEnabled = false
     }
     
     private func configureViewsOptions() {
@@ -246,7 +211,7 @@ class SearchBarView: UIView {
     @objc func searchCancelBtnDidTap(_ sender: UIButton) {  // 취소 버튼 => 수정종료
         searchTF.resignFirstResponder()
         
-        notiCenter.post(name: .searchBarEditEnd, object: nil)
+        
     }
     
     @objc func filterDateBtnDidTap(_ sender: UIButton) {
@@ -264,10 +229,23 @@ class SearchBarView: UIView {
 }
 
 
+// TextField Delegate
 extension SearchBarView: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        guard textField.text != "" else { return  true }
+        print("Textfield should return / There are texts")
+        textField.resignFirstResponder()
+        notiCenter.post(name: .searchBarEnterPressed, object: nil, userInfo: ["result": textField.text ?? ""])
+        return true
+    }
+    
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         print("tf should begin editing")
-        self.searchTF.text = ""
+        if textField.text != "숙소", textField.text != "트립" {
+            
+        } else{
+            self.searchTF.text = ""
+        }
         return true
     }
     
@@ -282,16 +260,16 @@ extension SearchBarView: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {     // 수정 종료
         print("SearchBarView TF did end editing")
-//        print(useCase)
-       
+
+        notiCenter.post(name: .searchBarEditEnd, object: nil)
         textEditEndAnimation()
     }
     
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        print("tf should end editing")
-       
-        return true
-    }
+//    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+//        print("tf should end editing")
+//
+//        return true
+//    }
     
     private func textEditBeginAnimation() {
         self.searchContainerTrailingInSearch = self.searchContainerView.trailingAnchor.constraint(equalTo: self.searchCancelBtn.leadingAnchor, constant: 0)
@@ -319,7 +297,6 @@ extension SearchBarView: UITextFieldDelegate {
     }
     
     private func textEditEndAnimation() {
-        
         UIView.animateKeyframes(withDuration: 0.6, delay: 0, options: [], animations: {
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.3, animations: {
                 self.searchCancelBtn.layer.opacity = 0
@@ -335,6 +312,7 @@ extension SearchBarView: UITextFieldDelegate {
                 self.layoutIfNeeded()
             })
         }) { (_) in
+            guard self.searchTF.text == "" else { return }
             switch self.useCase {
             case .inMainVC:
                 self.searchTF.text = ""
@@ -345,20 +323,6 @@ extension SearchBarView: UITextFieldDelegate {
             }
         }
     }
-}
-
-extension SearchBarView: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 30
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = "textCell"
-        return cell
-    }
-    
-    
 }
 
 

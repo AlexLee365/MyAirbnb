@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import SnapKit
 
 class HouseView: UIView {
+    
+    // MARK: - UI Properties
     let tableView: UITableView = {
         let tableView = UITableView()
         tableView.rowHeight = UITableView.automaticDimension
@@ -18,8 +21,12 @@ class HouseView: UIView {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
+    let noResultLabel = UILabel()
     
-    var houseDataArray = [HouseDataInList]()
+    // MARK: - Properties
+    let notiCenter = NotificationCenter.default
+    var houseViewDatas = [HouseViewData]()
+    var normalHouseDataArray = [HouseDataInList]()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,6 +38,26 @@ class HouseView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    var flag = false
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        if flag == false {
+            if let data = ( houseViewDatas.filter{$0.cellStyle == .normalHouse}.map{ $0.data }.first ?? [] ) as? [HouseDataInList] {
+                normalHouseDataArray = data
+            }
+            tableView.reloadData()
+            noResultLabel.isHidden = (normalHouseDataArray.count == 0) ? false : true
+            
+            flag = true
+        }
+    }
+    
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+       
+    }
+    
     private func configure() {
         tableView.dataSource = self
         tableView.delegate = self
@@ -40,59 +67,103 @@ class HouseView: UIView {
         tableView.register(AllHouseLabelTableCell.self, forCellReuseIdentifier: AllHouseLabelTableCell.identifier)
         tableView.register(AllHousesTableCell.self, forCellReuseIdentifier: AllHousesTableCell.identifier)
         
-        self.addSubview(tableView)
+        noResultLabel.isHidden = true
+        noResultLabel.text = "검색 결과가 없습니다."
+        noResultLabel.font = .systemFont(ofSize: 14, weight: .semibold)
+        noResultLabel.textColor = StandardUIValue.shared.colorRegularText
     }
     
     private func setAutolayout() {
+        self.addSubview(tableView)
         tableView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         
+        self.addSubview(noResultLabel)
+        noResultLabel.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview().offset(-70)
+        }
     }
 }
 
 
 // MARK: - UITableViewDataSource
-
 extension HouseView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return houseDataArray.count + 4
+        return (houseViewDatas.count - 1) + normalHouseDataArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
-        case 0:
-            let topLabelCell = tableView.dequeueReusableCell(withIdentifier: HouseTopLabelTableCell.identifier, for: indexPath) as! HouseTopLabelTableCell
-            topLabelCell.topLabel.text = "여행 날짜와 게스트 인원수를 입력하면 1박당 총 요금을 확인할 수 있습니다. 관광세가 추가로 부과될 수 있습니다."
+        case 0..<houseViewDatas.count-1:
+            let houseData = houseViewDatas[indexPath.row]
             
-            return topLabelCell
-        case 1:
-            let luxeHouseCell = tableView.dequeueReusableCell(withIdentifier: HouseLuxeTableCell.identifier, for: indexPath) as! HouseLuxeTableCell
-            
-            return luxeHouseCell
-        case 2:
-            let plusHouseCell = tableView.dequeueReusableCell(withIdentifier: HousePlusTableCell.identifier, for: indexPath) as! HousePlusTableCell
-            
-            return plusHouseCell
-        case 3:
-            let allHouseLabelCell = tableView.dequeueReusableCell(withIdentifier: AllHouseLabelTableCell.identifier, for: indexPath) as! AllHouseLabelTableCell
-            
-            return allHouseLabelCell
+            switch houseData.cellStyle {
+            case .introLabel:
+                if let introLabelData = houseData.data as? [HouseIntroLabelDataInList] {
+                    let topLabelCell = tableView.dequeueReusableCell(withIdentifier: HouseTopLabelTableCell.identifier, for: indexPath) as! HouseTopLabelTableCell
+                    topLabelCell.setData(introData: introLabelData.first ?? HouseIntroLabelDataInList(intro: "Default"))
+                    
+                    return topLabelCell
+                } else {
+                    print("TopLabelCell convert error")
+                }
+                
+            case .luxe:
+                if let luxeData = houseData.data as? [HouseLuxeDataInList] {
+                    let luxeHouseCell = tableView.dequeueReusableCell(withIdentifier: HouseLuxeTableCell.identifier, for: indexPath) as! HouseLuxeTableCell
+                    luxeHouseCell.luxeHouseDataArray = luxeData
+                    return luxeHouseCell
+                } else {
+                    print("luxeHouseCell convert error")
+                }
+                
+            case .plus:
+                if let plusData = houseData.data as? [HousePlusDataInList] {
+                    let plusHouseCell = tableView.dequeueReusableCell(withIdentifier: HousePlusTableCell.identifier, for: indexPath) as! HousePlusTableCell
+                    plusHouseCell.plusHouseDataArray = plusData
+                    
+                    return plusHouseCell
+                } else {
+                    print("plusHouseCell convert error")
+                }
+                
+            case .titleLabel:
+                if let titleData = houseData.data as? [HouseTitleLabelDataInList] {
+                    let allHouseLabelCell = tableView.dequeueReusableCell(withIdentifier: AllHouseLabelTableCell.identifier, for: indexPath) as! AllHouseLabelTableCell
+                    allHouseLabelCell.setData(titleData: titleData.first ?? HouseTitleLabelDataInList(title: "Default"))
+                    
+                    return allHouseLabelCell
+                } else {
+                    print("titleLabelCell convert error")
+                }
+            default: break
+            }
         default:
-            let allHousesCell = tableView.dequeueReusableCell(withIdentifier: AllHousesTableCell.identifier, for: indexPath) as! AllHousesTableCell
-            allHousesCell.setData(houseData: houseDataArray[indexPath.row-4])
-            allHousesCell.currentIndex = indexPath.row
+            let otherCellStylesCount = houseViewDatas.count - 1
+            let houseData = normalHouseDataArray[indexPath.row - otherCellStylesCount]
             
+            let allHousesCell
+                = tableView.dequeueReusableCell(withIdentifier: AllHousesTableCell.identifier, for: indexPath) as! AllHousesTableCell
+            allHousesCell.setData(houseData: houseData)
+            allHousesCell.currentIndex = indexPath.row
             return allHousesCell
         }
+        return UITableViewCell()
     }
-    
-    
 }
 
 // MARK: - UITabBarDelegate
 
 extension HouseView: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard indexPath.row >= houseViewDatas.count-1 else { return }
+        let otherCellStylesCount = houseViewDatas.count - 1
+        let houseData = normalHouseDataArray[indexPath.row - otherCellStylesCount]
+        
+        notiCenter.post(name: .moveToHouseDetailView, object: nil,
+                        userInfo: ["roomID": houseData.id, "type": houseData.roomType, "houseName": houseData.title])
+    }
 }

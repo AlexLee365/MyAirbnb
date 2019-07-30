@@ -128,8 +128,6 @@ extension MainView: UITableViewDelegate, UITableViewDataSource {
             } else {
                 print("normal Housedata convert error")
             }
-            
-        default: break
         }
       return UITableViewCell()
     }

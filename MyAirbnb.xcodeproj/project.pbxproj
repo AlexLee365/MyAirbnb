@@ -88,6 +88,8 @@
 		43E36CDC22E59B03006C8AEF /* HouseDetailLocationTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E36CDB22E59B03006C8AEF /* HouseDetailLocationTableCell.swift */; };
 		43E36CDE22E5AC77006C8AEF /* HouseDetailCheckInTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E36CDD22E5AC77006C8AEF /* HouseDetailCheckInTableCell.swift */; };
 		43F5AA8722EB2683007511E1 /* SearchBarTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F5AA8622EB2683007511E1 /* SearchBarTableCell.swift */; };
+		43F5AA8F22F00055007511E1 /* HouseDatasInList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F5AA8E22F00055007511E1 /* HouseDatasInList.swift */; };
+		43F5AA9122F03504007511E1 /* NotificationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F5AA9022F03504007511E1 /* NotificationExtension.swift */; };
 		8D0D786E22D07C9300F61F0B /* TripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D786D22D07C9300F61F0B /* TripViewController.swift */; };
 		8D0D787022D07DE600F61F0B /* TripIntroTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D786F22D07DE600F61F0B /* TripIntroTableViewCell.swift */; };
 		8D0D787222D0810300F61F0B /* SpecialTripTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D787122D0810300F61F0B /* SpecialTripTableViewCell.swift */; };
@@ -268,6 +270,8 @@
 		43E36CDB22E59B03006C8AEF /* HouseDetailLocationTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailLocationTableCell.swift; sourceTree = "<group>"; };
 		43E36CDD22E5AC77006C8AEF /* HouseDetailCheckInTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailCheckInTableCell.swift; sourceTree = "<group>"; };
 		43F5AA8622EB2683007511E1 /* SearchBarTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarTableCell.swift; sourceTree = "<group>"; };
+		43F5AA8E22F00055007511E1 /* HouseDatasInList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDatasInList.swift; sourceTree = "<group>"; };
+		43F5AA9022F03504007511E1 /* NotificationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationExtension.swift; sourceTree = "<group>"; };
 		5895FA9D40FD45C305945B10 /* Pods_MyAirbnb.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyAirbnb.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D0D786D22D07C9300F61F0B /* TripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripViewController.swift; sourceTree = "<group>"; };
 		8D0D786F22D07DE600F61F0B /* TripIntroTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripIntroTableViewCell.swift; sourceTree = "<group>"; };
@@ -433,6 +437,7 @@
 			isa = PBXGroup;
 			children = (
 				4353B8FC22D47C02004BD807 /* UIExtension.swift */,
+				43F5AA9022F03504007511E1 /* NotificationExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -474,6 +479,7 @@
 			children = (
 				4353B90322D484FA004BD807 /* StandardUIValue.swift */,
 				4313F09322E8478E003BB3D1 /* MainViewData.swift */,
+				43F5AA8E22F00055007511E1 /* HouseDatasInList.swift */,
 				4399347422E9B12700FAE15C /* HouseDetailData.swift */,
 				8D0D78A022D4598200F61F0B /* TripIntroData.swift */,
 				8D0D78A222D459AC00F61F0B /* SpecialTripData.swift */,
@@ -929,6 +935,7 @@
 				8D51904F22EC3881009D6792 /* MemoTableCell.swift in Sources */,
 				4353B8F822D327C2004BD807 /* MainCategoryCollectCell.swift in Sources */,
 				20272A0922EECA9A00848BC5 /* LoginPost.swift in Sources */,
+				43F5AA8F22F00055007511E1 /* HouseDatasInList.swift in Sources */,
 				4353BA2322DC40B5004BD807 /* FSCalendar.m in Sources */,
 				8D0D788C22D2220700F61F0B /* SeoulRecommenedTripTableViewCell.swift in Sources */,
 				4313F08822E5DE0A003BB3D1 /* MapViewController.swift in Sources */,
@@ -989,6 +996,7 @@
 				4353BA8F22E09FC5004BD807 /* TestSaveViewController.swift in Sources */,
 				8D0D794222DDE50900F61F0B /* AVFoundationViewController.swift in Sources */,
 				8D0D789A22D3610C00F61F0B /* SeoulRecommendedDetailViewController.swift in Sources */,
+				43F5AA9122F03504007511E1 /* NotificationExtension.swift in Sources */,
 				4353BA2A22DC40B5004BD807 /* FSCalendarHeaderView.m in Sources */,
 				4353B90A22D4A5A6004BD807 /* MainRecommendHouseTableCell.swift in Sources */,
 				4353BA2722DC40B5004BD807 /* FSCalendarExtensions.m in Sources */,
@@ -1162,7 +1170,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = kr.doyeong.MyAirbnb;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.AlexLee0427.MyAirbnb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "./FSCalendar/Objc-Bridge-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -1182,7 +1190,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = kr.doyeong.MyAirbnb;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.AlexLee0427.MyAirbnb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "./FSCalendar/Objc-Bridge-Header.h";
 				SWIFT_VERSION = 5.0;

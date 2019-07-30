@@ -41,4 +41,8 @@ class AllHouseLabelTableCell: UITableViewCell {
         titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
         titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
     }
+    
+    func setData(titleData: HouseTitleLabelDataInList) {
+        titleLabel.text = titleData.title
+    }
 }

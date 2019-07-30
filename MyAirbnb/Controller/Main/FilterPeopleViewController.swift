@@ -42,6 +42,7 @@ class FilterPeopleViewController: UIViewController {
     let resultBtn = UIButton()
     
     // MARK: - Properties
+    let netWork = NetworkCommunicator()
     var selectedPeople = (0, 0, 0)
     
     var adultCount = 0 {
@@ -83,7 +84,6 @@ class FilterPeopleViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setBackgroundView()
         setAutoLayout()
         configureViewsOptions()
@@ -92,7 +92,6 @@ class FilterPeopleViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         setAnimation()
-        
         adultCount = selectedPeople.0
         childCount = selectedPeople.1
         babyCount = selectedPeople.2
@@ -422,6 +421,16 @@ class FilterPeopleViewController: UIViewController {
             self.containerView.alpha = 0
         }) { (_) in
             self.dismiss(animated: false, completion: nil)
+        }
+    }
+    
+    private func getServerDateWithPeople(capacity: Int, completion: @escaping () -> ()) {
+        let urlString = netWork.basicUrlString
+            + "/rooms/?search=seoul&ordering=total_rating&page_size=5&page=1"
+            + "&capacity=\(capacity)"
+        
+        netWork.getJsonObjectFromAPI(urlString: urlString, urlForSpecificProcessing: nil) { (json, success) in
+            <#code#>
         }
     }
 

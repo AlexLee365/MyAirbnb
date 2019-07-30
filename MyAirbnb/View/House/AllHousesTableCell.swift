@@ -12,7 +12,8 @@ import Kingfisher
 class AllHousesTableCell: UITableViewCell {
     static let identifier = "AllHousesTableCell"
     
-    var images = ["roomSample3", "houseSample", "luxeSample", "MainFullImage", "categoryHouseImage"]
+    var imageSamples = ["roomSample3", "houseSample", "luxeSample", "MainFullImage", "categoryHouseImage"]
+    var imageArray = [UIImage]()
     
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -92,7 +93,7 @@ class AllHousesTableCell: UITableViewCell {
         contentView.addSubview(likeBtn)
         
         contentView.addSubview(pageController)
-        pageController.numberOfPages = images.count
+        pageController.numberOfPages = imageSamples.count
         pageController.pageIndicatorTintColor = #colorLiteral(red: 0.8374180198, green: 0.8374378085, blue: 0.8374271393, alpha: 1)
         pageController.currentPageIndicatorTintColor = .white
         
@@ -138,29 +139,37 @@ class AllHousesTableCell: UITableViewCell {
     private func createScrollViews() {
         let frame = UIScreen.main.bounds
         
-        for i in 0..<images.count {
+        for i in 0..<imageSamples.count {
             let tempPoint = CGPoint(x: ((frame.width - 40) * CGFloat(i)), y: 0)
             let tempSize = CGSize(width: (frame.width - 40), height: tempHeight)
             
             let tempFrame = CGRect(origin: tempPoint, size: tempSize)
             
             let uiView = AllHousesScrollImageView(frame: tempFrame)
-            uiView.imageView.image = UIImage()
-            uiView.imageView.backgroundColor = #colorLiteral(red: 0.8933986425, green: 0.8880880475, blue: 0.8974809647, alpha: 0.2499464897)
+//            uiView.imageView.image = UIImage()
+//            uiView.imageView.backgroundColor = #colorLiteral(red: 0.8933986425, green: 0.8880880475, blue: 0.8974809647, alpha: 0.2499464897)
             
             scrollView.addSubview(uiView)
             imageViewArray.append(uiView.imageView)
         }
-        scrollView.contentSize = CGSize(width: ((frame.size.width - 40) * CGFloat(images.count)), height: tempHeight-5)
+        scrollView.contentSize = CGSize(width: ((frame.size.width - 40) * CGFloat(imageSamples.count)), height: tempHeight-5)
     }
     
     func setData(houseData: HouseDataInList) {
-        imageViewArray.first?.image = houseData.imageArray.first ?? UIImage(named: "")
+        print("🔴🔴🔴 : ")
+        print(houseData)
+        
+//        imageArray.append(houseData.imageArray.first ?? UIImage(named: "houseSample")!)
+//        imageViewArray.first?.image = imageArray.first
         houseTypeLabel.text = "\(houseData.roomType) ・ \(houseData.state)"
         houseNameLabel.text = houseData.title
         ratingImageLabel.text = houseData.drawStarsWithHouseRate()
         ratingAndHostInfoLabel.text = "\(houseData.reservations) ・ \(houseData.superHost ?? "일반 호스트")"
         imageStringArray = [houseData.image, houseData.image1, houseData.image2, houseData.image3, houseData.image4]
+
+        guard let url = URL(string: imageStringArray.first ?? "") else { print("‼️ setData url convert error "); return }
+        imageViewArray.first?.kf.setImage(with: url)
+        downLoadAllImages()
     }
 }
 
@@ -171,19 +180,39 @@ extension AllHousesTableCell: UIScrollViewDelegate {
         let page = Int( (scrollView.contentOffset.x / (frame.size.width - 40)) )
         pageController.currentPage = page
         
-        getNextImageAndSaveImageCaches(page: page)
+//
+//        if imageArray.count-1 < page {
+//            // image를 아직 다운받지않아 없으면
+//            print("noImages")
+//            guard let url = URL(string: imageStringArray[page]) else { print("‼️ didscroll url convert error "); return }
+//            imageViewArray[page].kf.setImage(with: url)
+//            downLoadAllImages()
+//        } else {
+//            // 이미지가 있으면
+//            print("Image exsits")
+//            imageViewArray[page].image = imageArray[page]
+//        }
     }
     
     
-    
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-//        let frame = UIScreen.main.bounds
-//        let page = Int( (scrollView.contentOffset.x / (frame.size.width - 40)) )
+        let frame = UIScreen.main.bounds
+        let page = Int( (scrollView.contentOffset.x / (frame.size.width - 40)) )
+        print(page)
         
-//        let urls = imageStringArray.map{ URL(string: $0)! }
-//        let prefetcher = ImagePrefetcher(urls: urls)
-//        prefetcher.start()
-    
+//        guard let url = URL(string: imageStringArray[page]) else { print("‼️ didscroll url convert error "); return }
+//        imageViewArray[page].kf.setImage(with: url)
+        
+//        if imageArray.count-1 < page {
+//            // image를 아직 다운받지않아 없으면
+//            print("noImages")
+//            guard let url = URL(string: imageStringArray[page]) else { print("‼️ didscroll url convert error "); return }
+//            downLoadAllImages()
+//        } else {
+//            // 이미지가 있으면
+//            print("Image exsits")
+////            imageViewArray[page].image = imageArray[page]
+//        }
     }
     
     private func getNextImageAndSaveImageCaches(page: Int) {
@@ -207,5 +236,25 @@ extension AllHousesTableCell: UIScrollViewDelegate {
                 })
             }
         })
+    }
+    
+    private func downLoadAllImages() {
+        for (index, value) in imageStringArray.enumerated() {
+//            guard index > 0 else { continue }
+            guard let url = URL(string: value) else { return }
+            print("--------------------------[downloading start]--------------------------")
+            ImageDownloader.default.downloadImage(with: url) { (result) in
+                switch result {
+                case .success(let value):
+                    self.imageArray.append(value.image)
+                    self.imageViewArray[index].image = value.image
+                case .failure(let error):
+                    print("AllHouseTableCell download images error: ", error.localizedDescription)
+                }
+                print("download Image: ", self.imageArray)
+            }
+        }
+        
+       
     }
 }

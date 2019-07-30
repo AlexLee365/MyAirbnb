@@ -45,4 +45,8 @@ class HouseTopLabelTableCell: UITableViewCell {
         topLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -sideMargin).isActive = true
         topLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -sideMargin).isActive = true
     }
+    
+    func setData(introData: HouseIntroLabelDataInList) {
+        topLabel.text = introData.intro
+    }
 }

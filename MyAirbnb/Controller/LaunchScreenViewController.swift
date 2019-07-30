@@ -35,7 +35,7 @@ class LaunchScreenViewController: UIViewController {
         createFullImageHouseData()
         createLuxeHouseData()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             
             self.getServerDataTest {
                 self.mainViewDataArray.append(MainViewData(data: self.houseDataArray, cellStyle: .fourSquare))
@@ -47,11 +47,6 @@ class LaunchScreenViewController: UIViewController {
                         print("LaunchVC naviVC, mainVC convert error")
                         return
                     }
-                    
-//                    guard let mainVC = naviVC.viewControllers.first as? MainViewController else {
-//                        print("LaunchVC mainVC convert erorr")
-//                        return
-//                    }
                     
                     mainVC.mainView.mainViewDatas = self.mainViewDataArray
                     

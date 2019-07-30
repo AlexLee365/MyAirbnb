@@ -8,6 +8,7 @@
 
 import UIKit
 import Kingfisher
+import NVActivityIndicatorView
 
 class CalenderViewController: UIViewController {
     
@@ -20,9 +21,10 @@ class CalenderViewController: UIViewController {
     var weekdayLabel = UILabel()
     let seperateLineViewTop = UIView()
     let seperateLineViewBottom = UIView()
-    let resultBtn = UIButton()
+    let resultBtn = UIButtonWithHighlightEffect()
     
     private weak var calendar: FSCalendar!
+    let indicator = NVActivityIndicatorView(frame: .zero)
     
     // MARK: - Properties
     let currentDate = Date()
@@ -68,6 +70,7 @@ class CalenderViewController: UIViewController {
         setCalendar()
         setAutoLayout()
         configureViewsOptions()
+        setIndicatorView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -148,29 +151,26 @@ class CalenderViewController: UIViewController {
         seperateLineViewTop.trailingAnchor.constraint(equalTo: containerView.trailingAnchor).isActive = true
         seperateLineViewTop.heightAnchor.constraint(equalToConstant: 1).isActive = true
         
+        containerView.addSubview(resultBtn)
+        resultBtn.translatesAutoresizingMaskIntoConstraints = false
+        resultBtn.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
+        resultBtn.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 0).isActive = true
+        resultBtn.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 1).isActive = true
+        resultBtn.heightAnchor.constraint(equalToConstant: 43).isActive = true
+        
+        containerView.addSubview(seperateLineViewBottom)
+        seperateLineViewBottom.translatesAutoresizingMaskIntoConstraints = false
+        seperateLineViewBottom.bottomAnchor.constraint(equalTo: resultBtn.topAnchor, constant: 0).isActive = true
+        seperateLineViewBottom.leadingAnchor.constraint(equalTo: containerView.leadingAnchor).isActive = true
+        seperateLineViewBottom.trailingAnchor.constraint(equalTo: containerView.trailingAnchor).isActive = true
+        seperateLineViewBottom.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        
         containerView.addSubview(calendar)
         calendar.translatesAutoresizingMaskIntoConstraints = false
         calendar.topAnchor.constraint(equalTo: seperateLineViewTop.bottomAnchor, constant: 0).isActive = true
         calendar.leadingAnchor.constraint(equalTo: containerView.leadingAnchor).isActive = true
         calendar.trailingAnchor.constraint(equalTo: containerView.trailingAnchor).isActive = true
-        calendar.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -46).isActive = true
-        
-        containerView.addSubview(seperateLineViewBottom)
-        seperateLineViewBottom.translatesAutoresizingMaskIntoConstraints = false
-        seperateLineViewBottom.topAnchor.constraint(equalTo: calendar.bottomAnchor, constant: 2).isActive = true
-        seperateLineViewBottom.leadingAnchor.constraint(equalTo: containerView.leadingAnchor).isActive = true
-        seperateLineViewBottom.trailingAnchor.constraint(equalTo: containerView.trailingAnchor).isActive = true
-        seperateLineViewBottom.heightAnchor.constraint(equalToConstant: 1).isActive = true
-        
-        containerView.addSubview(resultBtn)
-        resultBtn.translatesAutoresizingMaskIntoConstraints = false
-        resultBtn.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
-        resultBtn.centerYAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -23).isActive = true
-//        resultBtn.widthAnchor.constraint(equalToConstant: 80).isActive = true
-        resultBtn.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 1).isActive = true
-        resultBtn.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        
-
+        calendar.bottomAnchor.constraint(equalTo: seperateLineViewBottom.topAnchor, constant: 0).isActive = true
     }
     
     private func configureViewsOptions() {
@@ -240,6 +240,16 @@ class CalenderViewController: UIViewController {
         }
     }
     
+    private func setIndicatorView() {
+        let centerX = UIScreen.main.bounds.width/2
+        let centerY = UIScreen.main.bounds.height/2
+        resultBtn.addSubview(indicator)
+        indicator.frame = CGRect(x: centerX-23, y: 9, width: 23, height: 23)
+        indicator.type = .ballBeat
+        indicator.color = StandardUIValue.shared.colorBlueGreen
+    }
+
+    
     @objc func refreshBtnDidTap(_ sender: UIButton) {
         print("didTap")
         selectedDatesString = "날짜 선택"
@@ -266,30 +276,47 @@ class CalenderViewController: UIViewController {
             if self.selectedDatesString == "날짜 선택" {
                 mainVC.searchBarView.selectedDatesArray.removeAll()
                 mainVC.searchBarView.selectedDateString = "날짜"
-                
-                
+                dismissWithAnimation()
             } else {
+                resultBtn.setTitle("", for: .normal)
+                indicator.startAnimating()
+                
                 mainVC.searchBarView.selectedDateString = selectedDatesString
                 mainVC.searchBarView.selectedDatesArray = selectedDatesArray
-            }
-            
-            getServerData { (houseDataArray) in
-                for i in houseDataArray {
-                    print("--------------------------[]--------------------------")
-                    print(i)
+                
+                var houseViewDataArray = [HouseViewData]()
+                getServerDataWithDate { (houseDataArray, success) in
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        
+                        switch success {
+                        case true:
+                            print("--------------------------[CalendarVC serfverData Success]--------------------------")
+                            let houseviewDataIntroLabel = HouseViewData(
+                                data: [HouseIntroLabelDataInList(intro: "여행 날짜와 게스트 인원수를 입력하면 1박당 총 요금을 확인할 수 있습니다. 관광세가 추가로 부과될 수 있습니다.")],
+                                cellStyle: .introLabel)
+                            let houseviewDataTitleLabel = HouseViewData(
+                                data: [HouseTitleLabelDataInList(title: "300개 이상의 숙소 모두 둘러보기")], cellStyle: .titleLabel)
+                            let houseviewDataNormal = HouseViewData(data: houseDataArray!, cellStyle: .normalHouse)
+                            houseViewDataArray = [houseviewDataIntroLabel, houseviewDataTitleLabel, houseviewDataNormal]
+                        case false:
+                            print("--------------------------[CalendarVC serfverData False]--------------------------")
+                            let houseviewDataIntroLabel = HouseViewData(
+                                data: [HouseIntroLabelDataInList(intro: "숙소 결과가 없습니다.")],
+                                cellStyle: .introLabel)
+                            houseViewDataArray = [houseviewDataIntroLabel]
+                        }
+                        self.notiCenter.post(name: .searchBarDateResultBtnDidTap, object: nil, userInfo: ["houseViewDataArray": houseViewDataArray])
+                        self.dismissWithAnimation()
+                    }
+                    
+                   
                 }
             }
-            
-            self.notiCenter.post(name: .searchBarDateResultBtnDidTap, object: nil)
-            
-            dismissWithAnimation()
             
         }
 //        else if let tripVC = presentingViewController as? TripViewController {
 //            print("tripVC")
 //        }
-        
-        
         
     }
     
@@ -327,7 +354,7 @@ class CalenderViewController: UIViewController {
         }
     }
     
-    private func getServerData(completion: @escaping ([HouseDataInList]) -> ()) {
+    private func getServerDataWithDate(completion: @escaping ([HouseDataInList]?, Bool) -> ()) {
         let startDate = selectedDatesArray.first?.getDateStringFormatYearMonthDay(dateFormat: "yyyy-MM-dd") ?? ""
         let endDate = selectedDatesArray.last?.getDateStringFormatYearMonthDay(dateFormat: "yyyy-MM-dd") ?? ""
         let urlString = netWork.basicUrlString
@@ -347,8 +374,10 @@ class CalenderViewController: UIViewController {
                 print("‼️ CalendarVC data convert error")
                 return
             }
-            guard var houseArray = try? self.jsonDecoder.decode([HouseDataInList].self, from: data) else {
+            guard var houseArray = try? self.jsonDecoder.decode([HouseDataInList].self, from: data)
+                , houseArray.count > 0 else {
                 print("‼️ CalendarVC result decoding convert error")
+                completion(nil, false)
                 return
             }
             
@@ -362,7 +391,7 @@ class CalenderViewController: UIViewController {
                         print("‼️ LaunchVC kinfisher: ", error.localizedDescription)
                     }
                     
-                    (i == houseArray.count - 1) ? completion(houseArray) : ()
+                    (i == houseArray.count - 1) ? completion(houseArray, true) : ()
                 })
             }
         }
@@ -436,8 +465,6 @@ extension CalenderViewController: FSCalendarDelegate, FSCalendarDataSource {
         default : break
         }
     }
-    
-    
     
     func calendar(_ calendar: FSCalendar, didDeselect date: Date, at monthPosition: FSCalendarMonthPosition) {
         print("--------------------------[DidDeselect]--------------------------")
