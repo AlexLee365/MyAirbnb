@@ -10,9 +10,7 @@ import UIKit
 
 class FilterPeopleViewController: UIViewController {
     
-    
     // MARK: - UI Properties
-    // 수정
     let backgroundView = UIView()
     
     let containerView = UIView()
@@ -39,7 +37,7 @@ class FilterPeopleViewController: UIViewController {
     let babyPlusBtn = UIButton()
     
     let seperateLineViewBottom = UIView()
-    let resultBtn = UIButton()
+    let resultBtn = UIButtonWithHighlightEffect()
     
     // MARK: - Properties
     let netWork = NetworkCommunicator()
@@ -239,10 +237,10 @@ class FilterPeopleViewController: UIViewController {
         containerView.addSubview(resultBtn)
         resultBtn.translatesAutoresizingMaskIntoConstraints = false
         resultBtn.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
-        resultBtn.centerYAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -23).isActive = true
+        resultBtn.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 0).isActive = true
         //        resultBtn.widthAnchor.constraint(equalToConstant: 80).isActive = true
         resultBtn.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 1).isActive = true
-        resultBtn.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        resultBtn.heightAnchor.constraint(equalToConstant: 47).isActive = true
         
     }
     
@@ -399,6 +397,13 @@ class FilterPeopleViewController: UIViewController {
                 self.containerView.alpha = 0
             }) { (_) in
                 self.dismiss(animated: false, completion: nil)
+            }
+            
+            let totalPeopleCount = adultCount + childCount + babyCount
+            let urlString = netWork.basicUrlString
+                + "/rooms/?search=seoul&ordering=total_rating&page_size=5&page=1&capacity=\(totalPeopleCount)"
+            netWork.getHouseServerData(urlString: urlString) { (houseDataArray, success) in
+                
             }
             
             
