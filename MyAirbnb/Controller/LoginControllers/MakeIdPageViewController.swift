@@ -52,14 +52,14 @@ class MakeIdPageViewController: UIViewController {
         
     }
     override func viewWillAppear(_ animated: Bool) {
-        registForKeyboardNotification()
+        //        registForKeyboardNotification()
     }
     
     
     // 뷰들이 그려진 후
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        print("safeAreaInsets", view.safeAreaInsets.bottom)
+        //        print("safeAreaInsets", view.safeAreaInsets.bottom)
         // iphone의 맨 아래 부분 -> iphone X 버전부터 , 홈버튼이 없어진 이후 밑에 생김
         bottomInsets = view.safeAreaInsets.bottom
     }
@@ -70,6 +70,7 @@ class MakeIdPageViewController: UIViewController {
         print("-------------[scrollView.frame.height]--------------")
         print(scrollView.frame.height)
         print(view.frame.height)
+        registForKeyboardNotification()
         
         
         // 이름 텍스트 필드 키보드 포커스
@@ -101,7 +102,9 @@ class MakeIdPageViewController: UIViewController {
         print("키보드 높이 : \(keyboardRect.height)")
         keyboardHeight = keyboardRect.height - bottomInsets
         print("safeAreaInsets을 뺀 키보드 높이 : \(keyboardHeight)")
+        
         bottomLayout.constant = -keyboardHeight
+        
     }
     
     // 키보드에 의해 가려지는 nextBtn 과 nextBtnBackground 키보드와 내리기
@@ -174,7 +177,7 @@ class MakeIdPageViewController: UIViewController {
         
         scrollView.backgroundColor = .clear
         scrollView.contentSize.width = view.frame.width
-        scrollView.contentSize.height = view.frame.height + 30
+        scrollView.contentSize.height = view.frame.height + 1
         
         let topBarHeight = view.frame.height - (view.frame.height - 55)
         let labelWidth = view.frame.width - (20 * 2)
@@ -295,7 +298,7 @@ class MakeIdPageViewController: UIViewController {
         firstNameInputTxtField.textColor = .white
         firstNameInputTxtField.textAlignment = .left
         firstNameInputTxtField.backgroundColor = .clear
-        firstNameInputTxtField.tag = 0
+        firstNameInputTxtField.addTarget(self, action: #selector(whenEditingfirstTxtField(_:)), for: .allEditingEvents)
         
         firstNameUnderLine.backgroundColor = .white
         
@@ -307,7 +310,7 @@ class MakeIdPageViewController: UIViewController {
         lastNameInputTxtField.textColor = .white
         lastNameInputTxtField.textAlignment = .left
         lastNameInputTxtField.backgroundColor = .clear
-        lastNameInputTxtField.tag = 1
+        lastNameInputTxtField.addTarget(self, action: #selector(whenEditinglastTxtField(_:)), for: .allEditingEvents)
         
         lastNameUnderLine.backgroundColor = .white
         
@@ -325,10 +328,40 @@ class MakeIdPageViewController: UIViewController {
         backBtn.backgroundColor = .init(patternImage: UIImage.init(named: "backBtnImage")!)
         backBtn.addTarget(self, action: #selector(didTapBackBtn(_:)), for: .touchUpInside)
         
+        // 버튼의 타이틀에 밑줄 넣기
+        //        let title = NSMutableAttributedString(string: "밑줄다음")
+        //        title.addAttribute(NSAttributedString.Key.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: NSMakeRange(0, title.length))
+        //        nextBtn.setAttributedTitle(title, for: .normal)
+        //        nextBtn.setAttributedTitle(title, for: .selected)
+        
+        
+        
         nextBtn.setTitle("다음", for: .normal)
+        nextBtn.setTitle("다음", for: .selected)
         nextBtn.setTitleColor(.lightGray, for: .normal)
         nextBtn.setTitleColor(.white, for: .selected)
         nextBtn.addTarget(self, action: #selector(didTapNextBtn(_:)), for: .touchUpInside)
+    }
+    
+    // 이름 텍스트 필드 체크박스 뜨게하기
+    @objc private func whenEditingfirstTxtField(_ sender: UITextField) {
+        //      print(sender.text?.isEmpty)
+        
+        if (sender.text?.isEmpty)! == true {
+            firstCheckMarkImage.isHidden = true
+        } else if (sender.text?.isEmpty)! == false {
+            firstCheckMarkImage.isHidden = false
+        }
+    }
+    // 성 텍스트 필드 체크박스 뜨게하기, 다음버튼 활성화
+    @objc private func whenEditinglastTxtField(_ sender: UITextField) {
+        if (sender.text?.isEmpty)! == true {
+            lastCheckMarkImage.isHidden = true
+            nextBtn.isSelected = false
+        } else if (sender.text?.isEmpty)! == false {
+            lastCheckMarkImage.isHidden = false
+            nextBtn.isSelected = true
+        }
     }
     
     @objc private func didTapBackBtn(_ sender: UIButton) {
@@ -338,61 +371,46 @@ class MakeIdPageViewController: UIViewController {
     
     // "다음" 버튼 액션
     @objc private func didTapNextBtn(_ sender: UIButton) {
+        //        print(firstNameInputTxtField.text?.isEmpty)
         
-        //        if (firstNameInputTitle.text?.isEmpty)!
+        if (firstNameInputTitle.text?.isEmpty)! || (lastNameInputTxtField.text?.isEmpty)! {
+            // display alert message and return
+            print("all field must filled")
+            return
+        }
         
-        let phoneNumberVC = InputPhoneNumberViewController()
-        navigationController?.pushViewController(phoneNumberVC, animated: true)
+        let emailVC = InputEmailViewController()
+        navigationController?.pushViewController(emailVC, animated: true)
         
         let firstName = firstNameInputTxtField.text ?? ""
         let lastName = lastNameInputTxtField.text ?? ""
+        let userName = firstName + lastName
         
         UserDefaults.standard.set(firstName, forKey: "firstname")
         UserDefaults.standard.set(lastName, forKey: "lastname")
+        UserDefaults.standard.set(userName, forKey: "username")
     }
 }
 
 extension MakeIdPageViewController: UITextFieldDelegate {
     
-    // 텍스트 필드 옆 체크 버튼 애니메이션 -> 수정 필요
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
-        let text = textField.text ?? ""
-        
-        //        if textField == self.firstNameInputTxtField {
-        //            text = firstNameInputTxtField.text ?? ""
-        //        } else if textField == self.lastNameInputTxtField {
-        //            text = lastNameInputTxtField.text ?? ""
-        //        }
-        
-        let replaceText = (text as NSString).replacingCharacters(in: range, with: string)
-        
-        UIView.animate(withDuration: 0.1, delay: 0, animations: {
-            
-            if replaceText.isEmpty {
-                self.firstCheckMarkImage.isHidden = true
-                self.lastCheckMarkImage.isHidden = true
-            } else {
-                self.firstCheckMarkImage.isHidden = false
-                self.lastCheckMarkImage.isHidden = false
-            }
-            
-            
-        })
-        return true
-    }
+    //    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    //
+    //        return true
+    //    }
     
     
     
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
         if (textField.isEqual(self.firstNameInputTxtField)) {
             lastNameInputTxtField.becomeFirstResponder()
             
         } else if(textField.isEqual(self.lastNameInputTxtField)) {
             
-            let phoneNumberVC = InputPhoneNumberViewController()
-            navigationController?.pushViewController(phoneNumberVC, animated: true)
+            let emailVC = InputEmailViewController()
+            navigationController?.pushViewController(emailVC, animated: true)
             textField.resignFirstResponder()
         }
         return true
@@ -404,6 +422,5 @@ extension MakeIdPageViewController: TopBarItemViewDelegate {
     func popView() {
         navigationController?.popViewController(animated: true)
     }
-    
     
 }
