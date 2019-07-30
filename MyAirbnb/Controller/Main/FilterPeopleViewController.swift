@@ -429,9 +429,9 @@ class FilterPeopleViewController: UIViewController {
             + "/rooms/?search=seoul&ordering=total_rating&page_size=5&page=1"
             + "&capacity=\(capacity)"
         
-        netWork.getJsonObjectFromAPI(urlString: urlString, urlForSpecificProcessing: nil) { (json, success) in
-            <#code#>
-        }
+//        netWork.getJsonObjectFromAPI(urlString: urlString, urlForSpecificProcessing: nil) { (json, success) in
+//            <#code#>
+//        }
     }
 
 
