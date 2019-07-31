@@ -17,6 +17,8 @@ class HouseDetailViewController: UIViewController {
     let tableView = UITableView()
     let placeholderView = UIView()
     
+    let bottomView = HouseBottomView()
+    
     let indicator = NVActivityIndicatorView(frame: .zero)
     let notiCenter = NotificationCenter.default
     let kingfisher = ImageDownloader.default
@@ -30,7 +32,8 @@ class HouseDetailViewController: UIViewController {
     
     var typeLablePlaceholder = ""
     var nameLabelPlaceholder = ""
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setAutoLayout()
@@ -46,23 +49,40 @@ class HouseDetailViewController: UIViewController {
                     
                     UIView.animate(withDuration: 0.5, animations: {
                         self.view.bringSubviewToFront(self.tableView)
+                        self.view.bringSubviewToFront(self.bottomView)
                         self.tableView.alpha = 1
                     })
                     self.stopIndicator()
                 }
             }
         }
+        
+        bottomView.isDateSelected = true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        tabBarController?.tabBar.isHidden = true
     }
     
     private func setAutoLayout() {
-        let safeGuide = view.safeAreaLayoutGuide
+//        let safeGuide = view.safeAreaLayoutGuide
+        
+        let height = UIScreen.main.bounds.height * 0.12
+        
+        view.addSubview(bottomView)
+        bottomView.snp.makeConstraints { (make) in
+            make.leading.trailing.bottom.equalToSuperview()
+            make.height.equalTo(height)
+        }
         
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: safeGuide.bottomAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: bottomView.topAnchor).isActive = true
     }
     
     private func configureViewsOptions() {
@@ -87,6 +107,12 @@ class HouseDetailViewController: UIViewController {
         tableView.estimatedRowHeight = 50
         
 //        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        bottomView.reserveBtn.addTarget(self, action: #selector(reserveBtnDidTap(_:)), for: .touchUpInside)
+    }
+    
+    @objc private func reserveBtnDidTap(_ sender: UIButton) {
+        let reserveInfoVC = HouseDetailReserveInfoViewController()
+        navigationController?.pushViewController(reserveInfoVC, animated: true)
     }
     
     private func addNotificationObserver() {
@@ -291,6 +317,4 @@ extension HouseDetailViewController: UITableViewDelegate, UITableViewDataSource 
 //            houseDetailPictureCell.pictureViews.first?.transform = CGAffineTransform(scaleX: scaleValue, y: scaleValue)
         }
     }
-    
-    
 }
