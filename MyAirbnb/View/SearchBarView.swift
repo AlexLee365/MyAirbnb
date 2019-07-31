@@ -171,6 +171,7 @@ class SearchBarView: UIView {
             ])
         searchTF.font = .systemFont(ofSize: 14, weight: .bold)
         searchTF.textColor = #colorLiteral(red: 0.1501367688, green: 0.1492514014, blue: 0.1508219242, alpha: 1)
+        searchTF.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
         
         searchCancelBtn.setTitle("취소", for: .normal)
         searchCancelBtn.setTitleColor(.black, for: .normal)
@@ -249,8 +250,6 @@ extension SearchBarView: UITextFieldDelegate {
         return true
     }
     
-   
-    
     func textFieldDidBeginEditing(_ textField: UITextField) {   // 수정 시작
         print("SearchBarView TF did begin editing")
         notiCenter.post(name: .searchBarEditBegin, object: nil)
@@ -265,11 +264,10 @@ extension SearchBarView: UITextFieldDelegate {
         textEditEndAnimation()
     }
     
-//    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-//        print("tf should end editing")
-//
-//        return true
-//    }
+    @objc private func textFieldEditingChanged(_ sender: UITextField) {
+        let text = sender.text ?? ""
+        notiCenter.post(name: .searchBarEditingChanged, object: text)
+    }
     
     private func textEditBeginAnimation() {
         self.searchContainerTrailingInSearch = self.searchContainerView.trailingAnchor.constraint(equalTo: self.searchCancelBtn.leadingAnchor, constant: 0)

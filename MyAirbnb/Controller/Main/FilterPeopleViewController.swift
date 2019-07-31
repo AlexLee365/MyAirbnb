@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
 
 class FilterPeopleViewController: UIViewController {
     
@@ -39,8 +40,12 @@ class FilterPeopleViewController: UIViewController {
     let seperateLineViewBottom = UIView()
     let resultBtn = UIButtonWithHighlightEffect()
     
+    let indicator = NVActivityIndicatorView(frame: .zero)
+    
+    
     // MARK: - Properties
     let netWork = NetworkCommunicator()
+    let notiCenter = NotificationCenter.default
     var selectedPeople = (0, 0, 0)
     
     var adultCount = 0 {
@@ -79,12 +84,13 @@ class FilterPeopleViewController: UIViewController {
             }
         }
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setBackgroundView()
         setAutoLayout()
         configureViewsOptions()
+        setIndicatorView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -106,14 +112,14 @@ class FilterPeopleViewController: UIViewController {
         let safeGuide = view.safeAreaLayoutGuide
         let sideMargin: CGFloat = 20
         let buttonSize: CGFloat = 30
-            
+        
         view.addSubview(containerView)
         containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.topAnchor.constraint(equalTo: safeGuide.topAnchor, constant: 80).isActive = true
         containerView.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor, constant: 15).isActive = true
         containerView.trailingAnchor.constraint(equalTo: safeGuide.trailingAnchor, constant: -15).isActive = true
         containerView.heightAnchor.constraint(equalToConstant: 380).isActive = true
-            
+        
         containerView.addSubview(mainTitleLabel)
         mainTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         mainTitleLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
@@ -123,7 +129,7 @@ class FilterPeopleViewController: UIViewController {
         refreshBtn.translatesAutoresizingMaskIntoConstraints = false
         refreshBtn.centerYAnchor.constraint(equalTo: mainTitleLabel.centerYAnchor).isActive = true
         refreshBtn.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -sideMargin).isActive = true
-//        refreshBtn.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        //        refreshBtn.widthAnchor.constraint(equalToConstant: 100).isActive = true
         refreshBtn.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         containerView.addSubview(seperateLineViewTop)
@@ -226,7 +232,7 @@ class FilterPeopleViewController: UIViewController {
         babyMinusBtn.widthAnchor.constraint(equalToConstant: buttonSize).isActive = true
         babyMinusBtn.heightAnchor.constraint(equalToConstant: buttonSize).isActive = true
         
-
+        
         containerView.addSubview(seperateLineViewBottom)
         seperateLineViewBottom.translatesAutoresizingMaskIntoConstraints = false
         seperateLineViewBottom.topAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -47).isActive = true
@@ -350,6 +356,15 @@ class FilterPeopleViewController: UIViewController {
         }
     }
     
+    private func setIndicatorView() {
+        let centerX = UIScreen.main.bounds.width/2
+        let centerY = UIScreen.main.bounds.height/2
+        resultBtn.addSubview(indicator)
+        indicator.frame = CGRect(x: centerX-23, y: 12, width: 23, height: 23)
+        indicator.type = .ballBeat
+        indicator.color = StandardUIValue.shared.colorBlueGreen
+    }
+    
     @objc func plusBtnDidTap(_ sender: UIButton) {
         switch sender.tag {
         case 0:
@@ -381,29 +396,44 @@ class FilterPeopleViewController: UIViewController {
     }
     
     @objc func resultBtnDidTap(_ sender: UIButton) {
-        print("resultBtnDidTap")
-
         guard let tabbarVC = presentingViewController as? TabbarController else { print("tabbarVC convert error"); return }
         guard let naviVC = tabbarVC.viewControllers?.first as? UINavigationController else { print("navi convert error"); return }
         
         if let mainVC = naviVC.viewControllers.first as? MainViewController {
-           print("mainVC")
+            print("mainVC")
             
             mainVC.searchBarView.selectedPeople = (adultCount, childCount, babyCount)
             
-            UIView.animate(withDuration: 0.2, animations: {
-                self.backgroundView.alpha = 0
-                self.containerView.transform = CGAffineTransform.identity
-                self.containerView.alpha = 0
-            }) { (_) in
-                self.dismiss(animated: false, completion: nil)
-            }
-            
             let totalPeopleCount = adultCount + childCount + babyCount
+            guard totalPeopleCount != 0 else { dismissWithAnimation(); return }
+            
+            resultBtn.setTitle("", for: .normal)
+            indicator.startAnimating()
+            
+            var houseViewDataArray = [HouseViewData]()
             let urlString = netWork.basicUrlString
                 + "/rooms/?search=seoul&ordering=total_rating&page_size=5&page=1&capacity=\(totalPeopleCount)"
             netWork.getHouseServerData(urlString: urlString) { (houseDataArray, success) in
-                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                    
+                    switch success {
+                    case true:
+                        let houseviewDataIntroLabel = HouseViewData(
+                            data: [HouseIntroLabelDataInList(intro: "여행 날짜와 게스트 인원수를 입력하면 1박당 총 요금을 확인할 수 있습니다. 관광세가 추가로 부과될 수 있습니다.")],
+                            cellStyle: .introLabel)
+                        let houseviewDataTitleLabel = HouseViewData(
+                            data: [HouseTitleLabelDataInList(title: "300개 이상의 숙소 모두 둘러보기")], cellStyle: .titleLabel)
+                        let houseviewDataNormal = HouseViewData(data: houseDataArray!, cellStyle: .normalHouse)
+                        houseViewDataArray = [houseviewDataIntroLabel, houseviewDataTitleLabel, houseviewDataNormal]
+                    case false:
+                        let houseviewDataIntroLabel = HouseViewData(
+                            data: [HouseIntroLabelDataInList(intro: "숙소 결과가 없습니다.")],
+                            cellStyle: .introLabel)
+                        houseViewDataArray = [houseviewDataIntroLabel]
+                    }
+                    self.notiCenter.post(name: .searchBarPeopleResultBtnDidTap, object: nil, userInfo: ["houseViewDataArray": houseViewDataArray])
+                    self.dismissWithAnimation()
+                })
             }
             
             
@@ -429,15 +459,15 @@ class FilterPeopleViewController: UIViewController {
         }
     }
     
-    private func getServerDateWithPeople(capacity: Int, completion: @escaping () -> ()) {
-        let urlString = netWork.basicUrlString
-            + "/rooms/?search=seoul&ordering=total_rating&page_size=5&page=1"
-            + "&capacity=\(capacity)"
-        
-//        netWork.getJsonObjectFromAPI(urlString: urlString, urlForSpecificProcessing: nil) { (json, success) in
-//            <#code#>
-//        }
+    private func dismissWithAnimation() {
+        UIView.animate(withDuration: 0.2, animations: {
+            self.backgroundView.alpha = 0
+            self.containerView.transform = CGAffineTransform.identity
+            self.containerView.alpha = 0
+        }) { (_) in
+            self.dismiss(animated: false, completion: nil)
+        }
     }
-
-
+    
+    
 }

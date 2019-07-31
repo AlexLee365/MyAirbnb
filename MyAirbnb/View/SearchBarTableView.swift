@@ -12,11 +12,18 @@ class SearchBarTableView: UIView {
 
     let tableView = UITableView()
     
-    var locationData = ["서울", "파리", "런던", "로마", "인천", "여수", "속초"]
+//    var locationData = ["서울", "파리", "런던", "로마", "인천", "여수", "속초"]
+    var searchResult = [String]() {
+        didSet {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
+    let notiCenter = NotificationCenter.default
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         setAutoLayout()
         configureViewsOptions()
     }
@@ -40,7 +47,7 @@ class SearchBarTableView: UIView {
         tableView.register(SearchBarTableCell.self, forCellReuseIdentifier: SearchBarTableCell.identifier)
         tableView.rowHeight = 60
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-        tableView.allowsSelection = false
+//        tableView.allowsSelection = false
         
     }
 
@@ -48,16 +55,18 @@ class SearchBarTableView: UIView {
 
 extension SearchBarTableView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return locationData.count
+        return searchResult.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SearchBarTableCell.identifier, for: indexPath) as! SearchBarTableCell
-        cell.locationTextLabel.text = locationData[indexPath.row]
+        cell.locationTextLabel.text = searchResult[indexPath.row]
         
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("tableview select")
+        let state = searchResult[indexPath.row]
+        print(state)
+        notiCenter.post(name: .searchBarTableCellSelected, object: state)
     }
 }
