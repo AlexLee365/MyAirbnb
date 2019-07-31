@@ -14,21 +14,23 @@ import NVActivityIndicatorView
 
 class HouseDetailViewController: UIViewController {
     
+    // MARK: - UIProperties
     let tableView = UITableView()
     let placeholderView = UIView()
-    
     let bottomView = HouseBottomView()
-    
     let indicator = NVActivityIndicatorView(frame: .zero)
-    let notiCenter = NotificationCenter.default
-    let kingfisher = ImageDownloader.default
     
-    let netWork = NetworkCommunicator()
+    // MARK: - Properties
+    let notiCenter = NotificationCenter.default
     let jsonDecoder = JSONDecoder()
+    let kingfisher = ImageDownloader.default
+    let netWork = NetworkCommunicator()
+    
     var houseDetailData: HouseDetailData?
+    var imageArray = [UIImage]()
     var cellCountAfterDataRoad = 0
     var roomID = 0
-    var imageArray = [UIImage]()
+    var isDateSelected = false
     
     var typeLablePlaceholder = ""
     var nameLabelPlaceholder = ""
@@ -57,7 +59,6 @@ class HouseDetailViewController: UIViewController {
             }
         }
         
-        bottomView.isDateSelected = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -67,13 +68,12 @@ class HouseDetailViewController: UIViewController {
     }
     
     private func setAutoLayout() {
-//        let safeGuide = view.safeAreaLayoutGuide
         
-        let height = UIScreen.main.bounds.height * 0.12
-        
+        let height = UIScreen.main.bounds.height * 0.10
         view.addSubview(bottomView)
         bottomView.snp.makeConstraints { (make) in
-            make.leading.trailing.bottom.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
             make.height.equalTo(height)
         }
         
@@ -107,12 +107,20 @@ class HouseDetailViewController: UIViewController {
         tableView.estimatedRowHeight = 50
         
 //        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        bottomView.isDateSelected = isDateSelected
         bottomView.reserveBtn.addTarget(self, action: #selector(reserveBtnDidTap(_:)), for: .touchUpInside)
     }
     
     @objc private func reserveBtnDidTap(_ sender: UIButton) {
-        let reserveInfoVC = HouseDetailReserveInfoViewController()
-        navigationController?.pushViewController(reserveInfoVC, animated: true)
+        switch isDateSelected {
+        case true:
+            let reserveInfoVC = HouseDetailReserveInfoViewController()
+            navigationController?.pushViewController(reserveInfoVC, animated: true)
+        case false:
+            let calendarVC = HouseDetailCalendarViewController()
+            present(calendarVC, animated: true)
+        }
+        
     }
     
     private func addNotificationObserver() {
@@ -150,10 +158,10 @@ class HouseDetailViewController: UIViewController {
             self.houseDetailData = result
             self.cellCountAfterDataRoad = 8
             let imageStringArray = [result.image, result.image1, result.image2, result.image3, result.image4]
-            
-            
+
+
             for i in 0..<imageStringArray.count{
-                guard let url = URL(string: imageStringArray[i] ?? "") else { print("houseDetail getServerData imageUrl convert failed"); return }
+                guard let url = URL(string: imageStringArray[i]) else { print("houseDetail getServerData imageUrl convert failed"); return }
                 self.kingfisher.downloadImage(with: url, options: [], progressBlock: nil, completionHandler: { (result) in
                     switch result {
                     case .success(let value) :
@@ -164,10 +172,12 @@ class HouseDetailViewController: UIViewController {
                     if (i == imageStringArray.count - 1) {
                         completion()
                     }
-                    
+
                 })
             }
         }
+        
+        
     }
     
     private func setPlaceholderView() {

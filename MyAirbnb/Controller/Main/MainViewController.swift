@@ -104,18 +104,6 @@ class MainViewController: UIViewController {
         searchBarTableViewBackWhiteView.alpha = 0
     }
     
-    var setLayout = false
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        if setLayout == false {
-            
-            setLayout = true
-        }
-    }
     
     private func showSearchBarTableView() {
         view.bringSubviewToFront(searchBarTableViewBackWhiteView)
@@ -351,6 +339,7 @@ extension MainViewController {
             houseDetailVC.roomID = roomID
             houseDetailVC.nameLabelPlaceholder = name
             houseDetailVC.typeLablePlaceholder = type
+            houseDetailVC.isDateSelected = (searchBarView.selectedDatesArray.count == 0) ? false : true
             self.navigationController?.pushViewController(houseDetailVC, animated: false)
             
         case Notification.Name.moveToPlusHouseDetailView:
