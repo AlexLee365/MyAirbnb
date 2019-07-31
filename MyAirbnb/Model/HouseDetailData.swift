@@ -64,6 +64,27 @@ struct HouseDetailData: Codable {
         case valueScore = "value_score"
         case superHost = "super_host"
     }
+    
+    func drawStarsWithHouseRate() -> String {
+        var starCount = 0
+        
+        switch totalRating {
+        case 0..<1.1:
+            starCount = 1
+        case 1.1..<2.1:
+            starCount = 2
+        case 2.1..<3.1:
+            starCount = 3
+        case 3.1..<4.1:
+            starCount = 4
+        case 4.1...5:
+            starCount = 5
+        default:
+            starCount = 5
+        }
+        return String(repeating: "★", count: starCount)
+    }
 }
+
 
 

@@ -48,11 +48,12 @@ class HouseDetailViewController: UIViewController {
             self.getServerData {
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
-                    
+                    self.setBottomViewData()
                     UIView.animate(withDuration: 0.5, animations: {
                         self.view.bringSubviewToFront(self.tableView)
                         self.view.bringSubviewToFront(self.bottomView)
                         self.tableView.alpha = 1
+                        self.bottomView.alpha = 1
                     })
                     self.stopIndicator()
                 }
@@ -65,6 +66,11 @@ class HouseDetailViewController: UIViewController {
         super.viewWillAppear(animated)
         
         tabBarController?.tabBar.isHidden = true
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
     }
     
     private func setAutoLayout() {
@@ -109,6 +115,14 @@ class HouseDetailViewController: UIViewController {
 //        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         bottomView.isDateSelected = isDateSelected
         bottomView.reserveBtn.addTarget(self, action: #selector(reserveBtnDidTap(_:)), for: .touchUpInside)
+        bottomView.alpha = 0
+    }
+    
+    private func setBottomViewData() {
+        guard let data = houseDetailData else { return }
+        bottomView.price = data.price
+        bottomView.rate = data.drawStarsWithHouseRate()
+        bottomView.rateCount = data.reservations.count
     }
     
     @objc private func reserveBtnDidTap(_ sender: UIButton) {

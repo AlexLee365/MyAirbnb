@@ -107,6 +107,23 @@ class HouseBottomView: UIView {
         }
     }
     
+    var price = 0 {
+        didSet {
+            let value = limitFractionDigits(to: String(price) ?? "")
+            priceLabel.text = "₩\(value) /박"
+        }
+    }
+    var rate = "" {
+        didSet {
+            starImageLabel.text = rate
+        }
+    }
+    var rateCount = 0 {
+        didSet {
+            noOfReviewLabel.text = "\(rateCount)"
+        }
+    }
+    
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -228,5 +245,15 @@ class HouseBottomView: UIView {
         result.setAttributes(attributesForSecondWord, range: string.range(of: second))
         
         return NSAttributedString(attributedString: result)
+    }
+    
+    private func limitFractionDigits(to numString: String) -> String {
+        //        guard let number = Double(numString) else { return "0" }
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = 0
+        let num = formatter.number(from: numString) ?? 0
+        let result = formatter.string(from: num) ?? ""
+        return result
     }
 }

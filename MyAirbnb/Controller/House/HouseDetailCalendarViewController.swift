@@ -33,6 +33,8 @@ class HouseDetailCalendarViewController: UIViewController {
     let notiCenter = NotificationCenter.default
     let netWork = NetworkCommunicator()
     let jsonDecoder = JSONDecoder()
+    
+    var oneDayPrice = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -198,11 +200,16 @@ class HouseDetailCalendarViewController: UIViewController {
         calendar.weekdayHeight = 0
         calendar.appearance.weekdayTextColor = .clear
         
-        calendar.appearance.titleFont = .systemFont(ofSize: 16, weight: .bold)
+//        calendar.appearance.titleFont = .systemFont(ofSize: 16, weight: .bold)
+        calendar.appearance.titleFont = UIFont(name: "AirbnbCerealApp-Book", size: 16)
         calendar.appearance.titleDefaultColor = #colorLiteral(red: 0.1990053952, green: 0.1978290677, blue: 0.1999138892, alpha: 0.8544252997)
         calendar.appearance.titlePlaceholderColor = #colorLiteral(red: 0.7327679992, green: 0.7284137607, blue: 0.7361161113, alpha: 0.4171660959)
-        calendar.appearance.subtitleFont = .systemFont(ofSize: 13, weight: .bold)
+//        calendar.appearance.subtitleFont = .systemFont(ofSize: 13, weight: .bold)
+        calendar.appearance.subtitleFont = UIFont(name: "AirbnbCerealApp-Book", size: 10)
         calendar.appearance.selectionColor = UIColor(red:0.09, green:0.51, blue:0.54, alpha:1.0)
+        calendar.rowHeight = 50
+        
+        
         
         view.addSubview(calendar)
         self.calendar = calendar
@@ -231,5 +238,34 @@ extension HouseDetailCalendarViewController: FSCalendarDelegate, FSCalendarDataS
         let lastDayMonth = lastDayOfMonth(date: laterDate)
         
         return lastDayMonth
+    }
+    
+    
+    
+    func calendar(_ calendar: FSCalendar, subtitleFor date: Date) -> String? {
+        guard let a = calendar.cell(for: date, at: .current) else {
+            print("‼️ : ")
+            return ""
+        }
+        
+        
+        if a.isPlaceholder {
+           return "a"
+        } else {
+            return "b"
+        }
+        
+        return ""
+    }
+    
+    func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at monthPosition: FSCalendarMonthPosition) {
+        cell.imageView.contentMode = .scaleToFill
+//        cell.imageView.backgroundColor = .yellow
+    }
+    
+    func calendar(_ calendar: FSCalendar, imageFor date: Date) -> UIImage? {
+        
+        
+        return UIImage(named: "CalendarDiagonal")
     }
 }
