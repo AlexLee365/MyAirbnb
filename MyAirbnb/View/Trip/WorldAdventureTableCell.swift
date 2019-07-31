@@ -9,6 +9,10 @@
 import UIKit
 import SnapKit
 
+protocol WorldAdventureTableCellDelegate: class {
+    func pushAdventureVC()
+}
+
 class WorldAdventureTableCell: UITableViewCell {
     static let identifier = "WorldAdventureTableCell"
     
@@ -17,7 +21,7 @@ class WorldAdventureTableCell: UITableViewCell {
         static let linesOnScreen: CGFloat = 2
         static let lineSpacing: CGFloat = 15.0
         static let itemSpacing: CGFloat = 13.0
-        static let edgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 5, right: 20)
+        static let edgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
     }
     
     let title: UILabel = {
@@ -61,6 +65,9 @@ class WorldAdventureTableCell: UITableViewCell {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    
+    weak var delegate: WorldAdventureTableCellDelegate?
+    
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -114,7 +121,7 @@ class WorldAdventureTableCell: UITableViewCell {
         collectionView.snp.makeConstraints { (make) in
             make.top.equalTo(descLabel.snp.bottom).offset(10)
             make.leading.trailing.equalToSuperview()
-            make.bottom.equalTo(seeAllbtn.snp.top).offset(-20)
+            make.bottom.equalTo(seeAllbtn.snp.top).offset(-10)
         }
     }
 }
@@ -133,7 +140,13 @@ extension WorldAdventureTableCell: UICollectionViewDataSource {
         adventureCell.imageView.image = UIImage(named: worldAdventureDatas[indexPath.row].image)
         adventureCell.categoryLabel.text = worldAdventureDatas[indexPath.row].category
         adventureCell.titleLabel.text = worldAdventureDatas[indexPath.row].title
-
+        
+        if worldAdventureDatas[indexPath.row].rate != 0 {
+            adventureCell.starImage.image = UIImage(named: "star")
+            adventureCell.rateLabel.text = String(worldAdventureDatas[indexPath.row].rate!)
+            adventureCell.noOfReviewLabel.text = "(\(worldAdventureDatas[indexPath.row].noOfReview!))"
+        }
+        
         return adventureCell
     }
 }
@@ -141,7 +154,9 @@ extension WorldAdventureTableCell: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate
 
 extension WorldAdventureTableCell: UICollectionViewDelegate {
-
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        delegate?.pushAdventureVC()
+    }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
@@ -173,13 +188,15 @@ struct WorldAdventureData {
     var image: String
     var category: String
     var title: String
+    var rate: Double?
+    var noOfReview: Int?
 }
 
 let worldAdventureDatas: [WorldAdventureData] = [
     
-    WorldAdventureData(image: "worldAdventure1", category: "6일 여행 코스 · 푸에르토아요라", title: "갈라파고스 슬로푸드 사파리"),
-    WorldAdventureData(image: "worldAdventure2", category: "4일 여행 코스 · 뉘셰핑", title: "스웨덴의 섬에서 즐기는 카약과 맛있는 요리"),
-    WorldAdventureData(image: "worldAdventure3", category: "6일 여행 코스 · PUERTO NATALES", title: "6 Days Accessible Experience Patagonia"),
-    WorldAdventureData(image: "worldAdventure4", category: "1박 2일 여행 · 케이프타운", title: "The Vino Valleys Experience")
+    WorldAdventureData(image: "worldAdventure1", category: "6일 여행 코스 · 푸에르토아요라", title: "갈라파고스 슬로푸드 사파리", rate: 0, noOfReview: 0),
+    WorldAdventureData(image: "worldAdventure2", category: "4일 여행 코스 · 뉘셰핑", title: "스웨덴의 섬에서 즐기는 카약과 맛있는 요리", rate: 0, noOfReview: 0),
+    WorldAdventureData(image: "worldAdventure3", category: "6일 여행 코스 · PUERTO NATALES", title: "6 Days Accessible Experience Patagonia", rate: 0, noOfReview: 0),
+    WorldAdventureData(image: "worldAdventure4", category: "1박 2일 여행 · 케이프타운", title: "The Vino Valleys Experience", rate: 4.96, noOfReview: 276)
 ]
 
