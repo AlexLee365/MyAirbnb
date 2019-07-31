@@ -229,9 +229,13 @@ class HouseDetailBasicInfoTableCell: UITableViewCell {
         // 유형
         typeLabel.text = "아파트 전체"
         setMainText(typeLabel)
+        typeLabel.font = UIFont(name: "AirbnbCerealApp-Bold", size: 14)
+        typeLabel.setLineSpacing(lineSpacing: 3.0)
         
         typeDetailLabel.text = "인원 4명 ・ 침실 2개 ・ 침대 2개 ・ 욕실 1개"
         setDetailText(typeDetailLabel)
+        typeDetailLabel.font = UIFont(name: "AirbnbCerealApp-Book", size: 13)
+        typeDetailLabel.setLineSpacing(lineSpacing: 3.0)
         
         // 위치
 //        locationIconView.backgroundColor = .yellow
@@ -240,9 +244,13 @@ class HouseDetailBasicInfoTableCell: UITableViewCell {
         
         locationInfoLabel.text = "훌륭한 숙소 위치"
         setMainText(locationInfoLabel)
+        locationInfoLabel.font = UIFont(name: "AirbnbCerealApp-Bold", size: 14)
+        locationInfoLabel.setLineSpacing(lineSpacing: 3.0)
         
         locationInfoDetailLabel.text = "최근 숙박한 게스트 중 100%가 위치에 별점 5점을 준 숙소입니다."
         setDetailText(locationInfoDetailLabel)
+        locationInfoDetailLabel.font = UIFont(name: "AirbnbCerealApp-Book", size: 13)
+        locationInfoDetailLabel.setLineSpacing(lineSpacing: 3.0)
         
         // 청결
 //        cleanIconView.backgroundColor = .yellow
@@ -251,9 +259,13 @@ class HouseDetailBasicInfoTableCell: UITableViewCell {
         
         cleanLabel.text = "높은 청결도"
         setMainText(cleanLabel)
+        cleanLabel.font = UIFont(name: "AirbnbCerealApp-Bold", size: 14)
+        cleanLabel.setLineSpacing(lineSpacing: 3.0)
         
         cleanDetailLabel.text = "최근 게스트 13명이 이 숙소가 티 없이 깨끗하다고 후기를 남겼습니다"
         setDetailText(cleanDetailLabel)
+        cleanDetailLabel.font = UIFont(name: "AirbnbCerealApp-Book", size: 13)
+        cleanDetailLabel.setLineSpacing(lineSpacing: 3.0)
         
         // 호스트 정보
 //        hostInfoIconView.backgroundColor = .yellow
@@ -262,9 +274,13 @@ class HouseDetailBasicInfoTableCell: UITableViewCell {
         
         hostInfoLabel.text = "Thelma님은 슈퍼호스트입니다"
         setMainText(hostInfoLabel)
+        hostInfoLabel.font = UIFont(name: "AirbnbCerealApp-Bold", size: 14)
+        hostInfoLabel.setLineSpacing(lineSpacing: 3.0)
         
         hostInfoDetailLabel.text = "슈퍼호스트는 풍부한 경험과 높은 평점을 자랑하며 게스트가 숙소에서 편안히 머무를 수 있도록 최선을 다하는 호스트입니다."
         setDetailText(hostInfoDetailLabel)
+        hostInfoDetailLabel.font = UIFont(name: "AirbnbCerealApp-Book", size: 13)
+        hostInfoDetailLabel.setLineSpacing(lineSpacing: 3.0)
         
         // 체크인
 //        checkInIconView.backgroundColor = .yellow
@@ -273,9 +289,13 @@ class HouseDetailBasicInfoTableCell: UITableViewCell {
         
         checkInLabel.text = "순조로운 체크인 과정"
         setMainText(checkInLabel)
+        checkInLabel.font = UIFont(name: "AirbnbCerealApp-Bold", size: 14)
+        checkInLabel.setLineSpacing(lineSpacing: 3.0)
         
         checkInDetailLabel.text = "최근 숙박한 게스트 중 100%가 체크인 과정에 별점 5점을 준 숙소입니다."
         setDetailText(checkInDetailLabel)
+        checkInDetailLabel.font = UIFont(name: "AirbnbCerealApp-Book", size: 13)
+        checkInDetailLabel.setLineSpacing(lineSpacing: 3.0)
         
     }
     
