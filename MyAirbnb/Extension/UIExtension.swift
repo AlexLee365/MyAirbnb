@@ -196,3 +196,15 @@ extension Date {
         return dateString
     }
 }
+
+extension String {
+    func limitFractionDigits() -> String {  // 숫자를 세자리 수마다 , 찍어서 반환
+        //        guard let number = Double(numString) else { return "0" }
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = 0
+        let num = formatter.number(from: self) ?? 0
+        let result = formatter.string(from: num) ?? ""
+        return result
+    }
+}

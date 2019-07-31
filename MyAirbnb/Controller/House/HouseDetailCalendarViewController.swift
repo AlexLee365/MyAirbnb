@@ -34,13 +34,49 @@ class HouseDetailCalendarViewController: UIViewController {
     let netWork = NetworkCommunicator()
     let jsonDecoder = JSONDecoder()
     
-    var oneDayPrice = 0
+    var houseDetailData: HouseDetailData?
+    
+    var selectedDatesArray = [Date]() {
+        didSet {
+            let calendar = Calendar.current
+            switch selectedDatesArray.count {
+            case 0:
+                checkInDateLabel.text = ""
+                checkOutDateLabel.text = ""
+            case 1:
+                let components = calendar.dateComponents([.month, .day], from: selectedDatesArray.first!)
+                checkInDateLabel.text = "\(components.month ?? 0)월 \(components.day ?? 0)일"
+            case 2...:
+                let componentsIn = calendar.dateComponents([.month, .day], from: selectedDatesArray.first!)
+                checkInDateLabel.text = "\(componentsIn.month ?? 0)월 \(componentsIn.day ?? 0)일"
+                let componentsOut = calendar.dateComponents([.month, .day], from: selectedDatesArray.last!)
+                checkOutDateLabel.text = "\(componentsOut.month ?? 0)월 \(componentsOut.day ?? 0)일"
+            default: break
+            }
+        }
+    }
+    var selectedDatesString = "날짜 선택" {
+        didSet {
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setCalendar()
         setAutoLayout()
         configureViewsOptions()
+        
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        setReservedDates()
+        print("🔴🔴🔴 : ")
+        print("currentDate: ", currentDate)
+        dateFormatter.dateFormat = "MM-dd"
+        let a = dateFormatter.string(from: currentDate)
+        print("date String: ", a)
     }
     
     private func setAutoLayout() {
@@ -74,6 +110,7 @@ class HouseDetailCalendarViewController: UIViewController {
         view.addSubview(checkInDateLabel)
         checkInDateLabel.snp.makeConstraints { (make) in
             make.top.equalTo(checkInTextLabel.snp.bottom).offset(10)
+            make.height.equalTo(40)
             make.leading.equalTo(sideMargin)
         }
         
@@ -94,6 +131,7 @@ class HouseDetailCalendarViewController: UIViewController {
         view.addSubview(checkOutDateLabel)
         checkOutDateLabel.snp.makeConstraints { (make) in
             make.top.equalTo(checkOutTextLabel.snp.bottom).offset(10)
+            make.height.equalTo(checkInDateLabel.snp.height)
             make.trailing.equalTo(-sideMargin)
         }
         
@@ -129,7 +167,6 @@ class HouseDetailCalendarViewController: UIViewController {
             make.top.equalTo(seperateLineViewTop.snp.bottom).offset(0)
             make.bottom.leading.trailing.equalTo(safeGuide)
         }
-        
     }
 
     private func configureViewsOptions() {
@@ -146,6 +183,7 @@ class HouseDetailCalendarViewController: UIViewController {
         deleteBtn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 5, right: 0)
         deleteBtn.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
         deleteBtn.setTitleColor(StandardUIValue.shared.colorRegularText, for: .normal)
+        deleteBtn.addTarget(self, action: #selector(deleteBtnDidTap(_:)), for: .touchUpInside)
 //        deleteBtn.backgroundColor = .yellow
         
         let font = UIFont.systemFont(ofSize: 23, weight: .regular)
@@ -157,10 +195,10 @@ class HouseDetailCalendarViewController: UIViewController {
         
         checkInDateLabel.font = font
         checkInDateLabel.textColor = textColor
-        checkInDateLabel.text = "8월 1일"
+        checkInDateLabel.text = ""
         
         topCenterImageView.contentMode = .scaleAspectFit
-        topCenterImageView.image = UIImage(named: "diagnoalLine")
+        topCenterImageView.image = UIImage(named: "diagonalLine2")
         
         checkOutTextLabel.font = font
         checkOutTextLabel.textColor = textColor
@@ -169,17 +207,21 @@ class HouseDetailCalendarViewController: UIViewController {
         
         checkOutDateLabel.font = font
         checkOutDateLabel.textColor = textColor
-        checkOutDateLabel.text = "8월 5일"
+        checkOutDateLabel.text = ""
         checkOutDateLabel.textAlignment = .right
         
         seperateLineViewTop.backgroundColor = #colorLiteral(red: 0.7567283511, green: 0.7522315383, blue: 0.7601861954, alpha: 0.4162831764)
-        
-        
-        
     }
     
     @objc private func cancelBtnDidTap(_ sender: UIButton) {
         dismiss(animated: true)
+    }
+    
+    @objc private func deleteBtnDidTap(_ sender: UIButton) {
+        selectedDatesArray.forEach{
+            calendar.deselect($0)
+        }
+        selectedDatesArray.removeAll()
     }
     
     private func setCalendar() {
@@ -200,19 +242,35 @@ class HouseDetailCalendarViewController: UIViewController {
         calendar.weekdayHeight = 0
         calendar.appearance.weekdayTextColor = .clear
         
-//        calendar.appearance.titleFont = .systemFont(ofSize: 16, weight: .bold)
-        calendar.appearance.titleFont = UIFont(name: "AirbnbCerealApp-Book", size: 16)
+        calendar.appearance.titleFont = .systemFont(ofSize: 16, weight: .bold)
+//        calendar.appearance.titleFont = UIFont(name: "AirbnbCerealApp-Book", size: 16)
         calendar.appearance.titleDefaultColor = #colorLiteral(red: 0.1990053952, green: 0.1978290677, blue: 0.1999138892, alpha: 0.8544252997)
         calendar.appearance.titlePlaceholderColor = #colorLiteral(red: 0.7327679992, green: 0.7284137607, blue: 0.7361161113, alpha: 0.4171660959)
-//        calendar.appearance.subtitleFont = .systemFont(ofSize: 13, weight: .bold)
-        calendar.appearance.subtitleFont = UIFont(name: "AirbnbCerealApp-Book", size: 10)
+        calendar.appearance.subtitleFont = .systemFont(ofSize: 8, weight: .semibold)
+//        calendar.appearance.subtitleFont = UIFont(name: "AirbnbCerealApp-Book", size: 10)
         calendar.appearance.selectionColor = UIColor(red:0.09, green:0.51, blue:0.54, alpha:1.0)
         calendar.rowHeight = 50
+        
+        calendar.appearance.subtitlePlaceholderColor = .clear
+        calendar.appearance.imageOffset = CGPoint(x: 0, y: -24)
+        
         
         
         
         view.addSubview(calendar)
         self.calendar = calendar
+    }
+    
+    private func setReservedDates() {
+        print("🔵🔵🔵 setReservedDates ")
+        guard let houseData = houseDetailData else { print("‼️ : "); return }
+        let dates = houseData.reservations
+        print(dates)
+        for i in dates {
+            let dateConverted = dateFormatter.date(from: i.first ?? "")
+            print("🔴🔴🔴 dateConverted: ", dateConverted)
+        }
+        
     }
     
     
@@ -228,7 +286,6 @@ class HouseDetailCalendarViewController: UIViewController {
 
 
 extension HouseDetailCalendarViewController: FSCalendarDelegate, FSCalendarDataSource {
-    
     func minimumDate(for calendar: FSCalendar) -> Date {
         return currentDate
     }
@@ -240,32 +297,109 @@ extension HouseDetailCalendarViewController: FSCalendarDelegate, FSCalendarDataS
         return lastDayMonth
     }
     
-    
-    
     func calendar(_ calendar: FSCalendar, subtitleFor date: Date) -> String? {
-        guard let a = calendar.cell(for: date, at: .current) else {
-            print("‼️ : ")
-            return ""
-        }
+        guard let houseData = houseDetailData else { return "" }
+        let priceString = String(houseData.price)
         
-        
-        if a.isPlaceholder {
-           return "a"
-        } else {
-            return "b"
-        }
-        
-        return ""
+        return "₩\(priceString)"
     }
     
     func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at monthPosition: FSCalendarMonthPosition) {
-        cell.imageView.contentMode = .scaleToFill
-//        cell.imageView.backgroundColor = .yellow
+        
+        print("willDisplay cell date: ", date)
+        
+        dateFormatter.dateFormat = "MM-dd"
+        let dateString = dateFormatter.string(from: date)
+        let todayString = dateFormatter.string(from: currentDate)
+        
+        if dateString == todayString {
+            cell.subtitle = ""
+            cell.titleLabel.textColor = UIColor(red:0.80, green:0.80, blue:0.80, alpha:1.0)
+            cell.titleLabel.font = .systemFont(ofSize: 16, weight: .regular)
+        }
     }
     
+    func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
+        let cell = calendar.cell(for: date, at: .current)
+        guard cell?.subtitle != "" else { return false }
+        
+        return true
+    }
+    
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        print("--------------------------[DidSelect]--------------------------")
+        switch selectedDatesArray.count {
+        case 0:
+            print("currentCount: ", selectedDatesArray.count)
+            selectedDatesArray.append(date)
+            print(selectedDatesArray)
+        case 1:
+            // 이미 1개가 선택되어있을때
+            print("currentCount: ", selectedDatesArray.count)
+            selectedDatesArray.append(date)
+            selectedDatesArray.sort()
+            
+            selectDateCells()
+            
+            selectedDatesArray.sort()
+            print(selectedDatesArray)
+        case 2...:
+            // 눌렀을때 이미 2개이상이 선택되있는 상황일때
+            print("currentCount: ", selectedDatesArray.count)
+            selectedDatesArray.forEach{
+                calendar.deselect($0)
+            }
+            selectedDatesArray.removeAll()
+            selectedDatesArray.append(date)
+            print(selectedDatesArray)
+        default : break
+        }
+    }
+    
+    func calendar(_ calendar: FSCalendar, didDeselect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        print("--------------------------[DidDeselect]--------------------------")
+        if selectedDatesArray.contains(date) {
+            selectedDatesArray.forEach{
+                calendar.deselect($0)
+            }
+            selectedDatesArray.removeAll()
+            calendar.select(date)
+            selectedDatesArray.append(date)
+            //            topTextLabel.text = setTextFromDate()
+        }
+        print(selectedDatesArray)
+    }
+    
+    
+    
     func calendar(_ calendar: FSCalendar, imageFor date: Date) -> UIImage? {
+        let cell = calendar.cell(for: date, at: .current)
+//        guard cell?.subtitle != "" else { return UIImage(named: "star") }
+        
+        dateFormatter.dateFormat = "MM-dd"
+        let dateString = dateFormatter.string(from: date)
+        let todayString = dateFormatter.string(from: currentDate)
+        
+        if dateString == todayString {
+            cell?.imageView.alpha = 0.5
+            return UIImage(named: "CalendarDiagonalLine5")
+        }
         
         
-        return UIImage(named: "CalendarDiagonal")
+        return nil
+    }
+    
+    private func selectDateCells() {
+        let timeGap = selectedDatesArray.last!.timeIntervalSince(selectedDatesArray.first!)
+        let oneDayValue: TimeInterval = 3600 * 24
+        let daysGap = Int(timeGap / oneDayValue)
+        
+        for i in 1...daysGap {
+            let day = Calendar.current.date(byAdding: .day, value: i, to: selectedDatesArray.first!)!
+            calendar.select(day)
+            
+            guard !selectedDatesArray.contains(day) else { continue }
+            selectedDatesArray.append(day)
+        }
     }
 }

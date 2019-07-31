@@ -132,6 +132,7 @@ class HouseDetailViewController: UIViewController {
             navigationController?.pushViewController(reserveInfoVC, animated: true)
         case false:
             let calendarVC = HouseDetailCalendarViewController()
+            calendarVC.houseDetailData = self.houseDetailData
             present(calendarVC, animated: true)
         }
         
