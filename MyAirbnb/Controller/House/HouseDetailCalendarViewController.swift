@@ -23,6 +23,7 @@ class HouseDetailCalendarViewController: UIViewController {
     
     var weekdayLabel = UILabel()
     let seperateLineViewTop = UIView()
+    let bottomView = BottomInfoView()
     
     private weak var calendar: FSCalendar!
     
@@ -162,10 +163,18 @@ class HouseDetailCalendarViewController: UIViewController {
             make.height.equalTo(1)
         }
         
+        view.addSubview(bottomView)
+        bottomView.snp.makeConstraints { (make) in
+            make.leading.trailing.bottom.equalTo(safeGuide)
+            make.height.equalTo(70)
+        }
+        
+        
         view.addSubview(calendar)
         calendar.snp.makeConstraints { (make) in
             make.top.equalTo(seperateLineViewTop.snp.bottom).offset(0)
-            make.bottom.leading.trailing.equalTo(safeGuide)
+            make.leading.trailing.equalTo(safeGuide)
+            make.bottom.equalTo(bottomView.snp.top)
         }
     }
 
@@ -211,6 +220,13 @@ class HouseDetailCalendarViewController: UIViewController {
         checkOutDateLabel.textAlignment = .right
         
         seperateLineViewTop.backgroundColor = #colorLiteral(red: 0.7567283511, green: 0.7522315383, blue: 0.7601861954, alpha: 0.4162831764)
+        
+        bottomView.backColor = .white
+        bottomView.layer.masksToBounds = false
+        bottomView.layer.shadowOpacity = 0.1
+        bottomView.layer.shadowOffset = CGSize(width: 5, height: -7)
+        bottomView.layer.shadowRadius = 3
+        bottomView.layer.shadowColor = UIColor.gray.cgColor
     }
     
     @objc private func cancelBtnDidTap(_ sender: UIButton) {
