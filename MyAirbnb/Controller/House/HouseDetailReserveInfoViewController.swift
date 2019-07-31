@@ -20,8 +20,8 @@ class HouseDetailReserveInfoViewController: UIViewController {
         
         view.layer.masksToBounds = false
         view.layer.shadowOpacity = 0.1
-        view.layer.shadowOffset = CGSize(width: 0, height: 2.0)
-        view.layer.shadowRadius = 3
+        view.layer.shadowOffset = CGSize(width: 0, height: 1.0)
+        view.layer.shadowRadius = 0
         view.layer.shadowColor = UIColor.gray.cgColor
         return view
     }()
@@ -34,6 +34,9 @@ class HouseDetailReserveInfoViewController: UIViewController {
         
         tableView.register(ReserveInfoTableCell.self, forCellReuseIdentifier: ReserveInfoTableCell.identifier)
         tableView.register(CheckInOutInfoTableCell.self, forCellReuseIdentifier: CheckInOutInfoTableCell.identifier)
+        tableView.register(BizTripTableCell.self, forCellReuseIdentifier: BizTripTableCell.identifier)
+        tableView.register(TaxInfoTableCell.self, forCellReuseIdentifier: TaxInfoTableCell.identifier)
+        
         return tableView
     }()
     
@@ -71,6 +74,8 @@ class HouseDetailReserveInfoViewController: UIViewController {
         view.addSubview(tableView)
 
         view.addSubview(bottomView)
+        
+        reqBookingBtn.addTarget(self, action: #selector(reqReserveBtnDidTap(_:)), for: .touchUpInside)
         bottomView.addSubview(reqBookingBtn)
     }
     
@@ -99,6 +104,11 @@ class HouseDetailReserveInfoViewController: UIViewController {
             make.height.equalToSuperview().multipliedBy(0.65)
         }
     }
+    
+    @objc private func reqReserveBtnDidTap(_ sender: UIButton) {
+        let reserveStepVC = ReserveStepOneViewController()
+        navigationController?.pushViewController(reserveStepVC, animated: true)
+    }
 }
 
 
@@ -106,7 +116,7 @@ class HouseDetailReserveInfoViewController: UIViewController {
 
 extension HouseDetailReserveInfoViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 4
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -117,6 +127,13 @@ extension HouseDetailReserveInfoViewController: UITableViewDataSource {
         case 1:
             let checkInOutInfoCell = tableView.dequeueReusableCell(withIdentifier: CheckInOutInfoTableCell.identifier, for: indexPath) as! CheckInOutInfoTableCell
             return checkInOutInfoCell
+        case 2:
+            let bizTripCell = tableView.dequeueReusableCell(withIdentifier: BizTripTableCell.identifier, for: indexPath) as! BizTripTableCell
+            return bizTripCell
+        case 3:
+            let taxInfoCell = tableView.dequeueReusableCell(withIdentifier: TaxInfoTableCell.identifier, for: indexPath) as! TaxInfoTableCell
+            taxInfoCell.hideSeparator()
+            return taxInfoCell
         default:
             return UITableViewCell()
         }

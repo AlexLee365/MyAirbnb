@@ -24,7 +24,7 @@ class ReserveInfoTableCell: UITableViewCell {
         let label = UILabel()
         label.text = "₩40,000 /박"
         label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
-        label.font = UIFont(name: "AirbnbCerealApp-Book", size: 17)
+        label.font = UIFont(name: "AirbnbCerealApp-Book", size: 18)
         return label
     }()
     

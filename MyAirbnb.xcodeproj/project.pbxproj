@@ -139,6 +139,10 @@
 		8D4FDA4022F1746500E31CF5 /* HouseDetailReserveInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDA3F22F1746500E31CF5 /* HouseDetailReserveInfoViewController.swift */; };
 		8D4FDA4322F1790700E31CF5 /* ReserveInfoTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDA4222F1790700E31CF5 /* ReserveInfoTableCell.swift */; };
 		8D4FDA4522F1861800E31CF5 /* CheckInOutInfoTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDA4422F1861800E31CF5 /* CheckInOutInfoTableCell.swift */; };
+		8D4FDA4722F18AAC00E31CF5 /* BizTripTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDA4622F18AAC00E31CF5 /* BizTripTableCell.swift */; };
+		8D4FDA4922F18E7300E31CF5 /* TaxInfoTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDA4822F18E7300E31CF5 /* TaxInfoTableCell.swift */; };
+		8D4FDA4B22F19BAD00E31CF5 /* ReserveStepOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDA4A22F19BAD00E31CF5 /* ReserveStepOneViewController.swift */; };
+		8D4FDA4D22F19E0800E31CF5 /* StepTitleTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDA4C22F19E0800E31CF5 /* StepTitleTableCell.swift */; };
 		8D518FEC22DF280B009D6792 /* InstantBookTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D518FEB22DF280B009D6792 /* InstantBookTableCell.swift */; };
 		8D518FEE22E06F29009D6792 /* QualifiedHouseTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D518FED22E06F29009D6792 /* QualifiedHouseTableCell.swift */; };
 		8D518FF022E07769009D6792 /* PriceRangeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D518FEF22E07769009D6792 /* PriceRangeTableCell.swift */; };
@@ -330,6 +334,10 @@
 		8D4FDA3F22F1746500E31CF5 /* HouseDetailReserveInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailReserveInfoViewController.swift; sourceTree = "<group>"; };
 		8D4FDA4222F1790700E31CF5 /* ReserveInfoTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReserveInfoTableCell.swift; sourceTree = "<group>"; };
 		8D4FDA4422F1861800E31CF5 /* CheckInOutInfoTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInOutInfoTableCell.swift; sourceTree = "<group>"; };
+		8D4FDA4622F18AAC00E31CF5 /* BizTripTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BizTripTableCell.swift; sourceTree = "<group>"; };
+		8D4FDA4822F18E7300E31CF5 /* TaxInfoTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxInfoTableCell.swift; sourceTree = "<group>"; };
+		8D4FDA4A22F19BAD00E31CF5 /* ReserveStepOneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReserveStepOneViewController.swift; sourceTree = "<group>"; };
+		8D4FDA4C22F19E0800E31CF5 /* StepTitleTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepTitleTableCell.swift; sourceTree = "<group>"; };
 		8D518FEB22DF280B009D6792 /* InstantBookTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstantBookTableCell.swift; sourceTree = "<group>"; };
 		8D518FED22E06F29009D6792 /* QualifiedHouseTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QualifiedHouseTableCell.swift; sourceTree = "<group>"; };
 		8D518FEF22E07769009D6792 /* PriceRangeTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceRangeTableCell.swift; sourceTree = "<group>"; };
@@ -701,6 +709,9 @@
 			children = (
 				8D4FDA4222F1790700E31CF5 /* ReserveInfoTableCell.swift */,
 				8D4FDA4422F1861800E31CF5 /* CheckInOutInfoTableCell.swift */,
+				8D4FDA4622F18AAC00E31CF5 /* BizTripTableCell.swift */,
+				8D4FDA4822F18E7300E31CF5 /* TaxInfoTableCell.swift */,
+				8D4FDA4C22F19E0800E31CF5 /* StepTitleTableCell.swift */,
 			);
 			path = Reservation;
 			sourceTree = "<group>";
@@ -738,6 +749,7 @@
 				8D51905022EC5C1C009D6792 /* LuxeHouseViewController.swift */,
 				4313F08722E5DE0A003BB3D1 /* MapViewController.swift */,
 				8D4FDA3F22F1746500E31CF5 /* HouseDetailReserveInfoViewController.swift */,
+				8D4FDA4A22F19BAD00E31CF5 /* ReserveStepOneViewController.swift */,
 			);
 			path = House;
 			sourceTree = "<group>";
@@ -928,13 +940,16 @@
 				4353B8F222D319F2004BD807 /* MainView.swift in Sources */,
 				8D4FDA0E22EF661B00E31CF5 /* VideoHostInfoTableCell.swift in Sources */,
 				4353B8EE22D088A3004BD807 /* TabbarController.swift in Sources */,
+				8D4FDA4922F18E7300E31CF5 /* TaxInfoTableCell.swift in Sources */,
 				20CD1F2122E303B1009641F4 /* MakePwPageViewContorller.swift in Sources */,
+				8D4FDA4D22F19E0800E31CF5 /* StepTitleTableCell.swift in Sources */,
 				206C998A22E5B4AB002D3D55 /* PasswordView.swift in Sources */,
 				4353B8FD22D47C02004BD807 /* UIExtension.swift in Sources */,
 				8D51902F22E82C8F009D6792 /* MsgListTableCell.swift in Sources */,
 				8D4FDA4522F1861800E31CF5 /* CheckInOutInfoTableCell.swift in Sources */,
 				8D51903122E8472A009D6792 /* ChatRoomViewController.swift in Sources */,
 				4353BA2D22DC40B5004BD807 /* FSCalendarAppearance.m in Sources */,
+				8D4FDA4722F18AAC00E31CF5 /* BizTripTableCell.swift in Sources */,
 				4353BA5E22DECE9F004BD807 /* LoginPageViewController.swift in Sources */,
 				8D0D78A722D459E200F61F0B /* TodaySeoulExperienceData.swift in Sources */,
 				8D0D78A522D459C900F61F0B /* SeoulRecommendedTripData.swift in Sources */,
@@ -962,6 +977,7 @@
 				8D51904B22EC1DAD009D6792 /* TripContentsTableCell.swift in Sources */,
 				8D51907C22EEDEEB009D6792 /* ItemsProvidingTableCell.swift in Sources */,
 				4353BA6522DF0F4A004BD807 /* HouseTopLabelTableCell.swift in Sources */,
+				8D4FDA4B22F19BAD00E31CF5 /* ReserveStepOneViewController.swift in Sources */,
 				20081F7E22EEBC8300BAB0FD /* InputEmailView.swift in Sources */,
 				8D0D792722DB328900F61F0B /* HousePlusTableCell.swift in Sources */,
 				8D0D78AA22D4754200F61F0B /* SeoulRecommendTableViewCell.swift in Sources */,
