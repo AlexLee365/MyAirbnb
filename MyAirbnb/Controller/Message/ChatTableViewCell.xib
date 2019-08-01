@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="80" id="KGk-i7-Jjw" customClass="ChatTableViewCell" customModule="MyAirbnb" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="377" height="92"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="377" height="91.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="ghm-nA-1Xs">
+                        <rect key="frame" x="20" y="10" width="337" height="71.5"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dR4-6T-Vcj">
+                                <rect key="frame" x="0.0" y="0.0" width="290" height="71.5"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="Lorem ipsum" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lFk-uH-nc8">
+                                        <rect key="frame" x="13" y="13" width="264" height="34.5"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xb0-eA-6gq">
+                                        <rect key="frame" x="20" y="57.5" width="255" height="16"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="xb0-eA-6gq" firstAttribute="top" secondItem="lFk-uH-nc8" secondAttribute="bottom" constant="5" id="0W1-dV-68l"/>
+                                    <constraint firstAttribute="bottom" secondItem="xb0-eA-6gq" secondAttribute="bottom" constant="10" id="1b8-Sa-9Si"/>
+                                    <constraint firstItem="lFk-uH-nc8" firstAttribute="top" secondItem="dR4-6T-Vcj" secondAttribute="top" constant="10" id="3BC-9L-TEX"/>
+                                    <constraint firstAttribute="trailing" secondItem="lFk-uH-nc8" secondAttribute="trailing" constant="13" id="HWk-2a-KFa"/>
+                                    <constraint firstItem="lFk-uH-nc8" firstAttribute="leading" secondItem="dR4-6T-Vcj" secondAttribute="leading" constant="13" id="JWp-0T-WWr"/>
+                                    <constraint firstAttribute="trailing" secondItem="xb0-eA-6gq" secondAttribute="trailing" constant="15" id="eBC-fM-1iY"/>
+                                    <constraint firstItem="xb0-eA-6gq" firstAttribute="leading" secondItem="dR4-6T-Vcj" secondAttribute="leading" constant="20" id="xcb-yM-d4m"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="ghm-nA-1Xs" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="DFS-ry-b4M"/>
+                    <constraint firstAttribute="bottom" secondItem="ghm-nA-1Xs" secondAttribute="bottom" constant="10" id="DFT-sS-ZCJ"/>
+                    <constraint firstItem="ghm-nA-1Xs" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="cN1-1C-MXU"/>
+                    <constraint firstAttribute="trailing" secondItem="ghm-nA-1Xs" secondAttribute="trailing" constant="20" id="j6z-Ex-MXp"/>
+                    <constraint firstItem="lFk-uH-nc8" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.7" id="tR9-9o-tUh"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="contentStackView" destination="ghm-nA-1Xs" id="D2x-il-t50"/>
+                <outlet property="messageBubbleView" destination="dR4-6T-Vcj" id="0aK-oH-OTY"/>
+                <outlet property="messageInfoLabel" destination="xb0-eA-6gq" id="onY-qX-LFh"/>
+                <outlet property="messageTextView" destination="lFk-uH-nc8" id="ExE-nK-aU5"/>
+            </connections>
+            <point key="canvasLocation" x="168.84057971014494" y="140.625"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -82,6 +82,8 @@
 		4353BA9B22E1A335004BD807 /* HouseDetailFacilityTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA9A22E1A335004BD807 /* HouseDetailFacilityTableCell.swift */; };
 		4353BA9D22E1A398004BD807 /* HouseDetailBedroomsTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA9C22E1A398004BD807 /* HouseDetailBedroomsTableCell.swift */; };
 		438BDDA522F2C76000944276 /* SingletonCommonData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438BDDA422F2C76000944276 /* SingletonCommonData.swift */; };
+		438BDDAA22F32F2300944276 /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438BDDA822F32F2300944276 /* ChatTableViewCell.swift */; };
+		438BDDAB22F32F2300944276 /* ChatTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 438BDDA922F32F2300944276 /* ChatTableViewCell.xib */; };
 		4399345322E9515600FAE15C /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4399345222E9515600FAE15C /* AppIcon.xcassets */; };
 		4399345522E9831600FAE15C /* BottomInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4399345422E9831600FAE15C /* BottomInfoView.swift */; };
 		4399347522E9B12700FAE15C /* HouseDetailData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4399347422E9B12700FAE15C /* HouseDetailData.swift */; };
@@ -285,6 +287,8 @@
 		4353BA9A22E1A335004BD807 /* HouseDetailFacilityTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailFacilityTableCell.swift; sourceTree = "<group>"; };
 		4353BA9C22E1A398004BD807 /* HouseDetailBedroomsTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailBedroomsTableCell.swift; sourceTree = "<group>"; };
 		438BDDA422F2C76000944276 /* SingletonCommonData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingletonCommonData.swift; sourceTree = "<group>"; };
+		438BDDA822F32F2300944276 /* ChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewCell.swift; sourceTree = "<group>"; };
+		438BDDA922F32F2300944276 /* ChatTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatTableViewCell.xib; sourceTree = "<group>"; };
 		4399345222E9515600FAE15C /* AppIcon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AppIcon.xcassets; sourceTree = "<group>"; };
 		4399345422E9831600FAE15C /* BottomInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomInfoView.swift; sourceTree = "<group>"; };
 		4399347422E9B12700FAE15C /* HouseDetailData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailData.swift; sourceTree = "<group>"; };
@@ -631,6 +635,8 @@
 			children = (
 				8D51902B22E81811009D6792 /* MessageViewController.swift */,
 				8D51903022E8472A009D6792 /* ChatRoomViewController.swift */,
+				438BDDA822F32F2300944276 /* ChatTableViewCell.swift */,
+				438BDDA922F32F2300944276 /* ChatTableViewCell.xib */,
 			);
 			path = Message;
 			sourceTree = "<group>";
@@ -892,6 +898,7 @@
 				4399345322E9515600FAE15C /* AppIcon.xcassets in Resources */,
 				8D0D788622D20A0000F61F0B /* AirbnbCereal-Bold.ttf in Resources */,
 				8D0D788722D20A0200F61F0B /* AirbnbCereal-Book.ttf in Resources */,
+				438BDDAB22F32F2300944276 /* ChatTableViewCell.xib in Resources */,
 				4353B90C22D4B755004BD807 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1103,6 +1110,7 @@
 				8D518FF022E07769009D6792 /* PriceRangeTableCell.swift in Sources */,
 				8D0D792322DB02D900F61F0B /* HouseViewController.swift in Sources */,
 				8D0D793E22DD6C1600F61F0B /* VideoView.swift in Sources */,
+				438BDDAA22F32F2300944276 /* ChatTableViewCell.swift in Sources */,
 				4353BA1E22DC40B5004BD807 /* FSCalendarCollectionView.m in Sources */,
 				4353BA6922DF11CC004BD807 /* HouseDetailViewController.swift in Sources */,
 				20272A1322EF0C3200848BC5 /* SucessViewController.swift in Sources */,
