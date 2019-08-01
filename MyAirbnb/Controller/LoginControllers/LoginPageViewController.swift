@@ -349,13 +349,16 @@ class LoginPageViewController: UIViewController {
         usePhoneNumberBtn.backgroundColor = .clear
         usePhoneNumberBtn.addTarget(self, action: #selector(didTapUsePhoneNumberBtn(_:)), for: .touchUpInside)
         
+//        let selectedBackColor = UIColor.init(displayP3Red: 58, green: 130, blue: 136, alpha: 1.0)
+//        let normalBackColor = UIColor.init(displayP3Red: 185, green: 216, blue: 218, alpha: 0.8)
+//        var loginBtnBackColor = loginBtn.backgroundColor
+        
         loginBtn.setTitle("로그인", for: .normal)
         loginBtn.setTitleColor(.white, for: .normal)
         loginBtn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+//        loginBtnBackColor = UIColor.init(displayP3Red: 185, green: 216, blue: 218, alpha: 0.8)
         loginBtn.backgroundColor = UIColor.init(displayP3Red: 185, green: 216, blue: 218, alpha: 0.8)
-        //        loginBtn.backgroundColor = .black
         loginBtn.layer.cornerRadius = 5.0
-        
         loginBtn.layer.shadowColor = UIColor.init(displayP3Red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
         //        loginBtn.layer.shadowColor = UIColor.green.cgColor
         loginBtn.layer.shadowOpacity = 1.0
@@ -363,82 +366,27 @@ class LoginPageViewController: UIViewController {
         loginBtn.layer.shadowOffset = CGSize.init(width: 2, height: 2)
         loginBtn.addTarget(self, action: #selector(didTapLoginBtn(_:)), for: .touchUpInside)
     }
+    
     @objc private func didTapLoginBtn(_ sender: UIButton) {
         
         // validation
         if (emailTxtField.text?.isEmpty)! || (passwordTxtField.text?.isEmpty)! {
+            
             //desplay alert message
             print("email and password field must filled")
-            
             return
-        }
-        
-        // send HTTP request
-        // 토큰 요청 코드
-        let myUrl = URL(string: "http://airbnb.tthae.com/api/accounts/get_token/")
-        
-        
-        var request = URLRequest(url: myUrl!)
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "content-type")
-        
-        let username = emailTxtField.text
-        let password = passwordTxtField.text
-        
-        let postString = ["username" : username!, "password" : password!] as [String : String]
-        
-        do {
-            request.httpBody = try JSONSerialization.data(withJSONObject: postString, options: .prettyPrinted)
-        } catch let error {
-            print(error.localizedDescription)
-            return
-        }
-        
-        let task = URLSession.shared.dataTask(with: request) {
-            (data: Data?, response: URLResponse?, error: Error?) in
             
-            if error != nil
-            {
-                print("error=\(String(describing: error))")
-                return
-            }
+        } else {
             
-            do {
-                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-                
-                if let parseJSON = json {
-                    let accessToken = parseJSON["token"] as? String
-//                    let userID = parseJSON["uesr"] as? Int
-                    print("🔵🔵🔵 Access Token: \(String(describing: accessToken!))")
-                    
-                    
-                    if (accessToken?.isEmpty)! {
-                        print("could not successful get Token")
-                        return
-                    }
-                    
-                    DispatchQueue.main.sync {
-                        // 토큰이 성공적으로 받아지면 메인 페이지로 이동 하게되는 코드 작성
-                        // 테스트용 빈 페이지 띄우기
-                        let sucessVC = SucessViewController()
-                        self.present(sucessVC, animated: true, completion: nil)
-                        
-                        // 알림 뷰 컨트롤러로 가기
-//                        let AlarmVC = AlarmConfirmViewController()
-//                        self.navigationController?.pushViewController(AlarmVC, animated: true)
-                    }
-                    
-                } else {
-                    print(error)
-                }
-                
-            } catch {
-                print(error)
-            }
+            // send HTTP request
+            // 토큰 요청 코드
+            let username = emailTxtField.text
+            let password = passwordTxtField.text
+            let vc = self
+            let getTokenClass = GetToken()
+            getTokenClass.getTokenFromDB(username: username!, password: password!, vc: vc)
             
         }
-        task.resume()
-        
     }
     
     @objc private func didTapUsePhoneNumberBtn(_ sender: UIButton) {
@@ -488,8 +436,13 @@ extension LoginPageViewController: UITextFieldDelegate {
             passwordTxtField.becomeFirstResponder()
             
         } else if(textField.isEqual(self.passwordTxtField)) {
-            
-            present(alarmConfirmVC, animated: true, completion: nil)
+            // send HTTP request
+            // 토큰 요청 코드
+            let username = emailTxtField.text
+            let password = passwordTxtField.text
+            let vc = self
+            let getTokenClass = GetToken()
+            getTokenClass.getTokenFromDB(username: username!, password: password!, vc: vc)
         }
         return true
     }
