@@ -10,7 +10,7 @@ import UIKit
 
 class GetToken {
     
-    func getTokenFromDB(username: String, password: String, vc: UIViewController) -> () {
+    func getTokenFromDB(username: String, password: String, completion: @escaping (Bool, String?) -> ()) {
         print("\n---------- [Request Get_Token Method ] ----------\n")
         
         let myUrl = URL(string: "http://airbnb.tthae.com/api/accounts/get_token/")
@@ -41,29 +41,15 @@ class GetToken {
                 let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                 
                 if let parseJSON = json {
-                    let accessToken = parseJSON["token"] as? String
-                    //                    let userID = parseJSON["uesr"] as? Int
-                    print("🔵🔵🔵 Access Token: \(String(describing: accessToken!))")
-                    
-                    
-                    if (accessToken?.isEmpty)! {
-                        print("could not successful get Token")
+                    guard let accessToken = parseJSON["token"] as? String else {
+                        // 토큰 받아오기 실패 시
+                        completion(false, nil)
                         return
                     }
+                    //                    let userID = parseJSON["uesr"] as? Int
+                    print("🔵🔵🔵 Access Token: \(String(describing: accessToken))")
                     
-                    DispatchQueue.main.sync {
-                        // 토큰이 성공적으로 받아지면 메인 페이지로 이동 하게되는 코드 작성
-                        // 테스트용 빈 페이지 띄우기
-                        let sucessVC = SucessViewController()
-                        vc.present(sucessVC, animated: true, completion: nil)
-                        
-                        // 알림 뷰 컨트롤러로 가기
-                        //                        let AlarmVC = AlarmConfirmViewController()
-                        //                        self.navigationController?.pushViewController(AlarmVC, animated: true)
-                        
-                        // 인디케이터 커스텀 해서 넣어야 함
-                    }
-                    
+                    completion(true, accessToken)    // 토큰 받아오기 성공 시
                 } else {
                     return
                         print("Error: Access Token")

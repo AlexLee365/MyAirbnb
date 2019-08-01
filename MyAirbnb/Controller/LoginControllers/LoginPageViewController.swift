@@ -377,15 +377,9 @@ class LoginPageViewController: UIViewController {
             return
             
         } else {
-            
             // send HTTP request
             // 토큰 요청 코드
-            let username = emailTxtField.text
-            let password = passwordTxtField.text
-            let vc = self
-            let getTokenClass = GetToken()
-            getTokenClass.getTokenFromDB(username: username!, password: password!, vc: vc)
-            
+           tryLogin()
         }
     }
     
@@ -407,6 +401,41 @@ class LoginPageViewController: UIViewController {
     @objc private func didTapFindPwBtn(_ sender: UIButton) {
         let findPwVC = FindPassWordPageViewController()
         navigationController?.pushViewController(findPwVC, animated: true)
+    }
+    
+    private func tryLogin() {
+        let username = emailTxtField.text ?? ""
+        let password = passwordTxtField.text ?? ""
+        let getTokenClass = GetToken()
+        
+        getTokenClass.getTokenFromDB(username: username, password: password) { (success, token) in
+            switch success {
+            case true:
+                // 토큰 받아오기 성공시
+                UserDefaults.standard.set(username, forKey: SingletonCommonData.userDefaultIDKey)
+                UserDefaults.standard.set(token ?? "", forKey: SingletonCommonData.userDefaultTokenKey)
+                UserDefaults.standard.set(true, forKey: SingletonCommonData.userDefaultLoginStateKey)
+                
+                let launchVC = LaunchScreenViewController()
+                DispatchQueue.main.async {
+                    self.navigationController?.pushViewController(launchVC, animated: true)
+                }
+                
+            case false:
+                // 토큰 받아오기 실패시
+                DispatchQueue.main.async {
+                    self.makeAlert(title: "로그인 실패", message: "아이디 또는 패스워드가 잘못되었습니다.")                    
+                }
+            }
+        }
+    }
+    
+    private func makeAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let action1 = UIAlertAction(title: "OK", style: .default) { _ in }
+        
+        alert.addAction(action1)
+        present(alert, animated: true)
     }
     
 }
@@ -438,11 +467,7 @@ extension LoginPageViewController: UITextFieldDelegate {
         } else if(textField.isEqual(self.passwordTxtField)) {
             // send HTTP request
             // 토큰 요청 코드
-            let username = emailTxtField.text
-            let password = passwordTxtField.text
-            let vc = self
-            let getTokenClass = GetToken()
-            getTokenClass.getTokenFromDB(username: username!, password: password!, vc: vc)
+          tryLogin()
         }
         return true
     }

@@ -15,15 +15,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
         window = UIWindow(frame: UIScreen.main.bounds)
         
+        // 미로그인 시 회원가입VC
         let signUpVC = SignUpMainViewController()
         let signUPNaviVC = UINavigationController(rootViewController: signUpVC)
         
+        // 로그인 시 런치VC
         let LaunchScreenVC = LaunchScreenViewController()
         
-        var isLogined = true
+        let isLogined = UserDefaults.standard.bool(forKey: SingletonCommonData.userDefaultLoginStateKey)
         
         window?.rootViewController = isLogined ? LaunchScreenVC : signUPNaviVC
         window?.makeKeyAndVisible()
