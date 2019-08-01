@@ -27,6 +27,8 @@ class CheckInCheckOutInfoTableCell: UITableViewCell {
     }
     
     private func configure() {
+        self.hideSeparator()
+        self.selectionStyle = .none
         
         checkInView.monthLabel.text = "8월"
         checkInView.dateLabel.text = "17일"
@@ -62,7 +64,7 @@ class CheckInCheckOutInfoTableCell: UITableViewCell {
 class CheckInOutInfoView: UIView {
     let dateContainerView: UIView = {
         let view = UIView()
-        view.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
+        view.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 0.84375)
         return view
     }()
     
@@ -76,21 +78,21 @@ class CheckInOutInfoView: UIView {
     let dateLabel: UILabel = {
         let label = UILabel()
         label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
-        label.font = UIFont(name: "AirbnbCerealApp-Medium", size: 16)
+        label.font = UIFont(name: "AirbnbCerealApp-Medium", size: 15)
         return label
     }()
     
     let dayLabel: UILabel = {
         let label = UILabel()
         label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
-        label.font = UIFont(name: "AirbnbCerealApp-Book", size: 15)
+        label.font = UIFont(name: "AirbnbCerealApp-Book", size: 14)
         return label
     }()
     
     let checkInOutLabel: UILabel = {
         let label = UILabel()
         label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
-        label.font = UIFont(name: "AirbnbCerealApp-Book", size: 15)
+        label.font = UIFont(name: "AirbnbCerealApp-Book", size: 14)
         return label
     }()
     
@@ -126,18 +128,18 @@ class CheckInOutInfoView: UIView {
     private func setAutolayout() {
         dateContainerView.snp.makeConstraints { (make) in
             make.top.leading.bottom.equalToSuperview()
-            make.width.height.equalTo(50)
+            make.width.height.equalTo(55)
         }
         
         monthLabel.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
-            make.top.equalTo(8)
+            make.top.equalTo(9)
         }
         
         dateLabel.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
             make.top.equalTo(monthLabel.snp.bottom).offset(3)
-            make.bottom.equalTo(-8)
+            make.bottom.equalTo(-9)
         }
         
         dayLabel.snp.makeConstraints { (make) in
@@ -151,7 +153,7 @@ class CheckInOutInfoView: UIView {
         }
         
         timeLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(dayLabel.snp.bottom).offset(3)
+            make.top.equalTo(dayLabel.snp.bottom)
             make.leading.equalTo(dayLabel.snp.leading)
         }
     }

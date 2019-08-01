@@ -152,6 +152,15 @@
 		8D4FDA5922F2D0F000E31CF5 /* ReviewTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDA5822F2D0F000E31CF5 /* ReviewTableCell.swift */; };
 		8D4FDA5B22F2E18700E31CF5 /* StepOneTitleTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDA5A22F2E18700E31CF5 /* StepOneTitleTableCell.swift */; };
 		8D4FDA5D22F2E33C00E31CF5 /* CheckInCheckOutInfoTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDA5C22F2E33C00E31CF5 /* CheckInCheckOutInfoTableCell.swift */; };
+		8D4FDA5F22F30D1500E31CF5 /* CautionTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDA5E22F30D1500E31CF5 /* CautionTableCell.swift */; };
+		8D4FDA6122F3273100E31CF5 /* ReserveStepTwoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDA6022F3273100E31CF5 /* ReserveStepTwoViewController.swift */; };
+		8D4FDA6322F32A3300E31CF5 /* HostWelcomeMsgTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDA6222F32A3300E31CF5 /* HostWelcomeMsgTableCell.swift */; };
+		8D4FDA6B22F34C7E00E31CF5 /* MsgToHostTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDA6A22F34C7E00E31CF5 /* MsgToHostTableCell.swift */; };
+		8D4FDA6D22F3593100E31CF5 /* ReserveStepThreeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDA6C22F3593100E31CF5 /* ReserveStepThreeViewController.swift */; };
+		8D4FDA6F22F35C6300E31CF5 /* StepThreeTitleTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDA6E22F35C6300E31CF5 /* StepThreeTitleTableCell.swift */; };
+		8D4FDA7122F3601200E31CF5 /* AddPaymentTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDA7022F3601200E31CF5 /* AddPaymentTableCell.swift */; };
+		8D4FDA7322F3647100E31CF5 /* AddCardDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDA7222F3647100E31CF5 /* AddCardDetailViewController.swift */; };
+		8D4FDA7522F367CA00E31CF5 /* SelectPayMethodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDA7422F367CA00E31CF5 /* SelectPayMethodViewController.swift */; };
 		8D518FEC22DF280B009D6792 /* InstantBookTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D518FEB22DF280B009D6792 /* InstantBookTableCell.swift */; };
 		8D518FEE22E06F29009D6792 /* QualifiedHouseTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D518FED22E06F29009D6792 /* QualifiedHouseTableCell.swift */; };
 		8D518FF022E07769009D6792 /* PriceRangeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D518FEF22E07769009D6792 /* PriceRangeTableCell.swift */; };
@@ -356,6 +365,15 @@
 		8D4FDA5822F2D0F000E31CF5 /* ReviewTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTableCell.swift; sourceTree = "<group>"; };
 		8D4FDA5A22F2E18700E31CF5 /* StepOneTitleTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepOneTitleTableCell.swift; sourceTree = "<group>"; };
 		8D4FDA5C22F2E33C00E31CF5 /* CheckInCheckOutInfoTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInCheckOutInfoTableCell.swift; sourceTree = "<group>"; };
+		8D4FDA5E22F30D1500E31CF5 /* CautionTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CautionTableCell.swift; sourceTree = "<group>"; };
+		8D4FDA6022F3273100E31CF5 /* ReserveStepTwoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReserveStepTwoViewController.swift; sourceTree = "<group>"; };
+		8D4FDA6222F32A3300E31CF5 /* HostWelcomeMsgTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostWelcomeMsgTableCell.swift; sourceTree = "<group>"; };
+		8D4FDA6A22F34C7E00E31CF5 /* MsgToHostTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MsgToHostTableCell.swift; sourceTree = "<group>"; };
+		8D4FDA6C22F3593100E31CF5 /* ReserveStepThreeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReserveStepThreeViewController.swift; sourceTree = "<group>"; };
+		8D4FDA6E22F35C6300E31CF5 /* StepThreeTitleTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepThreeTitleTableCell.swift; sourceTree = "<group>"; };
+		8D4FDA7022F3601200E31CF5 /* AddPaymentTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPaymentTableCell.swift; sourceTree = "<group>"; };
+		8D4FDA7222F3647100E31CF5 /* AddCardDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCardDetailViewController.swift; sourceTree = "<group>"; };
+		8D4FDA7422F367CA00E31CF5 /* SelectPayMethodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPayMethodViewController.swift; sourceTree = "<group>"; };
 		8D518FEB22DF280B009D6792 /* InstantBookTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstantBookTableCell.swift; sourceTree = "<group>"; };
 		8D518FED22E06F29009D6792 /* QualifiedHouseTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QualifiedHouseTableCell.swift; sourceTree = "<group>"; };
 		8D518FEF22E07769009D6792 /* PriceRangeTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceRangeTableCell.swift; sourceTree = "<group>"; };
@@ -737,6 +755,11 @@
 				8D4FDA4822F18E7300E31CF5 /* TaxInfoTableCell.swift */,
 				8D4FDA5A22F2E18700E31CF5 /* StepOneTitleTableCell.swift */,
 				8D4FDA5C22F2E33C00E31CF5 /* CheckInCheckOutInfoTableCell.swift */,
+				8D4FDA5E22F30D1500E31CF5 /* CautionTableCell.swift */,
+				8D4FDA6222F32A3300E31CF5 /* HostWelcomeMsgTableCell.swift */,
+				8D4FDA6A22F34C7E00E31CF5 /* MsgToHostTableCell.swift */,
+				8D4FDA6E22F35C6300E31CF5 /* StepThreeTitleTableCell.swift */,
+				8D4FDA7022F3601200E31CF5 /* AddPaymentTableCell.swift */,
 			);
 			path = Reservation;
 			sourceTree = "<group>";
@@ -777,6 +800,10 @@
 				4313F08722E5DE0A003BB3D1 /* MapViewController.swift */,
 				8D4FDA3F22F1746500E31CF5 /* HouseDetailReserveInfoViewController.swift */,
 				8D4FDA4A22F19BAD00E31CF5 /* ReserveStepOneViewController.swift */,
+				8D4FDA6022F3273100E31CF5 /* ReserveStepTwoViewController.swift */,
+				8D4FDA6C22F3593100E31CF5 /* ReserveStepThreeViewController.swift */,
+				8D4FDA7422F367CA00E31CF5 /* SelectPayMethodViewController.swift */,
+				8D4FDA7222F3647100E31CF5 /* AddCardDetailViewController.swift */,
 			);
 			path = House;
 			sourceTree = "<group>";
@@ -964,6 +991,7 @@
 				208BC8F622E08CBC00EBDDBA /* KeyboardTopView.swift in Sources */,
 				43E36CD822E57627006C8AEF /* HouseDetailBedRoomsCollectCell.swift in Sources */,
 				8D51905122EC5C1C009D6792 /* LuxeHouseViewController.swift in Sources */,
+				8D4FDA6B22F34C7E00E31CF5 /* MsgToHostTableCell.swift in Sources */,
 				4353B8F222D319F2004BD807 /* MainView.swift in Sources */,
 				8D4FDA0E22EF661B00E31CF5 /* VideoHostInfoTableCell.swift in Sources */,
 				4353B8EE22D088A3004BD807 /* TabbarController.swift in Sources */,
@@ -982,12 +1010,15 @@
 				8D0D793C22DCA57B00F61F0B /* VideosDetailTableCell.swift in Sources */,
 				20CD1F1D22E3028A009641F4 /* InputEmailAndPhoneView.swift in Sources */,
 				8D4FDA5D22F2E33C00E31CF5 /* CheckInCheckOutInfoTableCell.swift in Sources */,
+				8D4FDA6F22F35C6300E31CF5 /* StepThreeTitleTableCell.swift in Sources */,
 				8D0D78B222D4B71500F61F0B /* TableviewTopView.swift in Sources */,
 				208BC8F422E08C9300EBDDBA /* TopBarItemView.swift in Sources */,
 				8D0D78DA22D74BDC00F61F0B /* PlaceTableViewCell.swift in Sources */,
+				8D4FDA6322F32A3300E31CF5 /* HostWelcomeMsgTableCell.swift in Sources */,
 				8D4FDA5722F2D08A00E31CF5 /* AverageReviewRateTableCell.swift in Sources */,
 				8D518FEE22E06F29009D6792 /* QualifiedHouseTableCell.swift in Sources */,
 				8D4FDA0C22EF4F5A00E31CF5 /* InfoCategoryView.swift in Sources */,
+				8D4FDA7122F3601200E31CF5 /* AddPaymentTableCell.swift in Sources */,
 				8D0D78DE22D864F700F61F0B /* SpecialTripDetailData.swift in Sources */,
 				4353BA2122DC40B5004BD807 /* FSCalendarCell.m in Sources */,
 				4353BA3522DDB7DA004BD807 /* FilterRemainsViewController.swift in Sources */,
@@ -1011,6 +1042,7 @@
 				20081F7E22EEBC8300BAB0FD /* InputEmailView.swift in Sources */,
 				8D0D792722DB328900F61F0B /* HousePlusTableCell.swift in Sources */,
 				8D0D78AA22D4754200F61F0B /* SeoulRecommendTableViewCell.swift in Sources */,
+				8D4FDA6122F3273100E31CF5 /* ReserveStepTwoViewController.swift in Sources */,
 				8D51904F22EC3881009D6792 /* MemoTableCell.swift in Sources */,
 				4353B8F822D327C2004BD807 /* MainCategoryCollectCell.swift in Sources */,
 				20272A0922EECA9A00848BC5 /* LoginPost.swift in Sources */,
@@ -1034,6 +1066,7 @@
 				8D0D78AC22D47AA700F61F0B /* InfoView.swift in Sources */,
 				4313F09422E8478E003BB3D1 /* MainViewData.swift in Sources */,
 				8D51903422E96FE8009D6792 /* PlusViewController.swift in Sources */,
+				8D4FDA7522F367CA00E31CF5 /* SelectPayMethodViewController.swift in Sources */,
 				8D51904122E9CCCD009D6792 /* FacilityTableCell.swift in Sources */,
 				4353B91822D75605004BD807 /* MainLuxeHouseCollectCell.swift in Sources */,
 				8D0D792F22DB7B2600F61F0B /* AllHouseLabelTableCell.swift in Sources */,
@@ -1048,6 +1081,7 @@
 				4353BA2922DC40B5004BD807 /* FSCalendarCalculator.m in Sources */,
 				20C2D0BC22F06DF5001D813F /* InputEmailViewController.swift in Sources */,
 				8D4FDA5122F1FD1C00E31CF5 /* TripTestData.swift in Sources */,
+				8D4FDA5F22F30D1500E31CF5 /* CautionTableCell.swift in Sources */,
 				8D51907A22EED888009D6792 /* ProgramDescriptionTableCell.swift in Sources */,
 				8D518FF822E1A57E009D6792 /* HouseTypeTableCell.swift in Sources */,
 				4353B8F022D22782004BD807 /* SearchBarView.swift in Sources */,
@@ -1082,6 +1116,7 @@
 				4353B91422D73E0D004BD807 /* FourSquareCollectCell.swift in Sources */,
 				4353B8E422D0797E004BD807 /* MainViewController.swift in Sources */,
 				43F5AA8722EB2683007511E1 /* SearchBarTableCell.swift in Sources */,
+				8D4FDA6D22F3593100E31CF5 /* ReserveStepThreeViewController.swift in Sources */,
 				4353BA8F22E09FC5004BD807 /* TestSaveViewController.swift in Sources */,
 				8D4FDA5B22F2E18700E31CF5 /* StepOneTitleTableCell.swift in Sources */,
 				8D0D794222DDE50900F61F0B /* AVFoundationViewController.swift in Sources */,
@@ -1117,6 +1152,7 @@
 				8D0D793322DB86A100F61F0B /* AllHousesScrollImageView.swift in Sources */,
 				4353BA5D22DECE9F004BD807 /* SignUpMainViewController.swift in Sources */,
 				8D0D792922DB367800F61F0B /* HousePlusCollectionCell.swift in Sources */,
+				8D4FDA7322F3647100E31CF5 /* AddCardDetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
