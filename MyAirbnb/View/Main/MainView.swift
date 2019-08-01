@@ -31,7 +31,6 @@ class MainView: UIView {
     
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
-        print("🔴🔴🔴 MainView didMoveToSuperview: ", mainViewDatas)
     }
     
     private func setAutoLayout() {

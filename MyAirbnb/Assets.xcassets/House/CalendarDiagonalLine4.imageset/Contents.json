@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "diagnoalLine.jpg",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "CalendarDiagonalLine4.png",
       "scale" : "2x"
     },
     {

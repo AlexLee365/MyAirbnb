@@ -12,7 +12,10 @@ extension Notification.Name {
     // MARK: - SearchBarView
     static let searchBarEditBegin = Notification.Name(rawValue: "SearchBarEditBegin")
     static let searchBarEditEnd = Notification.Name(rawValue: "SearchBarEditEnd")
-    static let searchBarEnterPressed = Notification.Name("searchBarEnterPressed")
+    static let searchBarEditingChanged = Notification.Name("SearchBarEditingChanged")
+    static let searchBarEnterPressed = Notification.Name("SearchBarEnterPressed")
+    
+    static let searchBarTableCellSelected = Notification.Name("searchBarTableCellSelected")
     
     static let searchBarDateBtnDidTap = Notification.Name(rawValue: "SearchBarDateBtnDidTap")
     static let searchBarDateResultBtnDidTap = Notification.Name(rawValue: "SearchBarDateResultBtnDidTap")

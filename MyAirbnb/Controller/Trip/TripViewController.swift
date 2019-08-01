@@ -143,6 +143,9 @@ extension TripViewController: UITableViewDataSource {
             
         case 3:
             let worldAdventureCell = tableView.dequeueReusableCell(withIdentifier: WorldAdventureTableCell.identifier, for: indexPath) as! WorldAdventureTableCell
+            
+            worldAdventureCell.delegate = self
+            
             return worldAdventureCell
             
         case 4:
@@ -228,4 +231,13 @@ extension TripViewController: SeoulRecommenedTripTableViewCellDelegate {
     }
 }
 
+// MARK: - WorldAdventureTableCellDelegate
+
+extension TripViewController: WorldAdventureTableCellDelegate {
+    func pushAdventureVC() {
+        let adventureVC = VideosDetailViewController()
+        tabBarController?.tabBar.isHidden = true
+        navigationController?.pushViewController(adventureVC, animated: true)
+    }
+}
 

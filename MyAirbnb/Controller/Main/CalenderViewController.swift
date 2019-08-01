@@ -126,7 +126,7 @@ class CalenderViewController: UIViewController {
         refreshBtn.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
         let weekDays = ["일", "월", "화", "수", "목", "금", "토"]
-        var leadingConst:CGFloat = 20
+        var leadingConst: CGFloat = 20
         let letterWidth = "가".size(withAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 11)]).width
         let letterPadding = (UIScreen.main.bounds.width - 30 - leadingConst*2 - letterWidth ) / 6
         

@@ -25,7 +25,6 @@ class FourSquareTableCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
         setAutoLayout()
         configureViewsOptions()
     }
@@ -34,10 +33,10 @@ class FourSquareTableCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        print("🔴🔴🔴 normalHouseDataArray: ", normalHouseDataArray)
+        print("DataCount: ", normalHouseDataArray.count)
     }
     
     

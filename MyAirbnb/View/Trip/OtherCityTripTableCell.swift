@@ -34,7 +34,6 @@ class OtherCityTripTableCell: UITableViewCell {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.backgroundColor = .clear
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.isPagingEnabled = true
         
         collectionView.register(OtherCityTripCollectionCell.self, forCellWithReuseIdentifier: OtherCityTripCollectionCell.identifier)
         

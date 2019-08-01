@@ -86,7 +86,6 @@ class NetworkCommunicator {
     
     
     func getHouseServerData(urlString: String, completion: @escaping ([HouseDataInList]?, Bool) -> ()) {
-        
         getJsonObjectFromAPI(urlString: urlString, urlForSpecificProcessing: nil) { (json, success) in
             guard success else {
                 print("‼️ NetWorkCommunicator success failed")
@@ -128,4 +127,28 @@ class NetworkCommunicator {
             }
         }
     }
+    
+    func getStateDataWithText(urlString: String, completion: @escaping ([String]?, Bool) -> ()) {
+        getJsonObjectFromAPI(urlString: urlString, urlForSpecificProcessing: nil) { (json, success) in
+            guard success else {
+                print("‼️ NetWorkCommunicator success failed")
+                completion(nil, false)
+                return
+            }
+            
+            guard let object = json as? [[String: Any]] else {
+                    print("‼️ NetWorkCommunicator object convert error")
+                    completion(nil, false)
+                    return
+            }
+            
+            guard let result = (object.map{ $0["name"] }) as? [String] else {
+                print("‼️ result convret error ")
+                return
+            }
+            
+            completion(result, true)
+        }
+    }
+    
 }

@@ -41,6 +41,8 @@ class SearchBarTableCell: UITableViewCell {
     }
     
     private func configureViewsOptions() {
+        self.selectionStyle = .none
+        
         iconImageView.image = UIImage(named: "locationMark")
         iconImageView.contentMode = .scaleAspectFit
         
