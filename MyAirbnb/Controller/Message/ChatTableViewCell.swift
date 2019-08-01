@@ -51,6 +51,8 @@ class ChatTableViewCell: UITableViewCell {
     }
     
     private func configureViewsOptions() {
+        self.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        
         messageBubbleView.backgroundColor = #colorLiteral(red: 0, green: 0.5690457821, blue: 0.5746168494, alpha: 1)
         messageBubbleView.layer.cornerRadius = 5
         

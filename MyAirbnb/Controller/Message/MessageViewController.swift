@@ -77,6 +77,7 @@ class MessageViewController: UIViewController {
         
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.separatorInset = UIEdgeInsets.init(top: 0, left: 800, bottom: 0, right: -800)
         view.addSubview(tableView)
         
 //        view.sendSubviewToBack(tableView)
@@ -110,13 +111,18 @@ class MessageViewController: UIViewController {
 
 extension MessageViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let msgListCell = tableView.dequeueReusableCell(withIdentifier: MsgListTableCell.identifier, for: indexPath) as! MsgListTableCell
+        
         return msgListCell
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        (indexPath.row == 2) ? (cell.separatorInset = .init(top: 0, left: 800, bottom: 0, right: -800)) : ()
+        print(indexPath.row)
     }
 }
 
@@ -128,4 +134,6 @@ extension MessageViewController: UITableViewDelegate {
         
         navigationController?.pushViewController(chatRoomVC, animated: true)
     }
+    
+    
 }
