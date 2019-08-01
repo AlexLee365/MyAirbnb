@@ -65,6 +65,8 @@ class TaxInfoTableCell: UITableViewCell {
     }
     
     private func configure() {
+        self.selectionStyle = .none
+        
         contentView.addSubview(titleLabel)
         contentView.addSubview(infoBtn)
         contentView.addSubview(separatorLineView)

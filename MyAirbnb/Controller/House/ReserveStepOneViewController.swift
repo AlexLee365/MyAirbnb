@@ -32,7 +32,8 @@ class ReserveStepOneViewController: UIViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
         
-        tableView.register(StepTitleTableCell.self, forCellReuseIdentifier: StepTitleTableCell.identifier)
+        tableView.register(StepOneTitleTableCell.self, forCellReuseIdentifier: StepOneTitleTableCell.identifier)
+        tableView.register(CheckInCheckOutInfoTableCell.self, forCellReuseIdentifier: CheckInCheckOutInfoTableCell.identifier)
         
         return tableView
     }()
@@ -42,6 +43,11 @@ class ReserveStepOneViewController: UIViewController {
         
         configure()
         setAutolayout()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
     }
     
     private func configure() {
@@ -79,8 +85,11 @@ extension ReserveStepOneViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
-            let stepTitleCell = tableView.dequeueReusableCell(withIdentifier: StepTitleTableCell.identifier, for: indexPath) as! StepTitleTableCell
+            let stepTitleCell = tableView.dequeueReusableCell(withIdentifier: StepOneTitleTableCell.identifier, for: indexPath) as! StepOneTitleTableCell
             return stepTitleCell
+        case 1:
+            let checkInOutInfoCell = tableView.dequeueReusableCell(withIdentifier: CheckInCheckOutInfoTableCell.identifier, for: indexPath) as! CheckInCheckOutInfoTableCell
+            return checkInOutInfoCell
         default:
             return UITableViewCell()
         }

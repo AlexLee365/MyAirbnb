@@ -68,6 +68,11 @@ class HouseDetailViewController: UIViewController {
         tabBarController?.tabBar.isHidden = true
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.isHidden = false
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -114,7 +119,9 @@ class HouseDetailViewController: UIViewController {
         tableView.estimatedRowHeight = 50
         
 //        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-        bottomView.isDateSelected = isDateSelected
+//        bottomView.isDateSelected = isDateSelected
+        bottomView.isDateSelected = true
+        isDateSelected = true
         bottomView.reserveBtn.addTarget(self, action: #selector(reserveBtnDidTap(_:)), for: .touchUpInside)
         bottomView.alpha = 0
     }
@@ -130,7 +137,8 @@ class HouseDetailViewController: UIViewController {
         switch isDateSelected {
         case true:
             let reserveInfoVC = HouseDetailReserveInfoViewController()
-            present(reserveInfoVC, animated: true)
+            let navi = UINavigationController(rootViewController: reserveInfoVC)
+            present(navi, animated: true)
         case false:
             let calendarVC = HouseDetailCalendarViewController()
             calendarVC.houseDetailData = self.houseDetailData

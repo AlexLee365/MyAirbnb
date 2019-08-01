@@ -63,6 +63,11 @@ class HouseDetailReserveInfoViewController: UIViewController {
         setAutolayout()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
+    }
+    
     private func configure() {
         view.backgroundColor = .white
         
