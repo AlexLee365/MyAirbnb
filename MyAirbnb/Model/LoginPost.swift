@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-func loginPost(username: String, password: String, firstName: String, lastName: String) {
+func loginPost(username: String, email: String, password: String, firstName: String, lastName: String) {
     print("\n---------- [ Post Method ] ----------\n")
     let todoEndpoint = "http://airbnb.tthae.com/api/accounts/user/"
     let urlComp = URLComponents(string: todoEndpoint)
@@ -18,7 +18,7 @@ func loginPost(username: String, password: String, firstName: String, lastName: 
         return print("Error: cannot create URL")
     }
     // 회원가입
-    let body = "username=\(username)&password=\(password)&firstName=\(firstName)&lastName=\(lastName)".data(using: String.Encoding.utf8, allowLossyConversion: false)
+    let body = "username=\(username)&email=\(email)&password=\(password)&firstName=\(firstName)&lastName=\(lastName)".data(using: String.Encoding.utf8, allowLossyConversion: false)
     
     var urlRequest = URLRequest(url: url)
     urlRequest.httpMethod = "POST"
