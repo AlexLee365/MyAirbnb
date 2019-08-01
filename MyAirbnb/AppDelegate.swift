@@ -18,9 +18,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         
-        let firstVC = LaunchScreenViewController()
+        let signUpVC = SignUpMainViewController()
+        let signUPNaviVC = UINavigationController(rootViewController: signUpVC)
         
-        window?.rootViewController = firstVC
+        let LaunchScreenVC = LaunchScreenViewController()
+        
+        var isLogined = true
+        
+        window?.rootViewController = isLogined ? LaunchScreenVC : signUPNaviVC
         window?.makeKeyAndVisible()
         
         return true
