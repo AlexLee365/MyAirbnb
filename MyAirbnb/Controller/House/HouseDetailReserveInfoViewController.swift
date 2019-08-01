@@ -150,6 +150,6 @@ extension HouseDetailReserveInfoViewController: UITableViewDelegate {
 
 extension HouseDetailReserveInfoViewController: TableviewTopViewDelegate {
     func popView() {
-        navigationController?.popViewController(animated: true)
+        dismiss(animated: true)
     }
 }

@@ -34,7 +34,7 @@ class TestSaveViewController: UIViewController {
     let netWork = NetworkCommunicator()
     let jsonDecoder = JSONDecoder()
     
-    var tripTestData: [TripTestData]?
+    var tripTestData = [TripTestData]()
     
     var hostAbout = ""
     
@@ -60,12 +60,14 @@ class TestSaveViewController: UIViewController {
             
             self.tripTestData = result
             
-//            print(self.tripTestData)
+            print(self.tripTestData[0].hostAbout)
             
-//            self.tripTestData!.forEach {
+//            self.tripTestData.forEach {
 //                self.hostAbout = $0.hostAbout
 //                print(self.hostAbout)
 //            }
+            
+            
         }
     }
   

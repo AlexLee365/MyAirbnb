@@ -145,6 +145,10 @@
 		8D4FDA4B22F19BAD00E31CF5 /* ReserveStepOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDA4A22F19BAD00E31CF5 /* ReserveStepOneViewController.swift */; };
 		8D4FDA4D22F19E0800E31CF5 /* StepTitleTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDA4C22F19E0800E31CF5 /* StepTitleTableCell.swift */; };
 		8D4FDA5122F1FD1C00E31CF5 /* TripTestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDA5022F1FD1C00E31CF5 /* TripTestData.swift */; };
+		8D4FDA5322F2BFC200E31CF5 /* HouseDetailReviewTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDA5222F2BFC200E31CF5 /* HouseDetailReviewTableCell.swift */; };
+		8D4FDA5522F2C9A200E31CF5 /* HouseReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDA5422F2C9A200E31CF5 /* HouseReviewViewController.swift */; };
+		8D4FDA5722F2D08A00E31CF5 /* AverageReviewRateTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDA5622F2D08A00E31CF5 /* AverageReviewRateTableCell.swift */; };
+		8D4FDA5922F2D0F000E31CF5 /* ReviewTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDA5822F2D0F000E31CF5 /* ReviewTableCell.swift */; };
 		8D518FEC22DF280B009D6792 /* InstantBookTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D518FEB22DF280B009D6792 /* InstantBookTableCell.swift */; };
 		8D518FEE22E06F29009D6792 /* QualifiedHouseTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D518FED22E06F29009D6792 /* QualifiedHouseTableCell.swift */; };
 		8D518FF022E07769009D6792 /* PriceRangeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D518FEF22E07769009D6792 /* PriceRangeTableCell.swift */; };
@@ -342,6 +346,10 @@
 		8D4FDA4A22F19BAD00E31CF5 /* ReserveStepOneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReserveStepOneViewController.swift; sourceTree = "<group>"; };
 		8D4FDA4C22F19E0800E31CF5 /* StepTitleTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepTitleTableCell.swift; sourceTree = "<group>"; };
 		8D4FDA5022F1FD1C00E31CF5 /* TripTestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripTestData.swift; sourceTree = "<group>"; };
+		8D4FDA5222F2BFC200E31CF5 /* HouseDetailReviewTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailReviewTableCell.swift; sourceTree = "<group>"; };
+		8D4FDA5422F2C9A200E31CF5 /* HouseReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseReviewViewController.swift; sourceTree = "<group>"; };
+		8D4FDA5622F2D08A00E31CF5 /* AverageReviewRateTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AverageReviewRateTableCell.swift; sourceTree = "<group>"; };
+		8D4FDA5822F2D0F000E31CF5 /* ReviewTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTableCell.swift; sourceTree = "<group>"; };
 		8D518FEB22DF280B009D6792 /* InstantBookTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstantBookTableCell.swift; sourceTree = "<group>"; };
 		8D518FED22E06F29009D6792 /* QualifiedHouseTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QualifiedHouseTableCell.swift; sourceTree = "<group>"; };
 		8D518FEF22E07769009D6792 /* PriceRangeTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceRangeTableCell.swift; sourceTree = "<group>"; };
@@ -603,6 +611,9 @@
 				43E36CD922E586D4006C8AEF /* HouseDetailFacilityCollectCell.swift */,
 				43E36CDB22E59B03006C8AEF /* HouseDetailLocationTableCell.swift */,
 				43E36CDD22E5AC77006C8AEF /* HouseDetailCheckInTableCell.swift */,
+				8D4FDA5222F2BFC200E31CF5 /* HouseDetailReviewTableCell.swift */,
+				8D4FDA5622F2D08A00E31CF5 /* AverageReviewRateTableCell.swift */,
+				8D4FDA5822F2D0F000E31CF5 /* ReviewTableCell.swift */,
 			);
 			path = HouseDetail;
 			sourceTree = "<group>";
@@ -750,6 +761,7 @@
 			children = (
 				8D0D792222DB02D900F61F0B /* HouseViewController.swift */,
 				4353BA6822DF11CC004BD807 /* HouseDetailViewController.swift */,
+				8D4FDA5422F2C9A200E31CF5 /* HouseReviewViewController.swift */,
 				43F5AA9222F17ED0007511E1 /* HouseDetailCalendarViewController.swift */,
 				8D51903322E96FE7009D6792 /* PlusViewController.swift */,
 				8D51905022EC5C1C009D6792 /* LuxeHouseViewController.swift */,
@@ -964,6 +976,7 @@
 				8D0D78B222D4B71500F61F0B /* TableviewTopView.swift in Sources */,
 				208BC8F422E08C9300EBDDBA /* TopBarItemView.swift in Sources */,
 				8D0D78DA22D74BDC00F61F0B /* PlaceTableViewCell.swift in Sources */,
+				8D4FDA5722F2D08A00E31CF5 /* AverageReviewRateTableCell.swift in Sources */,
 				8D518FEE22E06F29009D6792 /* QualifiedHouseTableCell.swift in Sources */,
 				8D4FDA0C22EF4F5A00E31CF5 /* InfoCategoryView.swift in Sources */,
 				8D0D78DE22D864F700F61F0B /* SpecialTripDetailData.swift in Sources */,
@@ -978,6 +991,7 @@
 				8D0D786E22D07C9300F61F0B /* TripViewController.swift in Sources */,
 				4353BA3122DD7F41004BD807 /* SearchBarTableView.swift in Sources */,
 				20081F7C22EEBC6300BAB0FD /* InputPhoneNumberView.swift in Sources */,
+				8D4FDA5322F2BFC200E31CF5 /* HouseDetailReviewTableCell.swift in Sources */,
 				4353BA3322DDB7CF004BD807 /* FilterPeopleViewController.swift in Sources */,
 				4353B91222D73B80004BD807 /* FourSquareTableCell.swift in Sources */,
 				8D51904B22EC1DAD009D6792 /* TripContentsTableCell.swift in Sources */,
@@ -1015,6 +1029,7 @@
 				8D0D792F22DB7B2600F61F0B /* AllHouseLabelTableCell.swift in Sources */,
 				4399345522E9831600FAE15C /* BottomInfoView.swift in Sources */,
 				4399347522E9B12700FAE15C /* HouseDetailData.swift in Sources */,
+				8D4FDA5922F2D0F000E31CF5 /* ReviewTableCell.swift in Sources */,
 				4353BA2822DC40B5004BD807 /* FSCalendarConstants.m in Sources */,
 				20081F7A22EEBC4C00BAB0FD /* KeyboardTopViewNextBtn.swift in Sources */,
 				8D0D787522D089AD00F61F0B /* TripIntroCollectionViewCell.swift in Sources */,
@@ -1029,6 +1044,7 @@
 				8D4FDA3822F0249700E31CF5 /* WorldAdventureTableCell.swift in Sources */,
 				4353B91022D6DCCB004BD807 /* LoginTestViewController.swift in Sources */,
 				8D51903922E987FD009D6792 /* PlusIntroCollectionCell.swift in Sources */,
+				8D4FDA5522F2C9A200E31CF5 /* HouseReviewViewController.swift in Sources */,
 				43E36CDC22E59B03006C8AEF /* HouseDetailLocationTableCell.swift in Sources */,
 				43F5AA9322F17ED0007511E1 /* HouseDetailCalendarViewController.swift in Sources */,
 				8D4FDA3E22F1582300E31CF5 /* HouseBottomView.swift in Sources */,

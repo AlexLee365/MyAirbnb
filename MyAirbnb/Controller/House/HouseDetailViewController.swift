@@ -64,7 +64,7 @@ class HouseDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        navigationController?.navigationBar.isHidden = true
         tabBarController?.tabBar.isHidden = true
     }
     
@@ -75,7 +75,7 @@ class HouseDetailViewController: UIViewController {
     
     private func setAutoLayout() {
         
-        let height = UIScreen.main.bounds.height * 0.10
+        let height = UIScreen.main.bounds.height * 0.1
         view.addSubview(bottomView)
         bottomView.snp.makeConstraints { (make) in
             make.leading.trailing.equalToSuperview()
@@ -104,6 +104,7 @@ class HouseDetailViewController: UIViewController {
         tableView.register(HouseDetailFacilityTableCell.self, forCellReuseIdentifier: HouseDetailFacilityTableCell.identifier)
         tableView.register(HouseDetailLocationTableCell.self, forCellReuseIdentifier: HouseDetailLocationTableCell.identifier)
         tableView.register(HouseDetailCheckInTableCell.self, forCellReuseIdentifier: HouseDetailCheckInTableCell.identifier)
+        tableView.register(HouseDetailReviewTableCell.self, forCellReuseIdentifier: HouseDetailReviewTableCell.identifier)
         tableView.separatorInset = UIEdgeInsets(top: 0, left: StandardUIValue.shared.mainViewSideMargin, bottom: 0, right: StandardUIValue.shared.mainViewSideMargin)
         tableView.contentInsetAdjustmentBehavior = .never
         tableView.allowsSelection = false
@@ -129,7 +130,7 @@ class HouseDetailViewController: UIViewController {
         switch isDateSelected {
         case true:
             let reserveInfoVC = HouseDetailReserveInfoViewController()
-            navigationController?.pushViewController(reserveInfoVC, animated: true)
+            present(reserveInfoVC, animated: true)
         case false:
             let calendarVC = HouseDetailCalendarViewController()
             calendarVC.houseDetailData = self.houseDetailData
@@ -171,7 +172,7 @@ class HouseDetailViewController: UIViewController {
                 return
             }
             self.houseDetailData = result
-            self.cellCountAfterDataRoad = 8
+            self.cellCountAfterDataRoad = 8 + 1
             let imageStringArray = [result.image, result.image1, result.image2, result.image3, result.image4]
 
 
@@ -319,6 +320,12 @@ extension HouseDetailViewController: UITableViewDelegate, UITableViewDataSource 
             houseDetailCheckInTableCell.setData(checkIn: "", checkOut: "")
             return houseDetailCheckInTableCell
             
+        case 8:
+            let reviewTableCell = tableView.dequeueReusableCell(withIdentifier: HouseDetailReviewTableCell.identifier, for: indexPath) as! HouseDetailReviewTableCell
+            reviewTableCell.hideSeparator()
+            reviewTableCell.delegate = self
+            return reviewTableCell
+            
         default : break
         }
         return UITableViewCell()
@@ -341,5 +348,15 @@ extension HouseDetailViewController: UITableViewDelegate, UITableViewDataSource 
 //            houseDetailPictureCell.pictureViews.first?.transform = CGAffineTransform(scaleX: 0, y: contentY)
 //            houseDetailPictureCell.pictureViews.first?.transform = CGAffineTransform(scaleX: scaleValue, y: scaleValue)
         }
+    }
+}
+
+
+// MARK: - HouseDetailReviewTableCellDelegate
+
+extension HouseDetailViewController: HouseDetailReviewTableCellDelegate {
+    func presentReviewVC() {
+        let reviewVC = HouseReviewViewController()
+        present(reviewVC, animated: true)
     }
 }
