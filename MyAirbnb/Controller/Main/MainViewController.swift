@@ -127,12 +127,6 @@ class MainViewController: UIViewController {
         super.touchesEnded(touches, with: event)
         print("touchesEnd")
         
-        print(searchBarTableView.tableView.isDragging)
-        let location = touches.first!.location(in: view)
-        
-        if searchBarTableView.frame.contains(location) {
-            searchBarView.searchTF.resignFirstResponder()
-        }
     }
     
     private func makeIndicatorView() {
@@ -171,6 +165,7 @@ extension MainViewController {
         notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .searchBarEditEnd, object: nil)
         notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .searchBarEditingChanged, object: nil)
         notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .searchBarEnterPressed, object: nil)
+        notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .searchBarTableViewScrolled, object: nil)
         notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .searchBarTableCellSelected, object: nil)
         
         notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .searchBarDateBtnDidTap, object: nil)
@@ -190,23 +185,26 @@ extension MainViewController {
         // SearchBar Notification
         case Notification.Name.searchBarEditBegin:
             showSearchBarTableView()
+            guard let text = sender.object as? String else { print("‼️ MainVC edit begin noti"); return }
+            if text == "" {
+                self.searchBarTableView.searchResult = SingletonCommonData.shared.stateArray
+            }
             
         case Notification.Name.searchBarEditEnd:
             hideSearchBarTableView()
             
-        case Notification.Name.searchBarEditingChanged:
+        case Notification.Name.searchBarEditingChanged:     // 써치바 타이핑중
             guard let text = sender.object as? String else { print("‼️ MainVC editing noti"); return }
-            //            print(text)
-            let urlString = netWork.basicUrlString + "/locations/state/?search=\(text)"
-            netWork.getStateDataWithText(urlString: urlString) { (stateResult, success) in
-                switch success {
-                case true:
-                    guard let result = stateResult else { return }
-                    self.searchBarTableView.searchResult = result
-                case false:
-                    print("failed")
-                }
+            
+            let stateArray = SingletonCommonData.shared.stateArray
+            guard text != "" else {
+                self.searchBarTableView.searchResult = stateArray
+                return
             }
+            var tempArray = [String]()
+            tempArray = stateArray.filter{ $0.contains(text) || $0.lowercased().contains(text) }
+            
+            self.searchBarTableView.searchResult = tempArray
             
         case Notification.Name.searchBarEnterPressed:       // 검색어 검색 엔터
             startIndicator()
@@ -236,6 +234,9 @@ extension MainViewController {
                 }
             }
             
+        case Notification.Name.searchBarTableViewScrolled:
+            searchBarView.searchTF.resignFirstResponder()
+
         case Notification.Name.searchBarTableCellSelected:
             guard let state = sender.object as? String else { return }
             startIndicator()
@@ -309,6 +310,7 @@ extension MainViewController {
             let filterRemainsVC = FilterRemainsViewController()
             filterRemainsVC.isDateSelected = (searchBarView.selectedDateString == "날짜") ? false : true
             present(filterRemainsVC, animated: true)
+            
             
         // Push other views Notification
         case Notification.Name.moveToHouseView:

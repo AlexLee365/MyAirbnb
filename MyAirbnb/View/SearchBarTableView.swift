@@ -32,6 +32,11 @@ class SearchBarTableView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        searchResult = SingletonCommonData.shared.stateArray
+    }
+    
     private func setAutoLayout() {
         self.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -64,9 +69,14 @@ extension SearchBarTableView: UITableViewDelegate, UITableViewDataSource {
         
         return cell
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let state = searchResult[indexPath.row]
         print(state)
         notiCenter.post(name: .searchBarTableCellSelected, object: state)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        notiCenter.post(name: .searchBarTableViewScrolled, object: nil)
     }
 }

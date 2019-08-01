@@ -35,17 +35,16 @@ class LaunchScreenViewController: UIViewController {
         createFullImageHouseData()
         createLuxeHouseData()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            
-            self.getServerDataTest {
-                self.mainViewDataArray.append(MainViewData(data: self.houseDataArray, cellStyle: .fourSquare))
-                
+        
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0) {
+            self.getEntireServerData {
                 DispatchQueue.main.async {
                     let tabbarVC = TabbarController()
                     guard let naviVC = tabbarVC.viewControllers!.first as? UINavigationController
                         , let mainVC = naviVC.viewControllers.first as? MainViewController else {
-                        print("LaunchVC naviVC, mainVC convert error")
-                        return
+                            print("LaunchVC naviVC, mainVC convert error")
+                            return
                     }
                     
                     mainVC.mainView.mainViewDatas = self.mainViewDataArray
@@ -54,9 +53,7 @@ class LaunchScreenViewController: UIViewController {
                     
                 }
             }
-            
         }
-        
     }
     
     private func setAutoLayout() {
@@ -207,7 +204,20 @@ extension LaunchScreenViewController {
     }
     
     
-    private func getServerDataTest(completion: @escaping () -> ()) {
+    // =================================== Get ServerData Function ===================================
+    
+    private func getEntireServerData(completion: @escaping () -> ()) {
+        getServerHouseData {
+            self.mainViewDataArray.append(MainViewData(data: self.houseDataArray, cellStyle: .fourSquare))
+            
+            self.getServerStatesData {
+                completion()
+            }
+        }
+    }
+    
+    
+    private func getServerHouseData(completion: @escaping () -> ()) {
         let urlString = netWork.basicUrlString
             + "/rooms/?search=seoul&ordering=price&page_size=5&page=1"
         
@@ -243,7 +253,29 @@ extension LaunchScreenViewController {
                 })
             }
         }
-        
+    }
+    
+    private func getServerStatesData(completion: @escaping () -> ()) {
+        let urlString = netWork.basicUrlString + "/locations/state/"
+        netWork.getJsonObjectFromAPI(urlString: urlString, urlForSpecificProcessing: nil) { (json, success) in
+            guard success else {
+                return
+            }
+            
+            guard let object = json as? [[String: Any]]
+                else { print("object convert error"); return }
+            
+            
+            var tempArray = [String]()
+            for state in object {
+                guard let name = state["name"] as? String else { continue }
+                tempArray.append(name)
+            }
+            
+            SingletonCommonData.shared.stateArray = tempArray
+            print("🔴🔴🔴 Singleton StateData: ", SingletonCommonData.shared.stateArray)
+            completion()
+        }
     }
     
     

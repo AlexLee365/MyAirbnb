@@ -23,7 +23,10 @@ class HouseDetailCalendarViewController: UIViewController {
     
     var weekdayLabel = UILabel()
     let seperateLineViewTop = UIView()
+    
     let bottomView = BottomInfoView()
+    let bottomInfoLabel = UILabel()
+    let bottomSaveBtn = UIButton()
     
     private weak var calendar: FSCalendar!
     
@@ -36,6 +39,16 @@ class HouseDetailCalendarViewController: UIViewController {
     let jsonDecoder = JSONDecoder()
     
     var houseDetailData: HouseDetailData?
+    var bottomInfoText: String {
+        if let data = houseDetailData {
+            let host = ( data.host.first ?? "" ) ?? ""
+            let minStay = data.minStay
+            let result = "\(host)님의 숙소에는 \(minStay)박 이상 숙박해야 합니다."
+            return result
+        } else {
+            return ""
+        }
+    }
     
     var selectedDatesArray = [Date]() {
         didSet {
@@ -44,14 +57,20 @@ class HouseDetailCalendarViewController: UIViewController {
             case 0:
                 checkInDateLabel.text = ""
                 checkOutDateLabel.text = ""
+                bottomInfoLabel.text = bottomInfoText
+                bottomSaveBtn.isEnabled = false
             case 1:
                 let components = calendar.dateComponents([.month, .day], from: selectedDatesArray.first!)
                 checkInDateLabel.text = "\(components.month ?? 0)월 \(components.day ?? 0)일"
+                bottomInfoLabel.text = bottomInfoText
+                bottomSaveBtn.isEnabled = true
             case 2...:
                 let componentsIn = calendar.dateComponents([.month, .day], from: selectedDatesArray.first!)
                 checkInDateLabel.text = "\(componentsIn.month ?? 0)월 \(componentsIn.day ?? 0)일"
                 let componentsOut = calendar.dateComponents([.month, .day], from: selectedDatesArray.last!)
                 checkOutDateLabel.text = "\(componentsOut.month ?? 0)월 \(componentsOut.day ?? 0)일"
+                bottomInfoLabel.text = "\(selectedDatesArray.count-1)박 선택"
+                bottomSaveBtn.isEnabled = true
             default: break
             }
         }
@@ -79,6 +98,8 @@ class HouseDetailCalendarViewController: UIViewController {
         let a = dateFormatter.string(from: currentDate)
         print("date String: ", a)
     }
+    
+    
     
     private func setAutoLayout() {
         let safeGuide = view.safeAreaLayoutGuide
@@ -166,9 +187,24 @@ class HouseDetailCalendarViewController: UIViewController {
         view.addSubview(bottomView)
         bottomView.snp.makeConstraints { (make) in
             make.leading.trailing.bottom.equalTo(safeGuide)
-            make.height.equalTo(70)
+            make.height.equalTo(80)
         }
         
+        bottomView.addSubview(bottomInfoLabel)
+        bottomInfoLabel.snp.makeConstraints { (make) in
+            make.centerY.equalToSuperview()
+            make.leading.equalTo(sideMargin)
+            make.width.equalToSuperview().multipliedBy(0.60)
+        }
+        
+        bottomView.addSubview(bottomSaveBtn)
+        bottomSaveBtn.snp.makeConstraints { (make) in
+            make.leading.equalTo(bottomInfoLabel.snp.trailing).offset(10)
+            make.centerY.equalToSuperview()
+            make.trailing.equalTo(-sideMargin)
+            make.height.equalTo(50)
+        }
+    
         
         view.addSubview(calendar)
         calendar.snp.makeConstraints { (make) in
@@ -176,6 +212,8 @@ class HouseDetailCalendarViewController: UIViewController {
             make.leading.trailing.equalTo(safeGuide)
             make.bottom.equalTo(bottomView.snp.top)
         }
+        
+        
     }
 
     private func configureViewsOptions() {
@@ -227,6 +265,22 @@ class HouseDetailCalendarViewController: UIViewController {
         bottomView.layer.shadowOffset = CGSize(width: 5, height: -7)
         bottomView.layer.shadowRadius = 3
         bottomView.layer.shadowColor = UIColor.gray.cgColor
+        
+        bottomInfoLabel.font = .systemFont(ofSize: 14, weight: .regular)
+        bottomInfoLabel.numberOfLines = 0
+        bottomInfoLabel.textColor = StandardUIValue.shared.colorRegularText
+        if let data = houseDetailData {
+            let host = ( data.host.first ?? "" ) ?? ""
+            let minStay = data.minStay
+            bottomInfoLabel.text = "\(host)님의 숙소에는 \(minStay)박 이상 숙박해야 합니다."
+        }
+        
+        bottomSaveBtn.setTitle("저장 〉", for: .normal)
+        bottomSaveBtn.setTitleColor(.white, for: .normal)
+        bottomSaveBtn.backgroundColor = StandardUIValue.shared.colorBlueGreen
+        bottomSaveBtn.layer.cornerRadius = 25
+        bottomSaveBtn.addTarget(self, action: #selector(saveBtnDidTap(_:)), for: .touchUpInside)
+        
     }
     
     @objc private func cancelBtnDidTap(_ sender: UIButton) {
@@ -238,6 +292,10 @@ class HouseDetailCalendarViewController: UIViewController {
             calendar.deselect($0)
         }
         selectedDatesArray.removeAll()
+    }
+    
+    @objc private func saveBtnDidTap(_ sender: UIButton) {
+        
     }
     
     private func setCalendar() {
@@ -269,8 +327,6 @@ class HouseDetailCalendarViewController: UIViewController {
         
         calendar.appearance.subtitlePlaceholderColor = .clear
         calendar.appearance.imageOffset = CGPoint(x: 0, y: -24)
-        
-        
         
         
         view.addSubview(calendar)

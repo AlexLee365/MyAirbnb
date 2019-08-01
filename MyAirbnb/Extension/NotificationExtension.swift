@@ -15,7 +15,8 @@ extension Notification.Name {
     static let searchBarEditingChanged = Notification.Name("SearchBarEditingChanged")
     static let searchBarEnterPressed = Notification.Name("SearchBarEnterPressed")
     
-    static let searchBarTableCellSelected = Notification.Name("searchBarTableCellSelected")
+    static let searchBarTableViewScrolled = Notification.Name("SearchBarTableViewScrolled")
+    static let searchBarTableCellSelected = Notification.Name("SearchBarTableCellSelected")
     
     static let searchBarDateBtnDidTap = Notification.Name(rawValue: "SearchBarDateBtnDidTap")
     static let searchBarDateResultBtnDidTap = Notification.Name(rawValue: "SearchBarDateResultBtnDidTap")

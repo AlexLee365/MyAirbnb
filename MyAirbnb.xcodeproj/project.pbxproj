@@ -80,6 +80,7 @@
 		4353BA9922E1A2B4004BD807 /* HouseDetailStayingDaysTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA9822E1A2B4004BD807 /* HouseDetailStayingDaysTableCell.swift */; };
 		4353BA9B22E1A335004BD807 /* HouseDetailFacilityTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA9A22E1A335004BD807 /* HouseDetailFacilityTableCell.swift */; };
 		4353BA9D22E1A398004BD807 /* HouseDetailBedroomsTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA9C22E1A398004BD807 /* HouseDetailBedroomsTableCell.swift */; };
+		438BDDA522F2C76000944276 /* SingletonCommonData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438BDDA422F2C76000944276 /* SingletonCommonData.swift */; };
 		4399345322E9515600FAE15C /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4399345222E9515600FAE15C /* AppIcon.xcassets */; };
 		4399345522E9831600FAE15C /* BottomInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4399345422E9831600FAE15C /* BottomInfoView.swift */; };
 		4399347522E9B12700FAE15C /* HouseDetailData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4399347422E9B12700FAE15C /* HouseDetailData.swift */; };
@@ -276,6 +277,7 @@
 		4353BA9822E1A2B4004BD807 /* HouseDetailStayingDaysTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailStayingDaysTableCell.swift; sourceTree = "<group>"; };
 		4353BA9A22E1A335004BD807 /* HouseDetailFacilityTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailFacilityTableCell.swift; sourceTree = "<group>"; };
 		4353BA9C22E1A398004BD807 /* HouseDetailBedroomsTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailBedroomsTableCell.swift; sourceTree = "<group>"; };
+		438BDDA422F2C76000944276 /* SingletonCommonData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingletonCommonData.swift; sourceTree = "<group>"; };
 		4399345222E9515600FAE15C /* AppIcon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AppIcon.xcassets; sourceTree = "<group>"; };
 		4399345422E9831600FAE15C /* BottomInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomInfoView.swift; sourceTree = "<group>"; };
 		4399347422E9B12700FAE15C /* HouseDetailData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailData.swift; sourceTree = "<group>"; };
@@ -506,6 +508,7 @@
 			isa = PBXGroup;
 			children = (
 				4353B90322D484FA004BD807 /* StandardUIValue.swift */,
+				438BDDA422F2C76000944276 /* SingletonCommonData.swift */,
 				4313F09322E8478E003BB3D1 /* MainViewData.swift */,
 				43F5AA8E22F00055007511E1 /* HouseDatasInList.swift */,
 				4399347422E9B12700FAE15C /* HouseDetailData.swift */,
@@ -976,6 +979,7 @@
 				8D0D793522DC5F0700F61F0B /* TripLocalHostingViewController.swift in Sources */,
 				8D0D788E22D222A400F61F0B /* TripInfoCollectionViewCell.swift in Sources */,
 				8D0D786E22D07C9300F61F0B /* TripViewController.swift in Sources */,
+				438BDDA522F2C76000944276 /* SingletonCommonData.swift in Sources */,
 				4353BA3122DD7F41004BD807 /* SearchBarTableView.swift in Sources */,
 				20081F7C22EEBC6300BAB0FD /* InputPhoneNumberView.swift in Sources */,
 				4353BA3322DDB7CF004BD807 /* FilterPeopleViewController.swift in Sources */,

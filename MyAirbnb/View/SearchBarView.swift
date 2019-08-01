@@ -212,7 +212,8 @@ class SearchBarView: UIView {
     @objc func searchCancelBtnDidTap(_ sender: UIButton) {  // 취소 버튼 => 수정종료
         searchTF.resignFirstResponder()
         
-        
+        notiCenter.post(name: .searchBarEditEnd, object: nil)
+        textEditEndAnimation()
     }
     
     @objc func filterDateBtnDidTap(_ sender: UIButton) {
@@ -237,6 +238,7 @@ extension SearchBarView: UITextFieldDelegate {
         print("Textfield should return / There are texts")
         textField.resignFirstResponder()
         notiCenter.post(name: .searchBarEnterPressed, object: nil, userInfo: ["result": textField.text ?? ""])
+        textEditEndAnimation()
         return true
     }
     
@@ -252,7 +254,8 @@ extension SearchBarView: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {   // 수정 시작
         print("SearchBarView TF did begin editing")
-        notiCenter.post(name: .searchBarEditBegin, object: nil)
+        let text = textField.text ?? ""
+        notiCenter.post(name: .searchBarEditBegin, object: text)
         
         textEditBeginAnimation()
     }
@@ -260,8 +263,8 @@ extension SearchBarView: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {     // 수정 종료
         print("SearchBarView TF did end editing")
 
-        notiCenter.post(name: .searchBarEditEnd, object: nil)
-        textEditEndAnimation()
+//        notiCenter.post(name: .searchBarEditEnd, object: nil)
+//        textEditEndAnimation()
     }
     
     @objc private func textFieldEditingChanged(_ sender: UITextField) {

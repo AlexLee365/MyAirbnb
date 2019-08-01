@@ -31,6 +31,11 @@ class StandardUIValue {
     let airbnbMediumFont: UIFont = UIFont(name: "AirbnbCerealApp-Medium", size: 17)!
     let airbnbBookFont: UIFont = UIFont(name: "AirbnbCerealApp-Book", size: 17)!
     
+    // MARK: - FontName
+    let airbnbBoldFontString = "AirbnbCerealApp-Bold"
+    let airbnbMediumFontString = "AirbnbCerealApp-Medium"
+    let airbnbBookFontString = "AirbnbCerealApp-Book"
+    
     // MARK: - Margin
     let mainViewSideMargin: CGFloat = 20
     let mainTableViewCellsTopBottomPadding: CGFloat = 30
