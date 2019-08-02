@@ -91,8 +91,11 @@ class ReserveStepTwoViewController: UIViewController {
         topView.delegate = self
         view.addSubview(topView)
         
+        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(hideKeyboard(_:)))
+        panGestureRecognizer.delegate = self
+        
         tableView.dataSource = self
-        tableView.delegate = self
+        tableView.addGestureRecognizer(panGestureRecognizer)
         view.addSubview(tableView)
         
         bottomView.priceLabel.attributedText = attributedText(first: "₩162,007 ", second: "1박")
@@ -108,6 +111,12 @@ class ReserveStepTwoViewController: UIViewController {
     @objc private func nextBtnDidTap(_ sender: UIButton) {
         let stepThreeVC = ReserveStepThreeViewController()
         navigationController?.pushViewController(stepThreeVC, animated: true)
+    }
+    
+    @objc private func hideKeyboard(_ sender: UIGestureRecognizer) {
+        guard let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? MsgToHostTableCell
+            else { return }
+        cell.textView.resignFirstResponder()
     }
     
     private func setAutolayout() {
@@ -224,15 +233,9 @@ extension ReserveStepTwoViewController: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate
 
-extension ReserveStepTwoViewController: UITableViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        tableView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(hideKeyboard)))
-    }
-    
-    @objc private func hideKeyboard(_ sender: Any) {
-        guard let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? MsgToHostTableCell
-            else { return }
-        cell.textView.resignFirstResponder()
+extension ReserveStepTwoViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 }
 

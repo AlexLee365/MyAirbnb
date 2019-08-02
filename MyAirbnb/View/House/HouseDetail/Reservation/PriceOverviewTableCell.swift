@@ -1,31 +1,17 @@
 //
-//  TaxInfoTableCell.swift
+//  PriceOverviewTableCell.swift
 //  MyAirbnb
 //
-//  Created by Solji Kim on 31/07/2019.
+//  Created by Solji Kim on 02/08/2019.
 //  Copyright © 2019 Alex Lee. All rights reserved.
 //
 
 import UIKit
 import SnapKit
 
-class TaxInfoTableCell: UITableViewCell {
-    static let identifier = "TaxInfoTableCell"
-    
-    let titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "수수료 및 세금 정보"
-        label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
-        label.font = UIFont(name: "AirbnbCerealApp-Medium", size: 12)
-        return label
-    }()
-    
-    let infoBtn: UIButton = {
-        let button = UIButton(type: .infoLight)
-        button.setTitleColor(#colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1), for: .normal)
-        return button
-    }()
-    
+class PriceOverviewTableCell: UITableViewCell {
+    static let identifier = "PriceOverviewTableCell"
+
     let separatorLineView: UIView = {
         let view = UIView()
         view.backgroundColor = #colorLiteral(red: 0.6642242074, green: 0.6642400622, blue: 0.6642315388, alpha: 1).withAlphaComponent(0.4)
@@ -34,9 +20,6 @@ class TaxInfoTableCell: UITableViewCell {
     
     let totalTitleLabel: UILabel = {
         let label = UILabel()
-        label.text = "합계"
-        label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
-        label.font = UIFont(name: "AirbnbCerealApp-Book", size: 18)
         return label
     }()
     
@@ -67,24 +50,14 @@ class TaxInfoTableCell: UITableViewCell {
     private func configure() {
         self.selectionStyle = .none
         
-        contentView.addSubview(titleLabel)
-        contentView.addSubview(infoBtn)
         contentView.addSubview(separatorLineView)
+        
+        totalTitleLabel.attributedText = attributedText(first: "합계 ", second: "(KRW)")
         contentView.addSubview(totalTitleLabel)
         contentView.addSubview(totalPriceLabel)
     }
     
     private func setAutolayout() {
-        titleLabel.snp.makeConstraints { (make) in
-            make.top.leading.equalTo(20)
-        }
-        
-        infoBtn.snp.makeConstraints { (make) in
-            make.centerY.equalTo(titleLabel.snp.centerY)
-            make.leading.equalTo(titleLabel.snp.trailing).offset(5)
-            make.width.height.equalTo(17)
-        }
-        
         setInfoLabel()
         
         separatorLineView.snp.makeConstraints { (make) in
@@ -126,7 +99,7 @@ class TaxInfoTableCell: UITableViewCell {
             switch i {
             case 0:
                 infoLabelArray[i].snp.makeConstraints { (make) in
-                    make.top.equalTo(titleLabel.snp.bottom).offset(15)
+                    make.top.equalTo(20)
                 }
             case infoLabelArray.count - 1:
                 infoLabelArray[i].snp.makeConstraints { (make) in
@@ -135,53 +108,28 @@ class TaxInfoTableCell: UITableViewCell {
                 fallthrough
             default:
                 infoLabelArray[i].snp.makeConstraints { (make) in
-                    make.top.equalTo(infoLabelArray[i-1].snp.bottom).offset(15)
+                    make.top.equalTo(infoLabelArray[i-1].snp.bottom).offset(20)
                 }
             }
         }
     }
-}
-
-
-class taxLabelView: UIView {
     
-    let titleLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
-        label.font = UIFont(name: "AirbnbCerealApp-Book", size: 17)
-        return label
-    }()
-    
-    let priceLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
-        label.font = UIFont(name: "AirbnbCerealApp-Book", size: 17)
-        return label
-    }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    private func attributedText(first: String, second: String) -> NSAttributedString{
+        let string = first + second as NSString
+        let result = NSMutableAttributedString(string: string as String)
+        let attributesForFirstWord = [
+            NSAttributedString.Key.font : UIFont(name: "AirbnbCerealApp-Medium", size: 18) ?? "",
+            NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
+            ] as [NSAttributedString.Key : Any]
         
-        configure()
-        setAutolayout()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func configure() {
-        self.addSubview(titleLabel)
-        self.addSubview(priceLabel)
-    }
-    
-    private func setAutolayout() {
-        titleLabel.snp.makeConstraints { (make) in
-            make.top.leading.equalToSuperview()
-        }
+        let attributesForSecondWord = [
+            NSAttributedString.Key.font : UIFont(name: "AirbnbCerealApp-Medium", size: 18) ?? "",
+            NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0, green: 0.5690457821, blue: 0.5746168494, alpha: 1)
+            ] as [NSAttributedString.Key : Any]
         
-        priceLabel.snp.makeConstraints { (make) in
-            make.top.trailing.bottom.equalToSuperview()
-        }
+        result.setAttributes(attributesForFirstWord, range: string.range(of: first))
+        result.setAttributes(attributesForSecondWord, range: string.range(of: second))
+        
+        return NSAttributedString(attributedString: result)
     }
 }
