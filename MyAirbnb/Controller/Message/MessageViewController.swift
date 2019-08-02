@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import Starscream
 
 class MessageViewController: UIViewController {
 
@@ -50,6 +51,7 @@ class MessageViewController: UIViewController {
         
         configure()
         setAutolayout()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -71,6 +73,7 @@ class MessageViewController: UIViewController {
         
         view.addSubview(titleLabel)
         view.addSubview(statusLabel)
+        
 
         emptyMsgLabel.isUserInteractionEnabled = true
         view.addSubview(emptyMsgLabel)
@@ -82,6 +85,8 @@ class MessageViewController: UIViewController {
         
 //        view.sendSubviewToBack(tableView)
     }
+    
+    
     
     private func setAutolayout() {
         titleLabel.snp.makeConstraints { (make) in
@@ -137,3 +142,5 @@ extension MessageViewController: UITableViewDelegate {
     
     
 }
+
+

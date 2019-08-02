@@ -56,6 +56,8 @@ class LaunchScreenViewController: UIViewController {
         }
     }
     
+    
+    
     private func setAutoLayout() {
         view.addSubview(backgroundGrayView)
         backgroundGrayView.snp.makeConstraints { (make) in

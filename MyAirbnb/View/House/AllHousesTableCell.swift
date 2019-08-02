@@ -68,9 +68,12 @@ class AllHousesTableCell: UITableViewCell {
         return label
     }()
     
+    let notiCenter = NotificationCenter.default
     var imageViewArray = [UIImageView]()
     var imageStringArray = [String]()
     var currentIndex = 0
+    
+    var houseData: HouseDataInList?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -144,23 +147,23 @@ class AllHousesTableCell: UITableViewCell {
             let tempSize = CGSize(width: (frame.width - 40), height: tempHeight)
             
             let tempFrame = CGRect(origin: tempPoint, size: tempSize)
-            
             let uiView = AllHousesScrollImageView(frame: tempFrame)
-//            uiView.imageView.image = UIImage()
-//            uiView.imageView.backgroundColor = #colorLiteral(red: 0.8933986425, green: 0.8880880475, blue: 0.8974809647, alpha: 0.2499464897)
             
             scrollView.addSubview(uiView)
             imageViewArray.append(uiView.imageView)
         }
         scrollView.contentSize = CGSize(width: ((frame.size.width - 40) * CGFloat(imageSamples.count)), height: tempHeight-5)
+        scrollView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(scrollViewDidTapGesture(_:))))
     }
     
+    @objc private func scrollViewDidTapGesture(_ sender: UITapGestureRecognizer) {
+        notiCenter.post(name: .moveToHouseDetailView, object: nil,
+                        userInfo: ["roomID": houseData?.id, "type": houseData?.roomType, "houseName": houseData?.title])
+    }
+    
+    
     func setData(houseData: HouseDataInList) {
-        print("🔴🔴🔴 : ")
-        print(houseData)
-        
-//        imageArray.append(houseData.imageArray.first ?? UIImage(named: "houseSample")!)
-//        imageViewArray.first?.image = imageArray.first
+        self.houseData = houseData
         houseTypeLabel.text = "\(houseData.roomType) ・ \(houseData.state)"
         houseNameLabel.text = houseData.title
         ratingImageLabel.text = houseData.drawStarsWithHouseRate()

@@ -12,7 +12,6 @@ class SearchBarTableView: UIView {
 
     let tableView = UITableView()
     
-//    var locationData = ["서울", "파리", "런던", "로마", "인천", "여수", "속초"]
     var searchResult = [String]() {
         didSet {
             DispatchQueue.main.async {
@@ -21,6 +20,8 @@ class SearchBarTableView: UIView {
         }
     }
     let notiCenter = NotificationCenter.default
+    var useCase: UseCase = .inMainVC
+    var inController: UIViewController = UIViewController()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -73,10 +74,16 @@ extension SearchBarTableView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let state = searchResult[indexPath.row]
         print(state)
-        notiCenter.post(name: .searchBarTableCellSelected, object: state)
+        notiCenter.post(name: .searchBarTableCellSelected,
+                        object: state,
+                        userInfo: [SingletonCommonData.notiKeySearchBarUseCase: useCase,
+                                   SingletonCommonData.notiKeySearchBarInController: inController])
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        notiCenter.post(name: .searchBarTableViewScrolled, object: nil)
+        notiCenter.post(name: .searchBarTableViewScrolled,
+                        object: nil,
+                        userInfo: [SingletonCommonData.notiKeySearchBarUseCase: useCase,
+                                   SingletonCommonData.notiKeySearchBarInController: inController])
     }
 }

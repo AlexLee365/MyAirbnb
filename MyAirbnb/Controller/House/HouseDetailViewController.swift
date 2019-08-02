@@ -44,7 +44,7 @@ class HouseDetailViewController: UIViewController {
         
         self.setPlaceholderView()
         self.showIdicator()
-        DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0) {
             self.getServerData {
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
@@ -181,27 +181,32 @@ class HouseDetailViewController: UIViewController {
             }
             self.houseDetailData = result
             self.cellCountAfterDataRoad = 8 + 1
-            let imageStringArray = [result.image, result.image1, result.image2, result.image3, result.image4]
-
-
+            let imageStringArray = [result.host[2] ?? "default", result.image, result.image1, result.image2, result.image3, result.image4]
+            print("🔸🔸🔸 image: ", imageStringArray[0] ?? "")
+            
+            
             for i in 0..<imageStringArray.count{
-                guard let url = URL(string: imageStringArray[i]) else { print("houseDetail getServerData imageUrl convert failed"); return }
+                guard let url = URL(string: imageStringArray[i] ?? "") else { print("houseDetail getServerData imageUrl convert failed"); continue }
+                
+                let group = DispatchGroup()
+                group.enter()
                 self.kingfisher.downloadImage(with: url, options: [], progressBlock: nil, completionHandler: { (result) in
                     switch result {
                     case .success(let value) :
                         self.imageArray.append(value.image)
+                        print("🔴🔴🔴 index: \(i) / imageArray: \(self.imageArray) ")
+                        (i == imageStringArray.count - 1) ? completion() : ()
+                        group.leave()
                     case .failure(let error):
+                        (i == 0) ? self.imageArray.append(UIImage(named: "hostSample2") ?? UIImage()) : () // 첫번째 호스트이미지가 없을시에 호스트 샘플이미지를 추가해줌
                         print("kingfisher image download failed: ", error.localizedDescription)
+                        (i == imageStringArray.count - 1) ? completion() : ()
+                        group.leave()
                     }
-                    if (i == imageStringArray.count - 1) {
-                        completion()
-                    }
-
                 })
+                group.wait()
             }
         }
-        
-        
     }
     
     private func setPlaceholderView() {
@@ -288,12 +293,13 @@ extension HouseDetailViewController: UITableViewDelegate, UITableViewDataSource 
         switch indexPath.row {
         case 0:
             let houseDetailPicturesTableCell = tableView.dequeueReusableCell(withIdentifier: HouseDetailPicturesTableCell.identifier, for: indexPath) as! HouseDetailPicturesTableCell
-            houseDetailPicturesTableCell.images = imageArray
+            let tempArray = imageArray.enumerated().filter{ $0.offset != 0 }.map{ $0.element }
+            houseDetailPicturesTableCell.images = tempArray
             
             return houseDetailPicturesTableCell
         case 1:
             let houseDetailBasicInfoTableCell = tableView.dequeueReusableCell(withIdentifier: HouseDetailBasicInfoTableCell.identifier, for: indexPath) as! HouseDetailBasicInfoTableCell
-            houseDetailBasicInfoTableCell.setData(type: data.roomType, name: data.title, state: data.state, hostName: data.host[0] ?? "", hostImage: nil, capacity: data.capacity, bedroom: data.bedroom, bathroom: data.bathroom)
+            houseDetailBasicInfoTableCell.setData(type: data.roomType, name: data.title, state: data.state, hostName: data.host[0] ?? "", hostImage: imageArray[0], capacity: data.capacity, bedroom: data.bedroom, bathroom: data.bathroom)
             
             return houseDetailBasicInfoTableCell
         case 2:
@@ -315,7 +321,7 @@ extension HouseDetailViewController: UITableViewDelegate, UITableViewDataSource 
             return houseDetailStayingDaysTableCell
         case 5:
             let houseDetailFacilityTableCell = tableView.dequeueReusableCell(withIdentifier: HouseDetailFacilityTableCell.identifier, for: indexPath) as! HouseDetailFacilityTableCell
-            houseDetailFacilityTableCell.facilitiesArray = data.facilities
+            houseDetailFacilityTableCell.facilitiesArray = data.facilities.map{ $0.first ?? "" }
             return houseDetailFacilityTableCell
             
         case 6:

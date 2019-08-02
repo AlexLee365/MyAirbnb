@@ -10,9 +10,14 @@ import Foundation
 
 class SingletonCommonData {
     static let shared = SingletonCommonData()
+    
     static let userDefaultIDKey = "UserID"
     static let userDefaultTokenKey = "UserToken"
     static let userDefaultLoginStateKey = "UserLoginState"
     
+    static let notiKeySearchBarUseCase = "SearchBarUseCase"
+    static let notiKeySearchBarInController = "SearchBarInController"
+    
     var stateArray = [String]()
+    var deviceSafeAreaInset = UIEdgeInsets.zero
 }

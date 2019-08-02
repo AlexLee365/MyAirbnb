@@ -9,19 +9,18 @@
 import UIKit
 import SnapKit
 
-
-protocol CalendarDelegate: class {
-    func presentCalenderVC()
-    func presentPeopleVC()
-    func presentFilterVC()
+//
+//protocol CalendarDelegate: class {
+//    func presentCalenderVC()
+//    func presentPeopleVC()
+//    func presentFilterVC()
+//}
+enum UseCase {
+    case inMainVC, inTripVC, inHouseVC
 }
 
 class SearchBarView: UIView {
     // SearchBarView must have a more than 120 height
-    
-    enum UseCase {
-        case inMainVC, inTripVC, inHouseVC
-    }
     
     // MARK: - UI Properties
     let searchContainerView = UIView()
@@ -38,6 +37,7 @@ class SearchBarView: UIView {
     var searchContainerTrailingInSearch: NSLayoutConstraint?
     let notiCenter = NotificationCenter.default
     var useCase: UseCase = .inMainVC
+    var inController: UIViewController = UIViewController()
     
     var selectedDatesArray = [Date]()
     var selectedDateString = "날짜" {
@@ -212,12 +212,17 @@ class SearchBarView: UIView {
     @objc func searchCancelBtnDidTap(_ sender: UIButton) {  // 취소 버튼 => 수정종료
         searchTF.resignFirstResponder()
         
-        notiCenter.post(name: .searchBarEditEnd, object: nil)
+        notiCenter.post(name: .searchBarEditEnd,
+                        object: nil,
+                        userInfo: [SingletonCommonData.notiKeySearchBarUseCase: useCase,
+                                   SingletonCommonData.notiKeySearchBarInController: inController])
         textEditEndAnimation()
     }
     
     @objc func filterDateBtnDidTap(_ sender: UIButton) {
-        notiCenter.post(name: .searchBarDateBtnDidTap, object: nil)
+        notiCenter.post(name: .searchBarDateBtnDidTap,
+                        object: nil,
+                        userInfo: [:])
     }
     
     @objc func filterPeopleBtnDidTap(_ sender: UIButton) {
@@ -237,7 +242,11 @@ extension SearchBarView: UITextFieldDelegate {
         guard textField.text != "" else { return  true }
         print("Textfield should return / There are texts")
         textField.resignFirstResponder()
-        notiCenter.post(name: .searchBarEnterPressed, object: nil, userInfo: ["result": textField.text ?? ""])
+        notiCenter.post(name: .searchBarEnterPressed,
+                        object: nil,
+                        userInfo: ["result": textField.text ?? "",
+                                   SingletonCommonData.notiKeySearchBarUseCase: useCase,
+                                   SingletonCommonData.notiKeySearchBarInController: inController])
         textEditEndAnimation()
         return true
     }
@@ -255,7 +264,10 @@ extension SearchBarView: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {   // 수정 시작
         print("SearchBarView TF did begin editing")
         let text = textField.text ?? ""
-        notiCenter.post(name: .searchBarEditBegin, object: text)
+        notiCenter.post(name: .searchBarEditBegin,
+                        object: text,
+                        userInfo: [SingletonCommonData.notiKeySearchBarUseCase: useCase,
+                                   SingletonCommonData.notiKeySearchBarInController: inController])
         
         textEditBeginAnimation()
     }
@@ -269,10 +281,13 @@ extension SearchBarView: UITextFieldDelegate {
     
     @objc private func textFieldEditingChanged(_ sender: UITextField) {
         let text = sender.text ?? ""
-        notiCenter.post(name: .searchBarEditingChanged, object: text)
+        notiCenter.post(name: .searchBarEditingChanged,
+                        object: text,
+                        userInfo: [SingletonCommonData.notiKeySearchBarUseCase: useCase,
+                                   SingletonCommonData.notiKeySearchBarInController: inController])
     }
     
-    private func textEditBeginAnimation() {
+    func textEditBeginAnimation() {
         self.searchContainerTrailingInSearch = self.searchContainerView.trailingAnchor.constraint(equalTo: self.searchCancelBtn.leadingAnchor, constant: 0)
         
         UIView.animate(withDuration: 0.15) {
@@ -297,7 +312,7 @@ extension SearchBarView: UITextFieldDelegate {
         }
     }
     
-    private func textEditEndAnimation() {
+    func textEditEndAnimation() {
         UIView.animateKeyframes(withDuration: 0.6, delay: 0, options: [], animations: {
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.3, animations: {
                 self.searchCancelBtn.layer.opacity = 0

@@ -8,9 +8,11 @@
 
 import UIKit
 import SnapKit
+import Starscream
 
 class ChatRoomViewController: UIViewController {
 
+    // MARK: - UI Properties
     let topView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -37,13 +39,6 @@ class ChatRoomViewController: UIViewController {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17)
         return button
     }()
-
-    
-//    let bottomView: BottomInfoView = {
-//        let view = BottomInfoView()
-//        view.backColor = .white
-//        return view
-//    }()
     
     let requestBookingBtn: UIButton = {
         let button = UIButton()
@@ -86,14 +81,14 @@ class ChatRoomViewController: UIViewController {
     let seperateLineBottomView = UIView()
     let placeholderLabel = UILabel()
     
-    
     // MARK: - Properteis
     var floatingTFConst: NSLayoutConstraint?
     var downTFConst: NSLayoutConstraint?
     
     let noti = NotificationCenter.default
+    var socket: WebSocket!
     
-    var messageArray = [String]() {
+    var messageArray = [(String, Bool)]() {
         didSet {
             guard messageArray.count > 0 else { return }
             print("messageArray didSet")
@@ -101,21 +96,14 @@ class ChatRoomViewController: UIViewController {
         }
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setTableViewHeaderView()
         setAutolayout()
-        configure()
+        configureViewsOptions()
         setNavigationBar()
         addNotificationObserver()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-//        if messageArray.count == 0 {
-//            chatTableView.contentOffset +=
-//        }
+        configureNetwork()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -136,14 +124,6 @@ class ChatRoomViewController: UIViewController {
         self.view.layoutIfNeeded()
     }
     
-//    override func viewDidDisappear(_ animated: Bool) {
-//        super.viewDidDisappear(animated)
-//
-//        self.floatingTFConst?.priority = .defaultHigh
-//        self.downTFConst?.priority = .defaultLow
-//        self.view.layoutIfNeeded()
-//    }
-    
     private func setAutolayout() {
         view.addSubview(topView)
         topView.snp.makeConstraints { (make) in
@@ -162,20 +142,6 @@ class ChatRoomViewController: UIViewController {
             make.centerY.equalToSuperview()
             make.trailing.equalTo(-20)
         }
-        
-        //        view.addSubview(bottomView)
-        //        bottomView.snp.makeConstraints { (make) in
-        //            make.bottom.equalToSuperview()
-        //            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-        //            make.height.equalTo(view.snp.height).multipliedBy(0.12)
-        //        }
-        //        bottomView.addSubview(requestBookingBtn)
-        //        requestBookingBtn.snp.makeConstraints { (make) in
-        //            make.centerX.centerY.equalToSuperview()
-        //            make.width.equalToSuperview().multipliedBy(0.85)
-        //            make.height.equalToSuperview().multipliedBy(0.63)
-        //        }
-        //
         
         view.addSubview(containerView)
         containerView.snp.makeConstraints { (make) in
@@ -221,7 +187,7 @@ class ChatRoomViewController: UIViewController {
         }
     }
     
-    private func configure() {
+    private func configureViewsOptions() {
         view.backgroundColor = .white
         title = "K Family"
         
@@ -234,10 +200,7 @@ class ChatRoomViewController: UIViewController {
         chatTableView.allowsSelection = false
         chatTableView.tableHeaderView = chatTableHeaderView
         
-        
         chatTextView.delegate = self
-//        chatTextView.backgroundColor = .yellow
-        
         
         placeholderLabel.text = "메시지 작성"
         placeholderLabel.font = .systemFont(ofSize: 15, weight: .regular)
@@ -248,19 +211,32 @@ class ChatRoomViewController: UIViewController {
         sendBtn.addTarget(self, action: #selector(sendBtnDidTap(_:)), for: .touchUpInside)
         
         seperateLineBottomView.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
+    }
+    
+    private func setNavigationBar() {
+        self.navigationItem.setHidesBackButton(true, animated:false)
         
+        let customBackView = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        let backImageView = UIImageView(frame: CGRect(x: 10, y: 10, width: 20, height: 20))
+        
+        backImageView.image = UIImage(named: "backForMsg")
+        
+        customBackView.addSubview(backImageView)
+        
+        let backTap = UITapGestureRecognizer(target: self, action: #selector(backToPreviousView))
+        customBackView.addGestureRecognizer(backTap)
+        
+        let leftBarButtonItem = UIBarButtonItem(customView: customBackView)
+        self.navigationItem.leftBarButtonItem = leftBarButtonItem
     }
     
     private func setTableViewHeaderView() {
         let width = UIScreen.main.bounds.width * 0.8
         let spaceHeight = UIScreen.main.bounds.height * 0.65
         chatTableHeaderView.frame = CGRect(x: 0, y: 0, width: width, height: spaceHeight)
-//        chatTableHeaderView.backgroundColor = .yellow
-        
         chatTableHeaderView.addSubview(chatTableSpaceView)
         chatTableSpaceView.snp.makeConstraints { (make) in
             make.top.leading.trailing.equalToSuperview()
-//            make.height.equalTo(spaceHeight)
         }
         
         chatTableHeaderView.addSubview(chatTableHeaderLabel)
@@ -288,24 +264,36 @@ class ChatRoomViewController: UIViewController {
         """
     }
     
-    @objc private func sendBtnDidTap(_ sender: UIButton) {
-        messageArray.append(chatTextView.text)
-        chatTextView.text = ""
-        configureWithNoText()
-//        guard let lastIndexPath = chatTableView.indexPathsForVisibleRows?.last else { return }
-        
-        chatTableView.scrollToRow(at: IndexPath(row: messageArray.count - 1, section: 0), at: .bottom, animated: false)
-        
-        print(messageArray)
-    }
-    
-    @objc private func hideKeyboard(_ sender: Any) {
-        chatTextView.resignFirstResponder()
-    }
-
     private func addNotificationObserver() {
         noti.addObserver(self, selector: #selector(didReceiveKeyboardNotification(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         noti.addObserver(self, selector: #selector(didReceiveKeyboardNotification(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    private func configureNetwork() {
+        let urlString = "ws://airbnb.tthae.com/ws/chat/44/?token=b3e432dca9f9379d5d640cfdc29603053a788433"
+        guard let url = URL(string: urlString) else { print("‼️ Network url error ");  return }
+        var request = URLRequest(url: url)
+        request.timeoutInterval = 5
+        
+        socket = WebSocket(request: request)
+        socket.delegate = self
+        socket.connect()
+    }
+    
+    @objc private func sendBtnDidTap(_ sender: UIButton) {
+        let messageDictionary = ["message": chatTextView.text]
+        
+        if let json = try? JSONSerialization.data(withJSONObject: messageDictionary, options: []) {
+            if let content = String.init(data: json, encoding: .utf8) {
+                print("Message content: ", content)
+                socket.write(string: content)
+            }
+        } else {
+            print("‼️ message json data convert error ")
+        }
+        
+        chatTextView.text = ""
+        configureWithNoText()
     }
     
     var setConstraintOnce = false
@@ -329,8 +317,6 @@ class ChatRoomViewController: UIViewController {
             offsetValueWhenTableViewContentUp = keyboardFrame.height - containerView.frame.height
             print("🔴🔴🔴 : ", offsetValueWhenTableViewContentUp)
         }
-        
-        
         
         if keyboardFrame.minY >= view.frame.maxY {
             //키보드가 올라가있을때 => 내려감
@@ -364,36 +350,17 @@ class ChatRoomViewController: UIViewController {
         }
     }
     
-
-    // MARK: - set custom navi back button & image
-    private func setNavigationBar() {
-
-        self.navigationItem.setHidesBackButton(true, animated:false)
-
-        let customBackView = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
-        let backImageView = UIImageView(frame: CGRect(x: 10, y: 10, width: 20, height: 20))
-
-        backImageView.image = UIImage(named: "backForMsg")
-        
-        customBackView.addSubview(backImageView)
-
-        let backTap = UITapGestureRecognizer(target: self, action: #selector(backToPreviousView))
-        customBackView.addGestureRecognizer(backTap)
-
-        let leftBarButtonItem = UIBarButtonItem(customView: customBackView)
-        self.navigationItem.leftBarButtonItem = leftBarButtonItem
+    @objc private func hideKeyboard(_ sender: Any) {
+        chatTextView.resignFirstResponder()
     }
-
+    
     @objc private func backToPreviousView() {
         self.navigationController?.popViewController(animated: true)
     }
-    
-    
 }
 
 
 // MARK: - UITableViewDataSource
-
 extension ChatRoomViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return messageArray.count
@@ -404,23 +371,19 @@ extension ChatRoomViewController: UITableViewDataSource, UITableViewDelegate {
         let chatCell = tableView.dequeueReusableCell(withIdentifier: ChatTableViewCell.identifier, for: indexPath) as! ChatTableViewCell
 //        chatCell.messageTextView.text = messageArray[indexPath.row]
         
-        let messageType: ChatTableViewCell.MessageType = (indexPath.row % 2 == 1) ? .hosts : .mine
+        let messageType: ChatTableViewCell.MessageType = messageArray[indexPath.row].1 ? .hosts : .mine
         chatCell.setMessageType(sender: messageType, hostName: "Host A")
         
-        chatCell.messageTextView.text = messageArray[indexPath.row]
+        chatCell.messageTextView.text = messageArray[indexPath.row].0
         chatCell.hostImageView.image = UIImage(named: "hostSample2")
         chatCell.myImageView.image = UIImage(named: "hostSample3")
         
         return chatCell
     }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-    }
 }
 
-// MARK: - UITextViewDelegate
 
+// MARK: - UITextViewDelegate
 extension ChatRoomViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         
@@ -431,7 +394,13 @@ extension ChatRoomViewController: UITextViewDelegate {
         let textViewText = textView.text ?? ""
         let replacedText = (textViewText as NSString).replacingCharacters(in: range, with: text)
         
-        (replacedText == "") ? () : configureWithText()
+        print("--------------------------[]--------------------------")
+        print(replacedText)
+        print(text)
+        print(textView.text)
+        
+        
+        (replacedText == "" && textView.text == "") ? configureWithNoText() : configureWithText()
        
         return true
     }
@@ -439,10 +408,6 @@ extension ChatRoomViewController: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         (textView.text == "") ? configureWithNoText() : ()
     }
-    
-    
-    
-
 }
 
 extension ChatRoomViewController {
@@ -451,7 +416,6 @@ extension ChatRoomViewController {
         sendBtn.alpha = 0.5
         
         UIView.animate(withDuration: 0.3) {
-//            self.placeholderLabel.transform = .identity
             self.placeholderLabel.alpha = 1
         }
     }
@@ -461,8 +425,46 @@ extension ChatRoomViewController {
         sendBtn.alpha = 1
         
         UIView.animate(withDuration: 0.3) {
-//            self.placeholderLabel.transform = .init(translationX: 0, y: -5)
             self.placeholderLabel.alpha = 0
         }
+    }
+}
+
+extension ChatRoomViewController: WebSocketDelegate, WebSocketPongDelegate {
+    func websocketDidReceivePong(socket: WebSocketClient, data: Data?) {
+        print("🔵🔵🔵 : ", data)
+    }
+    
+    func websocketDidConnect(socket: WebSocketClient) {
+        print("--------------------------[⭐️ WebSocket Did Connect Success]--------------------------")
+    }
+    
+    func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
+        print("--------------------------[‼️ WebSocket Did Disconnect ]--------------------------")
+        print(error?.localizedDescription)
+    }
+    
+    func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
+        print("Received Message: ", text)
+        
+        guard let stringData = text.data(using: .utf8)
+            , let jsonObject = try? JSONSerialization.jsonObject(with: stringData) else {
+                print("‼️ StringData & JsonObject convert error ")
+                return
+        }
+        
+        guard let json = jsonObject as? [String: Any]
+            , let isHost = json["is_host"] as? Bool
+            , let message = json["text"] as? String else {
+                print("‼️ Json key value error ")
+                return
+        }
+        
+        messageArray.append((message, isHost))
+        chatTableView.scrollToRow(at: IndexPath(row: messageArray.count - 1, section: 0), at: .bottom, animated: false)
+    }
+    
+    func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
+        print("Received Data: ", data)
     }
 }
