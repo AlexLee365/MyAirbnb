@@ -1,15 +1,15 @@
 //
-//  ReserveStepOneViewController.swift
+//  ReserveStepTwoViewController.swift
 //  MyAirbnb
 //
-//  Created by Solji Kim on 31/07/2019.
+//  Created by Solji Kim on 01/08/2019.
 //  Copyright © 2019 Alex Lee. All rights reserved.
 //
 
 import UIKit
 import SnapKit
 
-class ReserveStepOneViewController: UIViewController {
+class ReserveStepTwoViewController: UIViewController {
 
     let topView: TableviewTopView = {
         let view = TableviewTopView()
@@ -32,9 +32,8 @@ class ReserveStepOneViewController: UIViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
         
-        tableView.register(StepOneTitleTableCell.self, forCellReuseIdentifier: StepOneTitleTableCell.identifier)
-        tableView.register(CheckInCheckOutInfoTableCell.self, forCellReuseIdentifier: CheckInCheckOutInfoTableCell.identifier)
-        tableView.register(CautionTableCell.self, forCellReuseIdentifier: CautionTableCell.identifier)
+        tableView.register(HostWelcomeMsgTableCell.self, forCellReuseIdentifier: HostWelcomeMsgTableCell.identifier)
+        tableView.register(MsgToHostTableCell.self, forCellReuseIdentifier: MsgToHostTableCell.identifier)
         
         return tableView
     }()
@@ -46,13 +45,12 @@ class ReserveStepOneViewController: UIViewController {
         view.priceDetailBtn.isHidden = true
         view.starImageLabel.isHidden = true
         
-        view.reserveBtn.setTitle("다음", for: .normal)
+        view.reserveBtn.setTitle(" 다음 ", for: .normal)
         view.reserveBtn.setTitleColor(.white, for: .normal)
         view.reserveBtn.backgroundColor = StandardUIValue.shared.colorBlueGreen
         
         view.priceLabel.snp.makeConstraints({ (make) in
             make.centerY.equalToSuperview()
-            
         })
         view.reserveBtn.snp.makeConstraints({ (make) in
             make.width.equalTo(80)
@@ -61,16 +59,30 @@ class ReserveStepOneViewController: UIViewController {
         return view
     }()
     
+    let containerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        return view
+    }()
+    
+    let nextBtn: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("다음", for: .normal)
+        button.setTitleColor(#colorLiteral(red: 0, green: 0.5690457821, blue: 0.5746168494, alpha: 1), for: .normal)
+        button.titleLabel?.textAlignment = .center
+        button.titleLabel?.font = UIFont(name: "AirbnbCerealApp-Medium", size: 15)
+        return button
+    }()
+    
+    let noti = NotificationCenter.default
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configure()
         setAutolayout()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.navigationBar.isHidden = true
+        addNotificationObserver()
     }
     
     private func configure() {
@@ -86,11 +98,16 @@ class ReserveStepOneViewController: UIViewController {
         bottomView.priceLabel.attributedText = attributedText(first: "₩162,007 ", second: "1박")
         bottomView.reserveBtn.addTarget(self, action: #selector(nextBtnDidTap(_:)), for: .touchUpInside)
         view.addSubview(bottomView)
+        
+        view.addSubview(containerView)
+        
+        nextBtn.addTarget(self, action: #selector(nextBtnDidTap(_:)), for: .touchUpInside)
+        containerView.addSubview(nextBtn)
     }
     
     @objc private func nextBtnDidTap(_ sender: UIButton) {
-        let stepTwoVC = ReserveStepTwoViewController()
-        navigationController?.pushViewController(stepTwoVC, animated: true)
+        let stepThreeVC = ReserveStepThreeViewController()
+        navigationController?.pushViewController(stepThreeVC, animated: true)
     }
     
     private func setAutolayout() {
@@ -110,6 +127,18 @@ class ReserveStepOneViewController: UIViewController {
         bottomView.snp.makeConstraints { (make) in
             make.bottom.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             make.height.equalTo(height)
+        }
+        
+        containerView.snp.makeConstraints { (make) in
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(65)
+            make.top.equalTo(view.snp.bottom).priority(500)
+        }
+
+        nextBtn.snp.makeConstraints { (make) in
+            make.trailing.equalTo(-10)
+            make.top.bottom.equalToSuperview()
+            make.width.equalTo(60)
         }
     }
     
@@ -131,27 +160,60 @@ class ReserveStepOneViewController: UIViewController {
         
         return NSAttributedString(attributedString: result)
     }
+    
+    
+    private func addNotificationObserver() {
+        noti.addObserver(self, selector: #selector(didReceiveKeyboardNotification(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        noti.addObserver(self, selector: #selector(didReceiveKeyboardNotification(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc private func didReceiveKeyboardNotification(_ sender: Notification) {
+        guard let userInfo = sender.userInfo,
+            let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
+            let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval
+            else { return }
+        
+        let floatingTFConst = containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -keyboardFrame.height)
+        floatingTFConst.priority = .defaultLow
+        floatingTFConst.isActive = true
+        
+        let downTFConst = containerView.topAnchor.constraint(equalTo: view.bottomAnchor)
+        downTFConst.priority = .defaultLow
+        downTFConst.isActive = true
+        
+        if keyboardFrame.minY >= view.frame.maxY {
+            UIView.animate(withDuration: duration) {
+                downTFConst.priority = .defaultHigh
+                self.tableView.contentOffset.y -= (keyboardFrame.height - self.bottomView.frame.height)
+            }
+            self.view.layoutIfNeeded()
+            
+        } else {
+            UIView.animate(withDuration: duration) {
+                floatingTFConst.priority = .defaultHigh
+                self.tableView.contentOffset.y += (keyboardFrame.height - self.bottomView.frame.height)
+            }
+            self.view.layoutIfNeeded()
+        }
+    }
 }
 
 
 // MARK: - UITableViewDataSource
 
-extension ReserveStepOneViewController: UITableViewDataSource {
+extension ReserveStepTwoViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
-            let stepTitleCell = tableView.dequeueReusableCell(withIdentifier: StepOneTitleTableCell.identifier, for: indexPath) as! StepOneTitleTableCell
-            return stepTitleCell
+            let hostWelcomeMsgCell = tableView.dequeueReusableCell(withIdentifier: HostWelcomeMsgTableCell.identifier, for: indexPath) as! HostWelcomeMsgTableCell
+            return hostWelcomeMsgCell
         case 1:
-            let checkInOutInfoCell = tableView.dequeueReusableCell(withIdentifier: CheckInCheckOutInfoTableCell.identifier, for: indexPath) as! CheckInCheckOutInfoTableCell
-            return checkInOutInfoCell
-        case 2:
-            let cautionCell = tableView.dequeueReusableCell(withIdentifier: CautionTableCell.identifier, for: indexPath) as! CautionTableCell
-            return cautionCell
+            let msgToHostCell = tableView.dequeueReusableCell(withIdentifier: MsgToHostTableCell.identifier, for: indexPath) as! MsgToHostTableCell
+            return msgToHostCell
         default:
             return UITableViewCell()
         }
@@ -162,12 +224,21 @@ extension ReserveStepOneViewController: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate
 
-extension ReserveStepOneViewController: UITableViewDelegate {
+extension ReserveStepTwoViewController: UITableViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        tableView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(hideKeyboard)))
+    }
+    
+    @objc private func hideKeyboard(_ sender: Any) {
+        guard let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? MsgToHostTableCell
+            else { return }
+        cell.textView.resignFirstResponder()
+    }
 }
 
 // MARK: - TableviewTopViewDelegate
 
-extension ReserveStepOneViewController: TableviewTopViewDelegate {
+extension ReserveStepTwoViewController: TableviewTopViewDelegate {
     func popView() {
         navigationController?.popViewController(animated: true)
     }
