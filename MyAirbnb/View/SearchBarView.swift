@@ -9,12 +9,6 @@
 import UIKit
 import SnapKit
 
-//
-//protocol CalendarDelegate: class {
-//    func presentCalenderVC()
-//    func presentPeopleVC()
-//    func presentFilterVC()
-//}
 enum UseCase {
     case inMainVC, inTripVC, inHouseVC
 }
@@ -222,17 +216,23 @@ class SearchBarView: UIView {
     @objc func filterDateBtnDidTap(_ sender: UIButton) {
         notiCenter.post(name: .searchBarDateBtnDidTap,
                         object: nil,
-                        userInfo: [:])
+                        userInfo: [SingletonCommonData.notiKeySearchBarUseCase: useCase,
+                                   SingletonCommonData.notiKeySearchBarInController: inController])
     }
     
     @objc func filterPeopleBtnDidTap(_ sender: UIButton) {
-        notiCenter.post(name: .searchBarPeopleBtnDidTap, object: nil)
+        notiCenter.post(name: .searchBarPeopleBtnDidTap,
+                        object: nil,
+                        userInfo: [SingletonCommonData.notiKeySearchBarUseCase: useCase,
+                                   SingletonCommonData.notiKeySearchBarInController: inController])
     }
     
     @objc func filterRemainsBtnDidTap(_ sender: UIButton) {
-        notiCenter.post(name: .searchBarFilterBtnDidTap, object: nil)
+        notiCenter.post(name: .searchBarFilterBtnDidTap,
+                        object: nil,
+                        userInfo: [SingletonCommonData.notiKeySearchBarUseCase: useCase,
+                                   SingletonCommonData.notiKeySearchBarInController: inController])
     }
-    
 }
 
 

@@ -24,7 +24,7 @@ class StandardUIValue {
     
     // MARK: - Size
     let sizeTitleBoldText: CGFloat = 20
-    let sizeSubTitleText: CGFloat = 16
+    let sizeSubTitleText: CGFloat = 15
     
     // MARK: - Font
     let airbnbBoldFont: UIFont = UIFont(name: "AirbnbCerealApp-Bold", size: 18)!

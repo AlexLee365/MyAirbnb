@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import SnapKit
 
 class MainRecommendHouseTableCell: UITableViewCell {
     static let identifier = "MainRecommendHouseTableCell"
     
     let titleLabel = UILabel()
+    let subtitleLabel = UILabel()
     let layout = UICollectionViewFlowLayout()
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     
@@ -45,10 +47,16 @@ class MainRecommendHouseTableCell: UITableViewCell {
         titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: sideMargin).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -sideMargin*2).isActive = true
         
+        contentView.addSubview(subtitleLabel)
+        subtitleLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(titleLabel.snp.bottom).offset(5)
+            make.leading.equalTo(sideMargin)
+            make.trailing.equalTo(-sideMargin)
+        }
         
         contentView.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 25).isActive = true
+        collectionView.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: 20).isActive = true
         collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         collectionView.heightAnchor.constraint(equalToConstant: (collectionViewCellWidth * 1.25)+1).isActive = true
@@ -69,6 +77,11 @@ class MainRecommendHouseTableCell: UITableViewCell {
         layout.scrollDirection = .horizontal
         
         titleLabel.configureMainTableViewCellsTitle()
+        titleLabel.text = "에어비앤비 플러스 숙소"
+        
+        subtitleLabel.configureMainTableViewCellsTitleDetails()
+        subtitleLabel.text = "퀄리티와 인테리어 디자인이 검증된 숙소 셀렉션"
+        subtitleLabel.font = UIFont(name: StandardUIValue.shared.airbnbBookFontString, size: 15)
     }
     
     

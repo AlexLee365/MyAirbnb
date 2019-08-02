@@ -283,7 +283,6 @@ extension MainViewController {
            
         // 서치바 검색어 검색 엔터
         case Notification.Name.searchBarEnterPressed:
-            
             guard let userInfo = sender.userInfo
                 , let textResult = userInfo["result"] as? String
                 , let useCase = userInfo[SingletonCommonData.notiKeySearchBarUseCase] as? UseCase
@@ -291,8 +290,6 @@ extension MainViewController {
                     print("‼️ MainVC serachbar enter noti userinfo ")
                     return
             }
-            
-            print("🔴🔴🔴 검색어: \(textResult) / useCase: \(useCase) / controller: \(controller)")
             
             switch useCase {
             case .inMainVC:
@@ -376,7 +373,6 @@ extension MainViewController {
                     print("‼️ : ")
                     return
             }
-            print("🔴🔴🔴 검색어: \(state) / useCase: \(useCase) / controller: \(controller)")
             
             switch useCase {
             case .inMainVC:
@@ -438,35 +434,86 @@ extension MainViewController {
             
         // 날짜 설정버튼
         case Notification.Name.searchBarDateBtnDidTap:
+            guard let userInfo = sender.userInfo
+                , let useCase = userInfo[SingletonCommonData.notiKeySearchBarUseCase] as? UseCase
+                , let controller = userInfo[SingletonCommonData.notiKeySearchBarInController] as? UIViewController else {
+                    print("‼️ searchBar DateBtn did tap noti ")
+                    return
+            }
+            
             let calendarVC = CalenderViewController()
             calendarVC.modalPresentationStyle = .overFullScreen
             //        calendarVC.modalPresentationStyle = .overCurrentContext
+            calendarVC.useCase = useCase
+            calendarVC.inController = controller
             
-            if searchBarView.selectedDatesArray.count > 0 {
-                calendarVC.beginDatesArray = searchBarView.selectedDatesArray
+            switch useCase {
+            case .inMainVC:
+                if searchBarView.selectedDatesArray.count > 0 {
+                    calendarVC.beginDatesArray = searchBarView.selectedDatesArray
+                }
+            case .inHouseVC:
+                guard let houseVC = controller as? HouseViewController else { print("‼️ : "); return }
+                if houseVC.searchBarView.selectedDatesArray.count > 0 {
+                    calendarVC.beginDatesArray = houseVC.searchBarView.selectedDatesArray
+                }
+            case .inTripVC:
+                ()
             }
+            
             
             present(calendarVC, animated: false)
             
         // 날짜 검색버튼 클릭
         case Notification.Name.searchBarDateResultBtnDidTap:
-            print("🔴🔴🔴 : ")
             guard let userInfo = sender.userInfo
-                , let houseDataArray = userInfo["houseViewDataArray"] as? [HouseViewData] else {
+                , let houseDataArray = userInfo["houseViewDataArray"] as? [HouseViewData]
+                , let useCase = userInfo[SingletonCommonData.notiKeySearchBarUseCase] as? UseCase
+                , let controller = userInfo[SingletonCommonData.notiKeySearchBarInController] as? UIViewController else {
                     print("‼️ MainVC SearchBar resultBtn noti userinfo ")
                     return
             }
             
-            let houseVC = HouseViewController()
-            houseVC.houseView.houseViewDatas = houseDataArray
-            houseVC.searchBarView.selectedDatesArray = searchBarView.selectedDatesArray
-            houseVC.searchBarView.selectedDateString = searchBarView.selectedDateString
-            self.navigationController?.pushViewController(houseVC, animated: false)
+            switch useCase {
+            case .inMainVC:
+                let houseVC = HouseViewController()
+                houseVC.houseView.houseViewDatas = houseDataArray
+                houseVC.searchBarView.selectedDatesArray = searchBarView.selectedDatesArray
+                houseVC.searchBarView.selectedDateString = searchBarView.selectedDateString
+                self.navigationController?.pushViewController(houseVC, animated: false)
+            case .inHouseVC:
+                guard let houseVC = controller as? HouseViewController else { print("‼️ : "); return }
+                houseVC.houseView.houseViewDatas.removeAll()
+                houseVC.houseView.houseViewDatas = houseDataArray
+                houseVC.houseView.flag = false
+                houseVC.houseView.tableView.reloadData()
+                
+            case .inTripVC:
+                ()
+            }
             
         // 인원 설정버튼
         case Notification.Name.searchBarPeopleBtnDidTap:
+            guard let userInfo = sender.userInfo
+                , let useCase = userInfo[SingletonCommonData.notiKeySearchBarUseCase] as? UseCase
+                , let controller = userInfo[SingletonCommonData.notiKeySearchBarInController] as? UIViewController else {
+                    print("‼️ ")
+                    return
+            }
+            
             let filterPeopleVC = FilterPeopleViewController()
-            filterPeopleVC.selectedPeople = searchBarView.selectedPeople
+            filterPeopleVC.useCase = useCase
+            filterPeopleVC.inController = controller
+            
+            switch useCase {
+            case .inMainVC:
+                filterPeopleVC.selectedPeople = searchBarView.selectedPeople
+            case .inHouseVC:
+                guard let houseVC = controller as? HouseViewController else { print("‼️ : "); return }
+                filterPeopleVC.selectedPeople = houseVC.searchBarView.selectedPeople
+            case .inTripVC:
+                ()
+            }
             
             filterPeopleVC.modalPresentationStyle = .overFullScreen
             present(filterPeopleVC, animated: false)
@@ -474,15 +521,30 @@ extension MainViewController {
         // 인원 검색버튼 클릭
         case Notification.Name.searchBarPeopleResultBtnDidTap:
             guard let userInfo = sender.userInfo
-                , let houseDataArray = userInfo["houseViewDataArray"] as? [HouseViewData] else {
+                , let houseDataArray = userInfo["houseViewDataArray"] as? [HouseViewData]
+                , let useCase = userInfo[SingletonCommonData.notiKeySearchBarUseCase] as? UseCase
+                , let controller = userInfo[SingletonCommonData.notiKeySearchBarInController] as? UIViewController else {
                     print("‼️ MainVC SearchBar resultBtn noti userinfo ")
                     return
             }
             
-            let houseVC = HouseViewController()
-            houseVC.houseView.houseViewDatas = houseDataArray
-            houseVC.searchBarView.selectedPeople = searchBarView.selectedPeople
-            self.navigationController?.pushViewController(houseVC, animated: false)
+            switch useCase {
+            case .inMainVC:
+                let houseVC = HouseViewController()
+                houseVC.houseView.houseViewDatas = houseDataArray
+                houseVC.searchBarView.selectedPeople = searchBarView.selectedPeople
+                self.navigationController?.pushViewController(houseVC, animated: false)
+            case .inHouseVC:
+                guard let houseVC = controller as? HouseViewController else { print("‼️ : "); return }
+                houseVC.houseView.houseViewDatas.removeAll()
+                houseVC.houseView.houseViewDatas = houseDataArray
+                houseVC.houseView.flag = false
+                houseVC.houseView.tableView.reloadData()
+            case .inTripVC:
+                ()
+            }
+            
+            
             
         // 필터 버튼 클릭
         case Notification.Name.searchBarFilterBtnDidTap:

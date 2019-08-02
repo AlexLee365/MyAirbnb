@@ -17,7 +17,7 @@ class MainLuxeHouseTableCell: UITableViewCell {
     let layout = UICollectionViewFlowLayout()
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     
-    let seeMoreBtn = UIButton()
+    let seeMoreBtn = UIButtonWithHighlightEffect()
     
     // MARK: - Properties
     var collectionViewCellWidth: CGFloat = UIScreen.main.bounds.width * 0.4
@@ -50,37 +50,23 @@ class MainLuxeHouseTableCell: UITableViewCell {
         contentView.addSubview(titleLabel)
         let titleTextHeight:CGFloat = "가".size(withAttributes: [NSAttributedString.Key.font :
             UIFont.systemFont(ofSize: StandardUIValue.shared.sizeTitleBoldText, weight: .bold)]).height
-        let titleLabelWidth: CGFloat = UIScreen.main.bounds.width - sideMargin*3
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: topBottomMargin).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: sideMargin).isActive = true
-//        titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -sideMargin*2).isActive = true
-//        titleLabel.widthAnchor.constraint(equalToConstant: titleLabelWidth).isActive = true
-//        titleLabel.heightAnchor.constraint(equalToConstant: titleTextHeight).isActive = true
-        print("🔵🔵🔵 titleLabelHeight: ", titleTextHeight)
         
         contentView.addSubview(detailTitleLabel)
         let detailTitleTextHeight:CGFloat = "가".size(withAttributes: [NSAttributedString.Key.font :
             UIFont.systemFont(ofSize: StandardUIValue.shared.sizeSubTitleText, weight: .semibold)]).height
-        let detailTitleLabelWidth: CGFloat = UIScreen.main.bounds.width - sideMargin*3
         detailTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         detailTitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5).isActive = true
         detailTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: sideMargin).isActive = true
-//        detailTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -sideMargin*2).isActive = true
-//        detailTitleLabel.widthAnchor.constraint(equalToConstant: detailTitleLabelWidth).isActive = true
-//        detailTitleLabel.heightAnchor.constraint(equalToConstant: detailTitleTextHeight).isActive = true
-        print("🔵🔵🔵 detailTitleLabelHeight: ", detailTitleTextHeight)
      
-        
-        
         contentView.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.topAnchor.constraint(equalTo: detailTitleLabel.bottomAnchor, constant: 25).isActive = true
         collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-//        collectionView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         collectionView.heightAnchor.constraint(equalToConstant: collectionViewCellHeight+1).isActive = true
-//        collectionView.bottomAnchor.constraint(equalTo: seeMoreBtn.topAnchor, constant: 0).isActive = true
         
         contentView.addSubview(seeMoreBtn)
         let buttonWidth: CGFloat = UIScreen.main.bounds.width - sideMargin*2
@@ -88,10 +74,8 @@ class MainLuxeHouseTableCell: UITableViewCell {
         seeMoreBtn.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 5).isActive = true
         seeMoreBtn.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: sideMargin).isActive = true
         seeMoreBtn.widthAnchor.constraint(equalToConstant: buttonWidth).isActive = true
-        //        seeMoreBtn.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -sideMargin).isActive = true
         seeMoreBtn.heightAnchor.constraint(equalTo: seeMoreBtn.widthAnchor, multiplier: 0.13).isActive = true
         seeMoreBtn.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15).isActive = true
-       
     }
     
     private func configureViewsOptions() {
@@ -113,6 +97,7 @@ class MainLuxeHouseTableCell: UITableViewCell {
         
         detailTitleLabel.configureMainTableViewCellsTitleDetails()
         detailTitleLabel.text = "모든 것이 5성급인 특별한 숙소"
+        detailTitleLabel.font = UIFont(name: StandardUIValue.shared.airbnbBookFontString, size: 15)
         detailTitleLabel.sizeToFit()
         
         seeMoreBtn.setTitle("에어비앤비 Luxe숙소 모두 보기", for: .normal)
