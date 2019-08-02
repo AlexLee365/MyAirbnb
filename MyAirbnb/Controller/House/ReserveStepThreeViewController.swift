@@ -28,13 +28,16 @@ class ReserveStepThreeViewController: UIViewController {
     
     let tableView: UITableView = {
         let tableView = UITableView()
-//        tableView.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-        tableView.separatorStyle = .none
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
         
         tableView.register(StepThreeTitleTableCell.self, forCellReuseIdentifier: StepThreeTitleTableCell.identifier)
         tableView.register(AddPaymentTableCell.self, forCellReuseIdentifier: AddPaymentTableCell.identifier)
+        tableView.register(PriceOverviewTableCell.self, forCellReuseIdentifier: PriceOverviewTableCell.identifier)
+        tableView.register(CouponTableCell.self, forCellReuseIdentifier: CouponTableCell.identifier)
+        tableView.register(RefundPolicyTableCell.self, forCellReuseIdentifier: RefundPolicyTableCell.identifier)
+        tableView.register(AgreementTableCell.self, forCellReuseIdentifier: AgreementTableCell.identifier)
         
         return tableView
     }()
@@ -75,20 +78,31 @@ class ReserveStepThreeViewController: UIViewController {
 
 extension ReserveStepThreeViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 6
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
             let stepThreeTitleCell = tableView.dequeueReusableCell(withIdentifier: StepThreeTitleTableCell.identifier, for: indexPath) as! StepThreeTitleTableCell
-            tableView.separatorStyle = .singleLine
-            stepThreeTitleCell.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
             return stepThreeTitleCell
         case 1:
             let addPaymentCell = tableView.dequeueReusableCell(withIdentifier: AddPaymentTableCell.identifier, for: indexPath) as! AddPaymentTableCell
             addPaymentCell.delegate = self
             return addPaymentCell
+        case 2:
+            let priceOverviewCell = tableView.dequeueReusableCell(withIdentifier: PriceOverviewTableCell.identifier, for: indexPath) as! PriceOverviewTableCell
+            return priceOverviewCell
+        case 3:
+            let couponCell = tableView.dequeueReusableCell(withIdentifier: CouponTableCell.identifier, for: indexPath) as! CouponTableCell
+            couponCell.delegate = self
+            return couponCell
+        case 4:
+            let refundPolicyCell = tableView.dequeueReusableCell(withIdentifier: RefundPolicyTableCell.identifier, for: indexPath) as! RefundPolicyTableCell
+            return refundPolicyCell
+        case 5:
+            let agreementCell = tableView.dequeueReusableCell(withIdentifier: AgreementTableCell.identifier, for: indexPath) as! AgreementTableCell
+            return agreementCell
         default:
             return UITableViewCell()
         }
@@ -117,5 +131,14 @@ extension ReserveStepThreeViewController: AddPaymentTableCellDelegate {
         let selectPayVC = SelectPayMethodViewController()
         let navi = UINavigationController(rootViewController: selectPayVC)
         present(navi, animated: true)
+    }
+}
+
+// MARK: - CouponTableCellDelegate
+
+extension ReserveStepThreeViewController: CouponTableCellDelegate {
+    func presentCouponVC() {
+        let addCouponVC = CouponApplyViewController()
+        present(addCouponVC, animated: true)
     }
 }

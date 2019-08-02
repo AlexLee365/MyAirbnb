@@ -1,38 +1,32 @@
 //
-//  OtherCityTripTableCell.swift
+//  AllInterestTableCell.swift
 //  MyAirbnb
 //
-//  Created by Solji Kim on 30/07/2019.
+//  Created by Solji Kim on 02/08/2019.
 //  Copyright © 2019 Alex Lee. All rights reserved.
 //
 
 import UIKit
 import SnapKit
 
-protocol OtherCityTripTableCellDelegate: class {
-    func pushToSearchMainVC(stateName: String)
-}
-
-class OtherCityTripTableCell: UITableViewCell {
-    static let identifier = "OtherCityTripTableCell"
-    
-    weak var delegate: OtherCityTripTableCellDelegate?
+class AllInterestTableCell: UITableViewCell {
+    static let identifier = "AllInterestTableCell"
     
     private enum UI {
         static let itemsInLine: CGFloat = 1
-        static let linesOnScreen: CGFloat = 2
+        static let linesOnScreen: CGFloat = 1
         static let lineSpacing: CGFloat = 13.0
         static let itemSpacing: CGFloat = 0.0
-        static let edgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 30, right: 20)
+        static let edgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
         
-        static let nextOffset: CGFloat = 30
+        static let nextOffset: CGFloat = 40
     }
     
     let titleLabel: UILabel = {
         let label = UILabel()
+        label.text = "모든 관심사를 다루는 트립"
         label.font = UIFont(name: "AirbnbCerealApp-Bold", size: 23)
         label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
-        label.text = "다른 도시의 트립"
         return label
     }()
     
@@ -41,12 +35,10 @@ class OtherCityTripTableCell: UITableViewCell {
         collectionView.backgroundColor = .clear
         collectionView.showsHorizontalScrollIndicator = false
         
-        collectionView.register(OtherCityTripCollectionCell.self, forCellWithReuseIdentifier: OtherCityTripCollectionCell.identifier)
+        collectionView.register(AllInterestCollectionCell.self, forCellWithReuseIdentifier: AllInterestCollectionCell.identifier)
         
         return collectionView
     }()
-    
-    let stateName = ["Seoul", "Suwon", "Sokcho", "Jeonju", "Jeju", "Daegu"]
     
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -61,6 +53,8 @@ class OtherCityTripTableCell: UITableViewCell {
     }
     
     private func configure() {
+        self.selectionStyle = .none
+        
         contentView.addSubview(titleLabel)
         
         collectionView.dataSource = self
@@ -76,14 +70,18 @@ class OtherCityTripTableCell: UITableViewCell {
     }
     
     private func setAutolayout() {
+        
         titleLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(30)
-            make.leading.equalTo(20)
+            make.top.leading.equalTo(20)
         }
         
+        let collectionHeight = UIScreen.main.bounds.height * 0.6
+        
         collectionView.snp.makeConstraints { (make) in
-            make.top.equalTo(titleLabel.snp.bottom).offset(15)
-            make.leading.trailing.bottom.equalToSuperview()
+            make.top.equalTo(titleLabel.snp.bottom).offset(10)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(collectionHeight)
+            make.bottom.equalTo(-10)
         }
     }
 }
@@ -91,40 +89,29 @@ class OtherCityTripTableCell: UITableViewCell {
 
 // MARK: - UICollectionViewDataSource
 
-extension OtherCityTripTableCell: UICollectionViewDataSource {
+extension AllInterestTableCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return stateName.count
+        return 10
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let otherCityCell = collectionView.dequeueReusableCell(withReuseIdentifier: OtherCityTripCollectionCell.identifier, for: indexPath) as! OtherCityTripCollectionCell
-        otherCityCell.cityNameLabel.text = stateName[indexPath.row]
-        return otherCityCell
-    }
-    
-    
-}
-
-// MARK: - UICollectionViewDelegate
-
-extension OtherCityTripTableCell: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.pushToSearchMainVC(stateName: stateName[indexPath.row])
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AllInterestCollectionCell.identifier, for: indexPath) as! AllInterestCollectionCell
+        return cell
     }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
 
-extension OtherCityTripTableCell: UICollectionViewDelegateFlowLayout {
+extension AllInterestTableCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let lineSpacing = UI.lineSpacing * (UI.linesOnScreen - 1)
+        let lineSpacing = UI.lineSpacing
         let horizontalInset = UI.edgeInsets.left + UI.edgeInsets.right
         
         let horizontalSpacing = lineSpacing + horizontalInset + UI.nextOffset
         let cellWidth: CGFloat = ((collectionView.frame.width - horizontalSpacing) / UI.linesOnScreen)
-        let cellHeight = collectionView.frame.height * 0.8
+        let cellHeight = collectionView.frame.height * 0.9
         
         let roundedWidth = cellWidth.rounded(.down)
         let roundedHeight = cellHeight.rounded(.down)

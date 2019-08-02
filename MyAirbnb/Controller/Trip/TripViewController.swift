@@ -43,10 +43,11 @@ class TripViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.interactivePopGestureRecognizer?.delegate = nil
         
         configure()
         setAutolayout()
-        navigationController?.interactivePopGestureRecognizer?.delegate = nil
+        getServerData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -110,6 +111,36 @@ class TripViewController: UIViewController {
         searchBarBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         searchBarBackgroundView.bottomAnchor.constraint(equalTo: searchBarView.bottomAnchor, constant: 10).isActive = true
     }
+    
+    
+    let netWork = NetworkCommunicator()
+    let jsonDecoder = JSONDecoder()
+    
+    var otherStateDataInList = [OtherStateDataInList]()
+    
+    func getServerData() {
+        let urlString = netWork.basicUrlString + "/trip/state/"
+        
+        netWork.getJsonObjectFromAPI(urlString: urlString, urlForSpecificProcessing: nil) { (json, success) in
+            
+            guard success else {
+                print("get serverData failed")
+                return
+            }
+            
+            guard let data = try? JSONSerialization.data(withJSONObject: json) else {
+                print("‼️ moveToHouseDetail noti data convert error")
+                return
+            }
+            
+            guard let result = try? self.jsonDecoder.decode([OtherStateDataInList].self, from: data) else {
+                print("‼️ moveToHouseDetail noti result decoding convert error")
+                return
+            }
+            
+            self.otherStateDataInList = result
+        }
+    }
 }
 
 
@@ -154,6 +185,9 @@ extension TripViewController: UITableViewDataSource {
             
         case 5:
             let otherCityTripCell = tableView.dequeueReusableCell(withIdentifier: OtherCityTripTableCell.identifier, for: indexPath) as! OtherCityTripTableCell
+            
+            otherCityTripCell.delegate = self
+            
             return otherCityTripCell
             
         default:
@@ -238,6 +272,20 @@ extension TripViewController: WorldAdventureTableCellDelegate {
         let adventureVC = VideosDetailViewController()
         tabBarController?.tabBar.isHidden = true
         navigationController?.pushViewController(adventureVC, animated: true)
+    }
+}
+
+// MARK: - OtherCityTripTableCellDelegate
+
+extension TripViewController: OtherCityTripTableCellDelegate {
+    func pushToSearchMainVC(stateName: String) {
+        let tripSearchMainVC = TripSearchMainViewController()
+
+        let filteredStateDataInList = otherStateDataInList.filter { $0.name == stateName }
+        
+        filteredStateDataInList.compactMap { tripSearchMainVC.searchUrl = $0.url }
+        
+        navigationController?.pushViewController(tripSearchMainVC, animated: false)
     }
 }
 
