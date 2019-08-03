@@ -24,7 +24,7 @@ class AllTripsTableCell: UITableViewCell {
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "서울의 추천 트립"
+        label.text = "모든 트립"
         label.font = UIFont(name: "AirbnbCerealApp-Bold", size: 23)
         label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
         return label

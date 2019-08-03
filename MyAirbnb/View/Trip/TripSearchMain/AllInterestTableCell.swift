@@ -40,6 +40,8 @@ class AllInterestTableCell: UITableViewCell {
         return collectionView
     }()
     
+    var subTripCategoryArray = [SubTripCategory]()
+
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -70,7 +72,6 @@ class AllInterestTableCell: UITableViewCell {
     }
     
     private func setAutolayout() {
-        
         titleLabel.snp.makeConstraints { (make) in
             make.top.leading.equalTo(20)
         }
@@ -91,12 +92,15 @@ class AllInterestTableCell: UITableViewCell {
 
 extension AllInterestTableCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return subTripCategoryArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AllInterestCollectionCell.identifier, for: indexPath) as! AllInterestCollectionCell
+        
+        cell.setData(subTripCategoryData: subTripCategoryArray[indexPath.row])
+        
         return cell
     }
 }

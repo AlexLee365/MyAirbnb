@@ -16,7 +16,7 @@ class AllInterestCollectionCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.image = UIImage(named: "tripInterest1")
+//        imageView.image = UIImage(named: "tripInterest1")
         return imageView
     }()
     
@@ -24,7 +24,7 @@ class AllInterestCollectionCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.image = UIImage(named: "tripInterest2")
+//        imageView.image = UIImage(named: "tripInterest2")
         return imageView
     }()
     
@@ -32,21 +32,21 @@ class AllInterestCollectionCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.image = UIImage(named: "tripInterest3")
+//        imageView.image = UIImage(named: "tripInterest3")
         return imageView
     }()
     
     let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "AirbnbCerealApp-Medium", size: 15)
-        label.text = "자연"
+//        label.text = "자연"
         label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
         return label
     }()
     
     let descLabel: UILabel = {
         let label = UILabel()
-        label.text = "달리기 · 번지 점프 · 승마 체험 등 11개"
+//        label.text = "달리기 · 번지 점프 · 승마 체험 등 11개"
         label.font = UIFont(name: "AirbnbCerealApp-Book", size: 14)
         label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
         label.numberOfLines = 0
@@ -113,5 +113,13 @@ class AllInterestCollectionCell: UICollectionViewCell {
             make.leading.equalTo(20)
             make.trailing.equalTo(-20)
         }
+    }
+    
+    func setData(subTripCategoryData: SubTripCategory) {
+        imageView1.image = UIImage(named: "seoulAllInterestSports1")
+        imageView2.image = UIImage(named: "seoulAllInterestSports2")
+        imageView3.image = UIImage(named: "seoulAllInterestSports3")
+        titleLabel.text = subTripCategoryData.name
+        descLabel.text = subTripCategoryData.subTripCategoryDescription
     }
 }

@@ -81,7 +81,10 @@ class TripSearchMainViewController: UIViewController {
             }
             
             self.stateData = result
-            print("stateData", self.stateData)
+
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         }
     }
 }
@@ -98,16 +101,23 @@ extension TripSearchMainViewController: UITableViewDataSource {
         switch indexPath.row {
         case 0:
             let allInterestCell = tableView.dequeueReusableCell(withIdentifier: AllInterestTableCell.identifier, for: indexPath) as! AllInterestTableCell
+            
+            allInterestCell.subTripCategoryArray = stateData?.subTripCategory ?? []
+            
             return allInterestCell
+            
         case 1:
             let recommendedCell = tableView.dequeueReusableCell(withIdentifier: RecommendedTripTableCell.identifier, for: indexPath) as! RecommendedTripTableCell
             return recommendedCell
+            
         case 2:
             let fullImageTouchCell = tableView.dequeueReusableCell(withIdentifier: FullImageTouchTableCell.identifier, for: indexPath) as! FullImageTouchTableCell
             return fullImageTouchCell
+            
         case 3:
             let allTripsCell = tableView.dequeueReusableCell(withIdentifier: AllTripsTableCell.identifier, for: indexPath) as! AllTripsTableCell
             return allTripsCell
+            
         default:
             return UITableViewCell()
         }
