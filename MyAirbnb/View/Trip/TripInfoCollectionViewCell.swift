@@ -148,4 +148,32 @@ class TripInfoCollectionViewCell: UICollectionViewCell {
         noOfReviewLabel.centerYAnchor.constraint(equalTo: starImage.centerYAnchor).isActive = true
         noOfReviewLabel.leadingAnchor.constraint(equalTo: rateLabel.trailingAnchor, constant: 5).isActive = true
     }
+    
+    func setData(recommendedTripData: BestTrip) {
+        imageView.image = UIImage(named: "bathbomb")
+        categoryLabel.text = "공예 클래스"
+        titleLabel.text = recommendedTripData.name
+        
+//        descLabel.text = "\(recommendedTripData.durationTime)시간 · \(recommendedTripData.provides[0]), \(recommendedTripData.provides[1]), \(recommendedTripData.provides[2])"
+
+//        var text = ""
+//        for i in 0..<recommendedTripData.provides.count {
+//            text += "\(recommendedTripData.provides[i] ?? ""), "
+//        }
+//        text.removeLast()
+//        text.removeLast()
+//        
+//        descLabel.text = "\(recommendedTripData.durationTime)시간 · \(text)"
+        
+//
+//        SeoulRecommendedTripData(image: "bathbomb", category: "공예 클래스·서울", title: "나만의 색과 향을 담은 배쓰밤을 만들어보세요!", desc: "2시간·음료, 장비, 입장권 1매 포함", lang: "영어, 한국어로 진행", rate: 5.0, noOfReview: 36),
+        languageLabel.text = "영어, 한국어로 진행"
+
+        if recommendedTripData.ratingScore == Int(0.0) {
+            starImage.image = UIImage(named: "star")
+            rateLabel.text = String(recommendedTripData.ratingScore)
+            noOfReviewLabel.text = "36"
+        }
+
+    }
 }
