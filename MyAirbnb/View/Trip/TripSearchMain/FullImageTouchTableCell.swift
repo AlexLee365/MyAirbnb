@@ -80,11 +80,4 @@ class FullImageTouchTableCell: UITableViewCell {
         }
         
     }
-    
-    
-//    func setData(fullImageData: HouseFullImagDataInList) {
-//        titleLabel.text = fullImageData.title
-//        fullImageView.image = fullImageData.image
-//    }
-    
 }
