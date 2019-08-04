@@ -80,7 +80,7 @@ class TripSearchMainViewController: UIViewController {
             }
             
             guard let result = try? self.jsonDecoder.decode(StateDetailData.self, from: data) else {
-                print("‼️ moveToHouseDetail noti result decoding convert error")
+                print("‼️ TripSearchMainViewController noti result decoding convert error")
                 return
             }
             
@@ -114,8 +114,7 @@ extension TripSearchMainViewController: UITableViewDataSource {
         case 1:
             let recommendedCell = tableView.dequeueReusableCell(withIdentifier: RecommendedTripTableCell.identifier, for: indexPath) as! RecommendedTripTableCell
             
-            recommendedCell.recommendedTripArray = stateData?.bestTrip ?? []
-            
+            recommendedCell.recommendedTripArray = stateData?.randomRecommendTrip12 ?? []
             return recommendedCell
             
         case 2:
@@ -124,6 +123,9 @@ extension TripSearchMainViewController: UITableViewDataSource {
             
         case 3:
             let allTripsCell = tableView.dequeueReusableCell(withIdentifier: AllTripsTableCell.identifier, for: indexPath) as! AllTripsTableCell
+            
+            allTripsCell.allTripsArray = stateData?.stateDetail.trips ?? []
+            
             return allTripsCell
             
         default:

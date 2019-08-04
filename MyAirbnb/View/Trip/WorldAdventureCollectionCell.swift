@@ -123,4 +123,16 @@ class WorldAdventureCollectionCell: UICollectionViewCell {
             make.leading.equalTo(rateLabel.snp.trailing).offset(5)
         }
     }
+    
+    func setData(worldAdventureData: BestTrip) {
+        imageView.image = UIImage(named: "worldAdventure1")
+        categoryLabel.text = "6일 여행 코스 · 푸에르토아요라 "
+        titleLabel.text = worldAdventureData.name
+        
+        if worldAdventureData.ratingScore > 0.0 {
+            starImage.image = UIImage(named: "star")
+            rateLabel.text = String(worldAdventureData.ratingScore)
+            noOfReviewLabel.text = String(worldAdventureData.reviewCount)
+        }
+    }
 }

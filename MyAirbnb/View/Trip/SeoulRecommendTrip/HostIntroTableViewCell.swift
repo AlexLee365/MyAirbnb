@@ -80,6 +80,8 @@ class HostIntroTableViewCell: UITableViewCell {
     
     
     private func configure() {
+        self.selectionStyle = .none
+        
         contentView.addSubview(hostIntroLabel)
         contentView.addSubview(profileImage)
         contentView.addSubview(touchButton)
@@ -112,5 +114,10 @@ class HostIntroTableViewCell: UITableViewCell {
         introBody.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: sideMargin).isActive = true
         introBody.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -sideMargin).isActive = true
         introBody.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20).isActive = true
+    }
+    
+    func setData(hostDetailData: TripDetail) {
+        hostIntroLabel.text = "호스트 \(hostDetailData.host)님 소개"
+        introBody.text = hostDetailData.hostAbout
     }
 }

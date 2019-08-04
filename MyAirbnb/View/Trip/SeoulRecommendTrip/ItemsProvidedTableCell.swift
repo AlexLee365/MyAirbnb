@@ -144,4 +144,15 @@ class ItemsProvidedTableCell: UITableViewCell {
             make.top.leading.equalTo(20)
         }
     }
+    
+    func setData(itemProvidedData: TripDetail) {
+        if !itemProvidedData.provides.isEmpty {
+            for i in 0..<itemProvidedData.provides.count {
+                labelConfigArray[i].0.text = itemProvidedData.provides[i]?.provideSet
+                labelConfigArray[i].1.image =
+                    configureImageForItem(item: itemProvidedData.provides[i]?.provideSet ?? "")
+                labelConfigArray[i].2.text = itemProvidedData.provides[i]?.provideDescription
+            }
+        }
+    }
 }

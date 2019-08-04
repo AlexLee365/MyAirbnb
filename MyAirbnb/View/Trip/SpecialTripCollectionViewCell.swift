@@ -70,11 +70,17 @@ class SpecialTripCollectionViewCell: UICollectionViewCell {
         imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         imageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.7).isActive = true
         
-        titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 25).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 15).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15).isActive = true
         
         descLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5).isActive = true
         descLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor).isActive = true
         descLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.8).isActive = true
+    }
+    
+    func setData(mainCategoryData: MainCategory) {
+        imageView.image = UIImage(named: "airbnb_adventure")
+        titleLabel.text = mainCategoryData.name
+        descLabel.text = mainCategoryData.mainCategoryDescription
     }
 }

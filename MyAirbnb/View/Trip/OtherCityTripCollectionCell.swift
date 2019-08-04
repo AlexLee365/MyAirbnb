@@ -14,7 +14,6 @@ class OtherCityTripCollectionCell: UICollectionViewCell {
     
     let otherCityImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "paris")
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         return imageView
@@ -22,7 +21,6 @@ class OtherCityTripCollectionCell: UICollectionViewCell {
     
     let cityNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "파리"
         label.font = UIFont(name: "AirbnbCerealApp-Medium", size: 14)
         label.textColor = #colorLiteral(red: 0.370555222, green: 0.3705646992, blue: 0.3705595732, alpha: 1)
         return label
@@ -65,5 +63,10 @@ class OtherCityTripCollectionCell: UICollectionViewCell {
             make.leading.equalTo(15)
             make.bottom.equalTo(-10)
         }
+    }
+    
+    func setData(cityListArray: State) {
+        otherCityImage.image = UIImage(named: "stateSeoul")
+        cityNameLabel.text = cityListArray.name
     }
 }

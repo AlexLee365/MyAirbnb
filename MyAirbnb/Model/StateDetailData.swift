@@ -8,6 +8,7 @@
 
 import Foundation
 
+// MARK: - StateDetailData
 struct StateDetailData: Codable {
     let stateDetail: StateDetail
     let subTripCategory: [SubTripCategory]
@@ -25,18 +26,27 @@ struct StateDetailData: Codable {
 struct BestTrip: Codable {
     let name: String
     let image1: String?
-    let ratingScore, durationTime: Int
-    let provides: [String?]
+    let ratingScore: Double
+    let reviewCount: Int
+    let detailCategory: String
+    let durationTime: Int
+    let provides: [String]
+    let language: String
     let url: String
     
     enum CodingKeys: String, CodingKey {
         case name
         case image1 = "image_1"
         case ratingScore = "rating_score"
+        case reviewCount = "review_count"
+        case detailCategory = "detail_category"
         case durationTime = "duration_time"
-        case provides, url
+        case provides, language, url
     }
+    
 }
+
+
 
 // MARK: - StateDetail
 struct StateDetail: Codable {
@@ -48,7 +58,8 @@ struct StateDetail: Codable {
 struct SubTripCategory: Codable {
     let id: Int
     let category, state, name: String
-    let image1, image2, image3: String?
+    let image1: String
+    let image2, image3: String?
     let subTripCategoryDescription: String
     
     enum CodingKeys: String, CodingKey {
@@ -59,6 +70,4 @@ struct SubTripCategory: Codable {
         case subTripCategoryDescription = "description"
     }
 }
-
-
 

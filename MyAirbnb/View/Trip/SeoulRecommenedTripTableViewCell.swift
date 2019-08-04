@@ -9,10 +9,9 @@
 import UIKit
 
 protocol SeoulRecommenedTripTableViewCellDelegate: class {
-    func pushVC()
+    func pushVC(tripDetails: BestTrip)
     func pushVCForBtn()
 }
-
 
 class SeoulRecommenedTripTableViewCell: UITableViewCell {
     
@@ -25,7 +24,7 @@ class SeoulRecommenedTripTableViewCell: UITableViewCell {
         static let linesOnScreen: CGFloat = 2
         static let lineSpacing: CGFloat = 13.0
         static let itemSpacing: CGFloat = 0.0
-        static let edgeInsets = UIEdgeInsets(top: 5, left: 20, bottom: 5, right: 20)
+        static let edgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 0, right: 20)
         
         static let nextOffset: CGFloat = 5
     }
@@ -58,6 +57,8 @@ class SeoulRecommenedTripTableViewCell: UITableViewCell {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    
+    var globalRecommendedTripDataArray = [BestTrip]()
     
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -120,24 +121,14 @@ class SeoulRecommenedTripTableViewCell: UITableViewCell {
 
 extension SeoulRecommenedTripTableViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return globalRecommendedTripDataArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TripInfoCollectionViewCell.identifier, for: indexPath) as! TripInfoCollectionViewCell
         
-        cell.imageView.image = UIImage(named: seoulRecommendedTripDatas[indexPath.row].image)
-        cell.categoryLabel.text = seoulRecommendedTripDatas[indexPath.row].category
-        cell.titleLabel.text = seoulRecommendedTripDatas[indexPath.row].title
-        cell.descLabel.text = seoulRecommendedTripDatas[indexPath.row].desc
-        cell.languageLabel.text = seoulRecommendedTripDatas[indexPath.row].lang
-        
-        if seoulRecommendedTripDatas[indexPath.row].rate != nil {
-            cell.starImage.image = UIImage(named: "star")
-            cell.rateLabel.text = String(seoulRecommendedTripDatas[indexPath.row].rate!)
-            cell.noOfReviewLabel.text = "(\(seoulRecommendedTripDatas[indexPath.row].noOfReview!))"
-        }
+        cell.setData(recommendedTripData: globalRecommendedTripDataArray[indexPath.row])
         
         return cell
     }
@@ -147,7 +138,7 @@ extension SeoulRecommenedTripTableViewCell: UICollectionViewDataSource {
 
 extension SeoulRecommenedTripTableViewCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.pushVC()
+        delegate?.pushVC(tripDetails: globalRecommendedTripDataArray[indexPath.row])
     }
 }
 

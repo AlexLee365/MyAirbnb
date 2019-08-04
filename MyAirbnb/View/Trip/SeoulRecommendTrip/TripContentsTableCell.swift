@@ -73,4 +73,8 @@ class TripContentsTableCell: UITableViewCell {
             make.bottom.equalTo(-20)
         }
     }
+    
+    func setData(tripContentsData: TripDetail) {
+        descLabel.text = tripContentsData.program
+    }
 }

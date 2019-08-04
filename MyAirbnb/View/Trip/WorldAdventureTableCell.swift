@@ -21,7 +21,7 @@ class WorldAdventureTableCell: UITableViewCell {
         static let linesOnScreen: CGFloat = 2
         static let lineSpacing: CGFloat = 15.0
         static let itemSpacing: CGFloat = 13.0
-        static let edgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
+        static let edgeInsets = UIEdgeInsets(top: 15, left: 20, bottom: 0, right: 20)
     }
     
     let title: UILabel = {
@@ -67,7 +67,7 @@ class WorldAdventureTableCell: UITableViewCell {
     }()
     
     weak var delegate: WorldAdventureTableCellDelegate?
-    
+    var globalAdventureDataArray = [BestTrip]()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -101,7 +101,7 @@ class WorldAdventureTableCell: UITableViewCell {
     
     private func setAutolayout() {
         title.snp.makeConstraints { (make) in
-            make.top.equalTo(30)
+            make.top.equalTo(35)
             make.leading.equalTo(20)
         }
         
@@ -112,16 +112,23 @@ class WorldAdventureTableCell: UITableViewCell {
         }
         
         seeAllbtn.snp.makeConstraints { (make) in
-            make.bottom.equalTo(-10)
+            make.top.equalTo(collectionView.snp.bottom).offset(20)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.9)
             make.height.equalTo(50)
+            make.bottom.equalTo(-20)
         }
+        
+        let cellWidth = (UIScreen.main.bounds.width - 40 - 13) / 2
+        let cellHeight = cellWidth * 1.9
+        
+        let collectionHeight = cellHeight + 15 + 5
+//            ((cellHeight + 15) * CGFloat(globalAdventureDataArray.count / 2)) + 10
         
         collectionView.snp.makeConstraints { (make) in
             make.top.equalTo(descLabel.snp.bottom).offset(10)
             make.leading.trailing.equalToSuperview()
-            make.bottom.equalTo(seeAllbtn.snp.top).offset(-10)
+            make.height.equalTo(collectionHeight)
         }
     }
 }
@@ -131,21 +138,13 @@ class WorldAdventureTableCell: UITableViewCell {
 
 extension WorldAdventureTableCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return globalAdventureDataArray.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let adventureCell = collectionView.dequeueReusableCell(withReuseIdentifier: WorldAdventureCollectionCell.identifier, for: indexPath) as! WorldAdventureCollectionCell
 
-        adventureCell.imageView.image = UIImage(named: worldAdventureDatas[indexPath.row].image)
-        adventureCell.categoryLabel.text = worldAdventureDatas[indexPath.row].category
-        adventureCell.titleLabel.text = worldAdventureDatas[indexPath.row].title
-        
-        if worldAdventureDatas[indexPath.row].rate != 0 {
-            adventureCell.starImage.image = UIImage(named: "star")
-            adventureCell.rateLabel.text = String(worldAdventureDatas[indexPath.row].rate!)
-            adventureCell.noOfReviewLabel.text = "(\(worldAdventureDatas[indexPath.row].noOfReview!))"
-        }
+        adventureCell.setData(worldAdventureData: globalAdventureDataArray[indexPath.row])
         
         return adventureCell
     }
@@ -164,16 +163,12 @@ extension WorldAdventureTableCell: UICollectionViewDelegate {
 extension WorldAdventureTableCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let lineSpacing = UI.lineSpacing * (UI.linesOnScreen - 1)
-        let horizontalInset = UI.edgeInsets.left + UI.edgeInsets.right
         let itemSpacing = UI.itemSpacing * (UI.itemsInLine - 1)
-        let verticalInset = UI.edgeInsets.top + UI.edgeInsets.bottom
-        
+        let horizontalInset = UI.edgeInsets.left + UI.edgeInsets.right
         let horizontalSpacing = itemSpacing + horizontalInset
-        let cellWidth: CGFloat = ((collectionView.frame.width - horizontalSpacing) / UI.itemsInLine)
         
-        let verticalSpacing = lineSpacing + verticalInset
-        let cellHeight = (collectionView.frame.height - verticalSpacing) / UI.linesOnScreen
+        let cellWidth: CGFloat = ((collectionView.frame.width - horizontalSpacing) / UI.itemsInLine)
+        let cellHeight = cellWidth * 1.9
         
         let roundedWidth = cellWidth.rounded(.down)
         let roundedHeight = cellHeight.rounded(.down)
@@ -181,22 +176,3 @@ extension WorldAdventureTableCell: UICollectionViewDelegateFlowLayout {
         return CGSize(width: roundedWidth, height: roundedHeight)
     }
 }
-
-// MARK: - Struct
-
-struct WorldAdventureData {
-    var image: String
-    var category: String
-    var title: String
-    var rate: Double?
-    var noOfReview: Int?
-}
-
-let worldAdventureDatas: [WorldAdventureData] = [
-    
-    WorldAdventureData(image: "worldAdventure1", category: "6일 여행 코스 · 푸에르토아요라", title: "갈라파고스 슬로푸드 사파리", rate: 0, noOfReview: 0),
-    WorldAdventureData(image: "worldAdventure2", category: "4일 여행 코스 · 뉘셰핑", title: "스웨덴의 섬에서 즐기는 카약과 맛있는 요리", rate: 0, noOfReview: 0),
-    WorldAdventureData(image: "worldAdventure3", category: "6일 여행 코스 · PUERTO NATALES", title: "6 Days Accessible Experience Patagonia", rate: 0, noOfReview: 0),
-    WorldAdventureData(image: "worldAdventure4", category: "1박 2일 여행 · 케이프타운", title: "The Vino Valleys Experience", rate: 4.96, noOfReview: 276)
-]
-

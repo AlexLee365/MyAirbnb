@@ -123,3 +123,5 @@ class AllInterestCollectionCell: UICollectionViewCell {
         descLabel.text = subTripCategoryData.subTripCategoryDescription
     }
 }
+
+

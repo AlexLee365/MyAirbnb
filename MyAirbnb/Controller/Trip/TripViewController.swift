@@ -50,6 +50,9 @@ class TripViewController: UIViewController {
         getServerData()
     }
     
+    var numberOfRows = 0
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
@@ -116,10 +119,10 @@ class TripViewController: UIViewController {
     let netWork = NetworkCommunicator()
     let jsonDecoder = JSONDecoder()
     
-    var otherStateDataInList = [OtherStateDataInList]()
+    var tripMainViewData: TripMainViewData?
     
     func getServerData() {
-        let urlString = netWork.basicUrlString + "/trip/state/"
+        let urlString = netWork.basicUrlString + "/trip/main/"
         
         netWork.getJsonObjectFromAPI(urlString: urlString, urlForSpecificProcessing: nil) { (json, success) in
             
@@ -133,12 +136,17 @@ class TripViewController: UIViewController {
                 return
             }
             
-            guard let result = try? self.jsonDecoder.decode([OtherStateDataInList].self, from: data) else {
-                print("‼️ moveToHouseDetail noti result decoding convert error")
+            guard let result = try? self.jsonDecoder.decode(TripMainViewData.self, from: data) else {
+                print("‼️ TripViewController noti result decoding convert error")
                 return
             }
             
-            self.otherStateDataInList = result
+            self.tripMainViewData = result
+            self.numberOfRows = 6
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         }
     }
 }
@@ -148,7 +156,7 @@ class TripViewController: UIViewController {
 
 extension TripViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
+        return numberOfRows
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -163,19 +171,24 @@ extension TripViewController: UITableViewDataSource {
             
         case 1:
             let specialTripCell = tableView.dequeueReusableCell(withIdentifier: SpecialTripTableViewCell.identifier, for: indexPath) as! SpecialTripTableViewCell
+            
+            specialTripCell.mainCategoryListDataArray = tripMainViewData?.mainCategories ?? []
+            
             return specialTripCell
             
         case 2:
-            let seoulRecommendedTripCell = tableView.dequeueReusableCell(withIdentifier: SeoulRecommenedTripTableViewCell.identifier, for: indexPath) as! SeoulRecommenedTripTableViewCell
+            let mainRecommendedTripCell = tableView.dequeueReusableCell(withIdentifier: SeoulRecommenedTripTableViewCell.identifier, for: indexPath) as! SeoulRecommenedTripTableViewCell
             
-            seoulRecommendedTripCell.delegate = self
+            mainRecommendedTripCell.delegate = self
+            mainRecommendedTripCell.globalRecommendedTripDataArray = tripMainViewData?.globalRecommendTrip ?? []
             
-            return seoulRecommendedTripCell
+            return mainRecommendedTripCell
             
         case 3:
             let worldAdventureCell = tableView.dequeueReusableCell(withIdentifier: WorldAdventureTableCell.identifier, for: indexPath) as! WorldAdventureTableCell
             
             worldAdventureCell.delegate = self
+            worldAdventureCell.globalAdventureDataArray = tripMainViewData?.globalAdventureTrip ?? []
             
             return worldAdventureCell
             
@@ -187,6 +200,7 @@ extension TripViewController: UITableViewDataSource {
             let otherCityTripCell = tableView.dequeueReusableCell(withIdentifier: OtherCityTripTableCell.identifier, for: indexPath) as! OtherCityTripTableCell
             
             otherCityTripCell.delegate = self
+            otherCityTripCell.stateListArray = tripMainViewData?.stateArray ?? []
             
             return otherCityTripCell
             
@@ -226,9 +240,9 @@ extension TripViewController: UITableViewDelegate {
         case 1:
             return 530
         case 2:
-            return 555
+            return 510
         case 3:
-            return 810
+            return UITableView.automaticDimension
         case 4:
            return 900
         case 5:
@@ -254,8 +268,11 @@ extension TripViewController: TripIntroTableViewCellDelegate {
 // MARK: - SeoulRecommenedTripTableViewCellDelegate
 
 extension TripViewController: SeoulRecommenedTripTableViewCellDelegate {
-    func pushVC() {
+    func pushVC(tripDetails: BestTrip) {
         let detailVC = SeoulRecommendedDetailViewController()
+        
+        detailVC.tripDetailUrl = tripDetails.url
+        
         navigationController?.pushViewController(detailVC, animated: true)
     }
     
@@ -278,12 +295,10 @@ extension TripViewController: WorldAdventureTableCellDelegate {
 // MARK: - OtherCityTripTableCellDelegate
 
 extension TripViewController: OtherCityTripTableCellDelegate {
-    func pushToSearchMainVC(stateName: String) {
+    func pushToSearchMainVC(state: State) {
         let tripSearchMainVC = TripSearchMainViewController()
 
-        let filteredStateDataInList = otherStateDataInList.filter { $0.name == stateName }
-        
-        filteredStateDataInList.compactMap { tripSearchMainVC.searchUrl = $0.url }
+        tripSearchMainVC.searchUrl = state.url
         
         navigationController?.pushViewController(tripSearchMainVC, animated: false)
     }

@@ -1,44 +1,62 @@
 //
-//  TripTestData.swift
+//  TripDetailData.swift
 //  MyAirbnb
 //
-//  Created by Solji Kim on 01/08/2019.
+//  Created by Solji Kim on 04/08/2019.
 //  Copyright © 2019 Alex Lee. All rights reserved.
 //
 
 import Foundation
 
-struct TripTestData: Codable {
-    let url: String
-    let host, tripCategory, compatibility, technic: String
-    let strength: String
-    let tripReviews: [TripReview]
-    let schedules: [Schedule]
-    let provides: [Provide]
-    let name: String
-    let durationTime: Int
-    let hostAbout, program, placeInfo, address: String
-    let guestMaterial: String
-    let image1, image2, image3, image4: String?
-    let image5, image6, image7: String?
-    let minAge: Int
-    let additionalContition: String
-    let certification: Bool
-    let maxGuest, price, ratingScore: Int
-    let state: String
+// MARK: - TripDetailData
+struct TripDetailData: Codable {
+    let tripDetail: TripDetail
+    let myReservation: [String]
     
     enum CodingKeys: String, CodingKey {
-        case url, host
-        case tripCategory = "trip_category"
-        case compatibility, technic, strength
-        case tripReviews = "trip_reviews"
-        case schedules, provides, name
+        case tripDetail = "trip_detail"
+        case myReservation = "my_reservation"
+    }
+}
+
+// MARK: - TripDetail
+struct TripDetail: Codable {
+    let pk: Int
+    let name, subCategory, detailCategory, state: String
+    let durationTime: Int
+    let language: String
+    let provides: [Provide?]
+    let schedules: [Schedule]
+    let tripReviews: [TripReview]
+    let host, hostAbout, program, additionalCondition: String
+    let guestMaterial, address, placeInfo: String
+    let minAge, maxGuest: Int
+    let certification: Bool
+    let price, ratingScore: Int
+    let compatibility, strength, technic: String
+    let image1, image2, image3, image4, image5, image6, image7: String?
+    var scrollImagesArray = [UIImage]()
+    
+    enum CodingKeys: String, CodingKey {
+        case pk, name
+        case subCategory = "sub_category"
+        case detailCategory = "detail_category"
+        case state
         case durationTime = "duration_time"
+        case language, provides, schedules
+        case tripReviews = "trip_reviews"
+        case host
         case hostAbout = "host_about"
         case program
-        case placeInfo = "place_info"
-        case address
+        case additionalCondition = "additional_condition"
         case guestMaterial = "guest_material"
+        case address
+        case placeInfo = "place_info"
+        case minAge = "min_age"
+        case maxGuest = "max_guest"
+        case certification, price
+        case ratingScore = "rating_score"
+        case compatibility, strength, technic
         case image1 = "image_1"
         case image2 = "image_2"
         case image3 = "image_3"
@@ -46,20 +64,12 @@ struct TripTestData: Codable {
         case image5 = "image_5"
         case image6 = "image_6"
         case image7 = "image_7"
-        case minAge = "min_age"
-        case additionalContition = "additional_contition"
-        case certification
-        case maxGuest = "max_guest"
-        case price
-        case ratingScore = "rating_score"
-        case state
     }
 }
 
 // MARK: - Provide
 struct Provide: Codable {
-    let provideSet: Int
-    let provideDescription: String
+    let provideSet, provideDescription: String
     
     enum CodingKeys: String, CodingKey {
         case provideSet = "provide_set"

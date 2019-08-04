@@ -84,13 +84,17 @@ class VideoView: UIView {
     }()
     
     var player: AVPlayer = {
-        let url = URL(string: "http://tetris.dicemono.xyz/test.mp4")!
+//        let url = URL(string: "http://tetris.dicemono.xyz/test.mp4")!
+        let url = URL(string: "https://a0.muscache.com/v/c9/10/c910f424-fd69-5640-bbe4-38eae799716c/c910f424fd695640bbe438eae799716c_1500k_1.mp4")!
+ 
         let playerItem = AVPlayerItem(url: url)
         let player = AVPlayer(playerItem: playerItem)
         return player
     }()
     
-    var url: URL = URL(string: "http://tetris.dicemono.xyz/test.mp4")! {
+//    var url: URL = URL(string: "http://tetris.dicemono.xyz/test.mp4")! {
+    var url: URL =
+        URL(string: "https://a0.muscache.com/v/c9/10/c910f424-fd69-5640-bbe4-38eae799716c/c910f424fd695640bbe438eae799716c_1500k_1.mp4")! {
         didSet {
             let playerItem = AVPlayerItem(url: url)
             player = AVPlayer(playerItem: playerItem)
