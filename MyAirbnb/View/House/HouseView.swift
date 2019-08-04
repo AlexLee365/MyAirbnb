@@ -28,6 +28,8 @@ class HouseView: UIView {
     var houseViewDatas = [HouseViewData]()
     var normalHouseDataArray = [HouseDataInList]()
     
+    var useCase: (UseCase, UIViewController) = (.inHouseVC, UIViewController())
+    
     var flag = false {
         didSet {
             if flag == false {
@@ -180,6 +182,10 @@ extension HouseView: UITableViewDelegate {
         let houseData = normalHouseDataArray[indexPath.row - otherCellStylesCount]
         
         notiCenter.post(name: .moveToHouseDetailView, object: nil,
-                        userInfo: ["roomID": houseData.id, "type": houseData.roomType, "houseName": houseData.title])
+                        userInfo: ["roomID": houseData.id,
+                                   "type": houseData.roomType,
+                                   "houseName": houseData.title,
+                                   SingletonCommonData.notiKeySearchBarUseCase: useCase.0,
+                                   SingletonCommonData.notiKeySearchBarInController: useCase.1])
     }
 }

@@ -30,11 +30,16 @@ class HouseDetailViewController: UIViewController {
     var imageArray = [UIImage]()
     var cellCountAfterDataRoad = 0
     var roomID = 0
-    var isDateSelected = false
+
+    var isDateSelected = false {
+        didSet {
+            bottomView.isDateSelected = self.isDateSelected
+        }
+    }
+    var selectedFilterInfo = ([Date](), 1)  // 선택된 필터정보 (날짜배열, 게스트인원)
     
     var typeLablePlaceholder = ""
     var nameLabelPlaceholder = ""
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,7 +80,7 @@ class HouseDetailViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        print("🔵🔵🔵 selectedDates: ", selectedFilterInfo.0)
     }
     
     private func setAutoLayout() {
@@ -119,27 +124,33 @@ class HouseDetailViewController: UIViewController {
         tableView.estimatedRowHeight = 50
         
 //        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-//        bottomView.isDateSelected = isDateSelected
-        bottomView.isDateSelected = true
-        isDateSelected = true
+        bottomView.isDateSelected = isDateSelected
+//        bottomView.isDateSelected = true
+//        isDateSelected = true
         bottomView.reserveBtn.addTarget(self, action: #selector(reserveBtnDidTap(_:)), for: .touchUpInside)
         bottomView.alpha = 0
     }
     
     private func setBottomViewData() {
         guard let data = houseDetailData else { return }
+        print("🔴🔴🔴 SetBottomViewData: ", data)
         bottomView.price = data.price
         bottomView.rate = data.drawStarsWithHouseRate()
         bottomView.rateCount = data.reservations.count
     }
     
     @objc private func reserveBtnDidTap(_ sender: UIButton) {
+        // 예약 요청 & 날짜 입력 버튼
         switch isDateSelected {
         case true:
+            // 날짜가 이미 선택되있으면 => 예약요청
             let reserveInfoVC = HouseDetailReserveInfoViewController()
+            reserveInfoVC.selectedFilterInfo = selectedFilterInfo
+            reserveInfoVC.houseDetailData = houseDetailData
             let navi = UINavigationController(rootViewController: reserveInfoVC)
             present(navi, animated: true)
         case false:
+            // 날짜가 이미 선택되어있지않으면 =>  날짜선택
             let calendarVC = HouseDetailCalendarViewController()
             calendarVC.houseDetailData = self.houseDetailData
             present(calendarVC, animated: true)

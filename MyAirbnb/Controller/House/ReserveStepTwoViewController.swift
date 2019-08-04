@@ -75,6 +75,8 @@ class ReserveStepTwoViewController: UIViewController {
     }()
     
     let noti = NotificationCenter.default
+    var houseDetailData: HouseDetailData?
+    var selectedFilterInfo = ([Date](), 1)
     
     
     override func viewDidLoad() {
@@ -83,6 +85,11 @@ class ReserveStepTwoViewController: UIViewController {
         configure()
         setAutolayout()
         addNotificationObserver()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
     }
     
     private func configure() {
@@ -98,7 +105,9 @@ class ReserveStepTwoViewController: UIViewController {
         tableView.addGestureRecognizer(panGestureRecognizer)
         view.addSubview(tableView)
         
-        bottomView.priceLabel.attributedText = attributedText(first: "₩162,007 ", second: "1박")
+        let totalPrice = (houseDetailData?.price ?? 0) * (selectedFilterInfo.0.count - 1)
+        bottomView.priceLabel.attributedText = attributedText(first: "₩\(String(totalPrice).limitFractionDigits()) ", second: "\(selectedFilterInfo.0.count - 1)박")
+        
         bottomView.reserveBtn.addTarget(self, action: #selector(nextBtnDidTap(_:)), for: .touchUpInside)
         view.addSubview(bottomView)
         
@@ -110,6 +119,8 @@ class ReserveStepTwoViewController: UIViewController {
     
     @objc private func nextBtnDidTap(_ sender: UIButton) {
         let stepThreeVC = ReserveStepThreeViewController()
+        stepThreeVC.houseDetailData = self.houseDetailData
+        stepThreeVC.selectedFilterInfo = self.selectedFilterInfo
         navigationController?.pushViewController(stepThreeVC, animated: true)
     }
     

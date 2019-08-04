@@ -46,10 +46,9 @@ class HouseViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
-        searchBarView.useCase = .inHouseVC
-        searchBarView.inController = self
-        searchBarTableView.useCase = .inHouseVC
-        searchBarTableView.inController = self
+        searchBarView.useCase = (.inHouseVC, self)
+        searchBarTableView.useCase = (.inHouseVC, self)
+        houseView.useCase = (.inHouseVC, self)
     }
     
     override func viewWillDisappear(_ animated: Bool) {

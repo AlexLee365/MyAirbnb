@@ -108,18 +108,21 @@ class HouseBottomView: UIView {
     
     var price = 0 {
         didSet {
-            let value = limitFractionDigits(to: String(price) ?? "")
+            let value = limitFractionDigits(to: String(price))
             priceLabel.attributedText = attributedText(first: "₩\(value) ", second: "/박")
+            priceLabelBefore.attributedText = attributedText(first: "₩\(value) ", second: "/박")
         }
     }
     var rate = "" {
         didSet {
             starImageLabel.text = rate
+            starLabelBefore.text = rate
         }
     }
     var rateCount = 0 {
         didSet {
             noOfReviewLabel.text = "\(rateCount)"
+            noOfReviewLabelBefore.text = "\(rateCount)"
         }
     }
     

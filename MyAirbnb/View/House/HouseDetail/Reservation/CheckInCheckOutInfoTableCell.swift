@@ -58,6 +58,35 @@ class CheckInCheckOutInfoTableCell: UITableViewCell {
             make.trailing.bottom.equalTo(-20)
         }
     }
+    
+    func setData(houseData: HouseDetailData, selectedDates: [Date]) {
+        let componentFirstDay = Calendar.current.dateComponents([.month, .day, .weekday], from: selectedDates.first ?? Date())
+        let componentLastDay = Calendar.current.dateComponents([.month, .day, .weekday], from: selectedDates.last ?? Date())
+        let weekDayArray = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"]
+        
+        checkInView.monthLabel.text = "\(componentFirstDay.month ?? 0)월"
+        checkInView.dateLabel.text = "\(componentFirstDay.day ?? 0)일"
+        
+        checkOutView.monthLabel.text = "\(componentLastDay.month ?? 0)월"
+        checkOutView.dateLabel.text = "\(componentLastDay.day ?? 0)일"
+
+        guard var checkInTime = houseData.checkIn, var checkOutTime = houseData.checkOut else {
+            print("‼️ checkinTime checkOutTime no value ")
+            return
+        }
+        checkInTime.removeLast()
+        checkInTime.removeLast()
+        checkInTime.removeLast()
+        checkInView.dayLabel.text = "\(weekDayArray[(componentFirstDay.weekday ?? 1 ) - 1] )"
+        checkInView.timeLabel.text = "\(checkInTime)이후"
+        
+        
+        checkOutTime.removeLast()
+        checkOutTime.removeLast()
+        checkOutTime.removeLast()
+        checkOutView.dayLabel.text = "\(weekDayArray[(componentLastDay.weekday ?? 1 ) - 1])"
+        checkOutView.timeLabel.text = "\(checkOutTime)"
+    }
 }
 
 
@@ -157,4 +186,6 @@ class CheckInOutInfoView: UIView {
             make.leading.equalTo(dayLabel.snp.leading)
         }
     }
+    
+    
 }

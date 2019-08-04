@@ -26,6 +26,8 @@ class LaunchScreenViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("🔵🔵🔵 UserID: \(UserDefaults.standard.string(forKey: SingletonCommonData.userDefaultIDKey) ?? "") / UserNumber: \(UserDefaults.standard.integer(forKey: SingletonCommonData.userDefaultIDNumber)) / UserToekn: \(UserDefaults.standard.string(forKey: SingletonCommonData.userDefaultTokenKey) ?? "")")
+        
         setAutoLayout()
         configureViewsOptions()
         startAnimation()
@@ -41,6 +43,7 @@ class LaunchScreenViewController: UIViewController {
             self.getEntireServerData {
                 DispatchQueue.main.async {
                     let tabbarVC = TabbarController()
+                    SingletonCommonData.shared.tabbarController = tabbarVC
                     guard let naviVC = tabbarVC.viewControllers!.first as? UINavigationController
                         , let mainVC = naviVC.viewControllers.first as? MainViewController else {
                             print("LaunchVC naviVC, mainVC convert error")
@@ -209,19 +212,44 @@ extension LaunchScreenViewController {
     // =================================== Get ServerData Function ===================================
     
     private func getEntireServerData(completion: @escaping () -> ()) {
-        getServerHouseData {
-            self.mainViewDataArray.append(MainViewData(data: self.houseDataArray, cellStyle: .fourSquare))
-            
-            self.getServerStatesData {
-                completion()
+        let dispatchGroup = DispatchGroup()
+        let globalQueue = DispatchQueue.global()
+        
+        dispatchGroup.enter()
+        globalQueue.async {
+            print("🔸🔸🔸 grou getServerHouseData statrted ")
+            self.getServerHouseData {
+                self.mainViewDataArray.append(MainViewData(data: self.houseDataArray, cellStyle: .fourSquare))
+                print("🔸🔸🔸 gorup getServerHouseData Finished ")
+                dispatchGroup.leave()
             }
+        }
+        
+        dispatchGroup.enter()
+        globalQueue.async {
+            print("🔸🔸🔸 gerserverStatesData started ")
+            self.getServerStatesData {
+                print("🔸🔸🔸 getServerStatesData Finished ")
+                dispatchGroup.leave()
+            }
+        }
+        
+        dispatchGroup.enter()
+        globalQueue.async {
+            print("🔸🔸🔸 Third Thread finished ")
+            dispatchGroup.leave()
+        }
+        
+        dispatchGroup.notify(queue: DispatchQueue.main) {
+            print("🔸🔸🔸 All downloading finisehd ")
+            completion()
         }
     }
     
     
     private func getServerHouseData(completion: @escaping () -> ()) {
         let urlString = netWork.basicUrlString
-            + "/rooms/?search=seoul&ordering=price&page_size=5&page=1"
+            + "/rooms/?search=korea&ordering=total_rating&page_size=10&page=1"
         
         netWork.getJsonObjectFromAPI(urlString: urlString, urlForSpecificProcessing: nil) { (json, success) in
             guard success else {

@@ -70,6 +70,26 @@ extension UILabel {
         self.attributedText = attributedString
     }
     
+    func attributedText(firstTextAndFont: (String, UIFont), secondTextAndFont: (String, UIFont)) {
+        // 레이블 안에서 폰트와 사이즈를 두가지로 적용
+        let string = firstTextAndFont.0 + secondTextAndFont.0 as NSString
+        let result = NSMutableAttributedString(string: string as String)
+        let attributesForFirstWord = [
+            NSAttributedString.Key.font : firstTextAndFont.1,
+            NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
+            ] as [NSAttributedString.Key : Any]
+        
+        let attributesForSecondWord = [
+            NSAttributedString.Key.font : secondTextAndFont.1,
+            NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.370555222, green: 0.3705646992, blue: 0.3705595732, alpha: 1)
+            ] as [NSAttributedString.Key : Any]
+        
+        result.setAttributes(attributesForFirstWord, range: string.range(of: firstTextAndFont.0))
+        result.setAttributes(attributesForSecondWord, range: string.range(of: secondTextAndFont.0))
+        
+        self.attributedText = NSAttributedString(attributedString: result)
+    }
+    
     
     // MARK: - For read more action
     

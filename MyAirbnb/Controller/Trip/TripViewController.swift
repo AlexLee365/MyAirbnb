@@ -58,7 +58,7 @@ class TripViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         tabBarController?.tabBar.isHidden = false
-        searchBarView.useCase = .inTripVC
+        searchBarView.useCase = (.inTripVC, self)
     }
     
     override func viewWillDisappear(_ animated: Bool) {

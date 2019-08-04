@@ -157,8 +157,14 @@ class AllHousesTableCell: UITableViewCell {
     }
     
     @objc private func scrollViewDidTapGesture(_ sender: UITapGestureRecognizer) {
+        guard let houseVC = self.superview?.superview as? HouseView else { print("‼️ : "); return }
+        
         notiCenter.post(name: .moveToHouseDetailView, object: nil,
-                        userInfo: ["roomID": houseData?.id, "type": houseData?.roomType, "houseName": houseData?.title])
+                        userInfo: ["roomID": houseData?.id,
+                                   "type": houseData?.roomType,
+                                   "houseName": houseData?.title,
+                                   SingletonCommonData.notiKeySearchBarUseCase: houseVC.useCase.0,
+                                   SingletonCommonData.notiKeySearchBarInController: houseVC.useCase.1])
     }
     
     

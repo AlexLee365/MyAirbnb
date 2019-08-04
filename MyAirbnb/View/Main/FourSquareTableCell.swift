@@ -93,7 +93,7 @@ class FourSquareTableCell: UITableViewCell {
 
 extension FourSquareTableCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return normalHouseDataArray.count
+        return 4
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -112,10 +112,15 @@ extension FourSquareTableCell: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let mainVC = self.superview?.superview as? MainView else { print("‼️ : "); return }
         let data = normalHouseDataArray[indexPath.row]
         
         notiCenter.post(name: .moveToHouseDetailView, object: nil,
-                        userInfo: ["roomID": data.id, "type": data.roomType, "houseName": data.title])
+                        userInfo: ["roomID": data.id,
+                                   "type": data.roomType,
+                                   "houseName": data.title,
+                                   SingletonCommonData.notiKeySearchBarUseCase: mainVC.useCase.0,
+                                   SingletonCommonData.notiKeySearchBarInController: mainVC.useCase.1])
     }
     
     

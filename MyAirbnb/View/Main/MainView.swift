@@ -17,7 +17,7 @@ class MainView: UIView {
     let netWork = NetworkCommunicator()
     
     var mainViewDatas = [MainViewData]()
-    
+    var useCase: (UseCase, UIViewController) = (.inMainVC, UIViewController())
     
     override init(frame: CGRect) {
         super.init(frame: frame)

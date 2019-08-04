@@ -20,8 +20,7 @@ class SearchBarTableView: UIView {
         }
     }
     let notiCenter = NotificationCenter.default
-    var useCase: UseCase = .inMainVC
-    var inController: UIViewController = UIViewController()
+    var useCase: (UseCase, UIViewController) = (.inMainVC, UIViewController())
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -76,14 +75,14 @@ extension SearchBarTableView: UITableViewDelegate, UITableViewDataSource {
         print(state)
         notiCenter.post(name: .searchBarTableCellSelected,
                         object: state,
-                        userInfo: [SingletonCommonData.notiKeySearchBarUseCase: useCase,
-                                   SingletonCommonData.notiKeySearchBarInController: inController])
+                        userInfo: [SingletonCommonData.notiKeySearchBarUseCase: useCase.0,
+                                   SingletonCommonData.notiKeySearchBarInController: useCase.1])
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         notiCenter.post(name: .searchBarTableViewScrolled,
                         object: nil,
-                        userInfo: [SingletonCommonData.notiKeySearchBarUseCase: useCase,
-                                   SingletonCommonData.notiKeySearchBarInController: inController])
+                        userInfo: [SingletonCommonData.notiKeySearchBarUseCase: useCase.0,
+                                   SingletonCommonData.notiKeySearchBarInController: useCase.1])
     }
 }

@@ -33,7 +33,7 @@ class PriceOverviewTableCell: UITableViewCell {
     
     
     let infoArr = [("₩388,552 x 5박", "₩1,942,760"), ("청소비", "₩70,895"), ("서비스 수수료", "₩90,982"), ("숙박세와 수수료", "₩99,253")]
-    var infoLabelArray = [UIView]()
+    var infoLabelArray = [taxLabelView]()
     
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -131,5 +131,21 @@ class PriceOverviewTableCell: UITableViewCell {
         result.setAttributes(attributesForSecondWord, range: string.range(of: second))
         
         return NSAttributedString(attributedString: result)
+    }
+    
+    func setData(oneDayPrice: Int, stayDays: Int) {
+        infoLabelArray[0].titleLabel.text = "₩ \(String(oneDayPrice).limitFractionDigits()) X \(stayDays)박"
+        let stayDaysPrice = oneDayPrice * stayDays
+        infoLabelArray[0].priceLabel.text = "₩ " + String(stayDaysPrice).limitFractionDigits()
+        let cleanPrice = 10000 * stayDays
+        infoLabelArray[1].priceLabel.text = "₩ \(cleanPrice)"
+        let serviceTax = stayDaysPrice / 10
+        infoLabelArray[2].priceLabel.text = "₩ \(serviceTax)"
+        let stayTax = stayDaysPrice / 10
+        infoLabelArray[3].priceLabel.text = "₩ \(stayTax)"
+        
+        let totalPrice = stayDaysPrice + cleanPrice + serviceTax + stayTax
+        totalPriceLabel.text = "₩ \(totalPrice)"
+        SingletonCommonData.shared.tempValue = totalPrice
     }
 }

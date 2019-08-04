@@ -61,16 +61,20 @@ class ReserveStepOneViewController: UIViewController {
         return view
     }()
     
+    var houseDetailData: HouseDetailData?
+    var selectedFilterInfo = ([Date](), 1)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         configure()
         setAutolayout()
+        print("🔵🔵🔵 housedetailData: ", houseDetailData)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
+        tableView.reloadData()
     }
     
     private func configure() {
@@ -81,15 +85,20 @@ class ReserveStepOneViewController: UIViewController {
         
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.allowsSelection = false
         view.addSubview(tableView)
         
-        bottomView.priceLabel.attributedText = attributedText(first: "₩162,007 ", second: "1박")
+        let totalPrice = (houseDetailData?.price ?? 0) * (selectedFilterInfo.0.count - 1)
+        bottomView.priceLabel.attributedText = attributedText(firstTextAndSize: ("₩\(String(totalPrice).limitFractionDigits()) ", 17),
+                                                              secondTextAndSize: ("\(selectedFilterInfo.0.count - 1)박", 16))
         bottomView.reserveBtn.addTarget(self, action: #selector(nextBtnDidTap(_:)), for: .touchUpInside)
         view.addSubview(bottomView)
     }
     
     @objc private func nextBtnDidTap(_ sender: UIButton) {
         let stepTwoVC = ReserveStepTwoViewController()
+        stepTwoVC.houseDetailData = self.houseDetailData
+        stepTwoVC.selectedFilterInfo = self.selectedFilterInfo
         navigationController?.pushViewController(stepTwoVC, animated: true)
     }
     
@@ -113,21 +122,21 @@ class ReserveStepOneViewController: UIViewController {
         }
     }
     
-    private func attributedText(first: String, second: String) -> NSAttributedString{
-        let string = first + second as NSString
+    private func attributedText(firstTextAndSize: (String, CGFloat), secondTextAndSize: (String, CGFloat)) -> NSAttributedString{
+        let string = firstTextAndSize.0 + secondTextAndSize.0 as NSString
         let result = NSMutableAttributedString(string: string as String)
         let attributesForFirstWord = [
-            NSAttributedString.Key.font : UIFont(name: "AirbnbCerealApp-Bold", size: 17) ?? "",
+            NSAttributedString.Key.font : UIFont(name: "AirbnbCerealApp-Bold", size: firstTextAndSize.1) ?? "",
             NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
             ] as [NSAttributedString.Key : Any]
         
         let attributesForSecondWord = [
-            NSAttributedString.Key.font : UIFont(name: "AirbnbCerealApp-Book", size: 16) ?? "",
+            NSAttributedString.Key.font : UIFont(name: "AirbnbCerealApp-Book", size: secondTextAndSize.1) ?? "",
             NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.370555222, green: 0.3705646992, blue: 0.3705595732, alpha: 1)
             ] as [NSAttributedString.Key : Any]
         
-        result.setAttributes(attributesForFirstWord, range: string.range(of: first))
-        result.setAttributes(attributesForSecondWord, range: string.range(of: second))
+        result.setAttributes(attributesForFirstWord, range: string.range(of: firstTextAndSize.0))
+        result.setAttributes(attributesForSecondWord, range: string.range(of: secondTextAndSize.0))
         
         return NSAttributedString(attributedString: result)
     }
@@ -142,12 +151,15 @@ extension ReserveStepOneViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let houseData = houseDetailData else { print("‼️ houseData convert error "); return UITableViewCell() }
+        
         switch indexPath.row {
         case 0:
             let stepTitleCell = tableView.dequeueReusableCell(withIdentifier: StepOneTitleTableCell.identifier, for: indexPath) as! StepOneTitleTableCell
             return stepTitleCell
         case 1:
             let checkInOutInfoCell = tableView.dequeueReusableCell(withIdentifier: CheckInCheckOutInfoTableCell.identifier, for: indexPath) as! CheckInCheckOutInfoTableCell
+            checkInOutInfoCell.setData(houseData: houseData, selectedDates: selectedFilterInfo.0)
             return checkInOutInfoCell
         case 2:
             let cautionCell = tableView.dequeueReusableCell(withIdentifier: CautionTableCell.identifier, for: indexPath) as! CautionTableCell

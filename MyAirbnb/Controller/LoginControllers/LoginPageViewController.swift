@@ -408,21 +408,23 @@ class LoginPageViewController: UIViewController {
         let password = passwordTxtField.text ?? ""
         let getTokenClass = GetToken()
         
-        getTokenClass.getTokenFromDB(username: username, password: password) { (success, token) in
-            switch success {
-            case true:
+        getTokenClass.getTokenFromDB(username: username, password: password) { (result) in
+            switch result {
+            case .success(let value):
                 // 토큰 받아오기 성공시
                 UserDefaults.standard.set(username, forKey: SingletonCommonData.userDefaultIDKey)
-                UserDefaults.standard.set(token ?? "", forKey: SingletonCommonData.userDefaultTokenKey)
+                UserDefaults.standard.set(value.0, forKey: SingletonCommonData.userDefaultTokenKey)
+                UserDefaults.standard.set(value.1, forKey: SingletonCommonData.userDefaultIDNumber)
                 UserDefaults.standard.set(true, forKey: SingletonCommonData.userDefaultLoginStateKey)
                 
-                let launchVC = LaunchScreenViewController()
                 DispatchQueue.main.async {
+                    let launchVC = LaunchScreenViewController()
                     self.navigationController?.pushViewController(launchVC, animated: true)
                 }
                 
-            case false:
+            case .failure(let error):
                 // 토큰 받아오기 실패시
+                print("‼️ 로그인실패: ", error.localizedDescription)
                 DispatchQueue.main.async {
                     self.makeAlert(title: "로그인 실패", message: "아이디 또는 패스워드가 잘못되었습니다.")                    
                 }

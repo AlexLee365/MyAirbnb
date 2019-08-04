@@ -11,6 +11,11 @@ import SnapKit
 
 class HouseDetailCalendarViewController: UIViewController {
     
+    enum cellDateError: Error {
+        case inUnavailableDate
+        case overMaxStay
+    }
+    
     // MARK: - UI Properties
     let cancelBtn = UIButton()
     let deleteBtn = UIButton()
@@ -79,24 +84,25 @@ class HouseDetailCalendarViewController: UIViewController {
         didSet {
         }
     }
+    var unavailableDates = [Date]()
+    var unavailableDatesString = [String]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setCalendar()
         setAutoLayout()
         configureViewsOptions()
-        
-        
+        print("🔵🔵🔵 selectedArray: ", selectedDatesArray)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setUnAvailableDates()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        setReservedDates()
-        print("🔴🔴🔴 : ")
-        print("currentDate: ", currentDate)
-        dateFormatter.dateFormat = "MM-dd"
-        let a = dateFormatter.string(from: currentDate)
-        print("date String: ", a)
+//        setUnAvailableDates()
     }
     
     
@@ -118,8 +124,6 @@ class HouseDetailCalendarViewController: UIViewController {
             make.width.equalTo(60)
             make.height.equalTo(40)
         }
-        
-        
         
         // 체크인
         let sideMargin: CGFloat = 20
@@ -280,7 +284,41 @@ class HouseDetailCalendarViewController: UIViewController {
         bottomSaveBtn.backgroundColor = StandardUIValue.shared.colorBlueGreen
         bottomSaveBtn.layer.cornerRadius = 25
         bottomSaveBtn.addTarget(self, action: #selector(saveBtnDidTap(_:)), for: .touchUpInside)
+    }
+    
+    private func setUnAvailableDates() {
+        let reservationsString = houseDetailData?.reservations ?? []
+        print("--------------------------[Set Unavailable Dates]--------------------------")
+        print(reservationsString)
         
+        for reservation in reservationsString {
+            
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            guard let firstDate = dateFormatter.date(from: reservation.first ?? ""),
+                let lastDate = dateFormatter.date(from: reservation.last ?? "") else { print("‼️ : "); return }
+            unavailableDates.append(firstDate)  // 첫 날짜 배열에 저장
+            
+            let timeGap = lastDate.timeIntervalSince(firstDate)
+            let oneDayValue: TimeInterval = 3600 * 24
+            let daysGap = Int(timeGap / oneDayValue)
+            
+            for i in 1...daysGap {
+                // 첫날 이후부터 하루씩 더해서 배열에 저장
+                let day = Calendar.current.date(byAdding: .day, value: i, to: firstDate) ?? Date()
+                unavailableDates.append(day)
+            }
+        }
+        
+        
+        print("datesArray: ", unavailableDates)
+        for date in unavailableDates {
+            dateFormatter.dateFormat = "MM-dd"
+            let dateString = dateFormatter.string(from: date)
+            unavailableDatesString.append(dateString)
+        }
+        
+        print("datesStringArray: ", unavailableDatesString)
+        calendar.reloadData()
     }
     
     @objc private func cancelBtnDidTap(_ sender: UIButton) {
@@ -295,7 +333,20 @@ class HouseDetailCalendarViewController: UIViewController {
     }
     
     @objc private func saveBtnDidTap(_ sender: UIButton) {
+        guard selectedDatesArray.count > 1 else {
+            makeAlert(title: "Message", message: "이틀 이상의 날짜를 선택해주세요.")
+            return
+        }
         
+        guard let tabbarVC = presentingViewController as? TabbarController
+            , let naviVC = tabbarVC.viewControllers?.first as? UINavigationController else { print("‼️ : "); return }
+        
+        for vc in naviVC.viewControllers {
+            guard let houseDetailVC = vc as? HouseDetailViewController else { continue }
+            houseDetailVC.selectedFilterInfo.0 = selectedDatesArray
+            houseDetailVC.isDateSelected = true
+            dismiss(animated: true)
+        }
     }
     
     private func setCalendar() {
@@ -333,18 +384,6 @@ class HouseDetailCalendarViewController: UIViewController {
         self.calendar = calendar
     }
     
-    private func setReservedDates() {
-        print("🔵🔵🔵 setReservedDates ")
-        guard let houseData = houseDetailData else { print("‼️ : "); return }
-        let dates = houseData.reservations
-        print(dates)
-        for i in dates {
-            let dateConverted = dateFormatter.date(from: i.first ?? "")
-            print("🔴🔴🔴 dateConverted: ", dateConverted)
-        }
-        
-    }
-    
     
     private func lastDayOfMonth(date: Date) -> Date {
         let calendar = Calendar.current
@@ -352,6 +391,14 @@ class HouseDetailCalendarViewController: UIViewController {
         let range = calendar.range(of: .day, in: .month, for: date)!
         components.day = range.upperBound - 1
         return calendar.date(from: components)!
+    }
+    
+    private func makeAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let action1 = UIAlertAction(title: "OK", style: .default) { _ in }
+        
+        alert.addAction(action1)
+        present(alert, animated: true)
     }
     
 }
@@ -377,14 +424,13 @@ extension HouseDetailCalendarViewController: FSCalendarDelegate, FSCalendarDataS
     }
     
     func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at monthPosition: FSCalendarMonthPosition) {
-        
         print("willDisplay cell date: ", date)
         
         dateFormatter.dateFormat = "MM-dd"
         let dateString = dateFormatter.string(from: date)
-        let todayString = dateFormatter.string(from: currentDate)
         
-        if dateString == todayString {
+        if unavailableDatesString.contains(dateString) {
+            // 표시할 날짜가 예약 불가능한 날짜에 들어가있을 경우
             cell.subtitle = ""
             cell.titleLabel.textColor = UIColor(red:0.80, green:0.80, blue:0.80, alpha:1.0)
             cell.titleLabel.font = .systemFont(ofSize: 16, weight: .regular)
@@ -409,11 +455,22 @@ extension HouseDetailCalendarViewController: FSCalendarDelegate, FSCalendarDataS
             // 이미 1개가 선택되어있을때
             print("currentCount: ", selectedDatesArray.count)
             selectedDatesArray.append(date)
-            selectedDatesArray.sort()
             
-            selectDateCells()
+            switch selectDateCells() {
+            case .success():
+                break
+            case .failure(.inUnavailableDate):
+                makeAlert(title: "Message", message: "숙박할 수 없는 날짜가 포함되어있습니다.")
+                calendar.deselect(selectedDatesArray.first ?? Date())
+                calendar.deselect(selectedDatesArray.last ?? Date())
+                selectedDatesArray.removeAll()
+            case .failure(.overMaxStay):
+                makeAlert(title: "Message", message: "\(houseDetailData?.maxStay ?? 0)박 이상 선택하실 수 없습니다.")
+                calendar.deselect(selectedDatesArray.first ?? Date())
+                calendar.deselect(selectedDatesArray.last ?? Date())
+                selectedDatesArray.removeAll()
+            }
             
-            selectedDatesArray.sort()
             print(selectedDatesArray)
         case 2...:
             // 눌렀을때 이미 2개이상이 선택되있는 상황일때
@@ -442,36 +499,49 @@ extension HouseDetailCalendarViewController: FSCalendarDelegate, FSCalendarDataS
         print(selectedDatesArray)
     }
     
-    
-    
     func calendar(_ calendar: FSCalendar, imageFor date: Date) -> UIImage? {
         let cell = calendar.cell(for: date, at: .current)
-//        guard cell?.subtitle != "" else { return UIImage(named: "star") }
         
         dateFormatter.dateFormat = "MM-dd"
         let dateString = dateFormatter.string(from: date)
-        let todayString = dateFormatter.string(from: currentDate)
         
-        if dateString == todayString {
+        if unavailableDatesString.contains(dateString) {
+            // 표시할 날짜가 예약 불가능한 날짜에 들어가있을 경우
             cell?.imageView.alpha = 0.5
             return UIImage(named: "CalendarDiagonalLine5")
         }
         
-        
         return nil
     }
     
-    private func selectDateCells() {
-        let timeGap = selectedDatesArray.last!.timeIntervalSince(selectedDatesArray.first!)
+    private func selectDateCells() -> Result<(), cellDateError> {
+        let firstSelectDay = selectedDatesArray.first ?? Date()
+        let lastSelectDay = selectedDatesArray.last ?? Date()
+        let fasterDay = (lastSelectDay > firstSelectDay) ? firstSelectDay : lastSelectDay
+        
+        var tempArray: [Date] = [firstSelectDay, lastSelectDay]
+        
+        let timeGap = (lastSelectDay > firstSelectDay) ? lastSelectDay.timeIntervalSince(firstSelectDay) : firstSelectDay.timeIntervalSince(lastSelectDay)
         let oneDayValue: TimeInterval = 3600 * 24
         let daysGap = Int(timeGap / oneDayValue)
         
+        let maxStay = houseDetailData?.maxStay ?? 0
+        
         for i in 1...daysGap {
-            let day = Calendar.current.date(byAdding: .day, value: i, to: selectedDatesArray.first!)!
-            calendar.select(day)
+            let day = Calendar.current.date(byAdding: .day, value: i, to: fasterDay) ?? Date()
             
-            guard !selectedDatesArray.contains(day) else { continue }
-            selectedDatesArray.append(day)
+            guard !tempArray.contains(day) else { continue }
+            tempArray.append(day)
+            
+            guard !unavailableDates.contains(day) else { return .failure(.inUnavailableDate)}
+            guard tempArray.count <= maxStay else { return .failure(.overMaxStay)}
         }
+        
+        selectedDatesArray = tempArray.sorted()
+        for day in selectedDatesArray {
+            calendar.select(day)
+        }
+        
+        return .success(())
     }
 }

@@ -36,17 +36,16 @@ class MainViewController: UIViewController {
         configureViewsOptions()
         addNotificationObserver()
         makeIndicatorView()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
-        searchBarView.useCase = .inMainVC
-        searchBarView.inController = self
-        searchBarTableView.useCase = .inMainVC
-        searchBarTableView.inController = self
-        
+        tabBarController?.tabBar.isHidden = false
+
+        searchBarTableView.useCase = (.inMainVC, self)
+        searchBarView.useCase = (.inMainVC, self)
+        mainView.useCase = (.inMainVC, self)
         print("🔸🔸🔸 inset: ", SingletonCommonData.shared.deviceSafeAreaInset)
     }
     
@@ -64,7 +63,7 @@ class MainViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        tabBarController?.tabBar.isHidden = false
+//        tabBarController?.tabBar.isHidden = false
     }
     
     var safeAreaInsetFlag = false
@@ -558,7 +557,7 @@ extension MainViewController {
         case Notification.Name.moveToHouseView:
             startIndicator()
             let urlString = netWork.basicUrlString
-                + "/rooms/?search=seoul&ordering=price&page_size=5&page=1"
+                + "/rooms/?search=korea&ordering=total_rating&page_size=20&page=1"
             
             netWork.getHouseServerData(urlString: urlString) { (housedataArray, success) in
                 guard let housedataArray = housedataArray else { return }
@@ -577,13 +576,32 @@ extension MainViewController {
                 , let roomID = userInfo["roomID"] as? Int
                 , let type = userInfo["type"] as? String
                 , let name = userInfo["houseName"] as? String
+                , let useCase = userInfo[SingletonCommonData.notiKeySearchBarUseCase] as? UseCase
+                , let controller = userInfo[SingletonCommonData.notiKeySearchBarInController] as? UIViewController
                 else { print("moveToHouseDetailView noti error"); return }
             
             let houseDetailVC = HouseDetailViewController()
             houseDetailVC.roomID = roomID
             houseDetailVC.nameLabelPlaceholder = name
             houseDetailVC.typeLablePlaceholder = type
-            houseDetailVC.isDateSelected = (searchBarView.selectedDatesArray.count == 0) ? false : true
+            
+            switch useCase {
+            case .inMainVC:
+                let peopleNumber = searchBarView.selectedPeople.0 + searchBarView.selectedPeople.1 + searchBarView.selectedPeople.2
+                houseDetailVC.isDateSelected = (searchBarView.selectedDatesArray.count == 0) ? false : true
+                houseDetailVC.selectedFilterInfo = (searchBarView.selectedDatesArray,
+                                                    peopleNumber == 0 ? 1 : peopleNumber)
+            case .inHouseVC:
+                guard let houseVC = controller as? HouseViewController else { print("‼️ : "); return }
+                let peopleNumber = houseVC.searchBarView.selectedPeople.0 + houseVC.searchBarView.selectedPeople.1 + houseVC.searchBarView.selectedPeople.2
+                houseDetailVC.isDateSelected = (houseVC.searchBarView.selectedDatesArray.count == 0) ? false : true
+                houseDetailVC.selectedFilterInfo = (houseVC.searchBarView.selectedDatesArray,
+                                                    peopleNumber == 0 ? 1 : peopleNumber)
+            case .inTripVC:
+                ()
+                
+            }
+            
             self.navigationController?.pushViewController(houseDetailVC, animated: false)
             
         // 숙소 Plus 상세VC 로 이동

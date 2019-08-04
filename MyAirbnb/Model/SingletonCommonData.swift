@@ -12,6 +12,7 @@ class SingletonCommonData {
     static let shared = SingletonCommonData()
     
     static let userDefaultIDKey = "UserID"
+    static let userDefaultIDNumber = "userNumber"
     static let userDefaultTokenKey = "UserToken"
     static let userDefaultLoginStateKey = "UserLoginState"
     
@@ -20,4 +21,7 @@ class SingletonCommonData {
     
     var stateArray = [String]()
     var deviceSafeAreaInset = UIEdgeInsets.zero
+    var tabbarController = UITabBarController()
+    
+    var tempValue: Any?
 }

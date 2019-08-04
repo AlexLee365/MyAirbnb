@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 class StepThreeTitleTableCell: UITableViewCell {
     static let identifier = "StepThreeTitleTableCell"
@@ -101,5 +102,16 @@ class StepThreeTitleTableCell: UITableViewCell {
             make.height.equalTo(60)
             make.bottom.equalTo(-30)
         }
+    }
+    
+    func setData(houseData: HouseDetailData , selecteData: ([Date], Int)) {
+        let componentOfFirstDay = Calendar.current.dateComponents([.month, .day], from: selecteData.0.first ?? Date())
+        let componentOfLastDay = Calendar.current.dateComponents([.month, .day], from: selecteData.0.last ?? Date())
+        
+        
+        categoryLabel.text = "\( (houseData.host.first ?? "") ?? "" )님의 \(houseData.roomType)"
+        bookingInfo.text = "\(componentOfFirstDay.month ?? 0)월 \(componentOfFirstDay.day ?? 0)일 ~ \(componentOfLastDay.month ?? 0)월 \(componentOfLastDay.day ?? 0)일, 게스트 \(selecteData.1)명 "
+        guard let url = URL(string: houseData.image ?? "") else { print("‼️ : "); return }
+        houseImageView.kf.setImage(with: url)
     }
 }

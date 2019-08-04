@@ -855,8 +855,8 @@
 			children = (
 				8D0D792222DB02D900F61F0B /* HouseViewController.swift */,
 				4353BA6822DF11CC004BD807 /* HouseDetailViewController.swift */,
-				8D4FDA5422F2C9A200E31CF5 /* HouseReviewViewController.swift */,
 				43F5AA9222F17ED0007511E1 /* HouseDetailCalendarViewController.swift */,
+				8D4FDA5422F2C9A200E31CF5 /* HouseReviewViewController.swift */,
 				8D51903322E96FE7009D6792 /* PlusViewController.swift */,
 				8D51905022EC5C1C009D6792 /* LuxeHouseViewController.swift */,
 				4313F08722E5DE0A003BB3D1 /* MapViewController.swift */,
