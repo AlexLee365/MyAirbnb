@@ -13,7 +13,7 @@ class AVFoundationViewController: UIViewController {
 
     let videoData: [[String: String]] = [
         ["image": "adventure",
-         "videoUrl": "http://tetris.dicemono.xyz/test.mp4",
+         "videoUrl": "https://a0.muscache.com/v/c9/10/c910f424-fd69-5640-bbe4-38eae799716c/c910f424fd695640bbe438eae799716c_1500k_1.mp4",
          "category": "어드벤처",
          "title": "갈라파고스 슬로푸드 사파리",
          "hostName": "Jill & Javier",

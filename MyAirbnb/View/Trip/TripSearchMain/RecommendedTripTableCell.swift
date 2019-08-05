@@ -53,6 +53,9 @@ class RecommendedTripTableCell: UITableViewCell {
         return button
     }()
     
+    var recommendedTripArray = [BestTrip]()
+    
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -117,24 +120,14 @@ class RecommendedTripTableCell: UITableViewCell {
 
 extension RecommendedTripTableCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return recommendedTripArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TripInfoCollectionViewCell.identifier, for: indexPath) as! TripInfoCollectionViewCell
         
-        cell.imageView.image = UIImage(named: seoulRecommendedTripDatas[indexPath.row].image)
-        cell.categoryLabel.text = seoulRecommendedTripDatas[indexPath.row].category
-        cell.titleLabel.text = seoulRecommendedTripDatas[indexPath.row].title
-        cell.descLabel.text = seoulRecommendedTripDatas[indexPath.row].desc
-        cell.languageLabel.text = seoulRecommendedTripDatas[indexPath.row].lang
-        
-        if seoulRecommendedTripDatas[indexPath.row].rate != nil {
-            cell.starImage.image = UIImage(named: "star")
-            cell.rateLabel.text = String(seoulRecommendedTripDatas[indexPath.row].rate!)
-            cell.noOfReviewLabel.text = "(\(seoulRecommendedTripDatas[indexPath.row].noOfReview!))"
-        }
+        cell.setData(recommendedTripData: recommendedTripArray[indexPath.row])
 
         return cell
     }

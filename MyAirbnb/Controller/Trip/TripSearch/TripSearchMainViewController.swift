@@ -26,6 +26,14 @@ class TripSearchMainViewController: UIViewController {
         return tableView
     }()
     
+    let netWork = NetworkCommunicator()
+    let jsonDecoder = JSONDecoder()
+    
+    var stateData: StateDetailData?
+    
+    var numberOfCell = 0
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -55,10 +63,6 @@ class TripSearchMainViewController: UIViewController {
         }
     }
     
-    let netWork = NetworkCommunicator()
-    let jsonDecoder = JSONDecoder()
-    
-    var stateData: StateDetailData?
     
     func getServerData() {
         let urlString = searchUrl
@@ -76,11 +80,12 @@ class TripSearchMainViewController: UIViewController {
             }
             
             guard let result = try? self.jsonDecoder.decode(StateDetailData.self, from: data) else {
-                print("‼️ moveToHouseDetail noti result decoding convert error")
+                print("‼️ TripSearchMainViewController noti result decoding convert error")
                 return
             }
             
             self.stateData = result
+            self.numberOfCell = 4
 
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -94,7 +99,7 @@ class TripSearchMainViewController: UIViewController {
 
 extension TripSearchMainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return numberOfCell
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -108,6 +113,8 @@ extension TripSearchMainViewController: UITableViewDataSource {
             
         case 1:
             let recommendedCell = tableView.dequeueReusableCell(withIdentifier: RecommendedTripTableCell.identifier, for: indexPath) as! RecommendedTripTableCell
+            
+            recommendedCell.recommendedTripArray = stateData?.randomRecommendTrip12 ?? []
             return recommendedCell
             
         case 2:
@@ -116,6 +123,9 @@ extension TripSearchMainViewController: UITableViewDataSource {
             
         case 3:
             let allTripsCell = tableView.dequeueReusableCell(withIdentifier: AllTripsTableCell.identifier, for: indexPath) as! AllTripsTableCell
+            
+            allTripsCell.allTripsArray = stateData?.stateDetail.trips ?? []
+            
             return allTripsCell
             
         default:

@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 protocol OtherCityTripTableCellDelegate: class {
-    func pushToSearchMainVC(stateName: String)
+    func pushToSearchMainVC(state: State)
 }
 
 class OtherCityTripTableCell: UITableViewCell {
@@ -46,8 +46,7 @@ class OtherCityTripTableCell: UITableViewCell {
         return collectionView
     }()
     
-    let stateName = ["Seoul", "Suwon", "Sokcho", "Jeonju", "Jeju", "Daegu"]
-    
+    var stateListArray = [State]()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -93,13 +92,15 @@ class OtherCityTripTableCell: UITableViewCell {
 
 extension OtherCityTripTableCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return stateName.count
+        return stateListArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let otherCityCell = collectionView.dequeueReusableCell(withReuseIdentifier: OtherCityTripCollectionCell.identifier, for: indexPath) as! OtherCityTripCollectionCell
-        otherCityCell.cityNameLabel.text = stateName[indexPath.row]
+        
+        otherCityCell.setData(cityListArray: stateListArray[indexPath.row])
+        
         return otherCityCell
     }
     
@@ -110,7 +111,7 @@ extension OtherCityTripTableCell: UICollectionViewDataSource {
 
 extension OtherCityTripTableCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.pushToSearchMainVC(stateName: stateName[indexPath.row])
+        delegate?.pushToSearchMainVC(state: stateListArray[indexPath.row])
     }
 }
 

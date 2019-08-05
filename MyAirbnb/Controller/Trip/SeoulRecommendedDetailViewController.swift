@@ -9,6 +9,7 @@
 import UIKit
 import SnapKit
 import MapKit
+import Kingfisher
 
 class SeoulRecommendedDetailViewController: UIViewController {
     
@@ -68,12 +69,22 @@ class SeoulRecommendedDetailViewController: UIViewController {
     
     let notiCenter = NotificationCenter.default
     
+    var tripDetailUrl = ""
+    var scrollImageArray = [UIImage]()
+    
+    let netWork = NetworkCommunicator()
+    let jsonDecoder = JSONDecoder()
+    var tripDetailData: TripDetailData?
+    var numberOfCell = 0
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configure()
         setAutolayout()
         addNotificationObserver()
+        getServerData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -200,6 +211,39 @@ class SeoulRecommendedDetailViewController: UIViewController {
             make.width.equalTo(150)
         }
     }
+    
+    func getServerData() {
+        let urlString = tripDetailUrl
+        
+        netWork.getJsonObjectFromAPI(urlString: urlString, urlForSpecificProcessing: nil) { (json, success) in
+            
+            guard success else {
+                print("get serverData failed")
+                return
+            }
+            
+            guard let data = try? JSONSerialization.data(withJSONObject: json) else {
+                print("‼️ moveToHouseDetail noti data convert error")
+                return
+            }
+            
+            guard let result = try? self.jsonDecoder.decode(TripDetailData.self, from: data) else {
+                print("‼️ TripSearchMainViewController noti result decoding convert error")
+                return
+            }
+            
+            self.tripDetailData = result
+            
+//            tripDetailData?.tripDetail.scrollImagesArray
+            
+            
+            self.numberOfCell = 6
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
 }
 
 
@@ -207,7 +251,7 @@ class SeoulRecommendedDetailViewController: UIViewController {
 
 extension SeoulRecommendedDetailViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
+        return numberOfCell
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -215,29 +259,58 @@ extension SeoulRecommendedDetailViewController: UITableViewDataSource {
         switch indexPath.row {
         case 0:
             let seoulRecommendCell = tableView.dequeueReusableCell(withIdentifier: SeoulRecommendTableViewCell.identifier, for: indexPath) as! SeoulRecommendTableViewCell
-            seoulRecommendCell.backgroundColor = .black
-            seoulRecommendCell.selectionStyle = .none
-            seoulRecommendCell.backgroundColor = .black
-            seoulRecommendCell.selectionStyle = .none
+            
+            guard let tripDetailData = tripDetailData?.tripDetail else { return UITableViewCell() }
+            seoulRecommendCell.setData(tripDetailData: tripDetailData)
+            
             return seoulRecommendCell
+            
         case 1:
             let hostIntroCell = tableView.dequeueReusableCell(withIdentifier: HostIntroTableViewCell.identifier, for: indexPath) as! HostIntroTableViewCell
-            hostIntroCell.selectionStyle = .none
+            
+            guard let hostDetailData = tripDetailData?.tripDetail else { return UITableViewCell() }
+            hostIntroCell.setData(hostDetailData: hostDetailData)
+            
             return hostIntroCell
+            
         case 2:
             let tripContentsCell = tableView.dequeueReusableCell(withIdentifier: TripContentsTableCell.identifier, for: indexPath) as! TripContentsTableCell
+            
+            guard let tripContentsData = tripDetailData?.tripDetail else { return UITableViewCell() }
+            tripContentsCell.setData(tripContentsData: tripContentsData)
+            
             return tripContentsCell
+            
         case 3:
             let itemsProvidedCell = tableView.dequeueReusableCell(withIdentifier: ItemsProvidedTableCell.identifier, for: indexPath) as! ItemsProvidedTableCell
+            
+//            guard let itemsProvides = tripDetailData?.tripDetail.provides else { return UITableViewCell() }
+//            itemsProvidedCell.itemsProvidedData = itemsProvides
+            
+//            itemsProvidedCell.itemsArray = [(tripDetailData?.tripDetail.provides[indexPath.row]?.provideSet) ?? ""]
+            
+            
+            guard let itemsProvidedData = tripDetailData?.tripDetail else { return UITableViewCell() }
+            itemsProvidedCell.setData(itemProvidedData: itemsProvidedData)
+            
             return itemsProvidedCell
+            
         case 4:
             let memoCell = tableView.dequeueReusableCell(withIdentifier: MemoTableCell.identifier, for: indexPath) as! MemoTableCell
+            
+            guard let memoData = tripDetailData?.tripDetail else { return UITableViewCell() }
+            memoCell.setData(memoData: memoData)
+            
             return memoCell
+            
         case 5:
             let placeCell = tableView.dequeueReusableCell(withIdentifier: PlaceTableViewCell.identifier, for: indexPath) as! PlaceTableViewCell
-            placeCell.hideSeparator()
-            placeCell.selectionStyle = .none
+            
+            guard let placeInfoData = tripDetailData?.tripDetail else { return UITableViewCell() }
+            placeCell.setData(placeInfoData: placeInfoData)
+            
             return placeCell
+            
         default:
             return UITableViewCell()
         }

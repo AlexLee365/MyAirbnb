@@ -18,8 +18,6 @@ class AllTripsTableCell: UITableViewCell {
         static let lineSpacing: CGFloat = 20.0
         static let itemSpacing: CGFloat = 13.0
         static let edgeInsets = UIEdgeInsets(top: 15, left: 20, bottom: 15, right: 20)
-        
-        static let nextOffset: CGFloat = 50
     }
     
     let titleLabel: UILabel = {
@@ -40,10 +38,17 @@ class AllTripsTableCell: UITableViewCell {
         return collectionView
     }()
     
+    var allTripsArray = [BestTrip]()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         configure()
+    }
+    
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        print("allTripsArray.count: ", allTripsArray.count)
         setAutolayout()
     }
     
@@ -75,7 +80,7 @@ class AllTripsTableCell: UITableViewCell {
         let cellWidth = (UIScreen.main.bounds.width - 40 - 13) / 2
         let cellHeight = cellWidth * 2.3
         
-        let collectionHeight = ((cellHeight + 23) * CGFloat(seoulRecommendedTripDatas.count / 2))
+        let collectionHeight = ((cellHeight + 20) * CGFloat(allTripsArray.count / 2)) + 20
         
         collectionView.snp.makeConstraints { (make) in
             make.top.equalTo(titleLabel.snp.bottom).offset(10)
@@ -91,23 +96,13 @@ class AllTripsTableCell: UITableViewCell {
 
 extension AllTripsTableCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return seoulRecommendedTripDatas.count
+        return allTripsArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TripInfoCollectionViewCell.identifier, for: indexPath) as! TripInfoCollectionViewCell
         
-        cell.imageView.image = UIImage(named: seoulRecommendedTripDatas[indexPath.row].image)
-        cell.categoryLabel.text = seoulRecommendedTripDatas[indexPath.row].category
-        cell.titleLabel.text = seoulRecommendedTripDatas[indexPath.row].title
-        cell.descLabel.text = seoulRecommendedTripDatas[indexPath.row].desc
-        cell.languageLabel.text = seoulRecommendedTripDatas[indexPath.row].lang
-        
-        if seoulRecommendedTripDatas[indexPath.row].rate != nil {
-            cell.starImage.image = UIImage(named: "star")
-            cell.rateLabel.text = String(seoulRecommendedTripDatas[indexPath.row].rate!)
-            cell.noOfReviewLabel.text = "(\(seoulRecommendedTripDatas[indexPath.row].noOfReview!))"
-        }
+        cell.setData(recommendedTripData: allTripsArray[indexPath.row])
         
         return cell
     }
@@ -118,14 +113,9 @@ extension AllTripsTableCell: UICollectionViewDataSource {
 extension AllTripsTableCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let lineSpacing = UI.lineSpacing
         let itemSpacing = UI.itemSpacing * (UI.itemsInLine - 1)
-        
         let horizontalInset = UI.edgeInsets.left + UI.edgeInsets.right
-        let verticalInset = UI.edgeInsets.top + UI.edgeInsets.bottom
-        
         let horizontalSpacing = itemSpacing + horizontalInset
-        let verticalSpacing = lineSpacing + verticalInset + UI.nextOffset
         
         let cellWidth: CGFloat = ((collectionView.frame.width - horizontalSpacing) / UI.itemsInLine)
         let cellHeight = cellWidth * 2.3

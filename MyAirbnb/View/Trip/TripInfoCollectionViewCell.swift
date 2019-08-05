@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class TripInfoCollectionViewCell: UICollectionViewCell {
     
@@ -147,5 +148,39 @@ class TripInfoCollectionViewCell: UICollectionViewCell {
         
         noOfReviewLabel.centerYAnchor.constraint(equalTo: starImage.centerYAnchor).isActive = true
         noOfReviewLabel.leadingAnchor.constraint(equalTo: rateLabel.trailingAnchor, constant: 5).isActive = true
+    }
+    
+    func setData(recommendedTripData: BestTrip) {
+        imageView.image = UIImage(named: "bathbomb")
+        
+        if recommendedTripData.detailCategory != "" {
+            categoryLabel.text = recommendedTripData.detailCategory
+        } else {
+            categoryLabel.text = "트립"
+        }
+        
+        titleLabel.text = recommendedTripData.name
+        
+        if !recommendedTripData.provides.isEmpty {
+            var text = ""
+            
+            for i in 0..<recommendedTripData.provides.count {
+                text += "\(recommendedTripData.provides[i] ?? ""), "
+            }
+            text.removeLast()
+            text.removeLast()
+            
+            descLabel.text = "\(recommendedTripData.durationTime)시간 · \(text) 포함"
+        } else {
+            descLabel.text = "\(recommendedTripData.durationTime)시간"
+        }
+        
+        languageLabel.text = "\(recommendedTripData.language)로 진행"
+
+        if recommendedTripData.ratingScore > 0.0 {
+            starImage.image = UIImage(named: "star")
+            rateLabel.text = String(recommendedTripData.ratingScore)
+            noOfReviewLabel.text = "(\(recommendedTripData.reviewCount))"
+        }
     }
 }
