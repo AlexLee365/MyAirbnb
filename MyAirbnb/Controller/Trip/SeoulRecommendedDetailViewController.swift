@@ -18,7 +18,6 @@ class SeoulRecommendedDetailViewController: UIViewController {
         tableView.contentInsetAdjustmentBehavior = .never
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 100
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         tableView.register(SeoulRecommendTableViewCell.self, forCellReuseIdentifier: SeoulRecommendTableViewCell.identifier)
@@ -284,14 +283,10 @@ extension SeoulRecommendedDetailViewController: UITableViewDataSource {
         case 3:
             let itemsProvidedCell = tableView.dequeueReusableCell(withIdentifier: ItemsProvidedTableCell.identifier, for: indexPath) as! ItemsProvidedTableCell
             
-//            guard let itemsProvides = tripDetailData?.tripDetail.provides else { return UITableViewCell() }
-//            itemsProvidedCell.itemsProvidedData = itemsProvides
-            
-//            itemsProvidedCell.itemsArray = [(tripDetailData?.tripDetail.provides[indexPath.row]?.provideSet) ?? ""]
-            
-            
             guard let itemsProvidedData = tripDetailData?.tripDetail else { return UITableViewCell() }
             itemsProvidedCell.setData(itemProvidedData: itemsProvidedData)
+            
+            itemsProvidedCell.count = itemsProvidedData.provides.count
             
             return itemsProvidedCell
             

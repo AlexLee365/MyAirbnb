@@ -19,12 +19,12 @@ class ItemsProvidedTableCell: UITableViewCell {
         return label
     }()
     
-    let itemsArray = ["음료", "티켓", "장비"]
+    let itemsArray = ["", "", ""]
+//    let itemsArray = [""]
+    var count = 0
+    
     var labelConfigArray = [(UILabel, UIImageView, UILabel)]()
     
-//    var itemsProvidedData = [Provide?]()
-    
-//    var itemsArray = [String]()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -66,6 +66,7 @@ class ItemsProvidedTableCell: UITableViewCell {
     
     private func setItemsProvidedLabel() {
         for _ in 0..<itemsArray.count {
+//        for _ in 0..<count {
             let itemLabel: UILabel = {
                 let label = UILabel()
                 label.configureTripDetailDesc()
@@ -92,6 +93,10 @@ class ItemsProvidedTableCell: UITableViewCell {
             contentView.addSubview(labelConfigArray[i].0)
             contentView.addSubview(labelConfigArray[i].1)
             contentView.addSubview(labelConfigArray[i].2)
+            
+            labelConfigArray[i].0.backgroundColor = .blue
+            labelConfigArray[i].1.backgroundColor = .red
+            labelConfigArray[i].2.backgroundColor = .yellow
             
             labelConfigArray[i].0.snp.makeConstraints { (make) in
                 make.leading.equalTo(20)

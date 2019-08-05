@@ -89,7 +89,10 @@ class SeoulRecommendTableViewCell: UITableViewCell {
     }
     
     
+    var flag = false
     func setData(tripDetailData: TripDetail) {
+        guard flag == false else { return }
+        flag = true
         var provideText = ""
         if !tripDetailData.provides.isEmpty {
             for i in 0..<tripDetailData.provides.count {
@@ -106,12 +109,14 @@ class SeoulRecommendTableViewCell: UITableViewCell {
             iconsArray.remove(at: 2)
         }
         
+        
         for i in 0..<infoLabelArray.count {
             let infoView = InfoView()
             infoView.icon.image = UIImage(named: iconsArray[i])
             infoView.label.text = infoLabelArray[i]
             infoViewArray.append(infoView)
         }
+        
         
         for (index, value) in infoViewArray.enumerated() {
             contentView.addSubview(value)
