@@ -26,6 +26,9 @@ class SeoulRecommendedDetailViewController: UIViewController {
         tableView.register(TripContentsTableCell.self, forCellReuseIdentifier: TripContentsTableCell.identifier)
         tableView.register(ItemsProvidedTableCell.self, forCellReuseIdentifier: ItemsProvidedTableCell.identifier)
         tableView.register(MemoTableCell.self, forCellReuseIdentifier: MemoTableCell.identifier)
+        tableView.register(TripDetailReviewTableCell.self, forCellReuseIdentifier: TripDetailReviewTableCell.identifier)
+        tableView.register(MaxGuestTableCell.self, forCellReuseIdentifier: MaxGuestTableCell.identifier)
+        
         return tableView
     }()
     
@@ -35,7 +38,6 @@ class SeoulRecommendedDetailViewController: UIViewController {
 
     let priceLabel: UILabel = {
         let label = UILabel()
-        label.text = "₩40,000 /인"
         label.textColor = .white
         return label
     }()
@@ -48,9 +50,8 @@ class SeoulRecommendedDetailViewController: UIViewController {
         return label
     }()
     
-    let rateLabel: UILabel = {
+    let noOfReviewLabel: UILabel = {
         let label = UILabel()
-        label.text = "36"
         label.textColor = .white
         label.font = UIFont(name: "AirbnbCerealApp-Book", size: 12)
         return label
@@ -75,7 +76,8 @@ class SeoulRecommendedDetailViewController: UIViewController {
     let jsonDecoder = JSONDecoder()
     var tripDetailData: TripDetailData?
     var numberOfCell = 0
-    
+    var tripAdditionalDetail = [(String, String)]()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -117,10 +119,11 @@ class SeoulRecommendedDetailViewController: UIViewController {
         
         view.addSubview(bottomView)
         
-        priceLabel.attributedText = attributedText(first: "₩40,000 ", second: "/인")
+        let priceString = String(tripDetailData?.tripDetail.price ?? 0).limitFractionDigits()
+        self.priceLabel.attributedText = self.attributedText(first: "₩ + \(priceString) ", second: "/인")
         bottomView.addSubview(priceLabel)
         bottomView.addSubview(starImageLabel)
-        bottomView.addSubview(rateLabel)
+        bottomView.addSubview(noOfReviewLabel)
         bottomView.addSubview(seeDateBtn)
     }
     
@@ -198,7 +201,7 @@ class SeoulRecommendedDetailViewController: UIViewController {
             make.leading.equalTo(20)
         }
         
-        rateLabel.snp.makeConstraints { (make) in
+        noOfReviewLabel.snp.makeConstraints { (make) in
             make.centerY.equalTo(starImageLabel.snp.centerY)
             make.leading.equalTo(starImageLabel.snp.trailing).offset(3)
         }
@@ -233,10 +236,13 @@ class SeoulRecommendedDetailViewController: UIViewController {
             
             self.tripDetailData = result
             
-//            tripDetailData?.tripDetail.scrollImagesArray
+            self.tripAdditionalDetail = [("수용 인원: 최대 게스트 \(result.tripDetail.maxGuest)명", ""), ("게스트 필수조건", ""), ("호스트에게 연락하기", ""), ("트립 환불 정책", "모든 트립은 예약 후 24시간 이내에 취소 및 전액 환불이 가능합니다.")]
             
+            let priceString = String(result.tripDetail.price).limitFractionDigits()
             
-            self.numberOfCell = 6
+            self.priceLabel.attributedText = self.attributedText(first: "₩ + \(priceString) ", second: "/인")
+            self.noOfReviewLabel.text = String(result.tripDetail.tripReviews.count)
+            self.numberOfCell = 6 + (result.tripDetail.tripReviews.count) + 4
             
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -254,6 +260,8 @@ extension SeoulRecommendedDetailViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let indexCount = 6 + (tripDetailData?.tripDetail.tripReviews.count ?? 0)
         
         switch indexPath.row {
         case 0:
@@ -286,7 +294,8 @@ extension SeoulRecommendedDetailViewController: UITableViewDataSource {
             guard let itemsProvidedData = tripDetailData?.tripDetail else { return UITableViewCell() }
             itemsProvidedCell.setData(itemProvidedData: itemsProvidedData)
             
-            itemsProvidedCell.count = itemsProvidedData.provides.count
+            itemsProvidedCell.providesCount = itemsProvidedData.provides.count
+            print("itemsProvidedCell.providesCount: ", itemsProvidedCell.providesCount)
             
             return itemsProvidedCell
             
@@ -306,6 +315,23 @@ extension SeoulRecommendedDetailViewController: UITableViewDataSource {
             
             return placeCell
             
+        case 6..<(6 + (tripDetailData?.tripDetail.tripReviews.count ?? 0)):
+            let reviewCell = tableView.dequeueReusableCell(withIdentifier: TripDetailReviewTableCell.identifier, for: indexPath) as! TripDetailReviewTableCell
+            
+            guard let tripReviewData = tripDetailData?.tripDetail.tripReviews else {return UITableViewCell()}
+            guard !tripReviewData.isEmpty else { return UITableViewCell() }
+            
+            reviewCell.setData(tripReviewData: tripReviewData[indexPath.row - 6])
+            
+            return reviewCell
+            
+        case indexCount...(indexCount + 3):
+            let maxGuestCell = tableView.dequeueReusableCell(withIdentifier: MaxGuestTableCell.identifier, for: indexPath) as! MaxGuestTableCell
+            
+            maxGuestCell.titleLabel.text = tripAdditionalDetail[indexPath.row - indexCount].0
+            maxGuestCell.subLabel.text = tripAdditionalDetail[indexPath.row - indexCount].1
+            
+            return maxGuestCell
         default:
             return UITableViewCell()
         }
@@ -371,7 +397,7 @@ extension SeoulRecommendedDetailViewController: UITableViewDelegate {
                 
                 self.priceLabel.attributedText = attributedText(first: "₩40,000 ", second: "/인")
                 self.starImageLabel.textColor = StandardUIValue.shared.colorBlueGreen
-                self.rateLabel.textColor = #colorLiteral(red: 0.5704585314, green: 0.5704723597, blue: 0.5704649091, alpha: 1)
+                self.noOfReviewLabel.textColor = #colorLiteral(red: 0.5704585314, green: 0.5704723597, blue: 0.5704649091, alpha: 1)
                 self.seeDateBtn.backgroundColor = StandardUIValue.shared.colorPink
                 self.seeDateBtn.setTitleColor(.white, for: .normal)
             }
@@ -381,7 +407,7 @@ extension SeoulRecommendedDetailViewController: UITableViewDelegate {
             self.bottomView.backColor = .black
             self.priceLabel.textColor = .white
             self.starImageLabel.textColor = .white
-            self.rateLabel.textColor = .white
+            self.noOfReviewLabel.textColor = .white
             self.seeDateBtn.backgroundColor = .white
             self.seeDateBtn.setTitleColor(#colorLiteral(red: 0.370555222, green: 0.3705646992, blue: 0.3705595732, alpha: 1), for: .normal)
         }

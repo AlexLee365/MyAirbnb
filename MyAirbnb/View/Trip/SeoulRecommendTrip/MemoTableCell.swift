@@ -22,10 +22,6 @@ class MemoTableCell: UITableViewCell {
     let descLabel: UILabel = {
         let label = UILabel()
         label.configureTripDetailDesc()
-//        label.text = """
-//        향이 강한 향수를 뿌리지 말아주세요.
-//        세션은 정시에 시작합니다.
-//        """
         return label
     }()
     
