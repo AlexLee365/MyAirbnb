@@ -20,8 +20,7 @@ class ItemsProvidedTableCell: UITableViewCell {
     }()
     
     let itemsArray = ["", "", ""]
-//    let itemsArray = [""]
-    var count = 0
+    var providesCount = 0
     
     var labelConfigArray = [(UILabel, UIImageView, UILabel)]()
     
@@ -37,6 +36,24 @@ class ItemsProvidedTableCell: UITableViewCell {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+//    override func didMoveToSuperview() {
+//        super.didMoveToSuperview()
+//        setItemsProvidedLabel()
+//        print("providesCount: ", providesCount)
+//    }
+    
+    private func configure() {
+        self.selectionStyle = .none
+        
+        contentView.addSubview(titleLabel)
+    }
+    
+    private func setAutolayout() {
+        titleLabel.snp.makeConstraints { (make) in
+            make.top.leading.equalTo(20)
+        }
     }
     
     
@@ -64,9 +81,10 @@ class ItemsProvidedTableCell: UITableViewCell {
         return UIImage(named: imageString) ?? UIImage()
     }
     
+    
     private func setItemsProvidedLabel() {
         for _ in 0..<itemsArray.count {
-//        for _ in 0..<count {
+//        for _ in 0..<providesCount {
             let itemLabel: UILabel = {
                 let label = UILabel()
                 label.configureTripDetailDesc()
@@ -94,9 +112,9 @@ class ItemsProvidedTableCell: UITableViewCell {
             contentView.addSubview(labelConfigArray[i].1)
             contentView.addSubview(labelConfigArray[i].2)
             
-            labelConfigArray[i].0.backgroundColor = .blue
-            labelConfigArray[i].1.backgroundColor = .red
-            labelConfigArray[i].2.backgroundColor = .yellow
+//            labelConfigArray[i].0.backgroundColor = .blue
+//            labelConfigArray[i].1.backgroundColor = .red
+//            labelConfigArray[i].2.backgroundColor = .yellow
             
             labelConfigArray[i].0.snp.makeConstraints { (make) in
                 make.leading.equalTo(20)
@@ -136,18 +154,7 @@ class ItemsProvidedTableCell: UITableViewCell {
         }
     }
     
-    private func configure() {
-        self.selectionStyle = .none
-        
-        contentView.addSubview(titleLabel)
-    }
-    
-    private func setAutolayout() {
-        titleLabel.snp.makeConstraints { (make) in
-            make.top.leading.equalTo(20)
-        }
-    }
-    
+
     func setData(itemProvidedData: TripDetail) {
         if !itemProvidedData.provides.isEmpty {
             for i in 0..<itemProvidedData.provides.count {

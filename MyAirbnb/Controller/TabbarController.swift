@@ -37,7 +37,7 @@ class TabbarController: UITabBarController {
         let saveListVC = TestSaveViewController()
         let tripNaviController = UINavigationController(rootViewController: TripViewController())
         let messageVC = UINavigationController(rootViewController: MessageViewController()) 
-        let profileVC = LoginTestViewController()
+        let profileVC = MyPageViewController()
             
         
         mainVC.tabBarItem = UITabBarItem(title: "탐색하기",
