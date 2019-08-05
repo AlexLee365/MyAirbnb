@@ -24,7 +24,7 @@ class PlaceTableViewCell: UITableViewCell {
     let introLabel: UILabel = {
         let label = UILabel()
         label.configureTripDetailDesc()
-        label.text = "이 프로그램은 멜릭서의 오피스인 위워크(Wework) 선릉역 2호점에서 진행됩니다. 멜릭서 사무실도 둘러보고, 한국의 스타트업 회사와 코워킹 스페이스를 둘러보실 수도 있는 좋은 기회가 될 거에요 :)"
+//        label.text = "이 프로그램은 멜릭서의 오피스인 위워크(Wework) 선릉역 2호점에서 진행됩니다. 멜릭서 사무실도 둘러보고, 한국의 스타트업 회사와 코워킹 스페이스를 둘러보실 수도 있는 좋은 기회가 될 거에요 :)"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -56,6 +56,9 @@ class PlaceTableViewCell: UITableViewCell {
     // MARK: - Properties
     
     private func configure() {
+        self.hideSeparator()
+        self.selectionStyle = .none
+        
         contentView.addSubview(placeLabel)
         contentView.addSubview(introLabel)
         
@@ -111,6 +114,10 @@ class PlaceTableViewCell: UITableViewCell {
         let center = centerCoordinate
         let circle = MKCircle(center: center, radius: 600)
         mapView.addOverlay(circle)
+    }
+    
+    func setData(placeInfoData: TripDetail) {
+        introLabel.text = placeInfoData.placeInfo
     }
 }
 

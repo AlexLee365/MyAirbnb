@@ -552,6 +552,7 @@
 		4353B8EB22D085D3004BD807 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8D4FDA9622F812D800E31CF5 /* LuxeHouse */,
 				4353B8EF22D22782004BD807 /* SearchBarView.swift */,
 				4353BA3022DD7F41004BD807 /* SearchBarTableView.swift */,
 				43F5AA8622EB2683007511E1 /* SearchBarTableCell.swift */,
@@ -824,6 +825,13 @@
 				8D4FDA8E22F443DA00E31CF5 /* AllTripsTableCell.swift */,
 			);
 			path = TripSearchMain;
+			sourceTree = "<group>";
+		};
+		8D4FDA9622F812D800E31CF5 /* LuxeHouse */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = LuxeHouse;
 			sourceTree = "<group>";
 		};
 		8D518FEA22DF27DA009D6792 /* FilterRemains */ = {

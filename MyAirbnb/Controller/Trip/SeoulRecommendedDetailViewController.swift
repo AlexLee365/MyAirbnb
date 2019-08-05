@@ -284,6 +284,12 @@ extension SeoulRecommendedDetailViewController: UITableViewDataSource {
         case 3:
             let itemsProvidedCell = tableView.dequeueReusableCell(withIdentifier: ItemsProvidedTableCell.identifier, for: indexPath) as! ItemsProvidedTableCell
             
+//            guard let itemsProvides = tripDetailData?.tripDetail.provides else { return UITableViewCell() }
+//            itemsProvidedCell.itemsProvidedData = itemsProvides
+            
+//            itemsProvidedCell.itemsArray = [(tripDetailData?.tripDetail.provides[indexPath.row]?.provideSet) ?? ""]
+            
+            
             guard let itemsProvidedData = tripDetailData?.tripDetail else { return UITableViewCell() }
             itemsProvidedCell.setData(itemProvidedData: itemsProvidedData)
             
@@ -291,12 +297,18 @@ extension SeoulRecommendedDetailViewController: UITableViewDataSource {
             
         case 4:
             let memoCell = tableView.dequeueReusableCell(withIdentifier: MemoTableCell.identifier, for: indexPath) as! MemoTableCell
+            
+            guard let memoData = tripDetailData?.tripDetail else { return UITableViewCell() }
+            memoCell.setData(memoData: memoData)
+            
             return memoCell
             
         case 5:
             let placeCell = tableView.dequeueReusableCell(withIdentifier: PlaceTableViewCell.identifier, for: indexPath) as! PlaceTableViewCell
-            placeCell.hideSeparator()
-            placeCell.selectionStyle = .none
+            
+            guard let placeInfoData = tripDetailData?.tripDetail else { return UITableViewCell() }
+            placeCell.setData(placeInfoData: placeInfoData)
+            
             return placeCell
             
         default:

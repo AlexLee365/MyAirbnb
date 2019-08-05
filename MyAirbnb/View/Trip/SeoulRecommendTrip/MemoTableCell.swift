@@ -22,10 +22,10 @@ class MemoTableCell: UITableViewCell {
     let descLabel: UILabel = {
         let label = UILabel()
         label.configureTripDetailDesc()
-        label.text = """
-        향이 강한 향수를 뿌리지 말아주세요.
-        세션은 정시에 시작합니다.
-        """
+//        label.text = """
+//        향이 강한 향수를 뿌리지 말아주세요.
+//        세션은 정시에 시작합니다.
+//        """
         return label
     }()
     
@@ -57,5 +57,9 @@ class MemoTableCell: UITableViewCell {
             make.leading.equalTo(20)
             make.trailing.bottom.equalTo(-20)
         }
+    }
+    
+    func setData(memoData: TripDetail) {
+        descLabel.text = memoData.additionalCondition
     }
 }

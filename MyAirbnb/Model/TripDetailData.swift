@@ -28,7 +28,8 @@ struct TripDetail: Codable {
     let provides: [Provide?]
     let schedules: [Schedule]
     let tripReviews: [TripReview]
-    let host, hostAbout, program, additionalCondition: String
+    let host: Host
+    let hostAbout, program, additionalCondition: String
     let guestMaterial, address, placeInfo: String
     let minAge, maxGuest: Int
     let certification: Bool
@@ -65,6 +66,12 @@ struct TripDetail: Codable {
         case image6 = "image_6"
         case image7 = "image_7"
     }
+}
+
+// MARK: - Host
+struct Host: Codable {
+    let username: String
+    let image: String
 }
 
 // MARK: - Provide

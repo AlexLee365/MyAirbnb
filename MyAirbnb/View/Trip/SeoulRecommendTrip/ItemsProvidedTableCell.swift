@@ -20,9 +20,11 @@ class ItemsProvidedTableCell: UITableViewCell {
     }()
     
     let itemsArray = ["음료", "티켓", "장비"]
-    let itemsDescArray = ["웰컴 커피와 비건 디저트", "포장박스, 비건 스티커 7종 쇼핑백", "1인당 비건 배쓰밤 3개 (size: 지름 7cm)"]
-    
     var labelConfigArray = [(UILabel, UIImageView, UILabel)]()
+    
+//    var itemsProvidedData = [Provide?]()
+    
+//    var itemsArray = [String]()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -63,19 +65,16 @@ class ItemsProvidedTableCell: UITableViewCell {
     }
     
     private func setItemsProvidedLabel() {
-        
-        for i in 0..<itemsArray.count {
+        for _ in 0..<itemsArray.count {
             let itemLabel: UILabel = {
                 let label = UILabel()
                 label.configureTripDetailDesc()
-                label.text = itemsArray[i]
                 return label
             }()
             
             let itemImage: UIImageView = {
                 let imageView = UIImageView()
                 imageView.contentMode = .scaleAspectFit
-                imageView.image = configureImageForItem(item: itemsArray[i])
                 return imageView
             }()
             
@@ -83,7 +82,6 @@ class ItemsProvidedTableCell: UITableViewCell {
                 let label = UILabel()
                 label.configureTripDetailDesc()
                 label.font = UIFont(name: "AirbnbCerealApp-Book", size: 14.5)
-                label.text = itemsDescArray[i]
                 return label
             }()
             

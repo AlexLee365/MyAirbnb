@@ -14,7 +14,6 @@ class SeoulRecommendTableViewCell: UITableViewCell {
     var images = ["bathbomb", "designownbathbomb", "shareyourconcept", "natural", "vegantherapy", "addcolors", "variousdesign", "perfectsouvenier"]
     var categories = ["공예 클래스", nil, nil, nil, nil, nil, nil, nil]
     var titles = ["나만의 색과 향을 담은 배쓰밤을 만들어보세요!", "Design your own bath bomb", "Share your concepts", "Vegan & Natural Ingredients", "Vegan Therapy", "Add colors as you want", "Various design", "Perfect souvenirs from Korea:)"]
-    
     var scrollImageArray = [TopScrollView]()
 
     var iconsArray = ["locationIcon", "timeIcon", "serviceIcon", "langIcon"]
@@ -89,6 +88,7 @@ class SeoulRecommendTableViewCell: UITableViewCell {
         scrollView.contentSize = CGSize(width: frame.size.width * CGFloat(images.count), height: tempHeight-5)
     }
     
+    
     func setData(tripDetailData: TripDetail) {
         var provideText = ""
         if !tripDetailData.provides.isEmpty {
@@ -99,30 +99,28 @@ class SeoulRecommendTableViewCell: UITableViewCell {
             provideText.removeLast()
         }
         
-        let infoLabelArray: [String] = [tripDetailData.state,
-                                        "총 \(tripDetailData.durationTime)시간",
-            (provideText == "") ? nil : provideText,
-            tripDetailData.language
-            ].compactMap{$0}
-        
+        let infoLabelArray: [String] =
+            [tripDetailData.state, "총 \(tripDetailData.durationTime)시간", (provideText == "") ? nil : provideText, tripDetailData.language].compactMap{$0}
+
         if provideText == "" {
             iconsArray.remove(at: 2)
         }
         
         for i in 0..<infoLabelArray.count {
-            let tempView = InfoView()
-            tempView.icon.image = UIImage(named: iconsArray[i])
-            tempView.label.text = infoLabelArray[i]
-            infoViewArray.append(tempView)
-            contentView.addSubview(tempView)
-            
-            tempView.translatesAutoresizingMaskIntoConstraints = false
-            tempView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
-            tempView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20).isActive = true
-            tempView.heightAnchor.constraint(equalToConstant: 20).isActive = true
+            let infoView = InfoView()
+            infoView.icon.image = UIImage(named: iconsArray[i])
+            infoView.label.text = infoLabelArray[i]
+            infoViewArray.append(infoView)
         }
         
         for (index, value) in infoViewArray.enumerated() {
+            contentView.addSubview(value)
+            
+            value.translatesAutoresizingMaskIntoConstraints = false
+            value.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
+            value.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20).isActive = true
+            value.heightAnchor.constraint(equalToConstant: 20).isActive = true
+            
             switch index {
             case 0:
                 value.topAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 5).isActive = true
