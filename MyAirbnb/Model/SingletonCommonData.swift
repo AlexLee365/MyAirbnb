@@ -16,8 +16,12 @@ class SingletonCommonData {
     static let userDefaultTokenKey = "UserToken"
     static let userDefaultLoginStateKey = "UserLoginState"
     
+    static let userDefaultSaveStatesInfo = "SaveStatesInfo"
+    static let userDefaultSaveChatList = "SaveChattingRoomList"
+    
     static let notiKeySearchBarUseCase = "SearchBarUseCase"
     static let notiKeySearchBarInController = "SearchBarInController"
+    
     
     var stateArray = [String]()
     var deviceSafeAreaInset = UIEdgeInsets.zero

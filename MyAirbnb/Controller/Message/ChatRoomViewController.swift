@@ -94,13 +94,7 @@ class ChatRoomViewController: UIViewController {
     var chatRoomData: ChatRoom?
     var currentRoomIndex = 0
     
-    var messageArray = [(String, Bool, String)]() {     // 채팅Text, 호스트인지여부, 작성날짜
-        didSet {
-            guard messageArray.count > 0 else { return }
-            print("messageArray didSet")
-            chatTableView.reloadData()
-        }
-    }
+    var messageArray = [(String, Bool, String)]()     // 채팅Text, 호스트인지여부, 작성날짜
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,7 +104,13 @@ class ChatRoomViewController: UIViewController {
         setNavigationBar()
         addNotificationObserver()
         
-        setChatContents()
+        setChatContents {
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.chatTableView.scrollToRow(at: IndexPath(row: self.messageArray.count - 1, section: 0), at: .bottom, animated: false)                    
+                })
+            }
+        }
         configureNetwork()
     }
     
@@ -126,15 +126,10 @@ class ChatRoomViewController: UIViewController {
         print("🔵🔵🔵 chatData: ", chatRoomData)
     }
     
-    override func viewSafeAreaInsetsDidChange() {
-        super.viewSafeAreaInsetsDidChange()
-        print("--------------------------[SafeArea did changed]--------------------------")
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        print("--------------------------[Did Appear]--------------------------")
-        chatTableView.scrollToRow(at: IndexPath(row: messageArray.count - 1, section: 0), at: .bottom, animated: true)
+//        guard messageArray.count > 0 else { return }
+//        chatTableView.scrollToRow(at: IndexPath(row: messageArray.count - 1, section: 0), at: .bottom, animated: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -296,19 +291,31 @@ class ChatRoomViewController: UIViewController {
         noti.addObserver(self, selector: #selector(didReceiveKeyboardNotification(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    private func setChatContents() {
-        guard let chatData = chatRoomData else { print("‼️ ChatData convert error "); return }
-        for message in chatData.messages {
-            dateformatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-            guard let date = dateformatter.date(from: message.created) else { print("‼️ dateformmater error "); return }
-            let components = Calendar.current.dateComponents([.month, .day], from: date)
-            
-            messageArray.append((message.text, message.isHost, "\(components.month ?? 0)월 \(components.day ?? 0)일"))
+    private func setChatContents(completion: @escaping () -> ()) {
+        let urlString = netWork.basicUrlString + "/chat/\(chatRoomData?.id ?? 0)"
+        netWork.getServerDataWithToken(urlString: urlString) { (result) in
+            switch result {
+            case .success(let value):
+                guard let roomData = try? JSONDecoder().decode(ChatRoomDetailData.self, from: value) else { print("‼️ chatRoomDetailData convert "); break}
+                
+                for message in roomData.messages {
+                    self.dateformatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+                    guard let date = self.dateformatter.date(from: message.created) else { print("‼️ dateformmater error "); return }
+                    let components = Calendar.current.dateComponents([.month, .day], from: date)
+
+                    self.messageArray.append((message.text, message.isHost, "\(components.month ?? 0)월 \(components.day ?? 0)일"))
+                }
+                DispatchQueue.main.async {
+                    self.chatTableView.reloadData()
+                }
+                
+                completion()
+            case .failure(let error):
+                print("‼️ : ", error.localizedDescription)
+                completion()
+                break
+            }
         }
-        print("🔵🔵🔵 messageArray: ", messageArray)
-        //        chatTableView.scrollToRow(at: IndexPath(row: messageArray.count - 1, section: 0), at: .bottom, animated: true)
-        
-        //        chatTableView.reloadData()
     }
     
     private func configureNetwork() {
@@ -511,26 +518,29 @@ extension ChatRoomViewController: WebSocketDelegate, WebSocketPongDelegate {
         guard let date = dateformatter.date(from: writeDate) else { print("‼️ dateformmater error "); return }
         let components = Calendar.current.dateComponents([.month, .day], from: date)
         messageArray.append((message, isHost, "\(components.month ?? 0)월 \(components.day ?? 0)일"))
+        chatTableView.reloadData()
         
-        chatTableView.scrollToRow(at: IndexPath(row: messageArray.count - 1, section: 0), at: .bottom, animated: false)
+        
+        self.chatTableView.scrollToRow(at: IndexPath(row: self.messageArray.count - 1, section: 0), at: .bottom, animated: false)
         
         
-        let jsonDecoder = JSONDecoder()
-        let urlString = netWork.basicUrlString + "/chat/\(chatRoomData?.id ?? 0)/"
-        netWork.getServerDataWithToken(urlString: urlString) { (result) in
-            switch result {
-            case .success(let value):
-                guard let chatServerData = try? jsonDecoder.decode(ChatRoom.self, from: value) else { print("‼️ chatServerData convert error "); return }
-                
-                guard let MessageVC = self.navigationController?.viewControllers.first as? MessageViewController else { print("‼️ MessageVC convert error "); return }
-                
-                MessageVC.chatRoomArray[self.currentRoomIndex] = chatServerData
-                
-                print("🔸🔸🔸 chatServerData download and apply success ")
-            case .failure(let error):
-                print("‼️ error: ", error.localizedDescription);
-            }
-        }
+        
+//        let jsonDecoder = JSONDecoder()
+//        let urlString = netWork.basicUrlString + "/chat/\(chatRoomData?.id ?? 0)/"
+//        netWork.getServerDataWithToken(urlString: urlString) { (result) in
+//            switch result {
+//            case .success(let value):
+//                guard let chatServerData = try? jsonDecoder.decode(ChatRoom.self, from: value) else { print("‼️ chatServerData convert error "); return }
+//
+//                guard let MessageVC = self.navigationController?.viewControllers.first as? MessageViewController else { print("‼️ MessageVC convert error "); return }
+//
+//                MessageVC.chatRoomArray[self.currentRoomIndex] = chatServerData
+//
+//                print("🔸🔸🔸 chatServerData download and apply success ")
+//            case .failure(let error):
+//                print("‼️ error: ", error.localizedDescription);
+//            }
+//        }
     }
     
     func websocketDidReceiveData(socket: WebSocketClient, data: Data) {

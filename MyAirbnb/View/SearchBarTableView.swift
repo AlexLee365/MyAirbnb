@@ -34,7 +34,7 @@ class SearchBarTableView: UIView {
     
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
-        searchResult = SingletonCommonData.shared.stateArray
+//        searchResult = SingletonCommonData.shared.stateArray
     }
     
     private func setAutoLayout() {
@@ -54,6 +54,8 @@ class SearchBarTableView: UIView {
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
 //        tableView.allowsSelection = false
         
+        guard let saveStatesArray = UserDefaults.standard.array(forKey: SingletonCommonData.userDefaultSaveStatesInfo) as? [String] else { print("saveStatesArray error"); return }
+        searchResult = saveStatesArray
     }
 
 }

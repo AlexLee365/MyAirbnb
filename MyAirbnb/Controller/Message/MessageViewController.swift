@@ -8,11 +8,11 @@
 
 import UIKit
 import SnapKit
+import NVActivityIndicatorView
 
-class MessageViewController: UIViewController {
+class MessageViewController: UIViewController, NVActivityIndicatorViewable {
     
-    var chatRoomArray: [ChatRoom] = SingletonCommonData.shared.userChatRoomsArray
-
+    // MARK: - UI Properties
     let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "메시지"
@@ -29,11 +29,11 @@ class MessageViewController: UIViewController {
         return label
     }()
     
-    let emptyMsgLabel: UILabel = {
+    let indicatorLabel: UILabel = {
         let label = UILabel()
-        label.text = "메시지를 모두 확인했습니다."
-        label.textColor = #colorLiteral(red: 0.4756349325, green: 0.4756467342, blue: 0.4756404161, alpha: 1)
-        label.font = UIFont.systemFont(ofSize: 16.5, weight: .medium)
+        label.text = "메세지를 불러오는 중입니다."
+        label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
+        label.font = UIFont.systemFont(ofSize: 12, weight: .bold)
         label.backgroundColor = .white
         label.textAlignment = .center
         return label
@@ -47,12 +47,17 @@ class MessageViewController: UIViewController {
         return tableView
     }()
     
+    let indicator = NVActivityIndicatorView(frame: .zero)
+    
+    // MARK: - Properties
     let dateformatter = DateFormatter()
+    var chatRoomArray: [ChatRoom] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
         setAutolayout()
+        startIndicatorView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,31 +69,30 @@ class MessageViewController: UIViewController {
         
         tabBarController?.tabBar.isHidden = false
         print("🔴🔴🔴 MessageVC chatroomArray: ", chatRoomArray)
+        chatRoomArray = SingletonCommonData.shared.userChatRoomsArray
+        tableView.reloadData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
     
-    
     private func configure() {
         navigationController?.interactivePopGestureRecognizer?.delegate = nil
         
         view.addSubview(titleLabel)
         view.addSubview(statusLabel)
-        
+        statusLabel.isHidden = true
 
-        emptyMsgLabel.isUserInteractionEnabled = true
-        view.addSubview(emptyMsgLabel)
+        indicatorLabel.isUserInteractionEnabled = true
+        view.addSubview(indicatorLabel)
         
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorInset = UIEdgeInsets.init(top: 0, left: 800, bottom: 0, right: -800)
         view.addSubview(tableView)
         
-        
-        
-//        view.sendSubviewToBack(tableView)
+        view.bringSubviewToFront(indicatorLabel)
     }
     
     private func setAutolayout() {
@@ -104,15 +108,29 @@ class MessageViewController: UIViewController {
             make.height.equalTo(35)
         }
         
-        emptyMsgLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(statusLabel.snp.bottom)
-            make.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+        indicatorLabel.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview().offset(-60)
+//            make.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
         tableView.snp.makeConstraints { (make) in
             make.top.equalTo(statusLabel.snp.bottom).offset(20)
-            make.leading.trailing.bottom.equalTo(emptyMsgLabel)
+            make.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
+    }
+    
+    private func startIndicatorView() {
+        view.addSubview(indicator)
+        indicator.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(indicatorLabel.snp.top).offset(-15)
+            make.width.height.equalTo(38)
+        }
+        indicator.type = .ballRotateChase
+//        indicator.color = StandardUIValue.shared.colorBlueGreen
+        indicator.color = StandardUIValue.shared.colorPink
+        indicator.startAnimating()
     }
 }
 

@@ -12,6 +12,20 @@ struct ChatRoom: Codable {
     let id: Int
     let startDate, endDate: String
     let room: Room
+    let messages: Message
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case startDate = "start_date"
+        case endDate = "end_date"
+        case room, messages
+    }
+}
+
+struct ChatRoomDetailData: Codable {
+    let id: Int
+    let startDate, endDate: String
+    let room: Room
     let messages: [Message]
     
     enum CodingKeys: String, CodingKey {

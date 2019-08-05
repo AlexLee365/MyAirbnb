@@ -116,7 +116,8 @@ class MsgListTableCell: UITableViewCell {
         super.didMoveToSuperview()
         hostNameLabel.text = chatRoomData?.room.host.username
         
-        msgPreviewLabel.text = "Dear \(SingletonCommonData.shared.userInfo?.username ?? "") Welcome to \(chatRoomData?.room.title ?? "")"
+        msgPreviewLabel.text = chatRoomData?.messages.text ?? ""
+//        msgPreviewLabel.text = "Dear \(SingletonCommonData.shared.userInfo?.username ?? "") Welcome to \(chatRoomData?.room.title ?? "")"
         
         let startDate = chatRoomData?.startDate.replacingOccurrences(of: "-", with: ".") ?? ""
         let endDate = chatRoomData?.endDate.replacingOccurrences(of: "-", with: ".") ?? ""
@@ -154,7 +155,7 @@ class MsgListTableCell: UITableViewCell {
         msgPreviewLabel.snp.makeConstraints { (make) in
             make.top.equalTo(hostNameLabel.snp.bottom).offset(5)
             make.leading.equalTo(hostNameLabel)
-            make.trailing.equalTo(timeLabel)
+            make.trailing.equalTo(-30)
         }
         
         stackView.snp.makeConstraints { (make) in
@@ -164,7 +165,7 @@ class MsgListTableCell: UITableViewCell {
     }
     
     private func getMessagesLastTime() -> String {
-        let lastTimeString = chatRoomData?.messages.last?.created ?? ""
+        let lastTimeString = chatRoomData?.messages.created ?? ""
         
         let dateformatter = DateFormatter()
         dateformatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"

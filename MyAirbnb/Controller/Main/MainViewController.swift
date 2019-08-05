@@ -36,6 +36,8 @@ class MainViewController: UIViewController {
         configureViewsOptions()
         addNotificationObserver()
         makeIndicatorView()
+        
+     
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -117,7 +119,6 @@ class MainViewController: UIViewController {
         searchBarTableViewBackWhiteView.alpha = 0
     }
     
-    
     private func showSearchBarTableView() {
         view.bringSubviewToFront(searchBarTableViewBackWhiteView)
         self.searchBarTableViewBackWhiteView.alpha = 1
@@ -190,6 +191,9 @@ extension MainViewController {
         notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .moveToHouseView, object: nil)
         notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .moveToHouseDetailView, object: nil)
         notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .moveToPlusHouseDetailView, object: nil)
+        notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .moveToTripViewController, object: nil)
+        
+        notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .downloadingMessagesDataFinished, object: nil)
     }
     
     @objc func receiveNotification(_ sender: Notification) {
@@ -198,7 +202,6 @@ extension MainViewController {
         // SearchBar Notification
         // 서치바 검색 시작
         case Notification.Name.searchBarEditBegin:
-            
             guard let text = sender.object as? String
                 , let userInfo = sender.userInfo
                 , let useCase = userInfo[SingletonCommonData.notiKeySearchBarUseCase] as? UseCase
@@ -211,6 +214,7 @@ extension MainViewController {
             case .inMainVC:
                 showSearchBarTableView()
                 if text == "" {
+                    guard SingletonCommonData.shared.stateArray.count > 0 else { return }
                     self.searchBarTableView.searchResult = SingletonCommonData.shared.stateArray
                 }
             case .inHouseVC:
@@ -241,8 +245,8 @@ extension MainViewController {
                 ()
             }
             
-            
-        case Notification.Name.searchBarEditingChanged:     // 써치바 타이핑중
+        // 서치바 검색 중 (타이핑중)
+        case Notification.Name.searchBarEditingChanged:
             guard let text = sender.object as? String
                 , let userInfo = sender.userInfo
                 , let useCase = userInfo[SingletonCommonData.notiKeySearchBarUseCase] as? UseCase
@@ -251,7 +255,8 @@ extension MainViewController {
                     return
             }
             
-            let stateArray = SingletonCommonData.shared.stateArray
+            let stateArray = (SingletonCommonData.shared.stateArray.count > 0) ?
+                SingletonCommonData.shared.stateArray : UserDefaults.standard.array(forKey: SingletonCommonData.userDefaultSaveStatesInfo) as? [String] ?? []
             switch useCase {
             case .inMainVC:
                 guard text != "" else {
@@ -292,7 +297,7 @@ extension MainViewController {
                 startIndicator()
                 guard let mainVC = controller as? MainViewController else { print("‼️ searchBarEnterPressed noti mainVC "); return}
                 let urlString = netWork.basicUrlString
-                    + "/rooms/?search=\(textResult)&ordering=total_rating&page_size=5&page=1"
+                    + "/rooms/?search=\(textResult)&ordering=-total_rating&page_size=10&page=1"
                 
                 netWork.getHouseServerData(urlString: urlString) { (houseDateArray, success) in
                     DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
@@ -376,7 +381,7 @@ extension MainViewController {
                 hideSearchBarTableView()
                 
                 let urlString = netWork.basicUrlString
-                    + "/rooms/?search=\(state)&ordering=total_rating&page_size=5&page=1"
+                    + "/rooms/?search=\(state)&ordering=-total_rating&page_size=10&page=1"
                 
                 netWork.getHouseServerData(urlString: urlString) { (houseDateArray, success) in
                     DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
@@ -400,7 +405,7 @@ extension MainViewController {
                 houseVC.startIndicator()
                 
                 let urlString = netWork.basicUrlString
-                    + "/rooms/?search=\(state)&ordering=total_rating&page_size=5&page=1"
+                    + "/rooms/?search=\(state)&ordering=-total_rating&page_size=10&page=1"
                 
                 netWork.getHouseServerData(urlString: urlString) { (houseDateArray, success) in
                     DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
@@ -605,9 +610,31 @@ extension MainViewController {
         case Notification.Name.moveToPlusHouseDetailView:
             let plusHouseVC = PlusViewController()
             navigationController?.pushViewController(plusHouseVC, animated: true)
+        
+        // 트립 VC로 이동
+        case Notification.Name.moveToTripViewController:
+            startIndicator()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                let tripVC = TripViewController()
+                tripVC.modalPresentationStyle = .currentContext
+                self.present(tripVC, animated: false)
+            }
+            
+            
+        // 채팅 리스트 (메세지 리스트) 데이터 다운로드 완료시
+        case Notification.Name.downloadingMessagesDataFinished:
+            guard let messageNaviVC = tabBarController?.viewControllers?[3] as? UINavigationController
+                , let messageVC = messageNaviVC.viewControllers.first as? MessageViewController else { print("‼️ messageVC convert error "); return }
+            messageVC.indicator.stopAnimating()
+            messageVC.indicator.isHidden = true
+            messageVC.indicatorLabel.isHidden = true
+            messageVC.statusLabel.isHidden = false
+            messageVC.chatRoomArray = SingletonCommonData.shared.userChatRoomsArray
+            messageVC.tableView.reloadData()
             
         default : break
         }
+        
     }
 }
 

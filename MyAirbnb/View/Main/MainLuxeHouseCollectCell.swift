@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class MainLuxeHouseCollectCell: UICollectionViewCell {
     static let identifier = "MainLuxeHouseCollectCell"
@@ -98,8 +99,13 @@ class MainLuxeHouseCollectCell: UICollectionViewCell {
     }
     
     func setData(luxeHouseData: HouseLuxeDataInList) {
-        mainImageView.image = luxeHouseData.houseMainImage
-        dateAndGuestLabel.text = "검증됨 ・ \(luxeHouseData.houseLocation)"
-        houseNameLabel.text = luxeHouseData.houseName
+//        mainImageView.image = luxeHouseData.houseMainImage
+//        dateAndGuestLabel.text = "검증됨 ・ \(luxeHouseData.houseLocation)"
+//        houseNameLabel.text = luxeHouseData.houseName
+        
+        dateAndGuestLabel.text = "검증됨 ・ \(luxeHouseData.state)"
+        houseNameLabel.text = luxeHouseData.title
+        guard let url = URL(string: luxeHouseData.image) else { return }
+        mainImageView.kf.setImage(with: url)
     }
 }

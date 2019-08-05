@@ -109,8 +109,12 @@ extension MainCategoryTableCell: UICollectionViewDataSource, UICollectionViewDel
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
-//        self.delegate?.pushView()
-        notiCenter.post(name: .moveToHouseView, object: nil)
-
+        switch indexPath.row {
+        case 0:
+            notiCenter.post(name: .moveToHouseView, object: nil)
+        case 1:
+            notiCenter.post(name: .moveToTripViewController, object: nil)
+        default: break
+        }
     }
 }

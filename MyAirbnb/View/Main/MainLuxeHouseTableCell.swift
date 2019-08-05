@@ -22,7 +22,7 @@ class MainLuxeHouseTableCell: UITableViewCell {
     // MARK: - Properties
     var collectionViewCellWidth: CGFloat = UIScreen.main.bounds.width * 0.4
 //    lazy var collectionViewCellHeight: CGFloat = collectionViewCellWidth * 1.25
-    var collectionViewCellHeight: CGFloat = (UIScreen.main.bounds.width * 0.4) * 1.25
+    var collectionViewCellHeight: CGFloat = (UIScreen.main.bounds.width * 0.4) * 1.05
     
     var luxeHouseDataArray = [HouseLuxeDataInList]()
 

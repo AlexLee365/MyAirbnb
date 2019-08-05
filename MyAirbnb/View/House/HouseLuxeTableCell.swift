@@ -21,7 +21,7 @@ class HouseLuxeTableCell: UITableViewCell {
     let notiCenter = NotificationCenter.default
     
     var collectionViewCellWidth: CGFloat = UIScreen.main.bounds.width * 0.6
-    lazy var collectionViewCellHeight: CGFloat = collectionViewCellWidth * 1.2
+    lazy var collectionViewCellHeight: CGFloat = collectionViewCellWidth * 0.9
     
     var luxeHouseDataArray = [HouseLuxeDataInList]()
     

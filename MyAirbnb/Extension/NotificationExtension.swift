@@ -32,6 +32,9 @@ extension Notification.Name {
     
     static let mapViewDidTapInHouseDetailView = Notification.Name("MapViewDidTapInHouseDetailView")
     
+    // MARK: - Trip
+    static let moveToTripViewController = Notification.Name("MoveToTripViewController")
+    
     // MARK: - FilterRemainsVC
     static let instantBookSwitchTapped = Notification.Name("InstantBookSwitchTapped")
     static let houseGradeSwitchTapped = Notification.Name("HouseGradeSwitchTapped")
@@ -47,4 +50,7 @@ extension Notification.Name {
     static let uniqueHouseChecked = Notification.Name("UniqueHouseChecked")
     static let uniqueHouseSeeMoreBtnDidTap = Notification.Name("UniqueHouseSeeMoreBtnDidTap")
     static let useRulesChecked = Notification.Name("UseRulesChecked")
+    
+    // MARK: - Else
+    static let downloadingMessagesDataFinished = Notification.Name("DownloadingMessagesDataFinished")
 }
