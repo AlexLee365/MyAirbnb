@@ -14,7 +14,7 @@ class ProfileInfoTableCell: UITableViewCell {
     
     let myNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "Doyeong"
+        label.text = SingletonCommonData.shared.userInfo?.username ?? "Doyeong"
         label.font = UIFont.boldSystemFont(ofSize: 30)
         label.textColor = #colorLiteral(red: 0.1298420429, green: 0.1298461258, blue: 0.1298439503, alpha: 1)
         return label
@@ -99,6 +99,8 @@ class ProfileInfoTableCell: UITableViewCell {
         contentView.addSubview(statusViewContainerView)
         statusViewContainerView.addSubview(fillContainerView)
         contentView.addSubview(recommendLabel)
+        
+        
     }
     
     private func setAutolayout() {
