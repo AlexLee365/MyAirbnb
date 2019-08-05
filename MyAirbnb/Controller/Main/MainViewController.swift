@@ -614,10 +614,31 @@ extension MainViewController {
         // 트립 VC로 이동
         case Notification.Name.moveToTripViewController:
             startIndicator()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                let tripVC = TripViewController()
-                tripVC.modalPresentationStyle = .currentContext
-                self.present(tripVC, animated: false)
+            let urlString = netWork.basicUrlString + "/trip/main/"
+            
+            netWork.getJsonObjectFromAPI(urlString: urlString, urlForSpecificProcessing: nil) { (json, success) in
+                
+                guard success else {
+                    print("get serverData failed")
+                    return
+                }
+                
+                guard let data = try? JSONSerialization.data(withJSONObject: json) else {
+                    print("‼️ moveToHouseDetail noti data convert error")
+                    return
+                }
+                
+                guard let result = try? self.jsonDecoder.decode(TripMainViewData.self, from: data) else {
+                    print("‼️ TripViewController noti result decoding convert error")
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    let tripVC = TripViewController()
+                    tripVC.tripMainViewData = result
+                    tripVC.modalPresentationStyle = .currentContext
+                    self.present(tripVC, animated: false)
+                }
             }
             
             

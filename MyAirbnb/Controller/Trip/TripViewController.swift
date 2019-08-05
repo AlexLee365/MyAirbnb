@@ -41,21 +41,28 @@ class TripViewController: UIViewController {
         return searchBarView
     }()
     
+    let netWork = NetworkCommunicator()
+    let jsonDecoder = JSONDecoder()
+    
+    var tripMainViewData: TripMainViewData?
+    var numberOfRows = 0
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.interactivePopGestureRecognizer?.delegate = nil
         
         configure()
         setAutolayout()
-        getServerData()
     }
-    
-    var numberOfRows = 0
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
+        numberOfRows = 6
+        tableView.reloadData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -89,12 +96,18 @@ class TripViewController: UIViewController {
         searchBarView.filterStackView.isHidden = true
         searchBarView.searchTF.text = "트립"
         
+        
+        searchBarView.searchImageBtn.addTarget(self, action: #selector(searchBarBackBtnDidTap(_:)), for: .touchUpInside)
+        
         view.addSubview(searchBarBackgroundView)
         view.bringSubviewToFront(searchBarView)
     }
     
+    @objc private func searchBarBackBtnDidTap(_ sender: UIButton) {
+        dismiss(animated: false)
+    }
+    
     private func setAutolayout() {
-        
         let safeGuide = view.safeAreaLayoutGuide
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -113,41 +126,6 @@ class TripViewController: UIViewController {
         searchBarBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         searchBarBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         searchBarBackgroundView.bottomAnchor.constraint(equalTo: searchBarView.bottomAnchor, constant: 10).isActive = true
-    }
-    
-    
-    let netWork = NetworkCommunicator()
-    let jsonDecoder = JSONDecoder()
-    
-    var tripMainViewData: TripMainViewData?
-    
-    func getServerData() {
-        let urlString = netWork.basicUrlString + "/trip/main/"
-        
-        netWork.getJsonObjectFromAPI(urlString: urlString, urlForSpecificProcessing: nil) { (json, success) in
-            
-            guard success else {
-                print("get serverData failed")
-                return
-            }
-            
-            guard let data = try? JSONSerialization.data(withJSONObject: json) else {
-                print("‼️ moveToHouseDetail noti data convert error")
-                return
-            }
-            
-            guard let result = try? self.jsonDecoder.decode(TripMainViewData.self, from: data) else {
-                print("‼️ TripViewController noti result decoding convert error")
-                return
-            }
-            
-            self.tripMainViewData = result
-            self.numberOfRows = 6
-            
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }
     }
 }
 
