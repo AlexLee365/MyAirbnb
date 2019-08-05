@@ -10,7 +10,7 @@ import UIKit
 
 class GetToken {
     
-    func getTokenFromDB(username: String, password: String, completion: @escaping (Result<(String, Int), NSError>) -> ()) {
+    func getTokenFromDB(username: String, password: String, completion: @escaping (Result<(String, Int), netWorkError>) -> ()) {
         print("\n---------- [Request Get_Token Method ] ----------\n")
         
         let myUrl = URL(string: "http://airbnb.tthae.com/api/accounts/get_token/")
@@ -45,7 +45,7 @@ class GetToken {
                     guard let accessToken = parseJSON["token"] as? String
                         , let idNumber = parseJSON["user"] as? Int else {
                         // 토큰 받아오기 실패 시
-                        completion(.failure(NSError()))
+                        completion(.failure(.jsonObjectError))
                         return
                     }
                     //                    let userID = parseJSON["uesr"] as? Int

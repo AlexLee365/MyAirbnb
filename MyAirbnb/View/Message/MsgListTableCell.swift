@@ -85,6 +85,8 @@ class MsgListTableCell: UITableViewCell {
         return label
     }()
     
+    var chatRoomData: ChatRoom?
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -106,6 +108,17 @@ class MsgListTableCell: UITableViewCell {
         contentView.addSubview(nextImageLabel)
         contentView.addSubview(msgPreviewLabel)
         contentView.addSubview(stackView)
+        
+        let startDate = chatRoomData?.startDate.replacingOccurrences(of: "-", with: ".")
+        let endDate = chatRoomData?.endDate.replacingOccurrences(of: "-", with: ".")
+        
+        
+        hostNameLabel.text = chatRoomData?.room.host.username
+        
+        
+        msgPreviewLabel.text = "Dear \(chatRoomData?.messages.first?.author.username ?? "") \(chatRoomData?.room.title)"
+        
+        bookDateLabel.text = "\(startDate) ~ \(endDate)"
     }
     
     private func setAutolayout() {

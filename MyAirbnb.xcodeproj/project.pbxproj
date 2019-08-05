@@ -87,6 +87,8 @@
 		4399345322E9515600FAE15C /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4399345222E9515600FAE15C /* AppIcon.xcassets */; };
 		4399345522E9831600FAE15C /* BottomInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4399345422E9831600FAE15C /* BottomInfoView.swift */; };
 		4399347522E9B12700FAE15C /* HouseDetailData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4399347422E9B12700FAE15C /* HouseDetailData.swift */; };
+		43B2549F22F7E9FB00FDBDC7 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B2549E22F7E9FB00FDBDC7 /* UserInfo.swift */; };
+		43B254A122F7F45200FDBDC7 /* ChatRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B254A022F7F45200FDBDC7 /* ChatRoom.swift */; };
 		43C7F93722F4A22A005F94A1 /* HouseLuxeCollectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C7F93622F4A22A005F94A1 /* HouseLuxeCollectCell.swift */; };
 		43E36CD822E57627006C8AEF /* HouseDetailBedRoomsCollectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E36CD722E57627006C8AEF /* HouseDetailBedRoomsCollectCell.swift */; };
 		43E36CDA22E586D4006C8AEF /* HouseDetailFacilityCollectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E36CD922E586D4006C8AEF /* HouseDetailFacilityCollectCell.swift */; };
@@ -315,6 +317,8 @@
 		4399345222E9515600FAE15C /* AppIcon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AppIcon.xcassets; sourceTree = "<group>"; };
 		4399345422E9831600FAE15C /* BottomInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomInfoView.swift; sourceTree = "<group>"; };
 		4399347422E9B12700FAE15C /* HouseDetailData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailData.swift; sourceTree = "<group>"; };
+		43B2549E22F7E9FB00FDBDC7 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		43B254A022F7F45200FDBDC7 /* ChatRoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoom.swift; sourceTree = "<group>"; };
 		43C7F93622F4A22A005F94A1 /* HouseLuxeCollectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseLuxeCollectCell.swift; sourceTree = "<group>"; };
 		43E36CD722E57627006C8AEF /* HouseDetailBedRoomsCollectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailBedRoomsCollectCell.swift; sourceTree = "<group>"; };
 		43E36CD922E586D4006C8AEF /* HouseDetailFacilityCollectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailFacilityCollectCell.swift; sourceTree = "<group>"; };
@@ -589,6 +593,8 @@
 				206C998722E5B451002D3D55 /* KeyboardNotiCenter.swift */,
 				4313F08922E81A67003BB3D1 /* NetworkCommunicator.swift */,
 				20272A0822EECA9A00848BC5 /* LoginPost.swift */,
+				43B2549E22F7E9FB00FDBDC7 /* UserInfo.swift */,
+				43B254A022F7F45200FDBDC7 /* ChatRoom.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1058,6 +1064,7 @@
 				8D51905122EC5C1C009D6792 /* LuxeHouseViewController.swift in Sources */,
 				8D4FDA6B22F34C7E00E31CF5 /* MsgToHostTableCell.swift in Sources */,
 				4353B8F222D319F2004BD807 /* MainView.swift in Sources */,
+				43B2549F22F7E9FB00FDBDC7 /* UserInfo.swift in Sources */,
 				8D4FDA0E22EF661B00E31CF5 /* VideoHostInfoTableCell.swift in Sources */,
 				4353B8EE22D088A3004BD807 /* TabbarController.swift in Sources */,
 				8D4FDA4922F18E7300E31CF5 /* TaxInfoTableCell.swift in Sources */,
@@ -1090,6 +1097,7 @@
 				4353BA2122DC40B5004BD807 /* FSCalendarCell.m in Sources */,
 				4353BA3522DDB7DA004BD807 /* FilterRemainsViewController.swift in Sources */,
 				8D0D78AE22D485B000F61F0B /* SeoulRecommendDetailData.swift in Sources */,
+				43B254A122F7F45200FDBDC7 /* ChatRoom.swift in Sources */,
 				8D0D78A122D4598200F61F0B /* TripIntroData.swift in Sources */,
 				8D518FEC22DF280B009D6792 /* InstantBookTableCell.swift in Sources */,
 				20081F8022EEBCB200BAB0FD /* StatusChangeBtn.swift in Sources */,

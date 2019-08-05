@@ -17,13 +17,15 @@ class LaunchScreenViewController: UIViewController {
     let pinkAnimationView = UIView()
     let logoImageView = UIImageView()
     
+    let dispatchGroup = DispatchGroup()
+    
     var netWork = NetworkCommunicator()
     let kingfisher = ImageDownloader.default
     let jsonDecoder = JSONDecoder()
     
     var mainViewDataArray = [MainViewData]()
     var houseDataArray = [HouseDataInList]()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("🔵🔵🔵 UserID: \(UserDefaults.standard.string(forKey: SingletonCommonData.userDefaultIDKey) ?? "") / UserNumber: \(UserDefaults.standard.integer(forKey: SingletonCommonData.userDefaultIDNumber)) / UserToekn: \(UserDefaults.standard.string(forKey: SingletonCommonData.userDefaultTokenKey) ?? "")")
@@ -209,19 +211,18 @@ extension LaunchScreenViewController {
     }
     
     
-    // =================================== Get ServerData Function ===================================
     
+    // =================================== Get ServerData Functions ===================================
     private func getEntireServerData(completion: @escaping () -> ()) {
-        let dispatchGroup = DispatchGroup()
         let globalQueue = DispatchQueue.global()
-        
+
         dispatchGroup.enter()
         globalQueue.async {
             print("🔸🔸🔸 grou getServerHouseData statrted ")
             self.getServerHouseData {
                 self.mainViewDataArray.append(MainViewData(data: self.houseDataArray, cellStyle: .fourSquare))
                 print("🔸🔸🔸 gorup getServerHouseData Finished ")
-                dispatchGroup.leave()
+                self.dispatchGroup.leave()
             }
         }
         
@@ -230,17 +231,41 @@ extension LaunchScreenViewController {
             print("🔸🔸🔸 gerserverStatesData started ")
             self.getServerStatesData {
                 print("🔸🔸🔸 getServerStatesData Finished ")
-                dispatchGroup.leave()
+                self.dispatchGroup.leave()
             }
         }
         
         dispatchGroup.enter()
         globalQueue.async {
-            print("🔸🔸🔸 Third Thread finished ")
-            dispatchGroup.leave()
+            print("🔸🔸🔸 getLoginedUserData started ")
+            self.getLoginedUserData(completion: { (result) in
+                switch result {
+                case .success(let value):
+                    SingletonCommonData.shared.userInfo = value
+                    print("🔸🔸🔸 getLoginedUserData finished ")
+                    print("🔵🔵🔵 로그인한 유저정보: ", value)
+                    
+                    self.getUsersChatRoomsData(completion: { (result) in
+                        switch result {
+                        case .success(let value):
+                            print("🔵🔵🔵 chatroomData Array: ", SingletonCommonData.shared.userChatRoomsArray)
+                            self.dispatchGroup.leave()
+                            
+                        case .failure(let error):
+                            print(error.localizedDescription)
+                            self.dispatchGroup.leave()
+                        }
+                    })
+                    
+                case .failure(let error):
+                    print("‼️ getLoginedUserData: ", error.localizedDescription)
+                    print("🔸🔸🔸 getLoginedUserData finished ")
+                    self.dispatchGroup.leave()
+                }
+            })
         }
         
-        dispatchGroup.notify(queue: DispatchQueue.main) {
+        dispatchGroup.notify(queue: globalQueue) {
             print("🔸🔸🔸 All downloading finisehd ")
             completion()
         }
@@ -249,7 +274,7 @@ extension LaunchScreenViewController {
     
     private func getServerHouseData(completion: @escaping () -> ()) {
         let urlString = netWork.basicUrlString
-            + "/rooms/?search=korea&ordering=total_rating&page_size=10&page=1"
+            + "/rooms/?search=korea&ordering=total_rating&page_size=7&page=1"
         
         netWork.getJsonObjectFromAPI(urlString: urlString, urlForSpecificProcessing: nil) { (json, success) in
             guard success else {
@@ -264,6 +289,7 @@ extension LaunchScreenViewController {
                 print("‼️ LaunchVC data convert error")
                 return
             }
+            
             guard var houseArray = try? self.jsonDecoder.decode([HouseDataInList].self, from: data) else {
                 print("‼️ LaunchVC result decoding convert error")
                 return
@@ -295,18 +321,64 @@ extension LaunchScreenViewController {
             guard let object = json as? [[String: Any]]
                 else { print("object convert error"); return }
             
-            
             var tempArray = [String]()
             for state in object {
                 guard let name = state["name"] as? String else { continue }
                 tempArray.append(name)
             }
             
+            
             SingletonCommonData.shared.stateArray = tempArray
-            print("🔴🔴🔴 Singleton StateData: ", SingletonCommonData.shared.stateArray)
+            
             completion()
         }
     }
     
+    private func getLoginedUserData(completion: @escaping (Result<UserInfo, netWorkError>) -> ()) {
+        let urlString = netWork.basicUrlString + "/accounts/user/\(netWork.userNumber)/"
+        netWork.getServerDataWithToken(urlString: urlString) { (result) in
+            switch result {
+            case .success(let value):
+                guard let userInfo = try? self.jsonDecoder.decode(UserInfo.self, from: value) else {
+                    print("[getLoginedUserData] decode error ")
+                    completion(.failure(.decodingError))
+                    return
+                }
+                completion(.success(userInfo))
+            
+            case .failure(let error):
+                print("‼️ getLoginedUserData Error: ", error.localizedDescription)
+                completion(.failure(error))
+            }
+        }
+    }
     
+    private func getUsersChatRoomsData(completion: @escaping (Result<Any?, netWorkError>) -> ()) {
+        SingletonCommonData.shared.userChatRoomsArray.removeAll()
+        guard let userInfo = SingletonCommonData.shared.userInfo else { print("‼️ getUserChatRoomsData userInfo convert error "); return }
+        for (index, room) in userInfo.reservations.enumerated() {
+            guard let chatRoomArray = room?.values
+                , let chatRoom = chatRoomArray.first as? Reservation else {
+                    print("‼️ : ")
+                    return
+            }
+            
+            let urlString = netWork.basicUrlString + "/chat/\(chatRoom.id)"
+
+            netWork.getServerDataWithToken(urlString: urlString) { (result) in
+                switch result {
+                case .success(let value):
+                    guard let chatRoomData = try? self.jsonDecoder.decode(ChatRoom.self, from: value) else { print("‼️ : ");
+                        completion(.failure(.decodingError))
+                        return
+                    }
+                    SingletonCommonData.shared.userChatRoomsArray.append(chatRoomData)
+                    (index == userInfo.reservations.count - 1) ? completion(.success(nil)) : ()       // 마지막 인덱스까지 for문이 돌면 success or failtur completion
+                case .failure(let error):
+                    print("chatroom getServerData error: ", error.localizedDescription)
+                    (index == userInfo.reservations.count - 1) ? completion(.failure(error)) : ()
+                }
+            }
+        }
+    }
 }

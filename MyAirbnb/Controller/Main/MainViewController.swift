@@ -46,7 +46,6 @@ class MainViewController: UIViewController {
         searchBarTableView.useCase = (.inMainVC, self)
         searchBarView.useCase = (.inMainVC, self)
         mainView.useCase = (.inMainVC, self)
-        print("🔸🔸🔸 inset: ", SingletonCommonData.shared.deviceSafeAreaInset)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -70,10 +69,8 @@ class MainViewController: UIViewController {
     override func viewSafeAreaInsetsDidChange() {
         super.viewSafeAreaInsetsDidChange()
         guard safeAreaInsetFlag == false else { return }
-        print("--------------------------[safeArea]--------------------------")
         SingletonCommonData.shared.deviceSafeAreaInset = view.safeAreaInsets        // 기기 SafeAreaInset을 수치로 저장 및 활용
         safeAreaInsetFlag = true
-        print("🔸🔸🔸 didChange Inset: ", SingletonCommonData.shared.deviceSafeAreaInset)
     }
     
     private func setAutoLayout() {

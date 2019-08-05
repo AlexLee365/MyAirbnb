@@ -23,5 +23,8 @@ class SingletonCommonData {
     var deviceSafeAreaInset = UIEdgeInsets.zero
     var tabbarController = UITabBarController()
     
+    var userInfo: UserInfo?
+    var userChatRoomsArray = [ChatRoom]()
+    
     var tempValue: Any?
 }

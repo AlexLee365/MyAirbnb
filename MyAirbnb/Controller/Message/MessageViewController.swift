@@ -8,9 +8,10 @@
 
 import UIKit
 import SnapKit
-import Starscream
 
 class MessageViewController: UIViewController {
+    
+    let chatRoomArray: [ChatRoom] = SingletonCommonData.shared.userChatRoomsArray
 
     let titleLabel: UILabel = {
         let label = UILabel()
@@ -46,12 +47,12 @@ class MessageViewController: UIViewController {
         return tableView
     }()
     
+    let dateformatter = DateFormatter()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         configure()
         setAutolayout()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,6 +61,8 @@ class MessageViewController: UIViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.view.backgroundColor = UIColor.clear
+        
+        print("🔴🔴🔴 MessageVC chatroomArray: ", chatRoomArray)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -82,6 +85,8 @@ class MessageViewController: UIViewController {
         tableView.delegate = self
         tableView.separatorInset = UIEdgeInsets.init(top: 0, left: 800, bottom: 0, right: -800)
         view.addSubview(tableView)
+        
+        
         
 //        view.sendSubviewToBack(tableView)
     }
@@ -116,11 +121,12 @@ class MessageViewController: UIViewController {
 
 extension MessageViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return chatRoomArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let msgListCell = tableView.dequeueReusableCell(withIdentifier: MsgListTableCell.identifier, for: indexPath) as! MsgListTableCell
+        msgListCell.chatRoomData = chatRoomArray[indexPath.row]
         
         return msgListCell
     }

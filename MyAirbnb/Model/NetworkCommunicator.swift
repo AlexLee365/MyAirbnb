@@ -9,10 +9,17 @@
 import UIKit
 import Kingfisher
 
+enum netWorkError: Error {
+    case badUrl, responseError, decodingError, jsonObjectError
+}
+
 class NetworkCommunicator {
     let basicUrlString = "http://airbnb.tthae.com/api"
     private let kingfisher = ImageDownloader.default
     private let jsonDecoder = JSONDecoder()
+    
+    let userToken = UserDefaults.standard.string(forKey: SingletonCommonData.userDefaultTokenKey) ?? ""
+    let userNumber = UserDefaults.standard.integer(forKey: SingletonCommonData.userDefaultIDNumber)
     
     func getJsonObjectFromAPI(urlString: String = "", urlForSpecificProcessing incomingUrl: URL?, completion: @escaping (Any, _ success: Bool) -> ()) {
         // url 매개변수 값을 넣으면 url로 URLSession API호출 진행 (밖에서 url을 별도 처리해주고 넣어줘야할경우 사용)
@@ -55,10 +62,48 @@ class NetworkCommunicator {
                 return
             }
             
-            print("⭐️⭐️ \(#file)-\(#function)-\(#line)  \n[jsonObject 데이터 결과]: ", jsonObject)
+            print("⭐️⭐️ \(#file)-\(#function)-\(#line)  \n[getJsonObjectFromAPI] Success!! ")
             completion(jsonObject, true)
             }.resume()
     }
+    
+    func getServerDataWithToken(urlString: String, completion: @escaping (Result<Data, netWorkError>) -> ()) {
+        guard let url = URL(string: urlString) else { print("‼️ getLoginedUserData url convert "); return }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.addValue("Token \(userToken)", forHTTPHeaderField: "Authorization")
+        request.addValue("application/json", forHTTPHeaderField: "content-type")
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            guard error == nil else {
+                print("[getLoginedUserData] dataTask error!!")
+                print(error!.localizedDescription)
+                completion(.failure(.badUrl))
+                return
+            }
+            
+            guard let responseConverted = response as? HTTPURLResponse,
+                (200..<300).contains(responseConverted.statusCode),
+                responseConverted.mimeType == "application/json"
+                else {
+                    print("[getLoginedUserData] response error!!")
+                    print(response)
+                    completion(.failure(.responseError))
+                    return
+            }
+            
+            guard let data = data else {
+                print("[getLoginedUserData] data convert error")
+                completion(.failure(.badUrl))
+                return
+            }
+           
+            print("⭐️⭐️ \(#file)-\(#function)-\(#line)  \n[getServerDataWithToken] Success!! ")
+            completion(.success(data))
+            }.resume()
+    }
+    
     
     func getUrlFromKoreanText(urlString: String) -> URL? {
         guard let translateAPIString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
@@ -137,9 +182,9 @@ class NetworkCommunicator {
             }
             
             guard let object = json as? [[String: Any]] else {
-                    print("‼️ NetWorkCommunicator object convert error")
-                    completion(nil, false)
-                    return
+                print("‼️ NetWorkCommunicator object convert error")
+                completion(nil, false)
+                return
             }
             
             guard let result = (object.map{ $0["name"] }) as? [String] else {

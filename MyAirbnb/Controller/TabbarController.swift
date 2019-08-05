@@ -74,23 +74,16 @@ class TabbarController: UITabBarController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("viewWillAppear")
         tabBar.backgroundColor = .white
         tabBar.barTintColor = .white
         tabBar.barStyle = .black
         tabBar.tintColor = .yellow
-        
-        
-        
-        
         
         let unselectedColor = UIColor.black
         let selectedColor = UIColor.red
         
         let tapApperance = UITabBarItem.appearance()
         let tabTextFont = UIFont.systemFont(ofSize: 10, weight: .semibold)
-        
-        
         
         tapApperance.setTitleTextAttributes(
             [NSAttributedString.Key.foregroundColor: unselectedColor,
@@ -110,8 +103,6 @@ class TabbarController: UITabBarController {
 //            separateLine.topAnchor.constraint(equalTo: tabBar.topAnchor, constant:  0).isActive = true
             frameSet = true
         }
-        
-        
     }
     
     
