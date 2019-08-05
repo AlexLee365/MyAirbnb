@@ -11,7 +11,7 @@ import SnapKit
 
 class MessageViewController: UIViewController {
     
-    let chatRoomArray: [ChatRoom] = SingletonCommonData.shared.userChatRoomsArray
+    var chatRoomArray: [ChatRoom] = SingletonCommonData.shared.userChatRoomsArray
 
     let titleLabel: UILabel = {
         let label = UILabel()
@@ -62,12 +62,12 @@ class MessageViewController: UIViewController {
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.view.backgroundColor = UIColor.clear
         
+        tabBarController?.tabBar.isHidden = false
         print("🔴🔴🔴 MessageVC chatroomArray: ", chatRoomArray)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        tabBarController?.tabBar.isHidden = false
     }
     
     
@@ -91,8 +91,6 @@ class MessageViewController: UIViewController {
 //        view.sendSubviewToBack(tableView)
     }
     
-    
-    
     private func setAutolayout() {
         titleLabel.snp.makeConstraints { (make) in
             make.top.equalTo(view.safeAreaLayoutGuide)
@@ -112,7 +110,8 @@ class MessageViewController: UIViewController {
         }
         
         tableView.snp.makeConstraints { (make) in
-            make.top.leading.trailing.bottom.equalTo(emptyMsgLabel)
+            make.top.equalTo(statusLabel.snp.bottom).offset(20)
+            make.leading.trailing.bottom.equalTo(emptyMsgLabel)
         }
     }
 }
@@ -132,7 +131,7 @@ extension MessageViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        (indexPath.row == 2) ? (cell.separatorInset = .init(top: 0, left: 800, bottom: 0, right: -800)) : ()
+        (indexPath.row == chatRoomArray.count-1) ? (cell.separatorInset = .init(top: 0, left: 800, bottom: 0, right: -800)) : ()
         print(indexPath.row)
     }
 }
@@ -142,7 +141,8 @@ extension MessageViewController: UITableViewDataSource {
 extension MessageViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let chatRoomVC = ChatRoomViewController()
-        
+        chatRoomVC.chatRoomData = self.chatRoomArray[indexPath.row]
+        chatRoomVC.currentRoomIndex = indexPath.row
         navigationController?.pushViewController(chatRoomVC, animated: true)
     }
     

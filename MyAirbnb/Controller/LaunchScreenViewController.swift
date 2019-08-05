@@ -245,18 +245,20 @@ extension LaunchScreenViewController {
                     print("🔸🔸🔸 getLoginedUserData finished ")
                     print("🔵🔵🔵 로그인한 유저정보: ", value)
                     
+                    // 채팅방정보 가져오라고 시켜놓고 넘어감
                     self.getUsersChatRoomsData(completion: { (result) in
                         switch result {
                         case .success(let value):
                             print("🔵🔵🔵 chatroomData Array: ", SingletonCommonData.shared.userChatRoomsArray)
-                            self.dispatchGroup.leave()
-                            
+                            print("🔸🔸🔸 getUsersChatRoomsData finished ")
+//                            self.dispatchGroup.leave()
                         case .failure(let error):
-                            print(error.localizedDescription)
-                            self.dispatchGroup.leave()
+                            print("‼️", error.localizedDescription)
+//                            self.dispatchGroup.leave()
                         }
                     })
                     
+                    self.dispatchGroup.leave()
                 case .failure(let error):
                     print("‼️ getLoginedUserData: ", error.localizedDescription)
                     print("🔸🔸🔸 getLoginedUserData finished ")
@@ -274,7 +276,7 @@ extension LaunchScreenViewController {
     
     private func getServerHouseData(completion: @escaping () -> ()) {
         let urlString = netWork.basicUrlString
-            + "/rooms/?search=korea&ordering=total_rating&page_size=7&page=1"
+            + "/rooms/?search=korea&ordering=-total_rating&page_size=7&page=1"
         
         netWork.getJsonObjectFromAPI(urlString: urlString, urlForSpecificProcessing: nil) { (json, success) in
             guard success else {
@@ -356,6 +358,7 @@ extension LaunchScreenViewController {
     private func getUsersChatRoomsData(completion: @escaping (Result<Any?, netWorkError>) -> ()) {
         SingletonCommonData.shared.userChatRoomsArray.removeAll()
         guard let userInfo = SingletonCommonData.shared.userInfo else { print("‼️ getUserChatRoomsData userInfo convert error "); return }
+        guard userInfo.reservations.count > 0 else { completion(.failure(.badUrl)); return }
         for (index, room) in userInfo.reservations.enumerated() {
             guard let chatRoomArray = room?.values
                 , let chatRoom = chatRoomArray.first as? Reservation else {
@@ -368,14 +371,15 @@ extension LaunchScreenViewController {
             netWork.getServerDataWithToken(urlString: urlString) { (result) in
                 switch result {
                 case .success(let value):
-                    guard let chatRoomData = try? self.jsonDecoder.decode(ChatRoom.self, from: value) else { print("‼️ : ");
+                    guard let chatRoomData = try? self.jsonDecoder.decode(ChatRoom.self, from: value) else {
+                        print("‼️ chatRoomData decoding error ");
                         completion(.failure(.decodingError))
                         return
                     }
                     SingletonCommonData.shared.userChatRoomsArray.append(chatRoomData)
                     (index == userInfo.reservations.count - 1) ? completion(.success(nil)) : ()       // 마지막 인덱스까지 for문이 돌면 success or failtur completion
                 case .failure(let error):
-                    print("chatroom getServerData error: ", error.localizedDescription)
+                    print("‼️ chatroom getServerData error: ", error.localizedDescription)
                     (index == userInfo.reservations.count - 1) ? completion(.failure(error)) : ()
                 }
             }

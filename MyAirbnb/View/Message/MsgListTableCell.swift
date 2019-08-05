@@ -8,13 +8,14 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 class MsgListTableCell: UITableViewCell {
     static let identifier = "MsgListTableCell"
     
     let hostImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "hostImageForMsg")
+        imageView.image = UIImage(named: "hostSample2")
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 25
         imageView.clipsToBounds = true
@@ -109,16 +110,23 @@ class MsgListTableCell: UITableViewCell {
         contentView.addSubview(msgPreviewLabel)
         contentView.addSubview(stackView)
         
-        let startDate = chatRoomData?.startDate.replacingOccurrences(of: "-", with: ".")
-        let endDate = chatRoomData?.endDate.replacingOccurrences(of: "-", with: ".")
-        
-        
+    }
+    
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
         hostNameLabel.text = chatRoomData?.room.host.username
         
+        msgPreviewLabel.text = "Dear \(SingletonCommonData.shared.userInfo?.username ?? "") Welcome to \(chatRoomData?.room.title ?? "")"
         
-        msgPreviewLabel.text = "Dear \(chatRoomData?.messages.first?.author.username ?? "") \(chatRoomData?.room.title)"
-        
+        let startDate = chatRoomData?.startDate.replacingOccurrences(of: "-", with: ".") ?? ""
+        let endDate = chatRoomData?.endDate.replacingOccurrences(of: "-", with: ".") ?? ""
         bookDateLabel.text = "\(startDate) ~ \(endDate)"
+        
+        timeLabel.text = getMessagesLastTime()
+        
+        if let imageUrl = URL(string: chatRoomData?.room.host.image ?? "") {
+            hostImageView.kf.setImage(with: imageUrl)
+        }
     }
     
     private func setAutolayout() {
@@ -153,5 +161,20 @@ class MsgListTableCell: UITableViewCell {
             make.top.equalTo(msgPreviewLabel.snp.bottom).offset(3)
             make.leading.equalTo(hostNameLabel)
         }
+    }
+    
+    private func getMessagesLastTime() -> String {
+        let lastTimeString = chatRoomData?.messages.last?.created ?? ""
+        
+        let dateformatter = DateFormatter()
+        dateformatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        guard let date = dateformatter.date(from: lastTimeString) else { print("‼️ dateformmater error "); return ""}
+        dateformatter.dateFormat = "a h:mm"
+        dateformatter.locale = Locale(identifier: "ko")
+//        dateformatter.amSymbol = "오전"
+//        dateformatter.pmSymbol = "오후"
+        
+        let lastTimeAfterConvert = dateformatter.string(from: date)
+        return lastTimeAfterConvert
     }
 }

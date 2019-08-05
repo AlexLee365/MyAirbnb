@@ -11,7 +11,7 @@ import SnapKit
 import Starscream
 
 class ChatRoomViewController: UIViewController {
-
+    
     // MARK: - UI Properties
     let topView: UIView = {
         let view = UIView()
@@ -85,10 +85,16 @@ class ChatRoomViewController: UIViewController {
     var floatingTFConst: NSLayoutConstraint?
     var downTFConst: NSLayoutConstraint?
     
+    let netWork = NetworkCommunicator()
+    let dateformatter = DateFormatter()
+    
     let noti = NotificationCenter.default
     var socket: WebSocket!
     
-    var messageArray = [(String, Bool)]() {
+    var chatRoomData: ChatRoom?
+    var currentRoomIndex = 0
+    
+    var messageArray = [(String, Bool, String)]() {     // 채팅Text, 호스트인지여부, 작성날짜
         didSet {
             guard messageArray.count > 0 else { return }
             print("messageArray didSet")
@@ -103,6 +109,8 @@ class ChatRoomViewController: UIViewController {
         configureViewsOptions()
         setNavigationBar()
         addNotificationObserver()
+        
+        setChatContents()
         configureNetwork()
     }
     
@@ -114,6 +122,19 @@ class ChatRoomViewController: UIViewController {
         navigationController?.view.backgroundColor = UIColor.clear
         
         tabBarController?.tabBar.isHidden = true
+        
+        print("🔵🔵🔵 chatData: ", chatRoomData)
+    }
+    
+    override func viewSafeAreaInsetsDidChange() {
+        super.viewSafeAreaInsetsDidChange()
+        print("--------------------------[SafeArea did changed]--------------------------")
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("--------------------------[Did Appear]--------------------------")
+        chatTableView.scrollToRow(at: IndexPath(row: messageArray.count - 1, section: 0), at: .bottom, animated: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -187,9 +208,11 @@ class ChatRoomViewController: UIViewController {
         }
     }
     
+    
+    
     private func configureViewsOptions() {
         view.backgroundColor = .white
-        title = "K Family"
+        title = chatRoomData?.room.host.username ?? ""
         
         chatTableView.delegate = self
         chatTableView.dataSource = self
@@ -205,7 +228,7 @@ class ChatRoomViewController: UIViewController {
         placeholderLabel.text = "메시지 작성"
         placeholderLabel.font = .systemFont(ofSize: 15, weight: .regular)
         placeholderLabel.textColor = #colorLiteral(red: 0.7540688515, green: 0.7540867925, blue: 0.7540771365, alpha: 1)
-         
+        
         sendBtn.isEnabled = false
         sendBtn.alpha = 0.3
         sendBtn.addTarget(self, action: #selector(sendBtnDidTap(_:)), for: .touchUpInside)
@@ -231,6 +254,7 @@ class ChatRoomViewController: UIViewController {
     }
     
     private func setTableViewHeaderView() {
+        
         let width = UIScreen.main.bounds.width * 0.8
         let spaceHeight = UIScreen.main.bounds.height * 0.65
         chatTableHeaderView.frame = CGRect(x: 0, y: 0, width: width, height: spaceHeight)
@@ -246,11 +270,14 @@ class ChatRoomViewController: UIViewController {
             make.bottom.equalToSuperview().offset(-10)
         }
         
+        guard let chatData = chatRoomData else { print("‼️ : "); return }
+        
         let components = Calendar.current.dateComponents([.year, .month, .day], from: Date())
+//        let componentsMonthDay = Calendar.current.dateComponents([.month, .day], from: chatData.star)
         let peopleNumber = 1
         chatTableHeaderLabel.font = UIFont(name: StandardUIValue.shared.airbnbBookFontString, size: 13)
         chatTableHeaderLabel.setLineSpacing(lineSpacing: 8.0, lineHeightMultiple: 2)
-//        chatTableHeaderLabel.font = .systemFont(ofSize: 13, weight: .regular)
+        //        chatTableHeaderLabel.font = .systemFont(ofSize: 13, weight: .regular)
         chatTableHeaderLabel.textColor = #colorLiteral(red: 0.4756349325, green: 0.4756467342, blue: 0.4756404161, alpha: 1)
         chatTableHeaderLabel.textAlignment = .center
         chatTableHeaderLabel.numberOfLines = 0
@@ -260,7 +287,7 @@ class ChatRoomViewController: UIViewController {
         나누고 결제하세요.
         \(components.year ?? 0)년 \(components.month ?? 0)월 \(components.day ?? 0)일
         \n예약 문의
-        게스트 \(peopleNumber)명 ・ 2019년 8월 3일~5일
+        게스트 \(peopleNumber)명 ・ \(chatData.startDate) ~ \(chatData.endDate)
         """
     }
     
@@ -269,8 +296,27 @@ class ChatRoomViewController: UIViewController {
         noti.addObserver(self, selector: #selector(didReceiveKeyboardNotification(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
+    private func setChatContents() {
+        guard let chatData = chatRoomData else { print("‼️ ChatData convert error "); return }
+        for message in chatData.messages {
+            dateformatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+            guard let date = dateformatter.date(from: message.created) else { print("‼️ dateformmater error "); return }
+            let components = Calendar.current.dateComponents([.month, .day], from: date)
+            
+            messageArray.append((message.text, message.isHost, "\(components.month ?? 0)월 \(components.day ?? 0)일"))
+        }
+        print("🔵🔵🔵 messageArray: ", messageArray)
+        //        chatTableView.scrollToRow(at: IndexPath(row: messageArray.count - 1, section: 0), at: .bottom, animated: true)
+        
+        //        chatTableView.reloadData()
+    }
+    
     private func configureNetwork() {
-        let urlString = "ws://airbnb.tthae.com/ws/chat/44/?token=b3e432dca9f9379d5d640cfdc29603053a788433"
+        print("--------------------------[Configure Network]--------------------------")
+        print("userToekn: ", netWork.userToken)
+        print("chatRoom ID: ", chatRoomData?.id ?? 0)
+        
+        let urlString = "ws://airbnb.tthae.com/ws/chat/\(chatRoomData?.id ?? 0)/?token=\(netWork.userToken)"
         guard let url = URL(string: urlString) else { print("‼️ Network url error ");  return }
         var request = URLRequest(url: url)
         request.timeoutInterval = 5
@@ -326,9 +372,9 @@ class ChatRoomViewController: UIViewController {
             }
             self.view.layoutIfNeeded()
             
-//            if chatTableView.contentSize.height >= chatTableView.frame.height {
-//                self.chatTableView.contentOffset.y -= offsetValueWhenTableViewContentUp
-//            }
+            //            if chatTableView.contentSize.height >= chatTableView.frame.height {
+            //                self.chatTableView.contentOffset.y -= offsetValueWhenTableViewContentUp
+            //            }
             
         } else {
             // 키보드가 내려가있을때 => 올라감
@@ -340,7 +386,7 @@ class ChatRoomViewController: UIViewController {
             
             if chatTableView.contentSize.height >= chatTableView.frame.height {
                 
-//                guard let lastIndexPath = chatTableView.indexPathsForVisibleRows?.last else { return }
+                //                guard let lastIndexPath = chatTableView.indexPathsForVisibleRows?.last else { return }
                 guard messageArray.count > 0 else {
                     self.chatTableView.contentOffset.y += offsetValueWhenTableViewContentUp
                     return
@@ -369,7 +415,7 @@ extension ChatRoomViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let chatCell = tableView.dequeueReusableCell(withIdentifier: ChatTableViewCell.identifier, for: indexPath) as! ChatTableViewCell
-//        chatCell.messageTextView.text = messageArray[indexPath.row]
+        //        chatCell.messageTextView.text = messageArray[indexPath.row]
         
         let messageType: ChatTableViewCell.MessageType = messageArray[indexPath.row].1 ? .hosts : .mine
         chatCell.setMessageType(sender: messageType, hostName: "Host A")
@@ -401,7 +447,7 @@ extension ChatRoomViewController: UITextViewDelegate {
         
         
         (replacedText == "" && textView.text == "") ? configureWithNoText() : configureWithText()
-       
+        
         return true
     }
     
@@ -455,13 +501,36 @@ extension ChatRoomViewController: WebSocketDelegate, WebSocketPongDelegate {
         
         guard let json = jsonObject as? [String: Any]
             , let isHost = json["is_host"] as? Bool
-            , let message = json["text"] as? String else {
+            , let message = json["text"] as? String
+            , let writeDate = json["created"] as? String else {
                 print("‼️ Json key value error ")
                 return
         }
         
-        messageArray.append((message, isHost))
+        dateformatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        guard let date = dateformatter.date(from: writeDate) else { print("‼️ dateformmater error "); return }
+        let components = Calendar.current.dateComponents([.month, .day], from: date)
+        messageArray.append((message, isHost, "\(components.month ?? 0)월 \(components.day ?? 0)일"))
+        
         chatTableView.scrollToRow(at: IndexPath(row: messageArray.count - 1, section: 0), at: .bottom, animated: false)
+        
+        
+        let jsonDecoder = JSONDecoder()
+        let urlString = netWork.basicUrlString + "/chat/\(chatRoomData?.id ?? 0)/"
+        netWork.getServerDataWithToken(urlString: urlString) { (result) in
+            switch result {
+            case .success(let value):
+                guard let chatServerData = try? jsonDecoder.decode(ChatRoom.self, from: value) else { print("‼️ chatServerData convert error "); return }
+                
+                guard let MessageVC = self.navigationController?.viewControllers.first as? MessageViewController else { print("‼️ MessageVC convert error "); return }
+                
+                MessageVC.chatRoomArray[self.currentRoomIndex] = chatServerData
+                
+                print("🔸🔸🔸 chatServerData download and apply success ")
+            case .failure(let error):
+                print("‼️ error: ", error.localizedDescription);
+            }
+        }
     }
     
     func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
