@@ -34,6 +34,7 @@ extension Notification.Name {
     
     // MARK: - Trip
     static let moveToTripViewController = Notification.Name("MoveToTripViewController")
+    static let moveToTripDetailView = Notification.Name("moveToTripDetailView")
     
     // MARK: - FilterRemainsVC
     static let instantBookSwitchTapped = Notification.Name("InstantBookSwitchTapped")

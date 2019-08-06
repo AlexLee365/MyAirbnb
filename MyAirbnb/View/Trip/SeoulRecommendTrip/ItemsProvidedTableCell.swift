@@ -15,7 +15,6 @@ class ItemsProvidedTableCell: UITableViewCell {
     let titleLabel: UILabel = {
         let label = UILabel()
         label.configureTripDetailTitle()
-        label.text = "제공 항목"
         return label
     }()
     
@@ -157,6 +156,7 @@ class ItemsProvidedTableCell: UITableViewCell {
 
     func setData(itemProvidedData: TripDetail) {
         if !itemProvidedData.provides.isEmpty {
+            titleLabel.text = "제공 항목"
             for i in 0..<itemProvidedData.provides.count {
                 labelConfigArray[i].0.text = itemProvidedData.provides[i]?.provideSet
                 labelConfigArray[i].1.image =

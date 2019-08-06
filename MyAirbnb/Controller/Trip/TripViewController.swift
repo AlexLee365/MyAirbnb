@@ -48,7 +48,6 @@ class TripViewController: UIViewController {
     var numberOfRows = 0
     
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.interactivePopGestureRecognizer?.delegate = nil
@@ -60,7 +59,8 @@ class TripViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.isNavigationBarHidden = true
+        navigationController?.navigationBar.isHidden = true
+        tabBarController?.tabBar.isHidden = false
         numberOfRows = 6
         tableView.reloadData()
     }
@@ -138,7 +138,7 @@ extension TripViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+        print("*********indexpath: ", indexPath.row)
         switch indexPath.row {
         case 0:
             let introCell = tableView.dequeueReusableCell(withIdentifier: TripIntroTableViewCell.identifier, for: indexPath) as! TripIntroTableViewCell
@@ -229,6 +229,8 @@ extension TripViewController: UITableViewDelegate {
             return 0
         }
     }
+    
+   
 }
 
 // MARK: - TripIntroTableViewCellDelegate
@@ -247,10 +249,12 @@ extension TripViewController: TripIntroTableViewCellDelegate {
 
 extension TripViewController: SeoulRecommenedTripTableViewCellDelegate {
     func pushVC(tripDetails: BestTrip) {
+        print("push secoul recommend VC")
+        
         let detailVC = SeoulRecommendedDetailViewController()
         
         detailVC.tripDetailUrl = tripDetails.url
-        
+        detailVC.modalPresentationStyle = .none
         navigationController?.pushViewController(detailVC, animated: true)
     }
     

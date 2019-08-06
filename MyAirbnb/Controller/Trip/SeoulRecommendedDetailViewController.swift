@@ -28,6 +28,7 @@ class SeoulRecommendedDetailViewController: UIViewController {
         tableView.register(MemoTableCell.self, forCellReuseIdentifier: MemoTableCell.identifier)
         tableView.register(TripDetailReviewTableCell.self, forCellReuseIdentifier: TripDetailReviewTableCell.identifier)
         tableView.register(MaxGuestTableCell.self, forCellReuseIdentifier: MaxGuestTableCell.identifier)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         
         return tableView
     }()
@@ -118,9 +119,6 @@ class SeoulRecommendedDetailViewController: UIViewController {
         view.addSubview(topView)
         
         view.addSubview(bottomView)
-        
-        let priceString = String(tripDetailData?.tripDetail.price ?? 0).limitFractionDigits()
-        self.priceLabel.attributedText = self.attributedText(first: "₩ + \(priceString) ", second: "/인")
         bottomView.addSubview(priceLabel)
         bottomView.addSubview(starImageLabel)
         bottomView.addSubview(noOfReviewLabel)
@@ -237,14 +235,13 @@ class SeoulRecommendedDetailViewController: UIViewController {
             self.tripDetailData = result
             
             self.tripAdditionalDetail = [("수용 인원: 최대 게스트 \(result.tripDetail.maxGuest)명", ""), ("게스트 필수조건", ""), ("호스트에게 연락하기", ""), ("트립 환불 정책", "모든 트립은 예약 후 24시간 이내에 취소 및 전액 환불이 가능합니다.")]
-            
-            let priceString = String(result.tripDetail.price).limitFractionDigits()
-            
-            self.priceLabel.attributedText = self.attributedText(first: "₩ + \(priceString) ", second: "/인")
-            self.noOfReviewLabel.text = String(result.tripDetail.tripReviews.count)
-            self.numberOfCell = 6 + (result.tripDetail.tripReviews.count) + 4
+ 
+            self.numberOfCell = 7 + 4
             
             DispatchQueue.main.async {
+                let priceString = String(self.tripDetailData?.tripDetail.price ?? 0).limitFractionDigits()
+                self.priceLabel.attributedText = self.attributedText(first: "₩" + "\(priceString) ", second: "/인")
+                self.noOfReviewLabel.text = "(\(self.tripDetailData?.tripDetail.tripReviews.count ?? 0))"
                 self.tableView.reloadData()
             }
         }
@@ -260,9 +257,6 @@ extension SeoulRecommendedDetailViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let indexCount = 6 + (tripDetailData?.tripDetail.tripReviews.count ?? 0)
-        
         switch indexPath.row {
         case 0:
             let seoulRecommendCell = tableView.dequeueReusableCell(withIdentifier: SeoulRecommendTableViewCell.identifier, for: indexPath) as! SeoulRecommendTableViewCell
@@ -292,6 +286,8 @@ extension SeoulRecommendedDetailViewController: UITableViewDataSource {
             let itemsProvidedCell = tableView.dequeueReusableCell(withIdentifier: ItemsProvidedTableCell.identifier, for: indexPath) as! ItemsProvidedTableCell
             
             guard let itemsProvidedData = tripDetailData?.tripDetail else { return UITableViewCell() }
+            guard !itemsProvidedData.provides.isEmpty else { return UITableViewCell() }
+            
             itemsProvidedCell.setData(itemProvidedData: itemsProvidedData)
             
             itemsProvidedCell.providesCount = itemsProvidedData.provides.count
@@ -314,22 +310,24 @@ extension SeoulRecommendedDetailViewController: UITableViewDataSource {
             placeCell.setData(placeInfoData: placeInfoData)
             
             return placeCell
-            
-        case 6..<(6 + (tripDetailData?.tripDetail.tripReviews.count ?? 0)):
+     
+        case 6:
             let reviewCell = tableView.dequeueReusableCell(withIdentifier: TripDetailReviewTableCell.identifier, for: indexPath) as! TripDetailReviewTableCell
             
+            guard let tripDetail = tripDetailData?.tripDetail else { return UITableViewCell() }
             guard let tripReviewData = tripDetailData?.tripDetail.tripReviews else {return UITableViewCell()}
             guard !tripReviewData.isEmpty else { return UITableViewCell() }
             
-            reviewCell.setData(tripReviewData: tripReviewData[indexPath.row - 6])
+            reviewCell.setData(tripReviewData: tripReviewData[indexPath.row - 6], tripData: tripDetail)
+            reviewCell.delegate = self
             
             return reviewCell
             
-        case indexCount...(indexCount + 3):
+        case 7...10:
             let maxGuestCell = tableView.dequeueReusableCell(withIdentifier: MaxGuestTableCell.identifier, for: indexPath) as! MaxGuestTableCell
             
-            maxGuestCell.titleLabel.text = tripAdditionalDetail[indexPath.row - indexCount].0
-            maxGuestCell.subLabel.text = tripAdditionalDetail[indexPath.row - indexCount].1
+            maxGuestCell.titleLabel.text = tripAdditionalDetail[indexPath.row - 7].0
+            maxGuestCell.subLabel.text = tripAdditionalDetail[indexPath.row - 7].1
             
             return maxGuestCell
         default:
@@ -341,6 +339,26 @@ extension SeoulRecommendedDetailViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 
 extension SeoulRecommendedDetailViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.row {
+        case 3:
+            if tripDetailData?.tripDetail.provides.count == 0 {
+                return 0
+            } else {
+                return UITableView.automaticDimension
+            }
+        case 6:
+            if tripDetailData?.tripDetail.tripReviews.count == 0 {
+                return 0
+            } else {
+                return UITableView.automaticDimension
+            }
+        default:
+            return UITableView.automaticDimension
+        }
+    }
+
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) else { return }
 
@@ -372,9 +390,10 @@ extension SeoulRecommendedDetailViewController: UITableViewDelegate {
         let deviceHeight = UIScreen.main.bounds.height
         let bottomViewHeight = bottomView.frame.height
 
+        let priceString = String(self.tripDetailData?.tripDetail.price ?? 0).limitFractionDigits()
+        
         if (cellHeight - currentY) <= (deviceHeight - bottomViewHeight) {
             UIView.animate(withDuration: 0.3) {
-                self.bottomView.backColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
                 
                 func attributedText(first: String, second: String) -> NSAttributedString{
                     let string = first + second as NSString
@@ -395,7 +414,8 @@ extension SeoulRecommendedDetailViewController: UITableViewDelegate {
                     return NSAttributedString(attributedString: result)
                 }
                 
-                self.priceLabel.attributedText = attributedText(first: "₩40,000 ", second: "/인")
+                self.bottomView.backColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                self.priceLabel.attributedText = attributedText(first: "₩" + "\(priceString) ", second: "/인")
                 self.starImageLabel.textColor = StandardUIValue.shared.colorBlueGreen
                 self.noOfReviewLabel.textColor = #colorLiteral(red: 0.5704585314, green: 0.5704723597, blue: 0.5704649091, alpha: 1)
                 self.seeDateBtn.backgroundColor = StandardUIValue.shared.colorPink
@@ -403,7 +423,7 @@ extension SeoulRecommendedDetailViewController: UITableViewDelegate {
             }
             
         } else {
-            self.priceLabel.attributedText = self.attributedText(first: "₩40,000 ", second: "/인")
+            self.priceLabel.attributedText = self.attributedText(first: "₩" + "\(priceString) ", second: "/인")
             self.bottomView.backColor = .black
             self.priceLabel.textColor = .white
             self.starImageLabel.textColor = .white
@@ -419,5 +439,14 @@ extension SeoulRecommendedDetailViewController: UITableViewDelegate {
 extension SeoulRecommendedDetailViewController: TableviewTopViewDelegate {
     func popView() {
         navigationController?.popViewController(animated: true)
+    }
+}
+
+extension SeoulRecommendedDetailViewController: TripDetailReviewTableCellDelegate {
+    func presentTripDetailReviewVC() {
+        let reviewVC = TripDetailReviewViewController()
+        reviewVC.reviewCount = tripDetailData?.tripDetail.tripReviews.count ?? 0
+        reviewVC.reviewArray = tripDetailData?.tripDetail.tripReviews ?? []
+        present(reviewVC, animated: true)
     }
 }
