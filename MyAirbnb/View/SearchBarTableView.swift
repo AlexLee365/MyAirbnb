@@ -12,7 +12,6 @@ class SearchBarTableView: UIView {
 
     let tableView = UITableView()
     
-//    var locationData = ["서울", "파리", "런던", "로마", "인천", "여수", "속초"]
     var searchResult = [String]() {
         didSet {
             DispatchQueue.main.async {
@@ -21,6 +20,7 @@ class SearchBarTableView: UIView {
         }
     }
     let notiCenter = NotificationCenter.default
+    var useCase: (UseCase, UIViewController) = (.inMainVC, UIViewController())
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -30,6 +30,11 @@ class SearchBarTableView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+//        searchResult = SingletonCommonData.shared.stateArray
     }
     
     private func setAutoLayout() {
@@ -49,6 +54,8 @@ class SearchBarTableView: UIView {
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
 //        tableView.allowsSelection = false
         
+        guard let saveStatesArray = UserDefaults.standard.array(forKey: SingletonCommonData.userDefaultSaveStatesInfo) as? [String] else { print("saveStatesArray error"); return }
+        searchResult = saveStatesArray
     }
 
 }
@@ -64,9 +71,20 @@ extension SearchBarTableView: UITableViewDelegate, UITableViewDataSource {
         
         return cell
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let state = searchResult[indexPath.row]
         print(state)
-        notiCenter.post(name: .searchBarTableCellSelected, object: state)
+        notiCenter.post(name: .searchBarTableCellSelected,
+                        object: state,
+                        userInfo: [SingletonCommonData.notiKeySearchBarUseCase: useCase.0,
+                                   SingletonCommonData.notiKeySearchBarInController: useCase.1])
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        notiCenter.post(name: .searchBarTableViewScrolled,
+                        object: nil,
+                        userInfo: [SingletonCommonData.notiKeySearchBarUseCase: useCase.0,
+                                   SingletonCommonData.notiKeySearchBarInController: useCase.1])
     }
 }

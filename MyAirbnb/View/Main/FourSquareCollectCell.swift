@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class FourSquareCollectCell: UICollectionViewCell {
     static let identifier = "FourSquareCollectCell"
@@ -106,11 +107,13 @@ class FourSquareCollectCell: UICollectionViewCell {
     }
     
     func setData(houseData: HouseDataInList) {
-        mainImageView.image = houseData.imageArray.first ?? UIImage(named: "houseSample")
+//        mainImageView.image = houseData.imageArray.first ?? UIImage(named: "houseSample")
         detailLabel.text = "\(houseData.roomType) ・ \(houseData.state)"
         houseNameLabel.text = houseData.title
         ratingImageLabel.text = houseData.drawStarsWithHouseRate()
         ratingAndHostInfoLabel.text = "\(houseData.reservations) ・ \(houseData.superHost ?? "일반 호스트")"
+        guard let url = URL(string: houseData.image) else { print("‼️ url convert error "); return }
+        mainImageView.kf.setImage(with: url)
     }
     
     

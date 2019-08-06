@@ -39,9 +39,8 @@ class PlusViewController: UIViewController {
         return tableView
     }()
     
-    let bottomView: BottomInfoView = {
-        let view = BottomInfoView()
-        view.backColor = .white
+    let bottomView: HouseBottomView = {
+        let view = HouseBottomView()
         return view
     }()
     
@@ -106,9 +105,8 @@ class PlusViewController: UIViewController {
         }
         
         bottomView.snp.makeConstraints { (make) in
-            make.bottom.equalToSuperview()
-            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(view.snp.height).multipliedBy(0.12)
+            make.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.height.equalTo(view.snp.height).multipliedBy(0.1)
         }
     }
 }

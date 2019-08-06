@@ -4,23 +4,27 @@ PODS:
     - NVActivityIndicatorView/Presenter (= 4.7.0)
   - NVActivityIndicatorView/Presenter (4.7.0)
   - SnapKit (5.0.0)
+  - Starscream (3.0.6)
 
 DEPENDENCIES:
   - Kingfisher (~> 5.7.0)
   - NVActivityIndicatorView
   - SnapKit (~> 5.0.0)
+  - Starscream (~> 3.0.2)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Kingfisher
     - NVActivityIndicatorView
     - SnapKit
+    - Starscream
 
 SPEC CHECKSUMS:
   Kingfisher: c7d211b54f1f30d8060aadab177d52b4349c825b
   NVActivityIndicatorView: b19ddab2576f805cbe0fb2306cba3476e09a1dea
   SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
+  Starscream: ef3ece99d765eeccb67de105bfa143f929026cf5
 
-PODFILE CHECKSUM: e1cfbfcd4046f7a80b3f355a1a3f571e23f3e155
+PODFILE CHECKSUM: d65b8d5bfcfd554ba4cd6b5c8c1213dc3d3a5f09
 
 COCOAPODS: 1.7.5

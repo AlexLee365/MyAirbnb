@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 class ReserveInfoTableCell: UITableViewCell {
     static let identifier = "ReserveInfoTableCell"
@@ -102,5 +103,16 @@ class ReserveInfoTableCell: UITableViewCell {
             make.width.equalToSuperview().multipliedBy(0.3)
             make.height.equalTo(houseImageView.snp.width).multipliedBy(0.7)
         }
+    }
+    
+    func setData(houseData: HouseDetailData) {
+        categoryLabel.text = houseData.roomType
+        let price = String(houseData.price)
+        priceLabel.text = "₩\(price.limitFractionDigits()) /박"
+        starLabel.text = houseData.drawStarsWithHouseRate()
+        noOfReviewLabel.text = "후기 \(houseData.reservations.count)개"
+        
+        guard let url = URL(string: houseData.image ?? "") else { print("‼️ : "); return }
+        houseImageView.kf.setImage(with: url)
     }
 }

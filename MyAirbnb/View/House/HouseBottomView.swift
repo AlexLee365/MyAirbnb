@@ -52,7 +52,6 @@ class HouseBottomView: UIView {
     
     let priceLabel: UILabel = {
         let label = UILabel()
-        label.text = "₩40,000 /박"
         return label
     }()
     
@@ -90,7 +89,7 @@ class HouseBottomView: UIView {
         return button
     }()
     
-    var isDateSelected = false {
+    var isDateSelected = true {
         didSet {
             switch isDateSelected {
             case true:
@@ -109,18 +108,21 @@ class HouseBottomView: UIView {
     
     var price = 0 {
         didSet {
-            let value = limitFractionDigits(to: String(price) ?? "")
-            priceLabel.text = "₩\(value) /박"
+            let value = limitFractionDigits(to: String(price))
+            priceLabel.attributedText = attributedText(first: "₩\(value) ", second: "/박")
+            priceLabelBefore.attributedText = attributedText(first: "₩\(value) ", second: "/박")
         }
     }
     var rate = "" {
         didSet {
             starImageLabel.text = rate
+            starLabelBefore.text = rate
         }
     }
     var rateCount = 0 {
         didSet {
             noOfReviewLabel.text = "\(rateCount)"
+            noOfReviewLabelBefore.text = "\(rateCount)"
         }
     }
     
@@ -142,7 +144,6 @@ class HouseBottomView: UIView {
     private func configure() {
         self.backgroundColor = .white
         
-        
         self.addSubview(reserveBtn)
         
         self.addSubview(beforeDateContainerView)
@@ -158,8 +159,10 @@ class HouseBottomView: UIView {
         afterDateContainerView.addSubview(noOfReviewLabel)
         afterDateContainerView.addSubview(priceDetailBtn)
         
-        beforeDateContainerView.isHidden = false
-        afterDateContainerView.isHidden = true
+//        beforeDateContainerView.isHidden = false
+//        afterDateContainerView.isHidden = true
+        
+        isDateSelected = false
         
         makeShadow()
     }

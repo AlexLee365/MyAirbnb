@@ -25,48 +25,5 @@ class TestSaveViewController: UIViewController {
         noticeLabel.text = "This is testPage for SavePage"
         noticeLabel.font = .systemFont(ofSize: 14, weight: .bold)
         noticeLabel.textColor = .black
-        
-        
-        getServerData()
     }
-    
-    
-    let netWork = NetworkCommunicator()
-    let jsonDecoder = JSONDecoder()
-    
-    var tripTestData: [TripTestData]?
-    
-    var hostAbout = ""
-    
-    func getServerData() {
-        let urlString = netWork.basicUrlString + "/trip/"
-        
-        netWork.getJsonObjectFromAPI(urlString: urlString, urlForSpecificProcessing: nil) { (json, success) in
-            
-            guard success else {
-                print("get serverData failed")
-                return
-            }
-            
-            guard let data = try? JSONSerialization.data(withJSONObject: json) else {
-                print("‼️ moveToHouseDetail noti data convert error")
-                return
-            }
-            
-            guard let result = try? self.jsonDecoder.decode([TripTestData].self, from: data) else {
-                print("‼️ moveToHouseDetail noti result decoding convert error")
-                return
-            }
-            
-            self.tripTestData = result
-            
-//            print(self.tripTestData)
-            
-//            self.tripTestData!.forEach {
-//                self.hostAbout = $0.hostAbout
-//                print(self.hostAbout)
-//            }
-        }
-    }
-  
 }

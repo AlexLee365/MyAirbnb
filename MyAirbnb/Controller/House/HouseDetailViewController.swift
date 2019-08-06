@@ -30,11 +30,16 @@ class HouseDetailViewController: UIViewController {
     var imageArray = [UIImage]()
     var cellCountAfterDataRoad = 0
     var roomID = 0
-    var isDateSelected = false
+
+    var isDateSelected = false {
+        didSet {
+            bottomView.isDateSelected = self.isDateSelected
+        }
+    }
+    var selectedFilterInfo = ([Date](), 1)  // 선택된 필터정보 (날짜배열, 게스트인원)
     
     var typeLablePlaceholder = ""
     var nameLabelPlaceholder = ""
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +49,7 @@ class HouseDetailViewController: UIViewController {
         
         self.setPlaceholderView()
         self.showIdicator()
-        DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0) {
             self.getServerData {
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
@@ -64,18 +69,23 @@ class HouseDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        navigationController?.navigationBar.isHidden = true
         tabBarController?.tabBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.isHidden = false
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        print("🔵🔵🔵 selectedDates: ", selectedFilterInfo.0)
     }
     
     private func setAutoLayout() {
         
-        let height = UIScreen.main.bounds.height * 0.10
+        let height = UIScreen.main.bounds.height * 0.1
         view.addSubview(bottomView)
         bottomView.snp.makeConstraints { (make) in
             make.leading.trailing.equalToSuperview()
@@ -104,6 +114,7 @@ class HouseDetailViewController: UIViewController {
         tableView.register(HouseDetailFacilityTableCell.self, forCellReuseIdentifier: HouseDetailFacilityTableCell.identifier)
         tableView.register(HouseDetailLocationTableCell.self, forCellReuseIdentifier: HouseDetailLocationTableCell.identifier)
         tableView.register(HouseDetailCheckInTableCell.self, forCellReuseIdentifier: HouseDetailCheckInTableCell.identifier)
+        tableView.register(HouseDetailReviewTableCell.self, forCellReuseIdentifier: HouseDetailReviewTableCell.identifier)
         tableView.separatorInset = UIEdgeInsets(top: 0, left: StandardUIValue.shared.mainViewSideMargin, bottom: 0, right: StandardUIValue.shared.mainViewSideMargin)
         tableView.contentInsetAdjustmentBehavior = .never
         tableView.allowsSelection = false
@@ -114,23 +125,32 @@ class HouseDetailViewController: UIViewController {
         
 //        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         bottomView.isDateSelected = isDateSelected
+//        bottomView.isDateSelected = true
+//        isDateSelected = true
         bottomView.reserveBtn.addTarget(self, action: #selector(reserveBtnDidTap(_:)), for: .touchUpInside)
         bottomView.alpha = 0
     }
     
     private func setBottomViewData() {
         guard let data = houseDetailData else { return }
+        print("🔴🔴🔴 SetBottomViewData: ", data)
         bottomView.price = data.price
         bottomView.rate = data.drawStarsWithHouseRate()
         bottomView.rateCount = data.reservations.count
     }
     
     @objc private func reserveBtnDidTap(_ sender: UIButton) {
+        // 예약 요청 & 날짜 입력 버튼
         switch isDateSelected {
         case true:
+            // 날짜가 이미 선택되있으면 => 예약요청
             let reserveInfoVC = HouseDetailReserveInfoViewController()
-            navigationController?.pushViewController(reserveInfoVC, animated: true)
+            reserveInfoVC.selectedFilterInfo = selectedFilterInfo
+            reserveInfoVC.houseDetailData = houseDetailData
+            let navi = UINavigationController(rootViewController: reserveInfoVC)
+            present(navi, animated: true)
         case false:
+            // 날짜가 이미 선택되어있지않으면 =>  날짜선택
             let calendarVC = HouseDetailCalendarViewController()
             calendarVC.houseDetailData = self.houseDetailData
             present(calendarVC, animated: true)
@@ -171,28 +191,33 @@ class HouseDetailViewController: UIViewController {
                 return
             }
             self.houseDetailData = result
-            self.cellCountAfterDataRoad = 8
-            let imageStringArray = [result.image, result.image1, result.image2, result.image3, result.image4]
-
-
+            self.cellCountAfterDataRoad = 8 + 1
+            let imageStringArray = [result.host[2] ?? "default", result.image, result.image1, result.image2, result.image3, result.image4]
+            print("🔸🔸🔸 image: ", imageStringArray[0] ?? "")
+            
+            
             for i in 0..<imageStringArray.count{
-                guard let url = URL(string: imageStringArray[i]) else { print("houseDetail getServerData imageUrl convert failed"); return }
+                guard let url = URL(string: imageStringArray[i] ?? "") else { print("houseDetail getServerData imageUrl convert failed"); continue }
+                
+                let group = DispatchGroup()
+                group.enter()
                 self.kingfisher.downloadImage(with: url, options: [], progressBlock: nil, completionHandler: { (result) in
                     switch result {
                     case .success(let value) :
                         self.imageArray.append(value.image)
+                        print("🔴🔴🔴 index: \(i) / imageArray: \(self.imageArray) ")
+                        (i == imageStringArray.count - 1) ? completion() : ()
+                        group.leave()
                     case .failure(let error):
+                        (i == 0) ? self.imageArray.append(UIImage(named: "hostSample2") ?? UIImage()) : () // 첫번째 호스트이미지가 없을시에 호스트 샘플이미지를 추가해줌
                         print("kingfisher image download failed: ", error.localizedDescription)
+                        (i == imageStringArray.count - 1) ? completion() : ()
+                        group.leave()
                     }
-                    if (i == imageStringArray.count - 1) {
-                        completion()
-                    }
-
                 })
+                group.wait()
             }
         }
-        
-        
     }
     
     private func setPlaceholderView() {
@@ -279,12 +304,13 @@ extension HouseDetailViewController: UITableViewDelegate, UITableViewDataSource 
         switch indexPath.row {
         case 0:
             let houseDetailPicturesTableCell = tableView.dequeueReusableCell(withIdentifier: HouseDetailPicturesTableCell.identifier, for: indexPath) as! HouseDetailPicturesTableCell
-            houseDetailPicturesTableCell.images = imageArray
+            let tempArray = imageArray.enumerated().filter{ $0.offset != 0 }.map{ $0.element }
+            houseDetailPicturesTableCell.images = tempArray
             
             return houseDetailPicturesTableCell
         case 1:
             let houseDetailBasicInfoTableCell = tableView.dequeueReusableCell(withIdentifier: HouseDetailBasicInfoTableCell.identifier, for: indexPath) as! HouseDetailBasicInfoTableCell
-            houseDetailBasicInfoTableCell.setData(type: data.roomType, name: data.title, state: data.state, hostName: data.host[0] ?? "", hostImage: nil, capacity: data.capacity, bedroom: data.bedroom, bathroom: data.bathroom)
+            houseDetailBasicInfoTableCell.setData(type: data.roomType, name: data.title, state: data.state, hostName: data.host[0] ?? "", hostImage: imageArray[0], capacity: data.capacity, bedroom: data.bedroom, bathroom: data.bathroom)
             
             return houseDetailBasicInfoTableCell
         case 2:
@@ -306,7 +332,7 @@ extension HouseDetailViewController: UITableViewDelegate, UITableViewDataSource 
             return houseDetailStayingDaysTableCell
         case 5:
             let houseDetailFacilityTableCell = tableView.dequeueReusableCell(withIdentifier: HouseDetailFacilityTableCell.identifier, for: indexPath) as! HouseDetailFacilityTableCell
-            houseDetailFacilityTableCell.facilitiesArray = data.facilities
+            houseDetailFacilityTableCell.facilitiesArray = data.facilities.map{ $0.first ?? "" }
             return houseDetailFacilityTableCell
             
         case 6:
@@ -318,6 +344,12 @@ extension HouseDetailViewController: UITableViewDelegate, UITableViewDataSource 
             let houseDetailCheckInTableCell = tableView.dequeueReusableCell(withIdentifier: HouseDetailCheckInTableCell.identifier, for: indexPath) as! HouseDetailCheckInTableCell
             houseDetailCheckInTableCell.setData(checkIn: "", checkOut: "")
             return houseDetailCheckInTableCell
+            
+        case 8:
+            let reviewTableCell = tableView.dequeueReusableCell(withIdentifier: HouseDetailReviewTableCell.identifier, for: indexPath) as! HouseDetailReviewTableCell
+            reviewTableCell.hideSeparator()
+            reviewTableCell.delegate = self
+            return reviewTableCell
             
         default : break
         }
@@ -341,5 +373,15 @@ extension HouseDetailViewController: UITableViewDelegate, UITableViewDataSource 
 //            houseDetailPictureCell.pictureViews.first?.transform = CGAffineTransform(scaleX: 0, y: contentY)
 //            houseDetailPictureCell.pictureViews.first?.transform = CGAffineTransform(scaleX: scaleValue, y: scaleValue)
         }
+    }
+}
+
+
+// MARK: - HouseDetailReviewTableCellDelegate
+
+extension HouseDetailViewController: HouseDetailReviewTableCellDelegate {
+    func presentReviewVC() {
+        let reviewVC = HouseReviewViewController()
+        present(reviewVC, animated: true)
     }
 }

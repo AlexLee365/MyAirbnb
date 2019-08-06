@@ -44,6 +44,9 @@ class FilterPeopleViewController: UIViewController {
     
     
     // MARK: - Properties
+    var useCase: UseCase = .inMainVC
+    var inController: UIViewController = UIViewController()
+    
     let netWork = NetworkCommunicator()
     let notiCenter = NotificationCenter.default
     var selectedPeople = (0, 0, 0)
@@ -396,53 +399,55 @@ class FilterPeopleViewController: UIViewController {
     }
     
     @objc func resultBtnDidTap(_ sender: UIButton) {
-        guard let tabbarVC = presentingViewController as? TabbarController else { print("tabbarVC convert error"); return }
-        guard let naviVC = tabbarVC.viewControllers?.first as? UINavigationController else { print("navi convert error"); return }
         
-        if let mainVC = naviVC.viewControllers.first as? MainViewController {
-            print("mainVC")
-            
+        switch useCase {
+        case .inMainVC:
+            guard let mainVC = inController as? MainViewController else { print("‼️ : "); return }
             mainVC.searchBarView.selectedPeople = (adultCount, childCount, babyCount)
             
-            let totalPeopleCount = adultCount + childCount + babyCount
-            guard totalPeopleCount != 0 else { dismissWithAnimation(); return }
+        case .inHouseVC:
+            guard let houseVC = inController as? HouseViewController else { print("‼️ : "); return }
+            houseVC.searchBarView.selectedPeople = (adultCount, childCount, babyCount)
             
-            resultBtn.setTitle("", for: .normal)
-            indicator.startAnimating()
-            
-            var houseViewDataArray = [HouseViewData]()
-            let urlString = netWork.basicUrlString
-                + "/rooms/?search=seoul&ordering=total_rating&page_size=5&page=1&capacity=\(totalPeopleCount)"
-            netWork.getHouseServerData(urlString: urlString) { (houseDataArray, success) in
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-                    
-                    switch success {
-                    case true:
-                        let houseviewDataIntroLabel = HouseViewData(
-                            data: [HouseIntroLabelDataInList(intro: "여행 날짜와 게스트 인원수를 입력하면 1박당 총 요금을 확인할 수 있습니다. 관광세가 추가로 부과될 수 있습니다.")],
-                            cellStyle: .introLabel)
-                        let houseviewDataTitleLabel = HouseViewData(
-                            data: [HouseTitleLabelDataInList(title: "300개 이상의 숙소 모두 둘러보기")], cellStyle: .titleLabel)
-                        let houseviewDataNormal = HouseViewData(data: houseDataArray!, cellStyle: .normalHouse)
-                        houseViewDataArray = [houseviewDataIntroLabel, houseviewDataTitleLabel, houseviewDataNormal]
-                    case false:
-                        let houseviewDataIntroLabel = HouseViewData(
-                            data: [HouseIntroLabelDataInList(intro: "숙소 결과가 없습니다.")],
-                            cellStyle: .introLabel)
-                        houseViewDataArray = [houseviewDataIntroLabel]
-                    }
-                    self.notiCenter.post(name: .searchBarPeopleResultBtnDidTap, object: nil, userInfo: ["houseViewDataArray": houseViewDataArray])
-                    self.dismissWithAnimation()
-                })
-            }
-            
-            
-        } else if let tripVC = presentingViewController as? TripViewController {
-            print("tripVC")
+        case .inTripVC:
+            ()
         }
         
+        let totalPeopleCount = adultCount + childCount + babyCount
+        guard totalPeopleCount != 0 else { dismissWithAnimation(); return }
         
+        resultBtn.setTitle("", for: .normal)
+        indicator.startAnimating()
         
+        var houseViewDataArray = [HouseViewData]()
+        let urlString = netWork.basicUrlString
+            + "/rooms/?search=seoul&ordering=total_rating&page_size=5&page=1&capacity=\(totalPeopleCount)"
+        netWork.getHouseServerData(urlString: urlString) { (houseDataArray, success) in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                
+                switch success {
+                case true:
+                    let houseviewDataIntroLabel = HouseViewData(
+                        data: [HouseIntroLabelDataInList(intro: "여행 날짜와 게스트 인원수를 입력하면 1박당 총 요금을 확인할 수 있습니다. 관광세가 추가로 부과될 수 있습니다.")],
+                        cellStyle: .introLabel)
+                    let houseviewDataTitleLabel = HouseViewData(
+                        data: [HouseTitleLabelDataInList(title: "300개 이상의 숙소 모두 둘러보기")], cellStyle: .titleLabel)
+                    let houseviewDataNormal = HouseViewData(data: houseDataArray!, cellStyle: .normalHouse)
+                    houseViewDataArray = [houseviewDataIntroLabel, houseviewDataTitleLabel, houseviewDataNormal]
+                case false:
+                    let houseviewDataIntroLabel = HouseViewData(
+                        data: [HouseIntroLabelDataInList(intro: "숙소 결과가 없습니다.")],
+                        cellStyle: .introLabel)
+                    houseViewDataArray = [houseviewDataIntroLabel]
+                }
+                self.notiCenter.post(name: .searchBarPeopleResultBtnDidTap,
+                                     object: nil,
+                                     userInfo: ["houseViewDataArray": houseViewDataArray,
+                                                SingletonCommonData.notiKeySearchBarUseCase: self.useCase,
+                                                SingletonCommonData.notiKeySearchBarInController: self.inController])
+                self.dismissWithAnimation()
+            })
+        }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {

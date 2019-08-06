@@ -15,14 +15,14 @@ class ItemsProvidedTableCell: UITableViewCell {
     let titleLabel: UILabel = {
         let label = UILabel()
         label.configureTripDetailTitle()
-        label.text = "제공 항목"
         return label
     }()
     
-    let itemsArray = ["음료", "티켓", "장비"]
-    let itemsDescArray = ["웰컴 커피와 비건 디저트", "포장박스, 비건 스티커 7종 쇼핑백", "1인당 비건 배쓰밤 3개 (size: 지름 7cm)"]
+    let itemsArray = ["", "", ""]
+    var providesCount = 0
     
     var labelConfigArray = [(UILabel, UIImageView, UILabel)]()
+    
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -35,6 +35,24 @@ class ItemsProvidedTableCell: UITableViewCell {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+//    override func didMoveToSuperview() {
+//        super.didMoveToSuperview()
+//        setItemsProvidedLabel()
+//        print("providesCount: ", providesCount)
+//    }
+    
+    private func configure() {
+        self.selectionStyle = .none
+        
+        contentView.addSubview(titleLabel)
+    }
+    
+    private func setAutolayout() {
+        titleLabel.snp.makeConstraints { (make) in
+            make.top.leading.equalTo(20)
+        }
     }
     
     
@@ -62,20 +80,19 @@ class ItemsProvidedTableCell: UITableViewCell {
         return UIImage(named: imageString) ?? UIImage()
     }
     
+    
     private func setItemsProvidedLabel() {
-        
-        for i in 0..<itemsArray.count {
+        for _ in 0..<itemsArray.count {
+//        for _ in 0..<providesCount {
             let itemLabel: UILabel = {
                 let label = UILabel()
                 label.configureTripDetailDesc()
-                label.text = itemsArray[i]
                 return label
             }()
             
             let itemImage: UIImageView = {
                 let imageView = UIImageView()
                 imageView.contentMode = .scaleAspectFit
-                imageView.image = configureImageForItem(item: itemsArray[i])
                 return imageView
             }()
             
@@ -83,7 +100,6 @@ class ItemsProvidedTableCell: UITableViewCell {
                 let label = UILabel()
                 label.configureTripDetailDesc()
                 label.font = UIFont(name: "AirbnbCerealApp-Book", size: 14.5)
-                label.text = itemsDescArray[i]
                 return label
             }()
             
@@ -94,6 +110,10 @@ class ItemsProvidedTableCell: UITableViewCell {
             contentView.addSubview(labelConfigArray[i].0)
             contentView.addSubview(labelConfigArray[i].1)
             contentView.addSubview(labelConfigArray[i].2)
+            
+//            labelConfigArray[i].0.backgroundColor = .blue
+//            labelConfigArray[i].1.backgroundColor = .red
+//            labelConfigArray[i].2.backgroundColor = .yellow
             
             labelConfigArray[i].0.snp.makeConstraints { (make) in
                 make.leading.equalTo(20)
@@ -133,15 +153,16 @@ class ItemsProvidedTableCell: UITableViewCell {
         }
     }
     
-    private func configure() {
-        self.selectionStyle = .none
-        
-        contentView.addSubview(titleLabel)
-    }
-    
-    private func setAutolayout() {
-        titleLabel.snp.makeConstraints { (make) in
-            make.top.leading.equalTo(20)
+
+    func setData(itemProvidedData: TripDetail) {
+        if !itemProvidedData.provides.isEmpty {
+            titleLabel.text = "제공 항목"
+            for i in 0..<itemProvidedData.provides.count {
+                labelConfigArray[i].0.text = itemProvidedData.provides[i]?.provideSet
+                labelConfigArray[i].1.image =
+                    configureImageForItem(item: itemProvidedData.provides[i]?.provideSet ?? "")
+                labelConfigArray[i].2.text = itemProvidedData.provides[i]?.provideDescription
+            }
         }
     }
 }

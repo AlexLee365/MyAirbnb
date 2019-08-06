@@ -41,23 +41,31 @@ class TripViewController: UIViewController {
         return searchBarView
     }()
     
+    var tripMainViewData: TripMainViewData?
+    var numberOfRows = 0
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.interactivePopGestureRecognizer?.delegate = nil
         
         configure()
         setAutolayout()
-        navigationController?.interactivePopGestureRecognizer?.delegate = nil
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.isNavigationBarHidden = true
+        navigationController?.navigationBar.isHidden = true
+        tabBarController?.tabBar.isHidden = false
+        numberOfRows = 6
+        tableView.reloadData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         tabBarController?.tabBar.isHidden = false
-        searchBarView.useCase = .inTripVC
+        searchBarView.useCase = (.inTripVC, self)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -85,12 +93,18 @@ class TripViewController: UIViewController {
         searchBarView.filterStackView.isHidden = true
         searchBarView.searchTF.text = "트립"
         
+        
+        searchBarView.searchImageBtn.addTarget(self, action: #selector(searchBarBackBtnDidTap(_:)), for: .touchUpInside)
+        
         view.addSubview(searchBarBackgroundView)
         view.bringSubviewToFront(searchBarView)
     }
     
+    @objc private func searchBarBackBtnDidTap(_ sender: UIButton) {
+        dismiss(animated: false)
+    }
+    
     private func setAutolayout() {
-        
         let safeGuide = view.safeAreaLayoutGuide
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -117,11 +131,11 @@ class TripViewController: UIViewController {
 
 extension TripViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
+        return numberOfRows
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+        print("*********indexpath: ", indexPath.row)
         switch indexPath.row {
         case 0:
             let introCell = tableView.dequeueReusableCell(withIdentifier: TripIntroTableViewCell.identifier, for: indexPath) as! TripIntroTableViewCell
@@ -132,19 +146,24 @@ extension TripViewController: UITableViewDataSource {
             
         case 1:
             let specialTripCell = tableView.dequeueReusableCell(withIdentifier: SpecialTripTableViewCell.identifier, for: indexPath) as! SpecialTripTableViewCell
+            
+            specialTripCell.mainCategoryListDataArray = tripMainViewData?.mainCategories ?? []
+            
             return specialTripCell
             
         case 2:
-            let seoulRecommendedTripCell = tableView.dequeueReusableCell(withIdentifier: SeoulRecommenedTripTableViewCell.identifier, for: indexPath) as! SeoulRecommenedTripTableViewCell
+            let mainRecommendedTripCell = tableView.dequeueReusableCell(withIdentifier: SeoulRecommenedTripTableViewCell.identifier, for: indexPath) as! SeoulRecommenedTripTableViewCell
             
-            seoulRecommendedTripCell.delegate = self
+            mainRecommendedTripCell.delegate = self
+            mainRecommendedTripCell.globalRecommendedTripDataArray = tripMainViewData?.globalRecommendTrip ?? []
             
-            return seoulRecommendedTripCell
+            return mainRecommendedTripCell
             
         case 3:
             let worldAdventureCell = tableView.dequeueReusableCell(withIdentifier: WorldAdventureTableCell.identifier, for: indexPath) as! WorldAdventureTableCell
             
             worldAdventureCell.delegate = self
+            worldAdventureCell.globalAdventureDataArray = tripMainViewData?.globalAdventureTrip ?? []
             
             return worldAdventureCell
             
@@ -154,6 +173,10 @@ extension TripViewController: UITableViewDataSource {
             
         case 5:
             let otherCityTripCell = tableView.dequeueReusableCell(withIdentifier: OtherCityTripTableCell.identifier, for: indexPath) as! OtherCityTripTableCell
+            
+            otherCityTripCell.delegate = self
+            otherCityTripCell.stateListArray = tripMainViewData?.stateArray ?? []
+            
             return otherCityTripCell
             
         default:
@@ -192,9 +215,9 @@ extension TripViewController: UITableViewDelegate {
         case 1:
             return 530
         case 2:
-            return 555
+            return 510
         case 3:
-            return 810
+            return UITableView.automaticDimension
         case 4:
            return 900
         case 5:
@@ -203,6 +226,8 @@ extension TripViewController: UITableViewDelegate {
             return 0
         }
     }
+    
+   
 }
 
 // MARK: - TripIntroTableViewCellDelegate
@@ -220,13 +245,19 @@ extension TripViewController: TripIntroTableViewCellDelegate {
 // MARK: - SeoulRecommenedTripTableViewCellDelegate
 
 extension TripViewController: SeoulRecommenedTripTableViewCellDelegate {
-    func pushVC() {
+    func pushVC(tripDetails: BestTrip) {
         let detailVC = SeoulRecommendedDetailViewController()
+        
+        detailVC.tripDetailUrl = tripDetails.url
+        
         navigationController?.pushViewController(detailVC, animated: true)
     }
     
     func pushVCForBtn() {
         let tripAllVC = TripAllViewController()
+        
+        
+        
         navigationController?.pushViewController(tripAllVC, animated: false)
     }
 }
@@ -234,10 +265,25 @@ extension TripViewController: SeoulRecommenedTripTableViewCellDelegate {
 // MARK: - WorldAdventureTableCellDelegate
 
 extension TripViewController: WorldAdventureTableCellDelegate {
-    func pushAdventureVC() {
+    func pushAdventureVC(globalAdventureData: BestTrip) {
         let adventureVC = VideosDetailViewController()
+        
+        adventureVC.adventureDetailUrl = globalAdventureData.url
+            
         tabBarController?.tabBar.isHidden = true
         navigationController?.pushViewController(adventureVC, animated: true)
+    }
+}
+
+// MARK: - OtherCityTripTableCellDelegate
+
+extension TripViewController: OtherCityTripTableCellDelegate {
+    func pushToSearchMainVC(state: State) {
+        let tripSearchMainVC = TripSearchMainViewController()
+
+        tripSearchMainVC.searchUrl = state.url
+        
+        navigationController?.pushViewController(tripSearchMainVC, animated: false)
     }
 }
 

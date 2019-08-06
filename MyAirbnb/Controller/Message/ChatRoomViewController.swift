@@ -2,15 +2,18 @@
 //  ChatRoomViewController.swift
 //  MyAirbnb
 //
-//  Created by Solji Kim on 24/07/2019.
+//  Created by 행복한 개발자 on 24/07/2019.
 //  Copyright © 2019 Alex Lee. All rights reserved.
 //
 
 import UIKit
 import SnapKit
+import Starscream
+import Kingfisher
 
 class ChatRoomViewController: UIViewController {
-
+    
+    // MARK: - UI Properties
     let topView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -37,13 +40,6 @@ class ChatRoomViewController: UIViewController {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17)
         return button
     }()
-
-    
-    let bottomView: BottomInfoView = {
-        let view = BottomInfoView()
-        view.backColor = .white
-        return view
-    }()
     
     let requestBookingBtn: UIButton = {
         let button = UIButton()
@@ -56,12 +52,10 @@ class ChatRoomViewController: UIViewController {
         return button
     }()
     
-    let chatTableView: UITableView = {
-        let tableView = UITableView()
-        tableView.separatorStyle = .none
-        tableView.allowsSelection = false
-        return tableView
-    }()
+    let chatTableHeaderView = UIView()
+    let chatTableSpaceView = UIView()
+    let chatTableHeaderLabel = UILabel()
+    let chatTableView = UITableView()
     
     let containerView: UIView = {
         let view = UIView()
@@ -71,7 +65,7 @@ class ChatRoomViewController: UIViewController {
     let chatTextView: UITextView = {
         let textView = UITextView()
         textView.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
-        textView.font = UIFont.systemFont(ofSize: 16)
+        textView.font = UIFont.systemFont(ofSize: 15)
         textView.autocorrectionType = .no
         return textView
     }()
@@ -85,14 +79,36 @@ class ChatRoomViewController: UIViewController {
         return button
     }()
     
+    let seperateLineBottomView = UIView()
+    let placeholderLabel = UILabel()
+    
+    // MARK: - Properteis
+    var floatingTFConst: NSLayoutConstraint?
+    var downTFConst: NSLayoutConstraint?
+    
+    let netWork = NetworkCommunicator()
+    let dateformatter = DateFormatter()
+    
     let noti = NotificationCenter.default
+    var socket: WebSocket!
+    
+    var chatRoomData: ChatRoom?
+    var currentRoomIndex = 0
+    var amIHost = false
+    
+    var guestImage: UIImage?
+    var hostImage: UIImage?
+    
+    var messageArray = [(String, Bool, String)]()     // 채팅Text, 호스트인지여부, 작성날짜
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        configure()
+        setTableViewHeaderView()
         setAutolayout()
+        configureViewsOptions()
+        setNavigationBar()
         addNotificationObserver()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -103,168 +119,462 @@ class ChatRoomViewController: UIViewController {
         navigationController?.view.backgroundColor = UIColor.clear
         
         tabBarController?.tabBar.isHidden = true
-    }
+//        title = amIHost ?  "Guest" : chatRoomData?.room.host.username
+        print("🔵🔵🔵 chatData: ", chatRoomData)
+        print("🔵🔵🔵 amIHost: ", amIHost)
+        
+        setChatContents {
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.chatTableView.scrollToRow(at: IndexPath(row: self.messageArray.count - 1, section: 0), at: .bottom, animated: false)
+                })
+            }
+        }
+        configureNetwork()
 
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        //        guard messageArray.count > 0 else { return }
+        //        chatTableView.scrollToRow(at: IndexPath(row: messageArray.count - 1, section: 0), at: .bottom, animated: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.floatingTFConst?.priority = .defaultHigh
+        self.downTFConst?.priority = .defaultLow
+        self.view.layoutIfNeeded()
+    }
+    
+    private func setAutolayout() {
+        view.addSubview(topView)
+        topView.snp.makeConstraints { (make) in
+            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            make.height.equalToSuperview().multipliedBy(0.09)
+        }
+        
+        topView.addSubview(msgTypeLabel)
+        msgTypeLabel.snp.makeConstraints { (make) in
+            make.centerY.equalToSuperview()
+            make.leading.equalTo(20)
+        }
+        
+        topView.addSubview(detailBtn)
+        detailBtn.snp.makeConstraints { (make) in
+            make.centerY.equalToSuperview()
+            make.trailing.equalTo(-20)
+        }
+        
+        view.addSubview(containerView)
+        containerView.snp.makeConstraints { (make) in
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            make.height.equalTo(65)
+            //            make.bottom.equalTo(bottomView.snp.top).priority(500)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).priority(500)
+        }
+        
+        containerView.addSubview(sendBtn)
+        sendBtn.snp.makeConstraints { (make) in
+            make.trailing.equalTo(-7)
+            make.top.bottom.equalToSuperview()
+            make.width.equalTo(60)
+        }
+        
+        containerView.addSubview(chatTextView)
+        chatTextView.snp.makeConstraints { (make) in
+            make.leading.equalTo(20)
+            make.top.equalTo(2)
+            make.bottom.equalTo(-13)
+            make.trailing.equalTo(sendBtn.snp.leading).offset(-20)
+        }
+        
+        containerView.addSubview(placeholderLabel)
+        placeholderLabel.snp.makeConstraints { (make) in
+            make.leading.equalTo(chatTextView.snp.leading).offset(8)
+            make.top.equalTo(chatTextView.snp.top).offset(8)
+        }
+        
+        containerView.addSubview(seperateLineBottomView)
+        seperateLineBottomView.snp.makeConstraints { (make) in
+            make.top.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(1)
+        }
+        
+        view.addSubview(chatTableView)
+        chatTableView.snp.makeConstraints { (make) in
+            make.top.equalTo(topView.snp.bottom)
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalTo(containerView.snp.top)
+        }
+    }
+    
+    private func configureViewsOptions() {
+        view.backgroundColor = .white
+        title = amIHost ?  "Guest" : chatRoomData?.room.host.username
+        
+        chatTableView.delegate = self
+        chatTableView.dataSource = self
+        chatTableView.register(UINib(nibName: "ChatTableViewCell", bundle: nil), forCellReuseIdentifier: ChatTableViewCell.identifier)
+        chatTableView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard)))
+        chatTableView.rowHeight = UITableView.automaticDimension
+        chatTableView.separatorStyle = .none
+        chatTableView.allowsSelection = false
+        chatTableView.tableHeaderView = chatTableHeaderView
+        
+        chatTextView.delegate = self
+        
+        placeholderLabel.text = "메시지 작성"
+        placeholderLabel.font = .systemFont(ofSize: 15, weight: .regular)
+        placeholderLabel.textColor = #colorLiteral(red: 0.7540688515, green: 0.7540867925, blue: 0.7540771365, alpha: 1)
+        
+        sendBtn.isEnabled = false
+        sendBtn.alpha = 0.3
+        sendBtn.addTarget(self, action: #selector(sendBtnDidTap(_:)), for: .touchUpInside)
+        
+        seperateLineBottomView.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
+    }
+    
+    private func setNavigationBar() {
+        self.navigationItem.setHidesBackButton(true, animated:false)
+        
+        let customBackView = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        let backImageView = UIImageView(frame: CGRect(x: 10, y: 10, width: 20, height: 20))
+        
+        backImageView.image = UIImage(named: "backForMsg")
+        
+        customBackView.addSubview(backImageView)
+        
+        let backTap = UITapGestureRecognizer(target: self, action: #selector(backToPreviousView))
+        customBackView.addGestureRecognizer(backTap)
+        
+        let leftBarButtonItem = UIBarButtonItem(customView: customBackView)
+        self.navigationItem.leftBarButtonItem = leftBarButtonItem
+    }
+    
+    private func setTableViewHeaderView() {
+        
+        let width = UIScreen.main.bounds.width * 0.8
+        let spaceHeight = UIScreen.main.bounds.height * 0.65
+        chatTableHeaderView.frame = CGRect(x: 0, y: 0, width: width, height: spaceHeight)
+        chatTableHeaderView.addSubview(chatTableSpaceView)
+        chatTableSpaceView.snp.makeConstraints { (make) in
+            make.top.leading.trailing.equalToSuperview()
+        }
+        
+        chatTableHeaderView.addSubview(chatTableHeaderLabel)
+        chatTableHeaderLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(chatTableSpaceView.snp.bottom)
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-10)
+        }
+        
+        guard let chatData = chatRoomData else { print("‼️ : "); return }
+        
+        let components = Calendar.current.dateComponents([.year, .month, .day], from: Date())
+        //        let componentsMonthDay = Calendar.current.dateComponents([.month, .day], from: chatData.star)
+        let peopleNumber = 1
+        chatTableHeaderLabel.font = UIFont(name: StandardUIValue.shared.airbnbBookFontString, size: 13)
+        chatTableHeaderLabel.setLineSpacing(lineSpacing: 8.0, lineHeightMultiple: 2)
+        //        chatTableHeaderLabel.font = .systemFont(ofSize: 13, weight: .regular)
+        chatTableHeaderLabel.textColor = #colorLiteral(red: 0.4756349325, green: 0.4756467342, blue: 0.4756404161, alpha: 1)
+        chatTableHeaderLabel.textAlignment = .center
+        chatTableHeaderLabel.numberOfLines = 0
+        chatTableHeaderLabel.text = """
+        호스트는 예약이 확정된 후에만 프로필 사진을 볼 수 있습니다.
+        \n안전한 결제를 위해 에어비앤비 웹사이트나 앱을 통해 대화를
+        나누고 결제하세요.
+        \(components.year ?? 0)년 \(components.month ?? 0)월 \(components.day ?? 0)일
+        \n예약 문의
+        게스트 \(peopleNumber)명 ・ \(chatData.startDate) ~ \(chatData.endDate)
+        """
+    }
+    
     private func addNotificationObserver() {
         noti.addObserver(self, selector: #selector(didReceiveKeyboardNotification(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         noti.addObserver(self, selector: #selector(didReceiveKeyboardNotification(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
+  
+    
+    @objc private func sendBtnDidTap(_ sender: UIButton) {
+        let messageDictionary = ["message": chatTextView.text]
+        
+        if let json = try? JSONSerialization.data(withJSONObject: messageDictionary, options: []) {
+            if let content = String.init(data: json, encoding: .utf8) {
+                print("Message content: ", content)
+                socket.write(string: content)
+            }
+        } else {
+            print("‼️ message json data convert error ")
+        }
+        
+        chatTextView.text = ""
+        configureWithNoText()
+    }
+    
+    var setConstraintOnce = false
+    var offsetValueWhenTableViewContentUp: CGFloat = 0
     @objc private func didReceiveKeyboardNotification(_ sender: Notification) {
         guard let userInfo = sender.userInfo,
             let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
             let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval
             else { return }
         
-        let floatingTFConst = containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -keyboardFrame.height)
-        floatingTFConst.priority = .defaultLow
-        floatingTFConst.isActive = true
-        
-        let downTFConst = containerView.bottomAnchor.constraint(equalTo: bottomView.topAnchor)
-        downTFConst.priority = .defaultLow
-        downTFConst.isActive = true
+        if setConstraintOnce == false {
+            floatingTFConst = containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -keyboardFrame.height)
+            floatingTFConst?.priority = .defaultLow
+            floatingTFConst?.isActive = true
+            
+            downTFConst = containerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            downTFConst?.priority = .defaultLow
+            downTFConst?.isActive = true
+            setConstraintOnce = true
+            
+            offsetValueWhenTableViewContentUp = keyboardFrame.height - containerView.frame.height
+            print("🔴🔴🔴 : ", offsetValueWhenTableViewContentUp)
+        }
         
         if keyboardFrame.minY >= view.frame.maxY {
+            //키보드가 올라가있을때 => 내려감
             UIView.animate(withDuration: duration) {
-                downTFConst.priority = .defaultHigh
+                self.downTFConst?.priority = .defaultHigh
+                self.floatingTFConst?.priority = .defaultLow
             }
             self.view.layoutIfNeeded()
             
+            //            if chatTableView.contentSize.height >= chatTableView.frame.height {
+            //                self.chatTableView.contentOffset.y -= offsetValueWhenTableViewContentUp
+            //            }
+            
         } else {
+            // 키보드가 내려가있을때 => 올라감
             UIView.animate(withDuration: duration) {
-                floatingTFConst.priority = .defaultHigh
+                self.floatingTFConst?.priority = .defaultHigh
+                self.downTFConst?.priority = .defaultLow
             }
             self.view.layoutIfNeeded()
+            
+            if chatTableView.contentSize.height >= chatTableView.frame.height {
+                
+                //                guard let lastIndexPath = chatTableView.indexPathsForVisibleRows?.last else { return }
+                guard messageArray.count > 0 else {
+                    self.chatTableView.contentOffset.y += offsetValueWhenTableViewContentUp
+                    return
+                }
+                chatTableView.scrollToRow(at: IndexPath(row: messageArray.count - 1, section: 0), at: .bottom, animated: false)
+            }
         }
-    }
-    
-
-    // MARK: - set custom navi back button & image
-    private func setNavigationBar() {
-
-        self.navigationItem.setHidesBackButton(true, animated:false)
-
-        let customBackView = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
-        let backImageView = UIImageView(frame: CGRect(x: 10, y: 10, width: 20, height: 20))
-
-        backImageView.image = UIImage(named: "backForMsg")
-        
-        customBackView.addSubview(backImageView)
-
-        let backTap = UITapGestureRecognizer(target: self, action: #selector(backToPreviousView))
-        customBackView.addGestureRecognizer(backTap)
-
-        let leftBarButtonItem = UIBarButtonItem(customView: customBackView)
-        self.navigationItem.leftBarButtonItem = leftBarButtonItem
-    }
-
-    @objc private func backToPreviousView() {
-        self.navigationController?.popViewController(animated: true)
-    }
-    
-    
-    // MARK: - Properties
-    
-    private func configure() {
-        view.backgroundColor = .white
-        
-        setNavigationBar()
-        
-        title = "K Family"
-        
-        view.addSubview(topView)
-        topView.addSubview(msgTypeLabel)
-        topView.addSubview(detailBtn)
-        
-        view.addSubview(bottomView)
-        bottomView.addSubview(requestBookingBtn)
-        
-        chatTableView.dataSource = self
-        chatTableView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(hideKeyboard)))
-        view.addSubview(chatTableView)
-        
-        view.addSubview(containerView)
-        
-        chatTextView.delegate = self
-        containerView.addSubview(chatTextView)
-        
-        containerView.addSubview(sendBtn)
     }
     
     @objc private func hideKeyboard(_ sender: Any) {
         chatTextView.resignFirstResponder()
     }
     
-    private func setAutolayout() {
-        topView.snp.makeConstraints { (make) in
-            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalToSuperview().multipliedBy(0.09)
-        }
+    @objc private func backToPreviousView() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    private func getDateTextFromServerDate(serverDateString: String) -> String {
+        dateformatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        let date = dateformatter.date(from: serverDateString) ?? Date()
         
-        msgTypeLabel.snp.makeConstraints { (make) in
-            make.centerY.equalToSuperview()
-            make.leading.equalTo(20)
-        }
+        let components = Calendar.current.dateComponents([.month, .day], from: date)
+        let dateResult = "\(components.month ?? 0)월 \(components.day ?? 0)일"
         
-        detailBtn.snp.makeConstraints { (make) in
-            make.centerY.equalToSuperview()
-            make.trailing.equalTo(-20)
-        }
-        
-        bottomView.snp.makeConstraints { (make) in
-            make.bottom.equalToSuperview()
-            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(view.snp.height).multipliedBy(0.12)
-        }
-        
-        requestBookingBtn.snp.makeConstraints { (make) in
-            make.centerX.centerY.equalToSuperview()
-            make.width.equalToSuperview().multipliedBy(0.85)
-            make.height.equalToSuperview().multipliedBy(0.63)
-        }
-        
-        chatTableView.snp.makeConstraints { (make) in
-            make.top.equalTo(topView.snp.bottom)
-            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.bottom.equalTo(containerView.snp.top)
-        }
-        
-        containerView.snp.makeConstraints { (make) in
-            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(65)
-            make.bottom.equalTo(bottomView.snp.top).priority(500)
-        }
-        
-        chatTextView.snp.makeConstraints { (make) in
-            make.leading.equalTo(20)
-            make.top.equalTo(11)
-            make.bottom.equalTo(-5)
-            make.trailing.equalTo(sendBtn.snp.leading).offset(-20)
-        }
-        
-        sendBtn.snp.makeConstraints { (make) in
-            make.trailing.equalTo(-7)
-            make.top.bottom.equalToSuperview()
-            make.width.equalTo(60)
-        }
+        return dateResult
     }
 }
 
 
-// MARK: - UITableViewDataSource
-
-extension ChatRoomViewController: UITableViewDataSource {
+// MARK: - 테이블뷰 Delegate & Datasource
+extension ChatRoomViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return messageArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let chatCell = tableView.dequeueReusableCell(withIdentifier: ChatTableViewCell.identifier, for: indexPath) as! ChatTableViewCell
+        
+        let messageType: ChatTableViewCell.MessageType = messageArray[indexPath.row].1 ? .hosts : .guests
+        let othersName = amIHost ? "Guest" : chatRoomData?.room.host.username ?? ""
+       
+        chatCell.setMessageType(sender: messageType,
+                                othersName: othersName,
+                                amIHost: amIHost,
+                                writeDate: messageArray[indexPath.row].2)
+        chatCell.messageTextView.text = messageArray[indexPath.row].0
+        chatCell.hostImageView.image = hostImage ?? UIImage(named: "hostSample2")
+        chatCell.myImageView.image = guestImage ?? UIImage(named: "hostSample3")
+        
+        return chatCell
     }
 }
 
-// MARK: - UITextViewDelegate
 
+// MARK: - 텍스트뷰 Delegate
 extension ChatRoomViewController: UITextViewDelegate {
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let textViewText = textView.text ?? ""
+        let replacedText = (textViewText as NSString).replacingCharacters(in: range, with: text)
+        
+        print("--------------------------[]--------------------------")
+        print(replacedText)
+        print(text)
+        print(textView.text)
+        
+        
+        (replacedText == "" && textView.text == "") ? configureWithNoText() : configureWithText()
+        
+        return true
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        (textView.text == "") ? configureWithNoText() : ()
+    }
+    
+    private func configureWithNoText() {
+        sendBtn.isEnabled = false
+        sendBtn.alpha = 0.5
+        
+        UIView.animate(withDuration: 0.3) {
+            self.placeholderLabel.alpha = 1
+        }
+    }
+    
+    private func configureWithText() {
+        sendBtn.isEnabled = true
+        sendBtn.alpha = 1
+        
+        UIView.animate(withDuration: 0.3) {
+            self.placeholderLabel.alpha = 0
+        }
+    }
+}
 
+
+// 웹소켓 Delegate & 네트워크
+extension ChatRoomViewController: WebSocketDelegate, WebSocketPongDelegate {
+    private func configureNetwork() {
+        print("--------------------------[Configure Network]--------------------------")
+        print("userToekn: ", netWork.userToken)
+        print("chatRoom ID: ", chatRoomData?.id ?? 0)
+        
+        let urlString = "ws://airbnb.tthae.com/ws/chat/\(chatRoomData?.id ?? 0)/?token=\(netWork.userToken)" + (amIHost ? "&user_type=host" : "")
+        //        let urlStringInHostCase = "ws://airbnb.tthae.com/ws/chat/\(chatRoomData?.id ?? 0)/?user_type=host/?token=\(netWork.userToken)"
+        guard let url = URL(string: urlString) else { print("‼️ Network url error ");  return }
+        var request = URLRequest(url: url)
+        request.timeoutInterval = 5
+        
+        socket = WebSocket(request: request)
+        socket.delegate = self
+        socket.connect()
+    }
+    
+    
+    private func setChatContents(completion: @escaping () -> ()) {
+        let urlString = netWork.basicUrlString + "/chat/\(chatRoomData?.id ?? 0)/" + (amIHost ? "?user_type=host" : "")
+        netWork.getServerDataWithToken(urlString: urlString) { (result) in
+            switch result {
+            case .success(let value):
+                guard let roomData = try? JSONDecoder().decode(ChatRoomDetailData.self, from: value) else { print("‼️ chatRoomDetailData convert "); break}
+                
+                for message in roomData.messages {
+//                    self.dateformatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+//                    guard let date = self.dateformatter.date(from: message.created) else { print("‼️ dateformmater error "); return }
+//                    let components = Calendar.current.dateComponents([.month, .day], from: date)
+//
+                    self.messageArray.append((message.text,
+                                              message.isHost,
+                                              self.getDateTextFromServerDate(serverDateString: message.created)))
+                }
+                
+                
+                // 호스트, 게스트 이미지 다운로드
+                let group = DispatchGroup()
+                //                let queue = DispatchQueue.global()
+                
+                group.enter()
+                if let hostImageURl = URL(string: roomData.room.host.image ?? "") {
+                    //                    let guestImageURl = URL(string: roomData.) {
+                    
+                    ImageDownloader.default.downloadImage(with: hostImageURl, options: nil, progressBlock: nil, completionHandler: { (result) in
+                        switch result {
+                        case .success(let value):
+                            self.hostImage = value.image
+                            print("hostimageDownload successed")
+                            group.leave()
+                        case .failure(let error):
+                            print("hostimageDownload failed: ", error.localizedDescription)
+                            group.leave()
+                        }
+                    })
+                } else {
+                    print("hostImageDownload URL convert error")
+                    group.leave()
+                }
+                group.wait()
+                print("hostImageDownload finished")
+                
+                DispatchQueue.main.async {
+                    self.chatTableView.reloadData()
+                }
+                
+                completion()
+            case .failure(let error):
+                print("‼️ : ", error.localizedDescription)
+                completion()
+                break
+            }
+        }
+    }
+    
+ 
+    func websocketDidReceivePong(socket: WebSocketClient, data: Data?) {
+        print("🔵🔵🔵 : ", data)
+    }
+    
+    func websocketDidConnect(socket: WebSocketClient) {
+        print("--------------------------[⭐️ WebSocket Did Connect Success]--------------------------")
+    }
+    
+    func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
+        print("--------------------------[‼️ WebSocket Did Disconnect ]--------------------------")
+        print(error?.localizedDescription)
+    }
+    
+    func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
+        print("Received Message: ", text)
+        
+        guard let stringData = text.data(using: .utf8)
+            , let jsonObject = try? JSONSerialization.jsonObject(with: stringData) else {
+                print("‼️ StringData & JsonObject convert error ")
+                return
+        }
+        
+        guard let json = jsonObject as? [String: Any]
+            , let isHost = json["is_host"] as? Bool
+            , let message = json["text"] as? String
+            , let writeDate = json["created"] as? String else {
+                print("‼️ Json key value error ")
+                return
+        }
+        
+        dateformatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        guard let date = dateformatter.date(from: writeDate) else { print("‼️ dateformmater error "); return }
+        let components = Calendar.current.dateComponents([.month, .day], from: date)
+        messageArray.append((message, isHost, "\(components.month ?? 0)월 \(components.day ?? 0)일"))
+        chatTableView.reloadData()
+        
+        
+        self.chatTableView.scrollToRow(at: IndexPath(row: self.messageArray.count - 1, section: 0), at: .bottom, animated: false)
+        
+    }
+    
+    func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
+        print("Received Data: ", data)
+    }
 }

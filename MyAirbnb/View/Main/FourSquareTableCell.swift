@@ -16,7 +16,7 @@ class FourSquareTableCell: UITableViewCell {
     let layout = UICollectionViewFlowLayout()
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
 
-    let seeMoreBtn = UIButton()
+    let seeMoreBtn = UIButtonWithHighlightEffect()
     
     // MARK: - Properties
     let notiCenter = NotificationCenter.default
@@ -74,13 +74,10 @@ class FourSquareTableCell: UITableViewCell {
         collectionView.backgroundColor = .white
 //        collectionView.contentInset = UIEdgeInsets(top: 0, left: StandardUIValue.shared.mainViewSideMargin, bottom: 0, right: 0)
         
-        
-        
-//        layout.minimumInteritemSpacing = 15
-//        layout.minimumLineSpacing = 0
         layout.scrollDirection = .vertical
         
         titleLabel.configureMainTableViewCellsTitle()
+        titleLabel.text = "전 세계 숙소"
         
         seeMoreBtn.setTitle("모두 보기(2000개 이상)", for: .normal)
         seeMoreBtn.setTitleColor(UIColor(red:0.09, green:0.51, blue:0.54, alpha:1.0), for: .normal)
@@ -96,7 +93,7 @@ class FourSquareTableCell: UITableViewCell {
 
 extension FourSquareTableCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return normalHouseDataArray.count
+        return 4
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -115,10 +112,15 @@ extension FourSquareTableCell: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let mainVC = self.superview?.superview as? MainView else { print("‼️ : "); return }
         let data = normalHouseDataArray[indexPath.row]
         
         notiCenter.post(name: .moveToHouseDetailView, object: nil,
-                        userInfo: ["roomID": data.id, "type": data.roomType, "houseName": data.title])
+                        userInfo: ["roomID": data.id,
+                                   "type": data.roomType,
+                                   "houseName": data.title,
+                                   SingletonCommonData.notiKeySearchBarUseCase: mainVC.useCase.0,
+                                   SingletonCommonData.notiKeySearchBarInController: mainVC.useCase.1])
     }
     
     

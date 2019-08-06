@@ -16,12 +16,12 @@ class HouseLuxeTableCell: UITableViewCell {
     let layout = UICollectionViewFlowLayout()
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     
-    let seeMoreBtn = UIButton()
+    let seeMoreBtn = UIButtonWithHighlightEffect()
     
     let notiCenter = NotificationCenter.default
     
     var collectionViewCellWidth: CGFloat = UIScreen.main.bounds.width * 0.6
-    lazy var collectionViewCellHeight: CGFloat = collectionViewCellWidth * 1.2
+    lazy var collectionViewCellHeight: CGFloat = collectionViewCellWidth * 0.9
     
     var luxeHouseDataArray = [HouseLuxeDataInList]()
     
@@ -77,7 +77,7 @@ class HouseLuxeTableCell: UITableViewCell {
         
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(MainLuxeHouseCollectCell.self, forCellWithReuseIdentifier: MainLuxeHouseCollectCell.identifier)
+        collectionView.register(HouseLuxeCollectCell.self, forCellWithReuseIdentifier: HouseLuxeCollectCell.identifier)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = .white
         collectionView.contentInset = UIEdgeInsets(top: 0, left: StandardUIValue.shared.mainViewSideMargin, bottom: 0, right: 0)
@@ -115,7 +115,7 @@ extension HouseLuxeTableCell: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainLuxeHouseCollectCell.identifier, for: indexPath) as! MainLuxeHouseCollectCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HouseLuxeCollectCell.identifier, for: indexPath) as! HouseLuxeCollectCell
         
         cell.setData(luxeHouseData: luxeHouseDataArray[indexPath.row])
         
@@ -129,8 +129,11 @@ extension HouseLuxeTableCell: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("collectionView Cell didSelect \(indexPath.item)")
+        let luxeData = luxeHouseDataArray[indexPath.row]
         
-//        notiCenter.post(name: .moveToHouseDetailView, object: nil,
-//                        userInfo: ["roomID": data.id, "type": data.houseType, "houseName": data.houseName])
+        NotificationCenter.default.post(name: .moveToLuxeHouseDetailView,
+                                        object: nil,
+                                        userInfo: ["roomID": luxeData.id,
+                                                   "roomName": luxeData.title])
     }
 }

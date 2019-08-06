@@ -9,19 +9,12 @@
 import UIKit
 import SnapKit
 
-
-protocol CalendarDelegate: class {
-    func presentCalenderVC()
-    func presentPeopleVC()
-    func presentFilterVC()
+enum UseCase {
+    case inMainVC, inTripVC, inHouseVC
 }
 
 class SearchBarView: UIView {
     // SearchBarView must have a more than 120 height
-    
-    enum UseCase {
-        case inMainVC, inTripVC, inHouseVC
-    }
     
     // MARK: - UI Properties
     let searchContainerView = UIView()
@@ -37,7 +30,7 @@ class SearchBarView: UIView {
     // MARK: - Properties
     var searchContainerTrailingInSearch: NSLayoutConstraint?
     let notiCenter = NotificationCenter.default
-    var useCase: UseCase = .inMainVC
+    var useCase: (UseCase, UIViewController) = (.inMainVC, UIViewController())
     
     var selectedDatesArray = [Date]()
     var selectedDateString = "날짜" {
@@ -212,21 +205,33 @@ class SearchBarView: UIView {
     @objc func searchCancelBtnDidTap(_ sender: UIButton) {  // 취소 버튼 => 수정종료
         searchTF.resignFirstResponder()
         
-        
+        notiCenter.post(name: .searchBarEditEnd,
+                        object: nil,
+                        userInfo: [SingletonCommonData.notiKeySearchBarUseCase: useCase.0,
+                                   SingletonCommonData.notiKeySearchBarInController: useCase.1])
+        textEditEndAnimation()
     }
     
     @objc func filterDateBtnDidTap(_ sender: UIButton) {
-        notiCenter.post(name: .searchBarDateBtnDidTap, object: nil)
+        notiCenter.post(name: .searchBarDateBtnDidTap,
+                        object: nil,
+                        userInfo: [SingletonCommonData.notiKeySearchBarUseCase: useCase.0,
+                                   SingletonCommonData.notiKeySearchBarInController: useCase.1])
     }
     
     @objc func filterPeopleBtnDidTap(_ sender: UIButton) {
-        notiCenter.post(name: .searchBarPeopleBtnDidTap, object: nil)
+        notiCenter.post(name: .searchBarPeopleBtnDidTap,
+                        object: nil,
+                        userInfo: [SingletonCommonData.notiKeySearchBarUseCase: useCase.0,
+                                   SingletonCommonData.notiKeySearchBarInController: useCase.1])
     }
     
     @objc func filterRemainsBtnDidTap(_ sender: UIButton) {
-        notiCenter.post(name: .searchBarFilterBtnDidTap, object: nil)
+        notiCenter.post(name: .searchBarFilterBtnDidTap,
+                        object: nil,
+                        userInfo: [SingletonCommonData.notiKeySearchBarUseCase: useCase.0,
+                                   SingletonCommonData.notiKeySearchBarInController: useCase.1])
     }
-    
 }
 
 
@@ -236,7 +241,12 @@ extension SearchBarView: UITextFieldDelegate {
         guard textField.text != "" else { return  true }
         print("Textfield should return / There are texts")
         textField.resignFirstResponder()
-        notiCenter.post(name: .searchBarEnterPressed, object: nil, userInfo: ["result": textField.text ?? ""])
+        notiCenter.post(name: .searchBarEnterPressed,
+                        object: nil,
+                        userInfo: ["result": textField.text ?? "",
+                                   SingletonCommonData.notiKeySearchBarUseCase: useCase.0,
+                                   SingletonCommonData.notiKeySearchBarInController: useCase.1])
+        textEditEndAnimation()
         return true
     }
     
@@ -252,7 +262,11 @@ extension SearchBarView: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {   // 수정 시작
         print("SearchBarView TF did begin editing")
-        notiCenter.post(name: .searchBarEditBegin, object: nil)
+        let text = textField.text ?? ""
+        notiCenter.post(name: .searchBarEditBegin,
+                        object: text,
+                        userInfo: [SingletonCommonData.notiKeySearchBarUseCase: useCase.0,
+                                   SingletonCommonData.notiKeySearchBarInController: useCase.1])
         
         textEditBeginAnimation()
     }
@@ -260,16 +274,19 @@ extension SearchBarView: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {     // 수정 종료
         print("SearchBarView TF did end editing")
 
-        notiCenter.post(name: .searchBarEditEnd, object: nil)
-        textEditEndAnimation()
+//        notiCenter.post(name: .searchBarEditEnd, object: nil)
+//        textEditEndAnimation()
     }
     
     @objc private func textFieldEditingChanged(_ sender: UITextField) {
         let text = sender.text ?? ""
-        notiCenter.post(name: .searchBarEditingChanged, object: text)
+        notiCenter.post(name: .searchBarEditingChanged,
+                        object: text,
+                        userInfo: [SingletonCommonData.notiKeySearchBarUseCase: useCase.0,
+                                   SingletonCommonData.notiKeySearchBarInController: useCase.1])
     }
     
-    private func textEditBeginAnimation() {
+    func textEditBeginAnimation() {
         self.searchContainerTrailingInSearch = self.searchContainerView.trailingAnchor.constraint(equalTo: self.searchCancelBtn.leadingAnchor, constant: 0)
         
         UIView.animate(withDuration: 0.15) {
@@ -294,7 +311,7 @@ extension SearchBarView: UITextFieldDelegate {
         }
     }
     
-    private func textEditEndAnimation() {
+    func textEditEndAnimation() {
         UIView.animateKeyframes(withDuration: 0.6, delay: 0, options: [], animations: {
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.3, animations: {
                 self.searchCancelBtn.layer.opacity = 0
@@ -311,7 +328,7 @@ extension SearchBarView: UITextFieldDelegate {
             })
         }) { (_) in
             guard self.searchTF.text == "" else { return }
-            switch self.useCase {
+            switch self.useCase.0 {
             case .inMainVC:
                 self.searchTF.text = ""
             case .inHouseVC:

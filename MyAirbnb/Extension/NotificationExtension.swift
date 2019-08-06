@@ -15,7 +15,8 @@ extension Notification.Name {
     static let searchBarEditingChanged = Notification.Name("SearchBarEditingChanged")
     static let searchBarEnterPressed = Notification.Name("SearchBarEnterPressed")
     
-    static let searchBarTableCellSelected = Notification.Name("searchBarTableCellSelected")
+    static let searchBarTableViewScrolled = Notification.Name("SearchBarTableViewScrolled")
+    static let searchBarTableCellSelected = Notification.Name("SearchBarTableCellSelected")
     
     static let searchBarDateBtnDidTap = Notification.Name(rawValue: "SearchBarDateBtnDidTap")
     static let searchBarDateResultBtnDidTap = Notification.Name(rawValue: "SearchBarDateResultBtnDidTap")
@@ -28,8 +29,13 @@ extension Notification.Name {
     static let moveToHouseView = Notification.Name(rawValue: "MoveToHouseView")
     static let moveToHouseDetailView = Notification.Name("MoveToHouseDetailView")
     static let moveToPlusHouseDetailView = Notification.Name(rawValue: "MoveToPlusHouseDetailView")
+    static let moveToLuxeHouseDetailView = Notification.Name("MoveToLuxeHouseDetailView")
     
     static let mapViewDidTapInHouseDetailView = Notification.Name("MapViewDidTapInHouseDetailView")
+    
+    // MARK: - Trip
+    static let moveToTripViewController = Notification.Name("MoveToTripViewController")
+    static let moveToTripDetailView = Notification.Name("moveToTripDetailView")
     
     // MARK: - FilterRemainsVC
     static let instantBookSwitchTapped = Notification.Name("InstantBookSwitchTapped")
@@ -46,4 +52,7 @@ extension Notification.Name {
     static let uniqueHouseChecked = Notification.Name("UniqueHouseChecked")
     static let uniqueHouseSeeMoreBtnDidTap = Notification.Name("UniqueHouseSeeMoreBtnDidTap")
     static let useRulesChecked = Notification.Name("UseRulesChecked")
+    
+    // MARK: - Else
+    static let downloadingMessagesDataFinished = Notification.Name("DownloadingMessagesDataFinished")
 }

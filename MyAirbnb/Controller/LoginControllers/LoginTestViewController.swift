@@ -38,7 +38,8 @@ class LoginTestViewController: UIViewController {
         presentLoginTestPageBtn.widthAnchor.constraint(equalToConstant: 150).isActive = true
         presentLoginTestPageBtn.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
-        presentLoginTestPageBtn.setTitle("Go to LoginPage", for: .normal)
+//        presentLoginTestPageBtn.setTitle("Go to LoginPage", for: .normal)
+        presentLoginTestPageBtn.setTitle("LogOut Button", for: .normal)
         presentLoginTestPageBtn.setTitleColor(.red, for: .normal)
         presentLoginTestPageBtn.titleLabel?.font = .systemFont(ofSize: 12, weight: .bold)
         presentLoginTestPageBtn.addTarget(self, action: #selector(presentLoginTestPageBtnDidTap(_:)), for: .touchUpInside)
@@ -46,6 +47,8 @@ class LoginTestViewController: UIViewController {
     
     @objc func presentLoginTestPageBtnDidTap(_ sender: UIButton) {
         print("buttonDidTap")
+        
+        UserDefaults.standard.set(false, forKey: SingletonCommonData.userDefaultLoginStateKey)
         
         let signUpMainVC = SignUpMainViewController()
         let naviController = UINavigationController(rootViewController: signUpMainVC)

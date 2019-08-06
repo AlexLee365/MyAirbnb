@@ -11,6 +11,7 @@ import SnapKit
 import NVActivityIndicatorView
 import Kingfisher
 
+
 class MainViewController: UIViewController {
     
     // MARK: - UI Properties
@@ -35,12 +36,18 @@ class MainViewController: UIViewController {
         configureViewsOptions()
         addNotificationObserver()
         makeIndicatorView()
+        
+     
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
-        searchBarView.useCase = .inMainVC
+        tabBarController?.tabBar.isHidden = false
+
+        searchBarTableView.useCase = (.inMainVC, self)
+        searchBarView.useCase = (.inMainVC, self)
+        mainView.useCase = (.inMainVC, self)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -57,7 +64,15 @@ class MainViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        tabBarController?.tabBar.isHidden = false
+//        tabBarController?.tabBar.isHidden = false
+    }
+    
+    var safeAreaInsetFlag = false
+    override func viewSafeAreaInsetsDidChange() {
+        super.viewSafeAreaInsetsDidChange()
+        guard safeAreaInsetFlag == false else { return }
+        SingletonCommonData.shared.deviceSafeAreaInset = view.safeAreaInsets        // 기기 SafeAreaInset을 수치로 저장 및 활용
+        safeAreaInsetFlag = true
     }
     
     private func setAutoLayout() {
@@ -76,7 +91,7 @@ class MainViewController: UIViewController {
         //        mainView.topAnchor.constraint(equalTo: safeGuide.topAnchor, constant: 110).isActive = true
         mainView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         mainView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        mainView.bottomAnchor.constraint(equalTo: safeGuide.bottomAnchor, constant: 0).isActive = true
+        mainView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -SingletonCommonData.shared.deviceSafeAreaInset.bottom).isActive = true
         
         view.addSubview(searchBarTableViewBackWhiteView)
         searchBarTableViewBackWhiteView.translatesAutoresizingMaskIntoConstraints = false
@@ -104,7 +119,6 @@ class MainViewController: UIViewController {
         searchBarTableViewBackWhiteView.alpha = 0
     }
     
-    
     private func showSearchBarTableView() {
         view.bringSubviewToFront(searchBarTableViewBackWhiteView)
         self.searchBarTableViewBackWhiteView.alpha = 1
@@ -127,12 +141,6 @@ class MainViewController: UIViewController {
         super.touchesEnded(touches, with: event)
         print("touchesEnd")
         
-        print(searchBarTableView.tableView.isDragging)
-        let location = touches.first!.location(in: view)
-        
-        if searchBarTableView.frame.contains(location) {
-            searchBarView.searchTF.resignFirstResponder()
-        }
     }
     
     private func makeIndicatorView() {
@@ -171,6 +179,7 @@ extension MainViewController {
         notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .searchBarEditEnd, object: nil)
         notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .searchBarEditingChanged, object: nil)
         notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .searchBarEnterPressed, object: nil)
+        notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .searchBarTableViewScrolled, object: nil)
         notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .searchBarTableCellSelected, object: nil)
         
         notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .searchBarDateBtnDidTap, object: nil)
@@ -182,139 +191,377 @@ extension MainViewController {
         notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .moveToHouseView, object: nil)
         notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .moveToHouseDetailView, object: nil)
         notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .moveToPlusHouseDetailView, object: nil)
+        notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .moveToLuxeHouseDetailView, object: nil)
+        notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .moveToTripViewController, object: nil)
+        notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .moveToTripDetailView, object: nil)
+        
+        notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .downloadingMessagesDataFinished, object: nil)
     }
     
     @objc func receiveNotification(_ sender: Notification) {
         switch sender.name {
             
         // SearchBar Notification
+        // 서치바 검색 시작
         case Notification.Name.searchBarEditBegin:
-            showSearchBarTableView()
-            
-        case Notification.Name.searchBarEditEnd:
-            hideSearchBarTableView()
-            
-        case Notification.Name.searchBarEditingChanged:
-            guard let text = sender.object as? String else { print("‼️ MainVC editing noti"); return }
-            //            print(text)
-            let urlString = netWork.basicUrlString + "/locations/state/?search=\(text)"
-            netWork.getStateDataWithText(urlString: urlString) { (stateResult, success) in
-                switch success {
-                case true:
-                    guard let result = stateResult else { return }
-                    self.searchBarTableView.searchResult = result
-                case false:
-                    print("failed")
-                }
+            guard let text = sender.object as? String
+                , let userInfo = sender.userInfo
+                , let useCase = userInfo[SingletonCommonData.notiKeySearchBarUseCase] as? UseCase
+                , let controller = userInfo[SingletonCommonData.notiKeySearchBarInController] as? UIViewController else {
+                    print("‼️ MainVC edit begin noti")
+                    return
             }
             
-        case Notification.Name.searchBarEnterPressed:       // 검색어 검색 엔터
-            startIndicator()
+            switch useCase {
+            case .inMainVC:
+                showSearchBarTableView()
+                if text == "" {
+                    guard SingletonCommonData.shared.stateArray.count > 0 else { return }
+                    self.searchBarTableView.searchResult = SingletonCommonData.shared.stateArray
+                }
+            case .inHouseVC:
+                guard let houseVC = controller as? HouseViewController else { print("‼️ : "); return }
+                houseVC.showSearchBarTableView()
+                if text == "" {
+                    houseVC.searchBarTableView.searchResult = SingletonCommonData.shared.stateArray
+                }
+            case .inTripVC:
+                ()
+            }
+            
+        // 서치바 검색 종료 (취소버튼 클릭시)
+        case Notification.Name.searchBarEditEnd:
             guard let userInfo = sender.userInfo
-                , let textResult = userInfo["result"] as? String else {
+                , let useCase = userInfo[SingletonCommonData.notiKeySearchBarUseCase] as? UseCase
+                , let controller = userInfo[SingletonCommonData.notiKeySearchBarInController] as? UIViewController else {
+                    print("‼️ MainVC serachbarEditEnd noti userinfo ")
+                    return
+            }
+            switch useCase {
+            case .inMainVC:
+                hideSearchBarTableView()
+            case .inHouseVC:
+                guard let houseVC = controller as? HouseViewController else { print("‼️ : "); return }
+                houseVC.hideSearchBarTableView()
+            case .inTripVC:
+                ()
+            }
+            
+        // 서치바 검색 중 (타이핑중)
+        case Notification.Name.searchBarEditingChanged:
+            guard let text = sender.object as? String
+                , let userInfo = sender.userInfo
+                , let useCase = userInfo[SingletonCommonData.notiKeySearchBarUseCase] as? UseCase
+                , let controller = userInfo[SingletonCommonData.notiKeySearchBarInController] as? UIViewController else {
+                    print("‼️ MainVC editing noti")
+                    return
+            }
+            
+            let stateArray = (SingletonCommonData.shared.stateArray.count > 0) ?
+                SingletonCommonData.shared.stateArray : UserDefaults.standard.array(forKey: SingletonCommonData.userDefaultSaveStatesInfo) as? [String] ?? []
+            switch useCase {
+            case .inMainVC:
+                guard text != "" else {
+                    self.searchBarTableView.searchResult = stateArray
+                    return
+                }
+                var tempArray = [String]()
+                tempArray = stateArray.filter{ $0.contains(text) || $0.lowercased().contains(text) }
+                
+                self.searchBarTableView.searchResult = tempArray
+            case .inHouseVC:
+                guard let houseVC = controller as? HouseViewController else { print("‼️ : "); return }
+                guard text != "" else {
+                    houseVC.searchBarTableView.searchResult = stateArray
+                    return
+                }
+                var tempArray = [String]()
+                tempArray = stateArray.filter{ $0.contains(text) || $0.lowercased().contains(text) }
+                
+                houseVC.searchBarTableView.searchResult = tempArray
+            case .inTripVC:
+                ()
+            }
+            
+           
+        // 서치바 검색어 검색 엔터
+        case Notification.Name.searchBarEnterPressed:
+            guard let userInfo = sender.userInfo
+                , let textResult = userInfo["result"] as? String
+                , let useCase = userInfo[SingletonCommonData.notiKeySearchBarUseCase] as? UseCase
+                , let controller = userInfo[SingletonCommonData.notiKeySearchBarInController] as? UIViewController else {
                     print("‼️ MainVC serachbar enter noti userinfo ")
                     return
             }
             
-            let urlString = netWork.basicUrlString
-                + "/rooms/?search=\(textResult)&ordering=total_rating&page_size=5&page=1"
-            
-            netWork.getHouseServerData(urlString: urlString) { (houseDateArray, success) in
-                DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
-                    let houseVC = HouseViewController()
-                    switch success {
-                    case true:
-                        guard let houseDateArray = houseDateArray else { return }
-                        let houseviewDataNormal = HouseViewData(data: houseDateArray, cellStyle: .normalHouse)
-                        houseVC.houseView.houseViewDatas = self.setHouseDatasWhenResultExist()
-                        houseVC.houseView.houseViewDatas.append(houseviewDataNormal)
-                    case false:
-                        houseVC.houseView.houseViewDatas = self.setHouseDatasWithNoResult()
+            switch useCase {
+            case .inMainVC:
+                startIndicator()
+                guard let mainVC = controller as? MainViewController else { print("‼️ searchBarEnterPressed noti mainVC "); return}
+                let urlString = netWork.basicUrlString
+                    + "/rooms/?search=\(textResult)&ordering=-total_rating&page_size=10&page=1"
+                
+                netWork.getHouseServerData(urlString: urlString) { (houseDateArray, success) in
+                    DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+                        let houseVC = HouseViewController()
+                        switch success {
+                        case true:
+                            guard let houseDateArray = houseDateArray else { return }
+                            let houseviewDataNormal = HouseViewData(data: houseDateArray, cellStyle: .normalHouse)
+                            houseVC.houseView.houseViewDatas = self.setHouseDatasWhenResultExist()
+                            houseVC.houseView.houseViewDatas.append(houseviewDataNormal)
+                        case false:
+                            houseVC.houseView.houseViewDatas = self.setHouseDatasWithNoResult()
+                        }
+                        houseVC.searchWord = textResult
+//                        self.navigationController?.pushViewController(houseVC, animated: false)
+                        mainVC.navigationController?.pushViewController(houseVC, animated: false)
                     }
-                    houseVC.searchWord = textResult
-                    self.navigationController?.pushViewController(houseVC, animated: false)
                 }
+            case .inHouseVC:
+                guard let houseVC = controller as? HouseViewController else { print("‼️ searchBarEnterPressed noti mainVC "); return}
+                houseVC.hideSearchBarTableView()
+                houseVC.startIndicator()
+                
+                let urlString = netWork.basicUrlString
+                    + "/rooms/?search=\(textResult)&ordering=total_rating&page_size=5&page=1"
+                
+                netWork.getHouseServerData(urlString: urlString) { (houseDateArray, success) in
+                    DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+                        houseVC.houseView.houseViewDatas.removeAll()
+                        switch success {
+                        case true:
+                            guard let houseDateArray = houseDateArray else { return }
+                            let houseviewDataNormal = HouseViewData(data: houseDateArray, cellStyle: .normalHouse)
+                            houseVC.houseView.houseViewDatas = self.setHouseDatasWhenResultExist()
+                            houseVC.houseView.houseViewDatas.append(houseviewDataNormal)
+                        case false:
+                            houseVC.houseView.houseViewDatas = self.setHouseDatasWithNoResult()
+                        }
+                        houseVC.searchWord = textResult
+                        houseVC.houseView.flag = false
+                        houseVC.houseView.tableView.reloadData()
+                        houseVC.stopIndicator()                        
+                    }
+                }
+            case .inTripVC:
+                ()
             }
             
+            
+        // 서치 테이블뷰 스크롤시
+        case Notification.Name.searchBarTableViewScrolled:
+            guard let userInfo = sender.userInfo
+                , let useCase = userInfo[SingletonCommonData.notiKeySearchBarUseCase] as? UseCase
+                , let controller = userInfo[SingletonCommonData.notiKeySearchBarInController] as? UIViewController else {
+                    print("‼️ MainVC serachbar enter noti userinfo ")
+                    return
+            }
+            switch useCase {
+            case .inMainVC:
+                searchBarView.searchTF.resignFirstResponder()
+            case .inHouseVC:
+                guard let houseVC = controller as? HouseViewController else { print("‼️ : "); return }
+                houseVC.searchBarView.searchTF.resignFirstResponder()
+            case .inTripVC:
+                ()
+            }
+
+        // 서치 테이블뷰 검색 결과 셀 선택
         case Notification.Name.searchBarTableCellSelected:
-            guard let state = sender.object as? String else { return }
-            startIndicator()
-            hideSearchBarTableView()
-            
-            let urlString = netWork.basicUrlString
-                + "/rooms/?search=\(state)&ordering=total_rating&page_size=5&page=1"
-            
-            netWork.getHouseServerData(urlString: urlString) { (houseDateArray, success) in
-                DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
-                    let houseVC = HouseViewController()
-                    switch success {
-                    case true:
-                        guard let houseDateArray = houseDateArray else { return }
-                        let houseviewDataNormal = HouseViewData(data: houseDateArray, cellStyle: .normalHouse)
-                        houseVC.houseView.houseViewDatas = self.setHouseDatasWhenResultExist()
-                        houseVC.houseView.houseViewDatas.append(houseviewDataNormal)
-                    case false:
-                        houseVC.houseView.houseViewDatas = self.setHouseDatasWithNoResult()
-                    }
-                    houseVC.searchWord = state
-                    self.navigationController?.pushViewController(houseVC, animated: false)
-                }
+            guard let state = sender.object as? String
+                , let userInfo = sender.userInfo
+                , let useCase = userInfo[SingletonCommonData.notiKeySearchBarUseCase] as? UseCase
+                , let controller = userInfo[SingletonCommonData.notiKeySearchBarInController] as? UIViewController else {
+                    print("‼️ : ")
+                    return
             }
             
-        case Notification.Name.searchBarDateBtnDidTap:          // 날짜 설정버튼
+            switch useCase {
+            case .inMainVC:
+                startIndicator()
+                hideSearchBarTableView()
+                
+                let urlString = netWork.basicUrlString
+                    + "/rooms/?search=\(state)&ordering=-total_rating&page_size=10&page=1"
+                
+                netWork.getHouseServerData(urlString: urlString) { (houseDateArray, success) in
+                    DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+                        let houseVC = HouseViewController()
+                        switch success {
+                        case true:
+                            guard let houseDateArray = houseDateArray else { return }
+                            let houseviewDataNormal = HouseViewData(data: houseDateArray, cellStyle: .normalHouse)
+                            houseVC.houseView.houseViewDatas = self.setHouseDatasWhenResultExist()
+                            houseVC.houseView.houseViewDatas.append(houseviewDataNormal)
+                        case false:
+                            houseVC.houseView.houseViewDatas = self.setHouseDatasWithNoResult()
+                        }
+                        houseVC.searchWord = state
+                        self.navigationController?.pushViewController(houseVC, animated: false)
+                    }
+                }
+            case .inHouseVC:
+                guard let houseVC = controller as? HouseViewController else { print("‼️ : "); return }
+                houseVC.hideSearchBarTableView()
+                houseVC.startIndicator()
+                
+                let urlString = netWork.basicUrlString
+                    + "/rooms/?search=\(state)&ordering=-total_rating&page_size=10&page=1"
+                
+                netWork.getHouseServerData(urlString: urlString) { (houseDateArray, success) in
+                    DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+                        houseVC.houseView.houseViewDatas.removeAll()
+                        switch success {
+                        case true:
+                            guard let houseDateArray = houseDateArray else { return }
+                            let houseviewDataNormal = HouseViewData(data: houseDateArray, cellStyle: .normalHouse)
+                            houseVC.houseView.houseViewDatas = self.setHouseDatasWhenResultExist()
+                            houseVC.houseView.houseViewDatas.append(houseviewDataNormal)
+                        case false:
+                            houseVC.houseView.houseViewDatas = self.setHouseDatasWithNoResult()
+                        }
+                        houseVC.searchWord = state
+                        houseVC.houseView.flag = false
+                        houseVC.houseView.tableView.reloadData()
+                        houseVC.searchBarView.searchTF.resignFirstResponder()
+                        houseVC.stopIndicator()
+                        houseVC.searchBarView.textEditEndAnimation()
+                    }
+                }
+                
+            case .inTripVC:
+                ()
+            }
+            
+            
+        // 날짜 설정버튼
+        case Notification.Name.searchBarDateBtnDidTap:
+            guard let userInfo = sender.userInfo
+                , let useCase = userInfo[SingletonCommonData.notiKeySearchBarUseCase] as? UseCase
+                , let controller = userInfo[SingletonCommonData.notiKeySearchBarInController] as? UIViewController else {
+                    print("‼️ searchBar DateBtn did tap noti ")
+                    return
+            }
+            
             let calendarVC = CalenderViewController()
             calendarVC.modalPresentationStyle = .overFullScreen
             //        calendarVC.modalPresentationStyle = .overCurrentContext
+            calendarVC.useCase = useCase
+            calendarVC.inController = controller
             
-            if searchBarView.selectedDatesArray.count > 0 {
-                calendarVC.beginDatesArray = searchBarView.selectedDatesArray
+            switch useCase {
+            case .inMainVC:
+                if searchBarView.selectedDatesArray.count > 0 {
+                    calendarVC.beginDatesArray = searchBarView.selectedDatesArray
+                }
+            case .inHouseVC:
+                guard let houseVC = controller as? HouseViewController else { print("‼️ : "); return }
+                if houseVC.searchBarView.selectedDatesArray.count > 0 {
+                    calendarVC.beginDatesArray = houseVC.searchBarView.selectedDatesArray
+                }
+            case .inTripVC:
+                ()
             }
+            
             
             present(calendarVC, animated: false)
             
-        case Notification.Name.searchBarDateResultBtnDidTap:    // 날짜 검색버튼 클릭
-            print("🔴🔴🔴 : ")
+        // 날짜 검색버튼 클릭
+        case Notification.Name.searchBarDateResultBtnDidTap:
             guard let userInfo = sender.userInfo
-                , let houseDataArray = userInfo["houseViewDataArray"] as? [HouseViewData] else {
+                , let houseDataArray = userInfo["houseViewDataArray"] as? [HouseViewData]
+                , let useCase = userInfo[SingletonCommonData.notiKeySearchBarUseCase] as? UseCase
+                , let controller = userInfo[SingletonCommonData.notiKeySearchBarInController] as? UIViewController else {
                     print("‼️ MainVC SearchBar resultBtn noti userinfo ")
                     return
             }
             
-            let houseVC = HouseViewController()
-            houseVC.houseView.houseViewDatas = houseDataArray
-            houseVC.searchBarView.selectedDatesArray = searchBarView.selectedDatesArray
-            houseVC.searchBarView.selectedDateString = searchBarView.selectedDateString
-            self.navigationController?.pushViewController(houseVC, animated: false)
+            switch useCase {
+            case .inMainVC:
+                let houseVC = HouseViewController()
+                houseVC.houseView.houseViewDatas = houseDataArray
+                houseVC.searchBarView.selectedDatesArray = searchBarView.selectedDatesArray
+                houseVC.searchBarView.selectedDateString = searchBarView.selectedDateString
+                self.navigationController?.pushViewController(houseVC, animated: false)
+            case .inHouseVC:
+                guard let houseVC = controller as? HouseViewController else { print("‼️ : "); return }
+                houseVC.houseView.houseViewDatas.removeAll()
+                houseVC.houseView.houseViewDatas = houseDataArray
+                houseVC.houseView.flag = false
+                houseVC.houseView.tableView.reloadData()
+                
+            case .inTripVC:
+                ()
+            }
             
-        case Notification.Name.searchBarPeopleBtnDidTap:        // 인원 설정버튼
+        // 인원 설정버튼
+        case Notification.Name.searchBarPeopleBtnDidTap:
+            guard let userInfo = sender.userInfo
+                , let useCase = userInfo[SingletonCommonData.notiKeySearchBarUseCase] as? UseCase
+                , let controller = userInfo[SingletonCommonData.notiKeySearchBarInController] as? UIViewController else {
+                    print("‼️ ")
+                    return
+            }
+            
             let filterPeopleVC = FilterPeopleViewController()
-            filterPeopleVC.selectedPeople = searchBarView.selectedPeople
+            filterPeopleVC.useCase = useCase
+            filterPeopleVC.inController = controller
+            
+            switch useCase {
+            case .inMainVC:
+                filterPeopleVC.selectedPeople = searchBarView.selectedPeople
+            case .inHouseVC:
+                guard let houseVC = controller as? HouseViewController else { print("‼️ : "); return }
+                filterPeopleVC.selectedPeople = houseVC.searchBarView.selectedPeople
+            case .inTripVC:
+                ()
+            }
             
             filterPeopleVC.modalPresentationStyle = .overFullScreen
             present(filterPeopleVC, animated: false)
-            
-        case Notification.Name.searchBarPeopleResultBtnDidTap:      // 인원 검색버튼 클릭
+        
+        // 인원 검색버튼 클릭
+        case Notification.Name.searchBarPeopleResultBtnDidTap:
             guard let userInfo = sender.userInfo
-                , let houseDataArray = userInfo["houseViewDataArray"] as? [HouseViewData] else {
+                , let houseDataArray = userInfo["houseViewDataArray"] as? [HouseViewData]
+                , let useCase = userInfo[SingletonCommonData.notiKeySearchBarUseCase] as? UseCase
+                , let controller = userInfo[SingletonCommonData.notiKeySearchBarInController] as? UIViewController else {
                     print("‼️ MainVC SearchBar resultBtn noti userinfo ")
                     return
             }
             
-            let houseVC = HouseViewController()
-            houseVC.houseView.houseViewDatas = houseDataArray
-            houseVC.searchBarView.selectedPeople = searchBarView.selectedPeople
-            self.navigationController?.pushViewController(houseVC, animated: false)
+            switch useCase {
+            case .inMainVC:
+                let houseVC = HouseViewController()
+                houseVC.houseView.houseViewDatas = houseDataArray
+                houseVC.searchBarView.selectedPeople = searchBarView.selectedPeople
+                self.navigationController?.pushViewController(houseVC, animated: false)
+            case .inHouseVC:
+                guard let houseVC = controller as? HouseViewController else { print("‼️ : "); return }
+                houseVC.houseView.houseViewDatas.removeAll()
+                houseVC.houseView.houseViewDatas = houseDataArray
+                houseVC.houseView.flag = false
+                houseVC.houseView.tableView.reloadData()
+            case .inTripVC:
+                ()
+            }
             
+            
+            
+        // 필터 버튼 클릭
         case Notification.Name.searchBarFilterBtnDidTap:
             let filterRemainsVC = FilterRemainsViewController()
             filterRemainsVC.isDateSelected = (searchBarView.selectedDateString == "날짜") ? false : true
             present(filterRemainsVC, animated: true)
             
+            
         // Push other views Notification
+        // 숙소 리스트VC 로 이동
         case Notification.Name.moveToHouseView:
             startIndicator()
             let urlString = netWork.basicUrlString
-                + "/rooms/?search=seoul&ordering=price&page_size=5&page=1"
+                + "/rooms/?search=korea&ordering=total_rating&page_size=20&page=1"
             
             netWork.getHouseServerData(urlString: urlString) { (housedataArray, success) in
                 guard let housedataArray = housedataArray else { return }
@@ -327,27 +574,103 @@ extension MainViewController {
                 }
             }
             
-            
+        // 숙소 상세VC 로 이동
         case Notification.Name.moveToHouseDetailView:
             guard let userInfo = sender.userInfo as? [String: Any]
                 , let roomID = userInfo["roomID"] as? Int
                 , let type = userInfo["type"] as? String
                 , let name = userInfo["houseName"] as? String
+                , let useCase = userInfo[SingletonCommonData.notiKeySearchBarUseCase] as? UseCase
+                , let controller = userInfo[SingletonCommonData.notiKeySearchBarInController] as? UIViewController
                 else { print("moveToHouseDetailView noti error"); return }
             
             let houseDetailVC = HouseDetailViewController()
             houseDetailVC.roomID = roomID
             houseDetailVC.nameLabelPlaceholder = name
             houseDetailVC.typeLablePlaceholder = type
-            houseDetailVC.isDateSelected = (searchBarView.selectedDatesArray.count == 0) ? false : true
+            
+            switch useCase {
+            case .inMainVC:
+                let peopleNumber = searchBarView.selectedPeople.0 + searchBarView.selectedPeople.1 + searchBarView.selectedPeople.2
+                houseDetailVC.isDateSelected = (searchBarView.selectedDatesArray.count == 0) ? false : true
+                houseDetailVC.selectedFilterInfo = (searchBarView.selectedDatesArray,
+                                                    peopleNumber == 0 ? 1 : peopleNumber)
+            case .inHouseVC:
+                guard let houseVC = controller as? HouseViewController else { print("‼️ : "); return }
+                let peopleNumber = houseVC.searchBarView.selectedPeople.0 + houseVC.searchBarView.selectedPeople.1 + houseVC.searchBarView.selectedPeople.2
+                houseDetailVC.isDateSelected = (houseVC.searchBarView.selectedDatesArray.count == 0) ? false : true
+                houseDetailVC.selectedFilterInfo = (houseVC.searchBarView.selectedDatesArray,
+                                                    peopleNumber == 0 ? 1 : peopleNumber)
+            case .inTripVC:
+                ()
+                
+            }
+            
             self.navigationController?.pushViewController(houseDetailVC, animated: false)
             
+        // 숙소 Plus 상세VC 로 이동
         case Notification.Name.moveToPlusHouseDetailView:
             let plusHouseVC = PlusViewController()
             navigationController?.pushViewController(plusHouseVC, animated: true)
             
+        // Luxe 숙소 디테일 VC 로 이동
+        case Notification.Name.moveToLuxeHouseDetailView:
+            guard let userInfo = sender.userInfo
+                , let roomID = userInfo["roomID"] as? Int
+                , let roomTitle = userInfo["roomName"] as? String else {
+                    print("‼️ moveTo HouseDetailView Noti userinfo error ")
+                    return
+            }
+            
+            let luxeDetailVC = LuxeHouseViewController()
+            luxeDetailVC.roomID = roomID
+            luxeDetailVC.roomTitle = roomTitle
+            navigationController?.pushViewController(luxeDetailVC, animated: true)
+        
+        // 트립 VC로 이동
+        case Notification.Name.moveToTripViewController:
+            startIndicator()
+            let urlString = netWork.basicUrlString + "/trip/main/"
+            
+            netWork.getJsonObjectFromAPI(urlString: urlString, urlForSpecificProcessing: nil) { (json, success) in
+                
+                guard success else {
+                    print("get serverData failed")
+                    return
+                }
+                
+                guard let data = try? JSONSerialization.data(withJSONObject: json) else {
+                    print("‼️ moveToHouseDetail noti data convert error")
+                    return
+                }
+                
+                guard let result = try? self.jsonDecoder.decode(TripMainViewData.self, from: data) else {
+                    print("‼️ TripViewController noti result decoding convert error")
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    let tripVC = TripViewController()
+                    tripVC.tripMainViewData = result
+                    tripVC.modalPresentationStyle = .currentContext
+                    self.navigationController?.pushViewController(tripVC, animated: false)
+                }
+            }
+                 
+            
+        // 채팅 리스트 (메세지 리스트) 데이터 다운로드 완료시
+        case Notification.Name.downloadingMessagesDataFinished:
+            guard let messageNaviVC = tabBarController?.viewControllers?[3] as? UINavigationController
+                , let messageVC = messageNaviVC.viewControllers.first as? MessageViewController else { print("‼️ messageVC convert error "); return }
+            messageVC.indicator.stopAnimating()
+            messageVC.statusLabel.isHidden = false
+            messageVC.indicatorLabel.isHidden = true
+            messageVC.chatRoomArray = SingletonCommonData.shared.userChatRoomsArray
+            messageVC.tableView.reloadData()
+            
         default : break
         }
+        
     }
 }
 

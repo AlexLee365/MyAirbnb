@@ -49,8 +49,8 @@ class TaxInfoTableCell: UITableViewCell {
     }()
     
     
-    let infoArr = [("₩388,552 x 5박", "₩1,942,760"), ("청소비", "₩70,895"), ("서비스 수수료", "₩90,982"), ("숙박세와 수수료", "₩99,253")]
-    var infoLabelArray = [UIView]()
+    let infoArr = [("₩388,552 x 5박", "₩1,942,760"), ("청소비", "₩10,000"), ("서비스 수수료", "₩90,982"), ("숙박세와 수수료", "₩99,253")]
+    var infoLabelArray = [taxLabelView]()
     
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -65,6 +65,8 @@ class TaxInfoTableCell: UITableViewCell {
     }
     
     private func configure() {
+        self.selectionStyle = .none
+        
         contentView.addSubview(titleLabel)
         contentView.addSubview(infoBtn)
         contentView.addSubview(separatorLineView)
@@ -138,6 +140,22 @@ class TaxInfoTableCell: UITableViewCell {
             }
         }
     }
+    
+    func setData(oneDayPrice: Int, stayDays: Int) {
+        infoLabelArray[0].titleLabel.text = "₩ \(String(oneDayPrice).limitFractionDigits()) X \(stayDays)박"
+        let stayDaysPrice = oneDayPrice * stayDays
+        infoLabelArray[0].priceLabel.text = "₩ " + String(stayDaysPrice).limitFractionDigits()
+        let cleanPrice = 10000 * stayDays
+        infoLabelArray[1].priceLabel.text = "₩ \(cleanPrice)"
+        let serviceTax = stayDaysPrice / 10
+        infoLabelArray[2].priceLabel.text = "₩ \(serviceTax)"
+        let stayTax = stayDaysPrice / 10
+        infoLabelArray[3].priceLabel.text = "₩ \(stayTax)"
+        
+        let totalPrice = stayDaysPrice + cleanPrice + serviceTax + stayTax
+        totalPriceLabel.text = "₩ \(totalPrice)"
+        SingletonCommonData.shared.tempValue = totalPrice
+    }
 }
 
 
@@ -146,14 +164,14 @@ class taxLabelView: UIView {
     let titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
-        label.font = UIFont(name: "AirbnbCerealApp-Book", size: 18)
+        label.font = UIFont(name: "AirbnbCerealApp-Book", size: 17)
         return label
     }()
     
     let priceLabel: UILabel = {
         let label = UILabel()
         label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
-        label.font = UIFont(name: "AirbnbCerealApp-Book", size: 18)
+        label.font = UIFont(name: "AirbnbCerealApp-Book", size: 17)
         return label
     }()
     
@@ -182,4 +200,6 @@ class taxLabelView: UIView {
             make.top.trailing.bottom.equalToSuperview()
         }
     }
+    
+    
 }

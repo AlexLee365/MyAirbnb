@@ -17,7 +17,7 @@ class MainView: UIView {
     let netWork = NetworkCommunicator()
     
     var mainViewDatas = [MainViewData]()
-    
+    var useCase: (UseCase, UIViewController) = (.inMainVC, UIViewController())
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -74,10 +74,8 @@ extension MainView: UITableViewDelegate, UITableViewDataSource {
         case .category:
             if let categoryData = houseData.data as? [Category] {
                  let CategoryCell = tableView.dequeueReusableCell(withIdentifier: MainCategoryTableCell.identifier, for: indexPath) as! MainCategoryTableCell
-                
-                CategoryCell.titleLabel.text = "Jung Jin Alex님, 무엇을 찾고 계신가요?"
                 CategoryCell.categoryDataArray = categoryData
-//                CategoryCell.collectionView.reloadData()
+
                 return CategoryCell
             } else {
                 print("CategoryCell convert error")
@@ -86,8 +84,6 @@ extension MainView: UITableViewDelegate, UITableViewDataSource {
         case .plus:
             if let plusHouseData = houseData.data as? [HousePlusDataInList] {
                 let recommendHoseCell = tableView.dequeueReusableCell(withIdentifier: MainRecommendHouseTableCell.identifier, for: indexPath) as! MainRecommendHouseTableCell
-                
-                recommendHoseCell.titleLabel.text = "여행 예약을 완료하세요"
                 recommendHoseCell.plusHouseDataArray = plusHouseData
                 
                 return recommendHoseCell
@@ -98,7 +94,6 @@ extension MainView: UITableViewDelegate, UITableViewDataSource {
         case .fullImage:
             if let fullImageData = houseData.data as? [HouseFullImagDataInList] {
                 let fullImageCell = tableView.dequeueReusableCell(withIdentifier: MainFullImageTableCell.identifier, for: indexPath) as! MainFullImageTableCell
-                
                 fullImageCell.setData(fullImageData: fullImageData.first!)
                 
                 return fullImageCell
@@ -109,7 +104,6 @@ extension MainView: UITableViewDelegate, UITableViewDataSource {
         case .luxe:
             if let luxeHouseData = houseData.data as? [HouseLuxeDataInList] {
                 let luxeHouseCell = tableView.dequeueReusableCell(withIdentifier: MainLuxeHouseTableCell.identifier, for: indexPath) as! MainLuxeHouseTableCell
-                
                 luxeHouseCell.luxeHouseDataArray = luxeHouseData
                 
                 return luxeHouseCell
@@ -120,8 +114,6 @@ extension MainView: UITableViewDelegate, UITableViewDataSource {
         case .fourSquare:
             if let normalHouseData = houseData.data as? [HouseDataInList] {
                 let normalHouseSquareCell = tableView.dequeueReusableCell(withIdentifier: FourSquareTableCell.identifier, for: indexPath) as! FourSquareTableCell
-                
-                normalHouseSquareCell.titleLabel.text = "전 세계 숙소"
                 normalHouseSquareCell.normalHouseDataArray = normalHouseData
                 
                 return normalHouseSquareCell

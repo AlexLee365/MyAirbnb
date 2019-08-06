@@ -28,6 +28,24 @@ class HouseView: UIView {
     var houseViewDatas = [HouseViewData]()
     var normalHouseDataArray = [HouseDataInList]()
     
+    var useCase: (UseCase, UIViewController) = (.inHouseVC, UIViewController())
+    
+    var flag = false {
+        didSet {
+            if flag == false {
+                if let data = ( houseViewDatas.filter{$0.cellStyle == .normalHouse}.map{ $0.data }.first ?? [] ) as? [HouseDataInList] {
+                    normalHouseDataArray = data
+                }
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                    self.noResultLabel.isHidden = (self.normalHouseDataArray.count == 0) ? false : true
+                }
+                
+                flag = true
+            }
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
@@ -38,7 +56,7 @@ class HouseView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    var flag = false
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -164,6 +182,10 @@ extension HouseView: UITableViewDelegate {
         let houseData = normalHouseDataArray[indexPath.row - otherCellStylesCount]
         
         notiCenter.post(name: .moveToHouseDetailView, object: nil,
-                        userInfo: ["roomID": houseData.id, "type": houseData.roomType, "houseName": houseData.title])
+                        userInfo: ["roomID": houseData.id,
+                                   "type": houseData.roomType,
+                                   "houseName": houseData.title,
+                                   SingletonCommonData.notiKeySearchBarUseCase: useCase.0,
+                                   SingletonCommonData.notiKeySearchBarInController: useCase.1])
     }
 }

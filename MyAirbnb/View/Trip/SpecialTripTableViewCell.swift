@@ -40,6 +40,8 @@ class SpecialTripTableViewCell: UITableViewCell {
         return collectionView
     }()
     
+    var mainCategoryListDataArray = [MainCategory]()
+    
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -87,16 +89,14 @@ class SpecialTripTableViewCell: UITableViewCell {
 
 extension SpecialTripTableViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 6
+        return mainCategoryListDataArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SpecialTripCollectionViewCell.identifier, for: indexPath) as! SpecialTripCollectionViewCell
         
-        cell.imageView.image = UIImage(named: specialTripDatas[indexPath.row].image)
-        cell.titleLabel.text = specialTripDatas[indexPath.row].title
-        cell.descLabel.text = specialTripDatas[indexPath.row].desc
+        cell.setData(mainCategoryData: mainCategoryListDataArray[indexPath.row])
         
         return cell
     }

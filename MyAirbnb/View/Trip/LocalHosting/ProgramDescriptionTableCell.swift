@@ -22,27 +22,6 @@ class ProgramDescriptionTableCell: UITableViewCell {
     
     let descLabel: UILabel = {
         let label = UILabel()
-        label.text = """
-        During our 6-day adventure through
-        the Galapagos Islands, we'll be
-        supporting the local farms, restaurants,
-        and hotels that encourage sustainable
-        practices.
-        
-        We'll visit Monte Mar coffee farm
-        conservation project, harvest
-        ingredients at Huerta Luna
-        permaculture farm, taste fresh ceviche
-        and wild goat, catch fish that well eat
-        onboard a private yacht, and enjoy a
-        tasting menu at Anker Mar to Table, the
-        most innovative restaurant in
-        Galapagos.
-        
-        When we're not feasting, we'll kayak,
-        snorkel, paddleboard, hike, sail, and
-        enjoy sugar sand beaches.
-        """
         label.setLineSpacing(lineSpacing: 4.0)
         label.font = UIFont(name: "AirbnbCerealApp-Book", size: 18)
         label.numberOfLines = 0
@@ -80,5 +59,9 @@ class ProgramDescriptionTableCell: UITableViewCell {
             make.trailing.equalTo(-20)
             make.bottom.equalTo(-20)
         }
+    }
+    
+    func setData(tripData: TripDetail) {
+        descLabel.text = tripData.program
     }
 }

@@ -16,8 +16,8 @@ class HousePlusTableCell: UITableViewCell {
         static let linesOnScreen: CGFloat = 1
         static let lineSpacing: CGFloat = 13.0
         static let itemSpacing: CGFloat = 0
-        static let edgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
-        static let nextOffset: CGFloat = 80
+        static let edgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 0)
+        static let nextOffset: CGFloat = UIScreen.main.bounds.width * 0.3
     }
     
     let titleLabel: UILabel = {
@@ -46,8 +46,8 @@ class HousePlusTableCell: UITableViewCell {
         return collectionView
     }()
     
-    let seeAllButton: UIButton = {
-        let button = UIButton()
+    let seeAllButton: UIButtonWithHighlightEffect = {
+        let button = UIButtonWithHighlightEffect()
         button.setTitle("에어비앤비 플러스 숙소 모두 보기", for: .normal)
         button.setTitleColor(#colorLiteral(red: 0.5808190107, green: 0.0884276256, blue: 0.3186392188, alpha: 1), for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)

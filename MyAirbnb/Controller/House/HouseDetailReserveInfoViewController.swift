@@ -11,6 +11,7 @@ import SnapKit
 
 class HouseDetailReserveInfoViewController: UIViewController {
 
+    // MARK: - UI Properties
     let topView: TableviewTopView = {
         let view = TableviewTopView()
         view.backgroundColor = .white
@@ -56,11 +57,23 @@ class HouseDetailReserveInfoViewController: UIViewController {
         return button
     }()
     
+    // MARK: - Properties
+    var houseDetailData: HouseDetailData?
+    var selectedFilterInfo = ([Date](), 1)  // 선택된 필터정보 (날짜배열, 게스트인원)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         configure()
         setAutolayout()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
+        print("🔴🔴🔴 : ")
+        print(houseDetailData)
+        print(selectedFilterInfo)
+        tableView.reloadData()
     }
     
     private func configure() {
@@ -107,7 +120,15 @@ class HouseDetailReserveInfoViewController: UIViewController {
     
     @objc private func reqReserveBtnDidTap(_ sender: UIButton) {
         let reserveStepVC = ReserveStepOneViewController()
+        reserveStepVC.houseDetailData = self.houseDetailData
+        reserveStepVC.selectedFilterInfo = self.selectedFilterInfo
         navigationController?.pushViewController(reserveStepVC, animated: true)
+    }
+    
+    private func calculateStayDates() -> Int {
+        
+        
+        return 0
     }
 }
 
@@ -120,18 +141,23 @@ extension HouseDetailReserveInfoViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let houseData = houseDetailData else { print("‼️ houseData convert error "); return UITableViewCell() }
+        
         switch indexPath.row {
         case 0:
             let  reserveInfoCell = tableView.dequeueReusableCell(withIdentifier: ReserveInfoTableCell.identifier, for: indexPath) as! ReserveInfoTableCell
+            reserveInfoCell.setData(houseData: houseData)
             return reserveInfoCell
         case 1:
             let checkInOutInfoCell = tableView.dequeueReusableCell(withIdentifier: CheckInOutInfoTableCell.identifier, for: indexPath) as! CheckInOutInfoTableCell
+            checkInOutInfoCell.setData(selectedData: selectedFilterInfo)
             return checkInOutInfoCell
         case 2:
             let bizTripCell = tableView.dequeueReusableCell(withIdentifier: BizTripTableCell.identifier, for: indexPath) as! BizTripTableCell
             return bizTripCell
         case 3:
             let taxInfoCell = tableView.dequeueReusableCell(withIdentifier: TaxInfoTableCell.identifier, for: indexPath) as! TaxInfoTableCell
+            taxInfoCell.setData(oneDayPrice: houseData.price, stayDays: selectedFilterInfo.0.count - 1)
             taxInfoCell.hideSeparator()
             return taxInfoCell
         default:
@@ -150,6 +176,6 @@ extension HouseDetailReserveInfoViewController: UITableViewDelegate {
 
 extension HouseDetailReserveInfoViewController: TableviewTopViewDelegate {
     func popView() {
-        navigationController?.popViewController(animated: true)
+        dismiss(animated: true)
     }
 }

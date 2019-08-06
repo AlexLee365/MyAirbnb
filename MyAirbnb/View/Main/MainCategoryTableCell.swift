@@ -83,17 +83,9 @@ class MainCategoryTableCell: UITableViewCell {
         titleLabel.configureMainTableViewCellsTitle()
         titleLabel.text = "MainCategoryTabelCell"
         titleLabel.sizeToFit()
+        titleLabel.text = "Jung Jin Alex님, 무엇을 찾고 계신가요?"
 //        titleLabel.font = .systemFont(ofSize: 21, weight: .bold)
     }
-    
-//    private func createCategoryData() {
-//        categoryDataArray = [
-//            Category(image: UIImage(named: "categoryHouseImage") ?? UIImage(), title: "숙소", subTitle: "숙소"),
-//            Category(image: UIImage(named: "categoryTripImage") ?? UIImage(), title: "트립", subTitle: "액티비티"),
-//            Category(image: UIImage(named: "categoryAdventureImage") ?? UIImage(), title: "어드벤처", subTitle: "호스팅 여행"),
-//            Category(image: UIImage(named: "categoryRestaurantImage") ?? UIImage(), title: "레스토랑", subTitle: "최고 평점의 음식"),
-//        ]
-//    }
     
 }
 
@@ -117,8 +109,12 @@ extension MainCategoryTableCell: UICollectionViewDataSource, UICollectionViewDel
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
-//        self.delegate?.pushView()
-        notiCenter.post(name: .moveToHouseView, object: nil)
-
+        switch indexPath.row {
+        case 0:
+            notiCenter.post(name: .moveToHouseView, object: nil)
+        case 1:
+            notiCenter.post(name: .moveToTripViewController, object: nil)
+        default: break
+        }
     }
 }

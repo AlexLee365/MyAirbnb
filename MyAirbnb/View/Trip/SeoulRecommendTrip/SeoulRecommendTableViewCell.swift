@@ -14,9 +14,9 @@ class SeoulRecommendTableViewCell: UITableViewCell {
     var images = ["bathbomb", "designownbathbomb", "shareyourconcept", "natural", "vegantherapy", "addcolors", "variousdesign", "perfectsouvenier"]
     var categories = ["공예 클래스", nil, nil, nil, nil, nil, nil, nil]
     var titles = ["나만의 색과 향을 담은 배쓰밤을 만들어보세요!", "Design your own bath bomb", "Share your concepts", "Vegan & Natural Ingredients", "Vegan Therapy", "Add colors as you want", "Various design", "Perfect souvenirs from Korea:)"]
+    var scrollImageArray = [TopScrollView]()
 
-    let infoDict: [String: String] = ["locationIcon": "Seoul", "timeIcon": "총 2시간", "serviceIcon": "음료, 입장권 1매, 장비", "langIcon": "영어, 한국어로 진행"]
-    let keysArray = ["locationIcon", "timeIcon", "serviceIcon", "langIcon"]
+    var iconsArray = ["locationIcon", "timeIcon", "serviceIcon", "langIcon"]
     var infoViewArray = [InfoView]()
     
     let scrollView: UIScrollView = {
@@ -31,6 +31,7 @@ class SeoulRecommendTableViewCell: UITableViewCell {
     
     var offSet: CGFloat = 0
     var scrollingTimer = Timer()
+
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -46,10 +47,12 @@ class SeoulRecommendTableViewCell: UITableViewCell {
     }
     
     private func configure() {
+        self.backgroundColor = .black
+        self.selectionStyle = .none
+        
         contentView.addSubview(scrollView)
         
         createScrollViews()
-        createInfoViews()
         
         scrollingTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(scrollAutomatically(_:)), userInfo: nil, repeats: true)
     }
@@ -63,16 +66,16 @@ class SeoulRecommendTableViewCell: UITableViewCell {
 
     private func createScrollViews() {
         let frame = UIScreen.main.bounds
-        
+
         for i in 0..<images.count {
             let tempPoint = CGPoint(x: (frame.width * CGFloat(i)), y: 0)
             let tempSize = CGSize(width: frame.width, height: tempHeight)
-            
+
             let tempFrame = CGRect(origin: tempPoint, size: tempSize)
-            
+
             let uiView = TopScrollView(frame: tempFrame)
             uiView.topImageView.image = UIImage(named: images[i])
-            
+
             if categories[i] != nil {
                 uiView.categoryLabel.text = categories[i]
                 uiView.titleLabel.text = titles[i]
@@ -85,25 +88,46 @@ class SeoulRecommendTableViewCell: UITableViewCell {
         scrollView.contentSize = CGSize(width: frame.size.width * CGFloat(images.count), height: tempHeight-5)
     }
     
-    private func createInfoViews() {
-        for i in keysArray {
-            let value = infoDict[i]
-            
-            guard value != nil else { continue }
-            
-            let tempView = InfoView()
-            tempView.icon.image = UIImage(named: i)
-            tempView.label.text = value
-            infoViewArray.append(tempView)
-            contentView.addSubview(tempView)
-            
-            tempView.translatesAutoresizingMaskIntoConstraints = false
-            tempView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
-            tempView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20).isActive = true
-            tempView.heightAnchor.constraint(equalToConstant: 20).isActive = true
+    
+    var flag = false
+    
+    func setData(tripDetailData: TripDetail) {
+        guard flag == false else { return }
+        
+        flag = true
+        
+        var provideText = ""
+        
+        if !tripDetailData.provides.isEmpty {
+            for i in 0..<tripDetailData.provides.count {
+                provideText += "\(tripDetailData.provides[i]?.provideSet ?? ""), "
+            }
+            provideText.removeLast()
+            provideText.removeLast()
+        }
+        
+        let infoLabelArray: [String] =
+            [tripDetailData.state, "총 \(tripDetailData.durationTime)시간", (provideText == "") ? nil : provideText, tripDetailData.language].compactMap{$0}
+
+        if provideText == "" {
+            iconsArray.remove(at: 2)
+        }
+        
+        for i in 0..<infoLabelArray.count {
+            let infoView = InfoView()
+            infoView.icon.image = UIImage(named: iconsArray[i])
+            infoView.label.text = infoLabelArray[i]
+            infoViewArray.append(infoView)
         }
         
         for (index, value) in infoViewArray.enumerated() {
+            contentView.addSubview(value)
+            
+            value.translatesAutoresizingMaskIntoConstraints = false
+            value.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
+            value.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20).isActive = true
+            value.heightAnchor.constraint(equalToConstant: 20).isActive = true
+            
             switch index {
             case 0:
                 value.topAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 5).isActive = true

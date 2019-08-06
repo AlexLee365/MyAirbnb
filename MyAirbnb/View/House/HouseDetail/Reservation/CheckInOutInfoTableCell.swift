@@ -114,4 +114,12 @@ class CheckInOutInfoTableCell: UITableViewCell {
             make.bottom.equalTo(-20)
         }
     }
+    
+    func setData(selectedData: ([Date], Int)) {
+        let componentsIn = Calendar.current.dateComponents([.month, .day], from: selectedData.0.first ?? Date())
+        checkInDateLabel.text = "\(componentsIn.month ?? 0)월 \(componentsIn.day ?? 0)일"
+        let componentsOut = Calendar.current.dateComponents([.month, .day], from: selectedData.0.last ?? Date())
+        checkOutDateLabel.text = "\(componentsOut.month ?? 0)월 \(componentsOut.day ?? 0)일"
+        noOfGuestLabel.text = "게스트 \(selectedData.1)명"
+    }
 }

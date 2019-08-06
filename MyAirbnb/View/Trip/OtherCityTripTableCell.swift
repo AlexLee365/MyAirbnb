@@ -9,8 +9,14 @@
 import UIKit
 import SnapKit
 
+protocol OtherCityTripTableCellDelegate: class {
+    func pushToSearchMainVC(state: State)
+}
+
 class OtherCityTripTableCell: UITableViewCell {
     static let identifier = "OtherCityTripTableCell"
+    
+    weak var delegate: OtherCityTripTableCellDelegate?
     
     private enum UI {
         static let itemsInLine: CGFloat = 1
@@ -39,6 +45,8 @@ class OtherCityTripTableCell: UITableViewCell {
         
         return collectionView
     }()
+    
+    var stateListArray = [State]()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -84,12 +92,15 @@ class OtherCityTripTableCell: UITableViewCell {
 
 extension OtherCityTripTableCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 15
+        return stateListArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let otherCityCell = collectionView.dequeueReusableCell(withReuseIdentifier: OtherCityTripCollectionCell.identifier, for: indexPath) as! OtherCityTripCollectionCell
+        
+        otherCityCell.setData(cityListArray: stateListArray[indexPath.row])
+        
         return otherCityCell
     }
     
@@ -99,7 +110,9 @@ extension OtherCityTripTableCell: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate
 
 extension OtherCityTripTableCell: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        delegate?.pushToSearchMainVC(state: stateListArray[indexPath.row])
+    }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout

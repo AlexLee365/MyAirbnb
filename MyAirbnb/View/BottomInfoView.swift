@@ -35,10 +35,10 @@ class BottomInfoView: UIView {
     
     func makeShadow() {
         layer.masksToBounds = false
-        
-        layer.shadowOpacity = 0.7
-        layer.shadowOffset = CGSize(width: 0, height: 0)
+        layer.shadowOpacity = 0.1
+        layer.shadowOffset = CGSize(width: 5, height: -7)
         layer.shadowRadius = 3
+        layer.shadowColor = UIColor.gray.cgColor
     }
     
     private func configure() {
