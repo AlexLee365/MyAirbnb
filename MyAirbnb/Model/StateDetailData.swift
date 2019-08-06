@@ -43,7 +43,6 @@ struct BestTrip: Codable {
         case durationTime = "duration_time"
         case provides, language, url
     }
-    
 }
 
 

@@ -60,6 +60,8 @@ class OtherCityTripTableCell: UITableViewCell {
     }
     
     private func configure() {
+        self.selectionStyle = .none
+        
         contentView.addSubview(titleLabel)
         
         collectionView.dataSource = self

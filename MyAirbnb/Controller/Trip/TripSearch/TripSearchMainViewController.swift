@@ -152,12 +152,22 @@ extension TripSearchMainViewController: UITableViewDelegate {
 // MARK: - RecommendedTripTableCellDelegate
 
 extension TripSearchMainViewController: RecommendedTripTableCellDelegate {
+    
     func pushToStateRecommendedDetailVC(stateDetailData: BestTrip) {
         let stateRecommendedDetailVC = SeoulRecommendedDetailViewController()
         
         stateRecommendedDetailVC.tripDetailUrl = stateDetailData.url
         
         navigationController?.pushViewController(stateRecommendedDetailVC, animated: true)
+    }
+    
+    func pushToAllTripVC() {
+        let allTripVC = TripAllViewController()
+        
+        allTripVC.stateAllTripData = stateData?.stateDetail.trips ?? []
+        allTripVC.numberOfCell = stateData?.stateDetail.trips.count ?? 0
+        
+        navigationController?.pushViewController(allTripVC, animated: false)
     }
 }
 
