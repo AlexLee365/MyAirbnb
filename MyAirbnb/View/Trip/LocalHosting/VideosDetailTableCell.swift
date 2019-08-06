@@ -189,7 +189,7 @@ class VideosDetailTableCell: UITableViewCell {
         flag = true
         
         titleLabel.text = tripDetail.name
-        regionLabel.text = tripDetail.state
+        regionLabel.text = "\(tripDetail.state.name), \(tripDetail.state.country)"
         infoCategoryViewArray[0].descLabel.text = "\(tripDetail.durationTime)일"
         infoCategoryViewArray[1].descLabel.text = tripDetail.strength
         infoCategoryViewArray[2].descLabel.text = tripDetail.language

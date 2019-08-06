@@ -11,6 +11,7 @@ import SnapKit
 
 protocol RecommendedTripTableCellDelegate: class {
     func pushToStateRecommendedDetailVC(stateDetailData: BestTrip)
+    func pushToAllTripVC()
 }
 
 class RecommendedTripTableCell: UITableViewCell {
@@ -95,7 +96,7 @@ class RecommendedTripTableCell: UITableViewCell {
     }
     
     @objc private func seeAllBtnDidTap(_ sender: UIButton) {
-        
+        delegate?.pushToAllTripVC()
     }
     
     private func setAutolayout() {

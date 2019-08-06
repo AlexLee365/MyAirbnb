@@ -165,7 +165,7 @@ class TripInfoCollectionViewCell: UICollectionViewCell {
             var text = ""
             
             for i in 0..<recommendedTripData.provides.count {
-                text += "\(recommendedTripData.provides[i] ?? ""), "
+                text += "\(recommendedTripData.provides[i]), "
             }
             text.removeLast()
             text.removeLast()

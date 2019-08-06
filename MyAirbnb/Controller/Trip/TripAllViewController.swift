@@ -35,10 +35,9 @@ class TripAllViewController: UIViewController {
         return collectionView
     }()
     
-    let netWork = NetworkCommunicator()
-    let jsonDecoder = JSONDecoder()
     var allTripData = [AllTripData]()
     var numberOfCell = 0
+    var stateAllTripData = [BestTrip]()
     
     
     override func viewDidLoad() {
@@ -46,7 +45,12 @@ class TripAllViewController: UIViewController {
 
         configure()
         setAutolayout()
-        getServerData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        collectionView.reloadData()
     }
     
     private func configure() {
@@ -79,35 +83,6 @@ class TripAllViewController: UIViewController {
             make.bottom.equalToSuperview()
         }
     }
-    
-    private func getServerData() {
-        let urlString = netWork.basicUrlString + "/trip/trips"
-        
-        netWork.getJsonObjectFromAPI(urlString: urlString, urlForSpecificProcessing: nil) { (json, success) in
-            
-            guard success else {
-                print("get serverData failed")
-                return
-            }
-            
-            guard let data = try? JSONSerialization.data(withJSONObject: json) else {
-                print("‼️ moveToHouseDetail noti data convert error")
-                return
-            }
-            
-            guard let result = try? self.jsonDecoder.decode([AllTripData].self, from: data) else {
-                print("‼️ TripSearchMainViewController noti result decoding convert error")
-                return
-            }
-            
-            self.allTripData = result
-            self.numberOfCell = result.count
-            
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-            }
-        }
-    }
 }
 
 
@@ -121,19 +96,8 @@ extension TripAllViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TripInfoCollectionViewCell.identifier, for: indexPath) as! TripInfoCollectionViewCell
         
-//        cell.imageView.image = UIImage(named: seoulRecommendedTripDatas[indexPath.row].image)
-//        cell.categoryLabel.text = seoulRecommendedTripDatas[indexPath.row].category
-//        cell.titleLabel.text = seoulRecommendedTripDatas[indexPath.row].title
-//        cell.descLabel.text = seoulRecommendedTripDatas[indexPath.row].desc
-//        cell.languageLabel.text = seoulRecommendedTripDatas[indexPath.row].lang
-//
-//        if seoulRecommendedTripDatas[indexPath.row].rate != nil {
-//            cell.starImage.image = UIImage(named: "star")
-//            cell.rateLabel.text = String(seoulRecommendedTripDatas[indexPath.row].rate!)
-//            cell.noOfReviewLabel.text = "(\(seoulRecommendedTripDatas[indexPath.row].noOfReview!))"
-//        }
-        
-        cell.setDataForAllTrip(allTripData: allTripData[indexPath.row])
+//        cell.setDataForAllTrip(allTripData: allTripData[indexPath.row])
+        cell.setData(recommendedTripData: stateAllTripData[indexPath.row])
         
         return cell
     }

@@ -7,23 +7,72 @@
 //
 
 import UIKit
+import SnapKit
 
 class TestSaveViewController: UIViewController {
-    
-      let noticeLabel = UILabel()
 
+    let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: UIScreen.main.bounds.width, bottom: 0, right: 0)
+        
+        tableView.register(PlannedTripTitleTableCell.self, forCellReuseIdentifier: PlannedTripTitleTableCell.identifier)
+        tableView.register(PlannedHouseTableCell.self, forCellReuseIdentifier: PlannedHouseTableCell.identifier)
+        
+        return tableView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        configure()
+        setAutolayout()
+    }
+    
+    private func configure() {
         view.backgroundColor = .white
+
+        tableView.dataSource = self
+        tableView.delegate = self
+        view.addSubview(tableView)
+    }
+    
+    private func setAutolayout() {
+        tableView.snp.makeConstraints { (make) in
+            make.top.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+    }
+}
+
+
+// MARK: - UITableViewDataSource
+
+extension TestSaveViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 3
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        view.addSubview(noticeLabel)
-        noticeLabel.translatesAutoresizingMaskIntoConstraints = false
-        noticeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        noticeLabel.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor, constant: 0).isActive = true
+        switch indexPath.row {
+        case 0:
+            let plannedTripTitleCell = tableView.dequeueReusableCell(withIdentifier: PlannedTripTitleTableCell.identifier, for: indexPath)
+            return plannedTripTitleCell
+ 
+        default:
+            let plannedHouseCell = tableView.dequeueReusableCell(withIdentifier: PlannedHouseTableCell.identifier, for: indexPath) as! PlannedHouseTableCell
+            
+            return plannedHouseCell
+        }
         
-        noticeLabel.text = "This is testPage for SavePage"
-        noticeLabel.font = .systemFont(ofSize: 14, weight: .bold)
-        noticeLabel.textColor = .black
+    }
+}
+
+// MARK: - UITableViewDelegate
+
+extension TestSaveViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let saveDetailVC = SaveDetailViewController()
+        present(saveDetailVC, animated: true)
     }
 }

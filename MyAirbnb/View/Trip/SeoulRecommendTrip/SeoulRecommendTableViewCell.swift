@@ -107,7 +107,7 @@ class SeoulRecommendTableViewCell: UITableViewCell {
         }
         
         let infoLabelArray: [String] =
-            [tripDetailData.state, "총 \(tripDetailData.durationTime)시간", (provideText == "") ? nil : provideText, tripDetailData.language].compactMap{$0}
+            [tripDetailData.state.name, "총 \(tripDetailData.durationTime)시간", (provideText == "") ? nil : provideText, tripDetailData.language].compactMap{ $0 }
 
         if provideText == "" {
             iconsArray.remove(at: 2)
