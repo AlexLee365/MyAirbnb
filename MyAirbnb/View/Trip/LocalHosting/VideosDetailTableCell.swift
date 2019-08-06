@@ -25,8 +25,8 @@ class VideosDetailTableCell: UITableViewCell {
     let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 29, weight: .bold)
-        label.text = "갈라파고스 슬로푸드 사파리"
         label.textColor = .white
+        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -35,7 +35,6 @@ class VideosDetailTableCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 19, weight: .regular)
         label.textColor = .white
-        label.text = "푸에르토아요라, Ecuador"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -94,6 +93,7 @@ class VideosDetailTableCell: UITableViewCell {
         
         titleLabel.topAnchor.constraint(equalTo: courseLabel.bottomAnchor, constant: 10).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20).isActive = true
         
         regionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10).isActive = true
         regionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
@@ -119,7 +119,6 @@ class VideosDetailTableCell: UITableViewCell {
             
             infoCategoryView.iconImageView.image = setIconImage(category: infoArray[i].0)
             infoCategoryView.categoryTitleLabel.text = infoArray[i].0
-            infoCategoryView.descLabel.text = infoArray[i].1
             
             infoCategoryViewArray.append(infoCategoryView)
         }
@@ -153,7 +152,7 @@ class VideosDetailTableCell: UITableViewCell {
                 infoCategoryViewArray[i].snp.makeConstraints { (make) in
                     make.top.equalTo(infoCategoryViewArray[i - 2].snp.bottom).offset(20)
                     make.trailing.equalTo(-20)
-                    make.bottom.equalTo(-20)
+                    make.bottom.equalTo(-30)
                 }
             default: break
             }
@@ -180,41 +179,47 @@ class VideosDetailTableCell: UITableViewCell {
         
         return UIImage(named: imageString)!
     }
+    
+
+    var flag = false
+
+    func setData(tripDetail: TripDetail) {
+        guard flag == false else { return }
+        
+        flag = true
+        
+        titleLabel.text = tripDetail.name
+        regionLabel.text = tripDetail.state
+        infoCategoryViewArray[0].descLabel.text = "\(tripDetail.durationTime)일"
+        infoCategoryViewArray[1].descLabel.text = tripDetail.strength
+        infoCategoryViewArray[2].descLabel.text = tripDetail.language
+        
+        var provideString = ""
+        
+        if tripDetail.provides.isEmpty {
+            infoCategoryViewArray[3].iconImageView.isHidden = true
+            infoCategoryViewArray[3].categoryTitleLabel.isHidden = true
+            infoCategoryViewArray[3].descLabel.text = ""
+            
+            infoCategoryViewArray[2].snp.makeConstraints { (make) in
+                make.top.equalTo(infoCategoryViewArray[0].snp.bottom).offset(20)
+                make.leading.equalTo(20)
+                make.bottom.equalTo(-20)
+            }
+            
+            infoCategoryViewArray[3].snp.makeConstraints { (make) in
+                make.top.equalTo(infoCategoryViewArray[1].snp.bottom).offset(20)
+                make.trailing.equalTo(-20)
+            }
+            
+        } else {
+            for i in 0..<tripDetail.provides.count {
+                provideString += "\(tripDetail.provides[i]?.provideSet ?? ""), "
+            }
+            provideString.removeLast()
+            provideString.removeLast()
+    
+            infoCategoryViewArray[3].descLabel.text = provideString
+        }
+    }
 }
-
-
-// MARK: - UICollectionViewDataSource
-
-//extension VideosDetailTableCell: UICollectionViewDataSource {
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return infoArray.count
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//
-//        let infoCell = collectionView.dequeueReusableCell(withReuseIdentifier: InfoCollectionCell.identifier, for: indexPath) as! InfoCollectionCell
-//
-//        infoCell.backgroundColor = .red
-//
-//        return infoCell
-//    }
-//}
-
-// MARK: - UICollectionViewDelegateFlowLayout
-
-//extension VideosDetailTableCell: UICollectionViewDelegateFlowLayout {
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//
-//        let lineSpacing = UI.lineSpacing
-//        let horizontalInset = UI.edgeInsets.left + UI.edgeInsets.right
-//
-//        let horizontalSpacing = lineSpacing + horizontalInset + UI.nextOffset
-//        let cellWidth: CGFloat = ((collectionView.frame.width - horizontalSpacing) / UI.linesOnScreen)
-//        let cellHeight = collectionView.frame.height * 0.9
-//
-//        let roundedWidth = cellWidth.rounded(.down)
-//        let roundedHeight = cellHeight.rounded(.down)
-//
-//        return CGSize(width: roundedWidth, height: roundedHeight)
-//    }
-//}

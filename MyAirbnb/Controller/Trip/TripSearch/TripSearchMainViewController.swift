@@ -114,7 +114,9 @@ extension TripSearchMainViewController: UITableViewDataSource {
         case 1:
             let recommendedCell = tableView.dequeueReusableCell(withIdentifier: RecommendedTripTableCell.identifier, for: indexPath) as! RecommendedTripTableCell
             
+            recommendedCell.delegate = self
             recommendedCell.recommendedTripArray = stateData?.randomRecommendTrip12 ?? []
+            
             return recommendedCell
             
         case 2:
@@ -144,6 +146,18 @@ extension TripSearchMainViewController: UITableViewDelegate {
         } else {
             return UITableView.automaticDimension
         }
+    }
+}
+
+// MARK: - RecommendedTripTableCellDelegate
+
+extension TripSearchMainViewController: RecommendedTripTableCellDelegate {
+    func pushToStateRecommendedDetailVC(stateDetailData: BestTrip) {
+        let stateRecommendedDetailVC = SeoulRecommendedDetailViewController()
+        
+        stateRecommendedDetailVC.tripDetailUrl = stateDetailData.url
+        
+        navigationController?.pushViewController(stateRecommendedDetailVC, animated: true)
     }
 }
 

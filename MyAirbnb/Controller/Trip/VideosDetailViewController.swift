@@ -49,7 +49,7 @@ class VideosDetailViewController: UIViewController {
     
     let priceLabel: UILabel = {
         let label = UILabel()
-        label.text = "₩40,000 /인"
+//        label.text = "₩40,000 /인"
         label.font = UIFont(name: "AirbnbCerealApp-Bold", size: 17)
         label.textColor = .white
         return label
@@ -57,15 +57,15 @@ class VideosDetailViewController: UIViewController {
     
     let starImageLabel: UILabel = {
         let label = UILabel()
-        label.text = String(repeating: "★", count: 5)
+//        label.text = String(repeating: "★", count: 5)
         label.font = UIFont(name: "AirbnbCerealApp-Book", size: 13)
         label.textColor = .white
         return label
     }()
     
-    let rateLabel: UILabel = {
+    let noOfReviewLabel: UILabel = {
         let label = UILabel()
-        label.text = "201"
+//        label.text = "201"
         label.textColor = .white
         label.font = UIFont(name: "AirbnbCerealApp-Book", size: 12)
         return label
@@ -80,6 +80,14 @@ class VideosDetailViewController: UIViewController {
         button.backgroundColor = .white
         return button
     }()
+    
+    let newTripLabel: UILabel = {
+        let label = UILabel()
+//        label.text = "신규 트립"
+        label.textColor = .white
+        label.font = UIFont(name: "AirbnbCerealApp-Book", size: 12)
+        return label
+    }()
 
     
     let scheduleImages = ["schedule1", "schedule2", "schedule3"]
@@ -90,6 +98,13 @@ class VideosDetailViewController: UIViewController {
     
     let notiCenter = NotificationCenter.default
     
+    var adventureDetailUrl = ""
+    
+    let netWork = NetworkCommunicator()
+    let jsonDecoder = JSONDecoder()
+    var tripDetailData: TripDetailData?
+    var numberOfCell = 0
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,6 +113,7 @@ class VideosDetailViewController: UIViewController {
         setAutolayout()
         
         addNotificationObserver()
+        getServerData()
     }
         
     override func viewWillAppear(_ animated: Bool) {
@@ -132,7 +148,8 @@ class VideosDetailViewController: UIViewController {
         view.addSubview(bottomView)
         bottomView.addSubview(priceLabel)
         bottomView.addSubview(starImageLabel)
-        bottomView.addSubview(rateLabel)
+        bottomView.addSubview(noOfReviewLabel)
+        bottomView.addSubview(newTripLabel)
         bottomView.addSubview(seeDateBtn)
     }
     
@@ -166,9 +183,14 @@ class VideosDetailViewController: UIViewController {
             make.leading.equalTo(20)
         }
         
-        rateLabel.snp.makeConstraints { (make) in
+        noOfReviewLabel.snp.makeConstraints { (make) in
             make.centerY.equalTo(starImageLabel.snp.centerY)
             make.leading.equalTo(starImageLabel.snp.trailing).offset(3)
+        }
+        
+        newTripLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(priceLabel.snp.bottom).offset(5)
+            make.leading.equalTo(20)
         }
         
         seeDateBtn.snp.makeConstraints { (make) in
@@ -222,6 +244,51 @@ class VideosDetailViewController: UIViewController {
         mapVC.circleColor = StandardUIValue.shared.colorBlueGreen
         navigationController?.pushViewController(mapVC, animated: true)
     }
+    
+    func getServerData() {
+        let urlString = adventureDetailUrl
+        
+        netWork.getJsonObjectFromAPI(urlString: urlString, urlForSpecificProcessing: nil) { (json, success) in
+            
+            guard success else {
+                print("get serverData failed")
+                return
+            }
+            
+            guard let data = try? JSONSerialization.data(withJSONObject: json) else {
+                print("‼️ moveToHouseDetail noti data convert error")
+                return
+            }
+            
+            guard let result = try? self.jsonDecoder.decode(TripDetailData.self, from: data) else {
+                print("‼️ TripSearchMainViewController noti result decoding convert error")
+                return
+            }
+            
+            self.tripDetailData = result
+            self.numberOfCell = 7 + self.scheduleImages.count
+            
+            let priceString = String(result.tripDetail.price).limitFractionDigits()
+            
+            DispatchQueue.main.async {
+                
+                if result.tripDetail.tripReviews.isEmpty {
+                    self.starImageLabel.isHidden = true
+                    self.noOfReviewLabel.isHidden = true
+                    self.newTripLabel.isHidden = false
+                    self.newTripLabel.text = "신규 트립"
+                } else {
+                    self.starImageLabel.isHidden = false
+                    self.noOfReviewLabel.isHidden = false
+                    self.newTripLabel.isHidden = true
+                }
+                
+                self.priceLabel.text = "₩\(priceString)/인"
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
 }
 
 // MARK: - UITableViewDataSource
@@ -229,17 +296,26 @@ class VideosDetailViewController: UIViewController {
 extension VideosDetailViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 7 + scheduleImages.count
+        return numberOfCell
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        guard let tripDetails = tripDetailData?.tripDetail else { return UITableViewCell() }
+        
         switch indexPath.row {
         case 0:
             let videoCell = tableView.dequeueReusableCell(withIdentifier: VideosDetailTableCell.identifier, for: indexPath) as! VideosDetailTableCell
+            
+            videoCell.setData(tripDetail: tripDetails)
+            
             return videoCell
             
         case 1:
             let programDescCell = tableView.dequeueReusableCell(withIdentifier: ProgramDescriptionTableCell.identifier, for: indexPath) as! ProgramDescriptionTableCell
+            
+            programDescCell.setData(tripData: tripDetails)
+            
             return programDescCell
             
         case 2:
@@ -281,10 +357,14 @@ extension VideosDetailViewController: UITableViewDataSource {
         case (scheduleImages.count + 5):
             let hostCell = tableView.dequeueReusableCell(withIdentifier: VideoHostInfoTableCell.identifier, for: indexPath) as! VideoHostInfoTableCell
             
+            hostCell.setData(tripData: tripDetails)
+            
             return hostCell
             
         case (scheduleImages.count + 6):
             let visitingPlaceCell = tableView.dequeueReusableCell(withIdentifier: VisitingPlaceTableCell.identifier, for: indexPath) as! VisitingPlaceTableCell
+            
+            visitingPlaceCell.setData(tripData: tripDetails)
             
             return visitingPlaceCell
             
@@ -301,9 +381,6 @@ extension VideosDetailViewController: UITableViewDelegate {
         guard let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) else { return }
         
         let becomeWhiteEndPoint = cell.frame.height - topView.frame.height
-        let becomeWhiteStartPoint = becomeWhiteEndPoint
-        
-        let opacity = ( scrollView.contentOffset.y - becomeWhiteStartPoint ) / (becomeWhiteEndPoint - becomeWhiteStartPoint)
         
         if scrollView.contentOffset.y >= cell.frame.height {
             self.navigationController?.self.navigationBar.barStyle = .default
@@ -329,7 +406,8 @@ extension VideosDetailViewController: UITableViewDelegate {
                 self.bottomView.backColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
                 self.priceLabel.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
                 self.starImageLabel.textColor = StandardUIValue.shared.colorBlueGreen
-                self.rateLabel.textColor = #colorLiteral(red: 0.5704585314, green: 0.5704723597, blue: 0.5704649091, alpha: 1)
+                self.noOfReviewLabel.textColor = #colorLiteral(red: 0.5704585314, green: 0.5704723597, blue: 0.5704649091, alpha: 1)
+                self.newTripLabel.textColor = #colorLiteral(red: 0.5704585314, green: 0.5704723597, blue: 0.5704649091, alpha: 1)
                 self.seeDateBtn.backgroundColor = StandardUIValue.shared.colorPink
                 self.seeDateBtn.setTitleColor(.white, for: .normal)
             }
@@ -338,11 +416,10 @@ extension VideosDetailViewController: UITableViewDelegate {
             self.bottomView.backColor = .black
             self.priceLabel.textColor = .white
             self.starImageLabel.textColor = .white
-            self.rateLabel.textColor = .white
+            self.noOfReviewLabel.textColor = .white
+            self.newTripLabel.textColor = .white
             self.seeDateBtn.backgroundColor = .white
-            self.seeDateBtn.setTitleColor(#colorLiteral(red: 0.370555222, green: 0.3705646992, blue: 0.3705595732, alpha: 1), for: .normal)
-            
-            
+            self.seeDateBtn.setTitleColor(#colorLiteral(red: 0.370555222, green: 0.3705646992, blue: 0.3705595732, alpha: 1), for: .normal)  
         }
     }
 }

@@ -23,7 +23,7 @@ class VisitingPlaceTableCell: UITableViewCell {
     
     let descLabel: UILabel = {
         let label = UILabel()
-        label.text = "We'll start and end our journey at Seymour Airport on Baltra Island in Ecuadors Galápagos National Park. We'll travel 3 hours to Santa Cruz island, then visit North Seymour and Pinzón islands."
+//        label.text = "We'll start and end our journey at Seymour Airport on Baltra Island in Ecuadors Galápagos National Park. We'll travel 3 hours to Santa Cruz island, then visit North Seymour and Pinzón islands."
         label.numberOfLines = 0
         label.setLineSpacing(lineSpacing: 3)
         label.font = UIFont(name: "AirbnbCerealApp-Book", size: 15)
@@ -118,6 +118,10 @@ class VisitingPlaceTableCell: UITableViewCell {
         let center = centerCoordinate
         let circle = MKCircle(center: center, radius: 400)
         mapView.addOverlay(circle)
+    }
+    
+    func setData(tripData: TripDetail) {
+        descLabel.text = tripData.placeInfo
     }
 }
 

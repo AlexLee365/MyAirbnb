@@ -41,9 +41,6 @@ class TripViewController: UIViewController {
         return searchBarView
     }()
     
-    let netWork = NetworkCommunicator()
-    let jsonDecoder = JSONDecoder()
-    
     var tripMainViewData: TripMainViewData?
     var numberOfRows = 0
     
@@ -249,17 +246,18 @@ extension TripViewController: TripIntroTableViewCellDelegate {
 
 extension TripViewController: SeoulRecommenedTripTableViewCellDelegate {
     func pushVC(tripDetails: BestTrip) {
-        print("push secoul recommend VC")
-        
         let detailVC = SeoulRecommendedDetailViewController()
         
         detailVC.tripDetailUrl = tripDetails.url
-        detailVC.modalPresentationStyle = .none
+        
         navigationController?.pushViewController(detailVC, animated: true)
     }
     
     func pushVCForBtn() {
         let tripAllVC = TripAllViewController()
+        
+        
+        
         navigationController?.pushViewController(tripAllVC, animated: false)
     }
 }
@@ -267,8 +265,11 @@ extension TripViewController: SeoulRecommenedTripTableViewCellDelegate {
 // MARK: - WorldAdventureTableCellDelegate
 
 extension TripViewController: WorldAdventureTableCellDelegate {
-    func pushAdventureVC() {
+    func pushAdventureVC(globalAdventureData: BestTrip) {
         let adventureVC = VideosDetailViewController()
+        
+        adventureVC.adventureDetailUrl = globalAdventureData.url
+            
         tabBarController?.tabBar.isHidden = true
         navigationController?.pushViewController(adventureVC, animated: true)
     }

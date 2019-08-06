@@ -257,40 +257,39 @@ extension SeoulRecommendedDetailViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        guard let tripDetail = tripDetailData?.tripDetail else { return UITableViewCell() }
+        
         switch indexPath.row {
         case 0:
             let seoulRecommendCell = tableView.dequeueReusableCell(withIdentifier: SeoulRecommendTableViewCell.identifier, for: indexPath) as! SeoulRecommendTableViewCell
             
-            guard let tripDetailData = tripDetailData?.tripDetail else { return UITableViewCell() }
-            seoulRecommendCell.setData(tripDetailData: tripDetailData)
+            seoulRecommendCell.setData(tripDetailData: tripDetail)
             
             return seoulRecommendCell
             
         case 1:
             let hostIntroCell = tableView.dequeueReusableCell(withIdentifier: HostIntroTableViewCell.identifier, for: indexPath) as! HostIntroTableViewCell
             
-            guard let hostDetailData = tripDetailData?.tripDetail else { return UITableViewCell() }
-            hostIntroCell.setData(hostDetailData: hostDetailData)
+            hostIntroCell.setData(hostDetailData: tripDetail)
             
             return hostIntroCell
             
         case 2:
             let tripContentsCell = tableView.dequeueReusableCell(withIdentifier: TripContentsTableCell.identifier, for: indexPath) as! TripContentsTableCell
             
-            guard let tripContentsData = tripDetailData?.tripDetail else { return UITableViewCell() }
-            tripContentsCell.setData(tripContentsData: tripContentsData)
+            tripContentsCell.setData(tripContentsData: tripDetail)
             
             return tripContentsCell
             
         case 3:
             let itemsProvidedCell = tableView.dequeueReusableCell(withIdentifier: ItemsProvidedTableCell.identifier, for: indexPath) as! ItemsProvidedTableCell
             
-            guard let itemsProvidedData = tripDetailData?.tripDetail else { return UITableViewCell() }
-            guard !itemsProvidedData.provides.isEmpty else { return UITableViewCell() }
+            guard !tripDetail.provides.isEmpty else { return UITableViewCell() }
             
-            itemsProvidedCell.setData(itemProvidedData: itemsProvidedData)
+            itemsProvidedCell.setData(itemProvidedData: tripDetail)
             
-            itemsProvidedCell.providesCount = itemsProvidedData.provides.count
+            itemsProvidedCell.providesCount = tripDetail.provides.count
             print("itemsProvidedCell.providesCount: ", itemsProvidedCell.providesCount)
             
             return itemsProvidedCell
@@ -298,23 +297,20 @@ extension SeoulRecommendedDetailViewController: UITableViewDataSource {
         case 4:
             let memoCell = tableView.dequeueReusableCell(withIdentifier: MemoTableCell.identifier, for: indexPath) as! MemoTableCell
             
-            guard let memoData = tripDetailData?.tripDetail else { return UITableViewCell() }
-            memoCell.setData(memoData: memoData)
+            memoCell.setData(memoData: tripDetail)
             
             return memoCell
             
         case 5:
             let placeCell = tableView.dequeueReusableCell(withIdentifier: PlaceTableViewCell.identifier, for: indexPath) as! PlaceTableViewCell
             
-            guard let placeInfoData = tripDetailData?.tripDetail else { return UITableViewCell() }
-            placeCell.setData(placeInfoData: placeInfoData)
+            placeCell.setData(placeInfoData: tripDetail)
             
             return placeCell
      
         case 6:
             let reviewCell = tableView.dequeueReusableCell(withIdentifier: TripDetailReviewTableCell.identifier, for: indexPath) as! TripDetailReviewTableCell
             
-            guard let tripDetail = tripDetailData?.tripDetail else { return UITableViewCell() }
             guard let tripReviewData = tripDetailData?.tripDetail.tripReviews else {return UITableViewCell()}
             guard !tripReviewData.isEmpty else { return UITableViewCell() }
             

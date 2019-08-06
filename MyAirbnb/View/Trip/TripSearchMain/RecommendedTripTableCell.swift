@@ -9,8 +9,14 @@
 import UIKit
 import SnapKit
 
+protocol RecommendedTripTableCellDelegate: class {
+    func pushToStateRecommendedDetailVC(stateDetailData: BestTrip)
+}
+
 class RecommendedTripTableCell: UITableViewCell {
     static let identifier = "RecommendedTripTableCell"
+    
+    weak var delegate: RecommendedTripTableCellDelegate?
     
     private enum UI {
         static let itemsInLine: CGFloat = 1
@@ -137,7 +143,7 @@ extension RecommendedTripTableCell: UICollectionViewDataSource {
 
 extension RecommendedTripTableCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        delegate?.pushToStateRecommendedDetailVC(stateDetailData: recommendedTripArray[indexPath.row])
     }
 }
 

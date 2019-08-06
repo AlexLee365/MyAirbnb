@@ -75,7 +75,7 @@ class TripDetailReviewViewController: UIViewController {
 
 extension TripDetailReviewViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return reviewCount
+        return 1 + reviewCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -87,6 +87,7 @@ extension TripDetailReviewViewController: UITableViewDataSource {
             titleCell.textLabel?.textColor = #colorLiteral(red: 0.1298420429, green: 0.1298461258, blue: 0.1298439503, alpha: 1)
             titleCell.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
             return titleCell
+            
         } else {
             let reviewTableCell = tableView.dequeueReusableCell(withIdentifier: ReviewTableCell.identifier, for: indexPath) as! ReviewTableCell
             

@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 protocol WorldAdventureTableCellDelegate: class {
-    func pushAdventureVC()
+    func pushAdventureVC(globalAdventureData: BestTrip)
 }
 
 class WorldAdventureTableCell: UITableViewCell {
@@ -154,7 +154,7 @@ extension WorldAdventureTableCell: UICollectionViewDataSource {
 
 extension WorldAdventureTableCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.pushAdventureVC()
+        delegate?.pushAdventureVC(globalAdventureData: globalAdventureDataArray[indexPath.row])
     }
 }
 
