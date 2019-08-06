@@ -2,7 +2,7 @@
 //  HouseViewController.swift
 //  MyAirbnb
 //
-//  Created by Solji Kim on 14/07/2019.
+//  Created by 행복한 개발자 on 14/07/2019.
 //  Copyright © 2019 Alex Lee. All rights reserved.
 //
 

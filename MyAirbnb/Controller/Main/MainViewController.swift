@@ -191,6 +191,7 @@ extension MainViewController {
         notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .moveToHouseView, object: nil)
         notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .moveToHouseDetailView, object: nil)
         notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .moveToPlusHouseDetailView, object: nil)
+        notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .moveToLuxeHouseDetailView, object: nil)
         notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .moveToTripViewController, object: nil)
         
         notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .downloadingMessagesDataFinished, object: nil)
@@ -610,6 +611,20 @@ extension MainViewController {
         case Notification.Name.moveToPlusHouseDetailView:
             let plusHouseVC = PlusViewController()
             navigationController?.pushViewController(plusHouseVC, animated: true)
+            
+        // Luxe 숙소 디테일 VC 로 이동
+        case Notification.Name.moveToLuxeHouseDetailView:
+            guard let userInfo = sender.userInfo
+                , let roomID = userInfo["roomID"] as? Int
+                , let roomTitle = userInfo["roomName"] as? String else {
+                    print("‼️ moveTo HouseDetailView Noti userinfo error ")
+                    return
+            }
+            
+            let luxeDetailVC = LuxeHouseViewController()
+            luxeDetailVC.roomID = roomID
+            luxeDetailVC.roomTitle = roomTitle
+            navigationController?.pushViewController(luxeDetailVC, animated: true)
         
         // 트립 VC로 이동
         case Notification.Name.moveToTripViewController:
@@ -647,9 +662,8 @@ extension MainViewController {
             guard let messageNaviVC = tabBarController?.viewControllers?[3] as? UINavigationController
                 , let messageVC = messageNaviVC.viewControllers.first as? MessageViewController else { print("‼️ messageVC convert error "); return }
             messageVC.indicator.stopAnimating()
-            messageVC.indicator.isHidden = true
-            messageVC.indicatorLabel.isHidden = true
             messageVC.statusLabel.isHidden = false
+            messageVC.indicatorLabel.isHidden = true
             messageVC.chatRoomArray = SingletonCommonData.shared.userChatRoomsArray
             messageVC.tableView.reloadData()
             

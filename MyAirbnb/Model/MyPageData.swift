@@ -24,4 +24,5 @@ let myPageDatas = [MyPageData(title: "알림", icon: "bell", subTitle: ""),
                    MyPageData(title: "호스팅에 관해 알아보기", icon: "apply", subTitle: "월간 최대 ₩1,181,576의 수입을 올리세요"),
                    MyPageData(title: "숙소 등록하기", icon: "apply", subTitle: ""),
                    MyPageData(title: "Siri 단축키", icon: "shortcut", subTitle: ""),
-                   MyPageData(title: "피드백 남기기", icon: "feedback", subTitle: "")]
+                   MyPageData(title: "피드백 남기기", icon: "feedback", subTitle: ""),
+                   MyPageData(title: "로그아웃", icon: "", subTitle: "")]

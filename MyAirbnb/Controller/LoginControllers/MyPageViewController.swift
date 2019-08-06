@@ -23,7 +23,6 @@ class MyPageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         configure()
         setAutolayout()
     }
@@ -32,6 +31,7 @@ class MyPageViewController: UIViewController {
         view.backgroundColor = .white
         
         tableView.dataSource = self
+        tableView.delegate = self
         view.addSubview(tableView)
     }
     
@@ -44,8 +44,7 @@ class MyPageViewController: UIViewController {
 
 
 // MARK: - UITableViewDataSource
-
-extension MyPageViewController: UITableViewDataSource {
+extension MyPageViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1 + myPageDatas.count
     }
@@ -70,6 +69,19 @@ extension MyPageViewController: UITableViewDataSource {
             
         default:
             return UITableViewCell()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(myPageDatas[indexPath.row - 1].title)
+        
+        if myPageDatas[indexPath.row - 1].title == "로그아웃" {
+            UserDefaults.standard.set(false, forKey: SingletonCommonData.userDefaultLoginStateKey)
+            
+            let signUpMainVC = SignUpMainViewController()
+            let naviController = UINavigationController(rootViewController: signUpMainVC)
+            
+            present(naviController, animated: true)
         }
     }
 }

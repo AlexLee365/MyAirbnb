@@ -129,4 +129,13 @@ extension MainLuxeHouseTableCell: UICollectionViewDelegate, UICollectionViewData
         return CGSize(width: collectionViewCellWidth, height: collectionViewCellHeight)
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let luxeData = luxeHouseDataArray[indexPath.row]
+        
+        NotificationCenter.default.post(name: .moveToLuxeHouseDetailView,
+                                        object: nil,
+                                        userInfo: ["roomID": luxeData.id,
+                                                   "roomName": luxeData.title])
+    }
+    
 }

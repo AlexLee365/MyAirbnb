@@ -2,7 +2,7 @@
 //  MsgListTableCell.swift
 //  MyAirbnb
 //
-//  Created by Solji Kim on 24/07/2019.
+//  Created by 행복한 개발자 on 24/07/2019.
 //  Copyright © 2019 Alex Lee. All rights reserved.
 //
 
@@ -87,6 +87,7 @@ class MsgListTableCell: UITableViewCell {
     }()
     
     var chatRoomData: ChatRoom?
+    var isHostMode = false
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -99,6 +100,12 @@ class MsgListTableCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        
+    }
+    
     private func configure() {
         self.separatorInset = .init(top: 0, left: 20, bottom: 0, right: 20)
         self.selectionStyle = .none
@@ -109,25 +116,35 @@ class MsgListTableCell: UITableViewCell {
         contentView.addSubview(nextImageLabel)
         contentView.addSubview(msgPreviewLabel)
         contentView.addSubview(stackView)
-        
     }
     
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
-        hostNameLabel.text = chatRoomData?.room.host.username
+        //        msgPreviewLabel.text = "Dear \(SingletonCommonData.shared.userInfo?.username ?? "") Welcome to \(chatRoomData?.room.title ?? "")"
         
-        msgPreviewLabel.text = chatRoomData?.messages.text ?? ""
-//        msgPreviewLabel.text = "Dear \(SingletonCommonData.shared.userInfo?.username ?? "") Welcome to \(chatRoomData?.room.title ?? "")"
-        
-        let startDate = chatRoomData?.startDate.replacingOccurrences(of: "-", with: ".") ?? ""
-        let endDate = chatRoomData?.endDate.replacingOccurrences(of: "-", with: ".") ?? ""
-        bookDateLabel.text = "\(startDate) ~ \(endDate)"
-        
-        timeLabel.text = getMessagesLastTime()
-        
-        if let imageUrl = URL(string: chatRoomData?.room.host.image ?? "") {
-            hostImageView.kf.setImage(with: imageUrl)
-        }
+//        msgPreviewLabel.text = chatRoomData?.messages.text ?? ""
+//        timeLabel.text = getMessagesLastTime()
+//
+//        let startDate = chatRoomData?.startDate.replacingOccurrences(of: "-", with: ".") ?? ""
+//        let endDate = chatRoomData?.endDate.replacingOccurrences(of: "-", with: ".") ?? ""
+//        bookDateLabel.text = "\(startDate) ~ \(endDate)"
+//
+//
+//        if isHostMode {
+//            hostNameLabel.text = chatRoomData?.messages.author.username ?? ""
+//            hostImageView.image = UIImage(named: "userProfileImage")
+//        } else {
+//             hostNameLabel.text = chatRoomData?.room.host.username
+//            guard let imageUrl = URL(string: chatRoomData?.room.host.image ?? "") else { return }
+//            hostImageView.kf.setImage(with: imageUrl)
+//        }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        print("--------------------------[layout subviews]--------------------------")
+//        msgPreviewLabel.text = chatRoomData?.messages.text ?? ""
+//        timeLabel.text = getMessagesLastTime()
     }
     
     private func setAutolayout() {
@@ -164,8 +181,10 @@ class MsgListTableCell: UITableViewCell {
         }
     }
     
-    private func getMessagesLastTime() -> String {
-        let lastTimeString = chatRoomData?.messages.created ?? ""
+    func getMessagesLastTime(chatRoom: ChatRoom) -> String {
+        
+        let lastTimeString = chatRoom.messages.created
+        print("lastTimeString: ", lastTimeString)
         
         let dateformatter = DateFormatter()
         dateformatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
@@ -177,5 +196,25 @@ class MsgListTableCell: UITableViewCell {
         
         let lastTimeAfterConvert = dateformatter.string(from: date)
         return lastTimeAfterConvert
+    }
+    
+    func setData(chatRoomData: ChatRoom, isHost: Bool) {
+        
+        msgPreviewLabel.text = chatRoomData.messages.text ?? ""
+        timeLabel.text = getMessagesLastTime(chatRoom: chatRoomData)
+        
+        let startDate = chatRoomData.startDate.replacingOccurrences(of: "-", with: ".") ?? ""
+        let endDate = chatRoomData.endDate.replacingOccurrences(of: "-", with: ".") ?? ""
+        bookDateLabel.text = "\(startDate) ~ \(endDate)"
+        
+        
+        if isHost {
+            hostNameLabel.text = chatRoomData.messages.author.username ?? ""
+            hostImageView.image = UIImage(named: "userProfileImage")
+        } else {
+            hostNameLabel.text = chatRoomData.room.host.username
+            guard let imageUrl = URL(string: chatRoomData.room.host.image ?? "") else { return }
+            hostImageView.kf.setImage(with: imageUrl)
+        }
     }
 }

@@ -22,7 +22,7 @@ class ChatTableViewCell: UITableViewCell {
     
     enum MessageType {
         case hosts
-        case mine
+        case guests
     }
     
     var messageType: MessageType = .hosts
@@ -75,10 +75,7 @@ class ChatTableViewCell: UITableViewCell {
         hostImageView.clipsToBounds = true
     }
     
-    func setMessageType(sender: MessageType, hostName: String) {
-        let components = Calendar.current.dateComponents([.month, .day], from: Date())
-        let date = "\(components.month ?? 0)월 \(components.day ?? 0)일"
-        
+    func setMessageType(sender: MessageType, othersName: String, amIHost: Bool, writeDate: String) {
         switch sender {
         case .hosts:
             contentStackView.alignment = .trailing
@@ -86,18 +83,18 @@ class ChatTableViewCell: UITableViewCell {
             messageTextView.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 0.8847923801)
             
             messageInfoLabel.textColor = #colorLiteral(red: 0.5704585314, green: 0.5704723597, blue: 0.5704649091, alpha: 1)
-            messageInfoLabel.text = "\(hostName) ・ \(date)"
+            messageInfoLabel.text = amIHost ? "전송완료 ・ \(writeDate)" : "\(othersName) ・ \(writeDate)"
             
             myImageView.isHidden = true
             hostImageView.isHidden = false
             
-        case .mine:
+        case .guests:
             contentStackView.alignment = .leading
             messageBubbleView.backgroundColor = StandardUIValue.shared.colorBlueGreen
             messageTextView.textColor = .white
             
             messageInfoLabel.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.5335241866)
-            messageInfoLabel.text = "전송완료 ・ \(date)"
+            messageInfoLabel.text = amIHost ? "\(othersName) ・ \(writeDate)" : "전송완료 ・ \(writeDate)"
             
             myImageView.isHidden = false
             hostImageView.isHidden = true

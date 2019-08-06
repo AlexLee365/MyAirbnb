@@ -28,6 +28,7 @@
 		4313F08A22E81A67003BB3D1 /* NetworkCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4313F08922E81A67003BB3D1 /* NetworkCommunicator.swift */; };
 		4313F09222E83FA2003BB3D1 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4313F09122E83FA2003BB3D1 /* LaunchScreenViewController.swift */; };
 		4313F09422E8478E003BB3D1 /* MainViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4313F09322E8478E003BB3D1 /* MainViewData.swift */; };
+		4342404122F96140001B8AB6 /* LuxeDetailIntroTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4342404022F96140001B8AB6 /* LuxeDetailIntroTableCell.swift */; };
 		4353B8D222CF51F6004BD807 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353B8D122CF51F6004BD807 /* AppDelegate.swift */; };
 		4353B8DC22CF51F9004BD807 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4353B8DA22CF51F9004BD807 /* LaunchScreen.storyboard */; };
 		4353B8E422D0797E004BD807 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353B8E322D0797E004BD807 /* MainViewController.swift */; };
@@ -243,6 +244,7 @@
 		4313F08922E81A67003BB3D1 /* NetworkCommunicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCommunicator.swift; sourceTree = "<group>"; };
 		4313F09122E83FA2003BB3D1 /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
 		4313F09322E8478E003BB3D1 /* MainViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewData.swift; sourceTree = "<group>"; };
+		4342404022F96140001B8AB6 /* LuxeDetailIntroTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LuxeDetailIntroTableCell.swift; path = MyAirbnb/Model/LuxeDetailIntroTableCell.swift; sourceTree = SOURCE_ROOT; };
 		4353B8CE22CF51F6004BD807 /* MyAirbnb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyAirbnb.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4353B8D122CF51F6004BD807 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4353B8DB22CF51F9004BD807 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -851,6 +853,7 @@
 		8D4FDA9622F812D800E31CF5 /* LuxeHouse */ = {
 			isa = PBXGroup;
 			children = (
+				4342404022F96140001B8AB6 /* LuxeDetailIntroTableCell.swift */,
 			);
 			path = LuxeHouse;
 			sourceTree = "<group>";
@@ -1116,6 +1119,7 @@
 				8D4FDA5722F2D08A00E31CF5 /* AverageReviewRateTableCell.swift in Sources */,
 				8D518FEE22E06F29009D6792 /* QualifiedHouseTableCell.swift in Sources */,
 				8D4FDA0C22EF4F5A00E31CF5 /* InfoCategoryView.swift in Sources */,
+				4342404122F96140001B8AB6 /* LuxeDetailIntroTableCell.swift in Sources */,
 				8D4FDA7122F3601200E31CF5 /* AddPaymentTableCell.swift in Sources */,
 				8D0D78DE22D864F700F61F0B /* SpecialTripDetailData.swift in Sources */,
 				4353BA2122DC40B5004BD807 /* FSCalendarCell.m in Sources */,
