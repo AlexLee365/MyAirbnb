@@ -54,11 +54,12 @@ class MainViewController: UIViewController {
         super.viewWillDisappear(animated)
         searchBarView.searchTF.resignFirstResponder()
         searchBarView.searchTF.text = ""
+        hideSearchBarTableView()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        hideSearchBarTableView()
+//        hideSearchBarTableView()
         stopIndicator()
     }
     
@@ -120,6 +121,7 @@ class MainViewController: UIViewController {
     }
     
     private func showSearchBarTableView() {
+        tabBarController?.tabBar.isHidden = true
         view.bringSubviewToFront(searchBarTableViewBackWhiteView)
         self.searchBarTableViewBackWhiteView.alpha = 1
         
@@ -129,6 +131,7 @@ class MainViewController: UIViewController {
     }
     
     private func hideSearchBarTableView() {
+        tabBarController?.tabBar.isHidden = false
         UIView.animate(withDuration: 0.3, animations: {
             self.searchBarTableView.alpha = 0
         }) { (_) in
