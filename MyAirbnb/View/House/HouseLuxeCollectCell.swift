@@ -37,7 +37,7 @@ class HouseLuxeCollectCell: UICollectionViewCell {
         mainImageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         mainImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         mainImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        mainImageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.55).isActive = true
+        mainImageView.heightAnchor.constraint(equalTo: mainImageView.widthAnchor, multiplier: 0.62).isActive = true
         
         mainImageView.addSubview(likeBtn)
         likeBtn.translatesAutoresizingMaskIntoConstraints = false

@@ -21,7 +21,7 @@ class HouseLuxeTableCell: UITableViewCell {
     let notiCenter = NotificationCenter.default
     
     var collectionViewCellWidth: CGFloat = UIScreen.main.bounds.width * 0.6
-    lazy var collectionViewCellHeight: CGFloat = collectionViewCellWidth * 0.9
+    lazy var collectionViewCellHeight: CGFloat = collectionViewCellWidth * 1
     
     var luxeHouseDataArray = [HouseLuxeDataInList]()
     
@@ -80,7 +80,7 @@ class HouseLuxeTableCell: UITableViewCell {
         collectionView.register(HouseLuxeCollectCell.self, forCellWithReuseIdentifier: HouseLuxeCollectCell.identifier)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = .white
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: StandardUIValue.shared.mainViewSideMargin, bottom: 0, right: 0)
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: StandardUIValue.shared.mainViewSideMargin, bottom: 0, right: StandardUIValue.shared.mainViewSideMargin)
         
         
         layout.minimumInteritemSpacing = 10

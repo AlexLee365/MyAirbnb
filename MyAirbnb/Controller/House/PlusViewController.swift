@@ -59,7 +59,13 @@ class PlusViewController: UIViewController {
         super.viewWillAppear(animated)
         
         tabBarController?.tabBar.isHidden = true
-        navigationController?.navigationBar.barStyle = .blackTranslucent
+//        navigationController?.navigationBar.barStyle = .blackTranslucent
+        navigationController?.navigationBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.isHidden = false
     }
 
     
