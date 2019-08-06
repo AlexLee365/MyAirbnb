@@ -183,4 +183,38 @@ class TripInfoCollectionViewCell: UICollectionViewCell {
             noOfReviewLabel.text = "(\(recommendedTripData.reviewCount))"
         }
     }
+    
+    func setDataForAllTrip(allTripData: AllTripData) {
+        imageView.image = UIImage(named: "bathbomb")
+        
+//        if allTripData.detailCategory != "" {
+//            categoryLabel.text = allTripData.detailCategory
+//        } else {
+//            categoryLabel.text = "트립"
+//        }
+        
+        titleLabel.text = allTripData.name
+        
+        if !allTripData.provides.isEmpty {
+            var text = ""
+            
+            for i in 0..<allTripData.provides.count {
+                text += "\(allTripData.provides[i] ?? ""), "
+            }
+            text.removeLast()
+            text.removeLast()
+            
+            descLabel.text = "\(allTripData.durationTime)시간 · \(text) 포함"
+        } else {
+            descLabel.text = "\(allTripData.durationTime)시간"
+        }
+        
+        languageLabel.text = "\(allTripData.language)로 진행"
+        
+        if allTripData.ratingScore > 0.0 {
+            starImage.image = UIImage(named: "star")
+            rateLabel.text = String(allTripData.ratingScore)
+//            noOfReviewLabel.text = "(\(allTripData.reviewCount))"
+        }
+    }
 }

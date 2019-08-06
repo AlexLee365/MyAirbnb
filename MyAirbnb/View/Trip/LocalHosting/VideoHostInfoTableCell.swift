@@ -22,7 +22,7 @@ class VideoHostInfoTableCell: UITableViewCell {
     
     let hostImage: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "videoHost")
+//        image.image = UIImage(named: "videoHost")
         image.contentMode = .scaleAspectFill
         image.clipsToBounds = true
         image.layer.cornerRadius = 50
@@ -31,7 +31,7 @@ class VideoHostInfoTableCell: UITableViewCell {
     
     let hostNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "Jill & Javier"
+//        label.text = "Jill & Javier"
         label.font = UIFont(name: "AirbnbCerealApp-Medium", size: 25)
         label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
         return label
@@ -39,13 +39,13 @@ class VideoHostInfoTableCell: UITableViewCell {
     
     let descLabel: UILabel = {
         let label = UILabel()
-        label.text = """
-        We have been leading community-based tourism efforts for 10 years here in the Galapagos Islands.
-        
-        Since starting our local Slow Food chapter and connecting with Airbnb at Terra Madre in Italy, we have developed a Slow Food- inspired multi-day experience that allows you to make a positive impact during your visit to the islands by supporting local farms and the restaurants and hotels that encourage sustainable practices.
-        
-        We are always looking for unique experiences so our guests can have an authentic connection with nature, the culture, and the people..and what better way than through food?
-        """
+//        label.text = """
+//        We have been leading community-based tourism efforts for 10 years here in the Galapagos Islands.
+//
+//        Since starting our local Slow Food chapter and connecting with Airbnb at Terra Madre in Italy, we have developed a Slow Food- inspired multi-day experience that allows you to make a positive impact during your visit to the islands by supporting local farms and the restaurants and hotels that encourage sustainable practices.
+//
+//        We are always looking for unique experiences so our guests can have an authentic connection with nature, the culture, and the people..and what better way than through food?
+//        """
         label.numberOfLines = 0
         label.setLineSpacing(lineSpacing: 3)
         label.font = UIFont(name: "AirbnbCerealApp-Book", size: 15)
@@ -121,5 +121,12 @@ class VideoHostInfoTableCell: UITableViewCell {
     
     @objc private func contactHostBtnDidTap(_ sender: UIButton) {
         
+    }
+    
+    func setData(tripData: TripDetail) {
+        let imageUrl = URL(string: tripData.host.image)
+        hostImage.kf.setImage(with: imageUrl)
+        hostNameLabel.text = tripData.host.username
+        descLabel.text = tripData.hostAbout
     }
 }

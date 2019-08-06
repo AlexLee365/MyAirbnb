@@ -41,12 +41,8 @@ class TripViewController: UIViewController {
         return searchBarView
     }()
     
-    let netWork = NetworkCommunicator()
-    let jsonDecoder = JSONDecoder()
-    
     var tripMainViewData: TripMainViewData?
     var numberOfRows = 0
-    
     
     
     override func viewDidLoad() {
@@ -60,7 +56,8 @@ class TripViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.isNavigationBarHidden = true
+        navigationController?.navigationBar.isHidden = true
+        tabBarController?.tabBar.isHidden = false
         numberOfRows = 6
         tableView.reloadData()
     }
@@ -138,7 +135,7 @@ extension TripViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+        print("*********indexpath: ", indexPath.row)
         switch indexPath.row {
         case 0:
             let introCell = tableView.dequeueReusableCell(withIdentifier: TripIntroTableViewCell.identifier, for: indexPath) as! TripIntroTableViewCell
@@ -229,6 +226,8 @@ extension TripViewController: UITableViewDelegate {
             return 0
         }
     }
+    
+   
 }
 
 // MARK: - TripIntroTableViewCellDelegate
@@ -256,6 +255,9 @@ extension TripViewController: SeoulRecommenedTripTableViewCellDelegate {
     
     func pushVCForBtn() {
         let tripAllVC = TripAllViewController()
+        
+        
+        
         navigationController?.pushViewController(tripAllVC, animated: false)
     }
 }
@@ -263,8 +265,11 @@ extension TripViewController: SeoulRecommenedTripTableViewCellDelegate {
 // MARK: - WorldAdventureTableCellDelegate
 
 extension TripViewController: WorldAdventureTableCellDelegate {
-    func pushAdventureVC() {
+    func pushAdventureVC(globalAdventureData: BestTrip) {
         let adventureVC = VideosDetailViewController()
+        
+        adventureVC.adventureDetailUrl = globalAdventureData.url
+            
         tabBarController?.tabBar.isHidden = true
         navigationController?.pushViewController(adventureVC, animated: true)
     }

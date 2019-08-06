@@ -193,6 +193,7 @@ extension MainViewController {
         notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .moveToPlusHouseDetailView, object: nil)
         notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .moveToLuxeHouseDetailView, object: nil)
         notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .moveToTripViewController, object: nil)
+        notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .moveToTripDetailView, object: nil)
         
         notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .downloadingMessagesDataFinished, object: nil)
     }
@@ -652,10 +653,10 @@ extension MainViewController {
                     let tripVC = TripViewController()
                     tripVC.tripMainViewData = result
                     tripVC.modalPresentationStyle = .currentContext
-                    self.present(tripVC, animated: false)
+                    self.navigationController?.pushViewController(tripVC, animated: false)
                 }
             }
-            
+                 
             
         // 채팅 리스트 (메세지 리스트) 데이터 다운로드 완료시
         case Notification.Name.downloadingMessagesDataFinished:

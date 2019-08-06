@@ -9,15 +9,20 @@
 import UIKit
 import SnapKit
 
+protocol TripDetailReviewTableCellDelegate: class {
+    func presentTripDetailReviewVC()
+}
+
 class TripDetailReviewTableCell: UITableViewCell {
     static let identifier = "TripDetailReviewTableCell"
 
+    weak var delegate: TripDetailReviewTableCellDelegate?
+    
     let userProfileImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "userProfileImage")
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 20
+        imageView.layer.cornerRadius = 25
         return imageView
     }()
     
@@ -44,6 +49,28 @@ class TripDetailReviewTableCell: UITableViewCell {
         return label
     }()
     
+    let clearBtn: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .clear
+        return button
+    }()
+    
+    let readBtnLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.textColor = StandardUIValue.shared.colorBlueGreen
+        label.font = UIFont(name: "AirbnbCerealApp-Book", size: 15.5)
+        return label
+    }()
+    
+    let starLabel: UILabel = {
+        let label = UILabel()
+        label.text = String(repeating: "★", count: 5)
+        label.textColor = StandardUIValue.shared.colorBlueGreen
+        label.font = .systemFont(ofSize: 12, weight: .regular)
+        return label
+    }()
+    
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -63,13 +90,19 @@ class TripDetailReviewTableCell: UITableViewCell {
         contentView.addSubview(userNameLabel)
         contentView.addSubview(dateLabel)
         contentView.addSubview(reviewLabel)
+        
+        clearBtn.addTarget(self, action: #selector(readReviewBtnDidTap(_:)), for: .touchUpInside)
+        contentView.addSubview(clearBtn)
+        
+        contentView.addSubview(readBtnLabel)
+        contentView.addSubview(starLabel)
     }
     
     private func setAutolayout() {
         userProfileImage.snp.makeConstraints { (make) in
-            make.top.equalTo(20)
+            make.top.equalTo(25)
             make.leading.equalTo(20)
-            make.width.height.equalTo(40)
+            make.width.height.equalTo(50)
         }
         
         userNameLabel.snp.makeConstraints { (make) in
@@ -83,14 +116,30 @@ class TripDetailReviewTableCell: UITableViewCell {
         }
         
         reviewLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(userProfileImage.snp.bottom).offset(10)
+            make.top.equalTo(userProfileImage.snp.bottom).offset(15)
             make.leading.equalTo(20)
             make.trailing.equalTo(-20)
-            make.bottom.equalTo(-20)
+        }
+        
+        clearBtn.snp.makeConstraints { (make) in
+            make.top.equalTo(reviewLabel.snp.bottom)
+            make.height.equalTo(80)
+            make.leading.trailing.bottom.equalToSuperview()
+        }
+        
+        readBtnLabel.snp.makeConstraints { (make) in
+            make.centerY.equalTo(clearBtn.snp.centerY)
+            make.leading.equalTo(20)
+        }
+        
+        starLabel.snp.makeConstraints { (make) in
+            make.centerY.equalTo(clearBtn.snp.centerY)
+            make.trailing.equalTo(-20)
         }
     }
     
-    func setData(tripReviewData: TripReview) {
+    func setData(tripReviewData: TripReview, tripData: TripDetail) {
+        userProfileImage.image = UIImage(named: "userProfileImage")
         userNameLabel.text = tripReviewData.userSet
         
         let dateformatter = DateFormatter()
@@ -101,6 +150,11 @@ class TripDetailReviewTableCell: UITableViewCell {
         
         dateLabel.text = "\(reviewDate.year ?? 0)년 \(reviewDate.month ?? 0)월"
         reviewLabel.text = tripReviewData.tripReviewDescription
+        readBtnLabel.text = "후기 \(tripData.tripReviews.count)개 읽기"
+    }
+    
+    @objc private func readReviewBtnDidTap(_ sender: UIButton) {
+        delegate?.presentTripDetailReviewVC()
     }
 }
 

@@ -25,7 +25,7 @@ class ReviewTableCell: UITableViewCell {
         let label = UILabel()
         label.text = "Kiwon"
         label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
-        label.font = UIFont(name: "AirbnbCerealApp-Bold", size: 14)
+        label.font = UIFont(name: "AirbnbCerealApp-Bold", size: 17)
         return label
     }()
     
@@ -33,7 +33,7 @@ class ReviewTableCell: UITableViewCell {
         let label = UILabel()
         label.text = "2019년 3월"
         label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
-        label.font = UIFont(name: "AirbnbCerealApp-Book", size: 14)
+        label.font = UIFont(name: "AirbnbCerealApp-Book", size: 15)
         return label
     }()
     
@@ -86,7 +86,7 @@ class ReviewTableCell: UITableViewCell {
         }
         
         reviewLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(userProfileImage.snp.bottom).offset(10)
+            make.top.equalTo(userProfileImage.snp.bottom).offset(15)
             make.leading.equalTo(20)
             make.trailing.equalTo(-20)
             make.bottom.equalTo(-20)

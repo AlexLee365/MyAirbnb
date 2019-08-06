@@ -185,6 +185,8 @@
 		8D4FDAC822F88D9A00E31CF5 /* EachRowTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDAC722F88D9A00E31CF5 /* EachRowTableCell.swift */; };
 		8D4FDACA22F8932E00E31CF5 /* TripDetailReviewTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDAC922F8932E00E31CF5 /* TripDetailReviewTableCell.swift */; };
 		8D4FDACC22F8A46600E31CF5 /* MaxGuestTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDACB22F8A46600E31CF5 /* MaxGuestTableCell.swift */; };
+		8D4FDACE22F95FBF00E31CF5 /* TripDetailReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDACD22F95FBF00E31CF5 /* TripDetailReviewViewController.swift */; };
+		8D4FDAD022F984E500E31CF5 /* AllTripData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDACF22F984E400E31CF5 /* AllTripData.swift */; };
 		8D518FEC22DF280B009D6792 /* InstantBookTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D518FEB22DF280B009D6792 /* InstantBookTableCell.swift */; };
 		8D518FEE22E06F29009D6792 /* QualifiedHouseTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D518FED22E06F29009D6792 /* QualifiedHouseTableCell.swift */; };
 		8D518FF022E07769009D6792 /* PriceRangeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D518FEF22E07769009D6792 /* PriceRangeTableCell.swift */; };
@@ -422,6 +424,8 @@
 		8D4FDAC722F88D9A00E31CF5 /* EachRowTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EachRowTableCell.swift; sourceTree = "<group>"; };
 		8D4FDAC922F8932E00E31CF5 /* TripDetailReviewTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailReviewTableCell.swift; sourceTree = "<group>"; };
 		8D4FDACB22F8A46600E31CF5 /* MaxGuestTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaxGuestTableCell.swift; sourceTree = "<group>"; };
+		8D4FDACD22F95FBF00E31CF5 /* TripDetailReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailReviewViewController.swift; sourceTree = "<group>"; };
+		8D4FDACF22F984E400E31CF5 /* AllTripData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTripData.swift; sourceTree = "<group>"; };
 		8D518FEB22DF280B009D6792 /* InstantBookTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstantBookTableCell.swift; sourceTree = "<group>"; };
 		8D518FED22E06F29009D6792 /* QualifiedHouseTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QualifiedHouseTableCell.swift; sourceTree = "<group>"; };
 		8D518FEF22E07769009D6792 /* PriceRangeTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceRangeTableCell.swift; sourceTree = "<group>"; };
@@ -595,6 +599,7 @@
 				43F5AA8E22F00055007511E1 /* HouseDatasInList.swift */,
 				4399347422E9B12700FAE15C /* HouseDetailData.swift */,
 				8D4FDA9022F4552000E31CF5 /* TripMainViewData.swift */,
+				8D4FDACF22F984E400E31CF5 /* AllTripData.swift */,
 				8D4FDA9222F4646B00E31CF5 /* StateDetailData.swift */,
 				8D4FDA9422F6D84E00E31CF5 /* TripDetailData.swift */,
 				8D0D78A022D4598200F61F0B /* TripIntroData.swift */,
@@ -924,6 +929,7 @@
 			children = (
 				8D4FDA8022F4228C00E31CF5 /* TripSearch */,
 				8D0D789922D3610C00F61F0B /* SeoulRecommendedDetailViewController.swift */,
+				8D4FDACD22F95FBF00E31CF5 /* TripDetailReviewViewController.swift */,
 				8D51907322ED6040009D6792 /* TripAllViewController.swift */,
 				8D0D786D22D07C9300F61F0B /* TripViewController.swift */,
 				8D0D794122DDE50900F61F0B /* AVFoundationViewController.swift */,
@@ -1216,6 +1222,7 @@
 				8D4FDA7D22F3FE9600E31CF5 /* AgreementTableCell.swift in Sources */,
 				8D51902622E5B54D009D6792 /* CheckboxContainerView.swift in Sources */,
 				8D4FDA7722F3F6A100E31CF5 /* PriceOverviewTableCell.swift in Sources */,
+				8D4FDAD022F984E500E31CF5 /* AllTripData.swift in Sources */,
 				4353B9FC22DC3A69004BD807 /* CalenderViewController.swift in Sources */,
 				4353B90822D48EB8004BD807 /* MainRecommendHouseCollectCell.swift in Sources */,
 				8D4FDA1022EF6F2000E31CF5 /* VisitingPlaceTableCell.swift in Sources */,
@@ -1268,6 +1275,7 @@
 				8D0D78B622D6060600F61F0B /* HostIntroTableViewCell.swift in Sources */,
 				4353B90422D484FA004BD807 /* StandardUIValue.swift in Sources */,
 				8D51907122EC667A009D6792 /* TripScheduleTableCell.swift in Sources */,
+				8D4FDACE22F95FBF00E31CF5 /* TripDetailReviewViewController.swift in Sources */,
 				8D51904D22EC2647009D6792 /* ItemsProvidedTableCell.swift in Sources */,
 				8D0D793322DB86A100F61F0B /* AllHousesScrollImageView.swift in Sources */,
 				4353BA5D22DECE9F004BD807 /* SignUpMainViewController.swift in Sources */,
