@@ -13,6 +13,12 @@
 		20081F8022EEBCB200BAB0FD /* StatusChangeBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20081F7F22EEBCB200BAB0FD /* StatusChangeBtn.swift */; };
 		20272A0922EECA9A00848BC5 /* LoginPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20272A0822EECA9A00848BC5 /* LoginPost.swift */; };
 		20272A1322EF0C3200848BC5 /* SucessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20272A1222EF0C3200848BC5 /* SucessViewController.swift */; };
+		202B9A5322F993D50085F770 /* FavoriteHouseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202B9A5222F993D50085F770 /* FavoriteHouseListViewController.swift */; };
+		202B9A5522F9940B0085F770 /* FavoriteHouseListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202B9A5422F9940B0085F770 /* FavoriteHouseListView.swift */; };
+		202B9A5722F9942C0085F770 /* FavoriteViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202B9A5622F9942C0085F770 /* FavoriteViewData.swift */; };
+		202B9A5922F9944F0085F770 /* ThreePhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202B9A5822F9944F0085F770 /* ThreePhotoCell.swift */; };
+		202B9A5B22F994680085F770 /* OnePhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202B9A5A22F994680085F770 /* OnePhotoCell.swift */; };
+		202B9A5D22F994800085F770 /* TitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202B9A5C22F994800085F770 /* TitleCell.swift */; };
 		204E90A022F2B14B000E195F /* GetToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204E909F22F2B14B000E195F /* GetToken.swift */; };
 		206C998822E5B451002D3D55 /* KeyboardNotiCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206C998722E5B451002D3D55 /* KeyboardNotiCenter.swift */; };
 		206C998A22E5B4AB002D3D55 /* PasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206C998922E5B4AB002D3D55 /* PasswordView.swift */; };
@@ -190,6 +196,12 @@
 		20081F7F22EEBCB200BAB0FD /* StatusChangeBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusChangeBtn.swift; sourceTree = "<group>"; };
 		20272A0822EECA9A00848BC5 /* LoginPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPost.swift; sourceTree = "<group>"; };
 		20272A1222EF0C3200848BC5 /* SucessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SucessViewController.swift; sourceTree = "<group>"; };
+		202B9A5222F993D50085F770 /* FavoriteHouseListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteHouseListViewController.swift; sourceTree = "<group>"; };
+		202B9A5422F9940B0085F770 /* FavoriteHouseListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteHouseListView.swift; sourceTree = "<group>"; };
+		202B9A5622F9942C0085F770 /* FavoriteViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewData.swift; sourceTree = "<group>"; };
+		202B9A5822F9944F0085F770 /* ThreePhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreePhotoCell.swift; sourceTree = "<group>"; };
+		202B9A5A22F994680085F770 /* OnePhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnePhotoCell.swift; sourceTree = "<group>"; };
+		202B9A5C22F994800085F770 /* TitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleCell.swift; sourceTree = "<group>"; };
 		204E909F22F2B14B000E195F /* GetToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetToken.swift; sourceTree = "<group>"; };
 		206C998722E5B451002D3D55 /* KeyboardNotiCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardNotiCenter.swift; sourceTree = "<group>"; };
 		206C998922E5B4AB002D3D55 /* PasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordView.swift; sourceTree = "<group>"; };
@@ -392,6 +404,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		202B9A5122F993890085F770 /* SaveList */ = {
+			isa = PBXGroup;
+			children = (
+				202B9A5222F993D50085F770 /* FavoriteHouseListViewController.swift */,
+				202B9A5422F9940B0085F770 /* FavoriteHouseListView.swift */,
+				202B9A5622F9942C0085F770 /* FavoriteViewData.swift */,
+				202B9A5822F9944F0085F770 /* ThreePhotoCell.swift */,
+				202B9A5A22F994680085F770 /* OnePhotoCell.swift */,
+				202B9A5C22F994800085F770 /* TitleCell.swift */,
+			);
+			path = SaveList;
+			sourceTree = "<group>";
+		};
 		2080604222DDE6C5008672D9 /* LoginControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -475,6 +500,7 @@
 		4353B8EA22D085D2004BD807 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				202B9A5122F993890085F770 /* SaveList */,
 				4313F09122E83FA2003BB3D1 /* LaunchScreenViewController.swift */,
 				4353B8ED22D088A3004BD807 /* TabbarController.swift */,
 				43F5AA8B22EE9EFE007511E1 /* Main */,
@@ -932,9 +958,11 @@
 				8D518FF622E1A3AB009D6792 /* CheckboxTableCell.swift in Sources */,
 				8D51904722EAAE56009D6792 /* MapTableCell.swift in Sources */,
 				8D0D793922DC9A2900F61F0B /* VideosDetailViewController.swift in Sources */,
+				202B9A5722F9942C0085F770 /* FavoriteViewData.swift in Sources */,
 				8D0D78B022D48AE500F61F0B /* TopScrollView.swift in Sources */,
 				8D0D787222D0810300F61F0B /* SpecialTripTableViewCell.swift in Sources */,
 				4353BA2222DC40B5004BD807 /* FSCalendarStickyHeader.m in Sources */,
+				202B9A5B22F994680085F770 /* OnePhotoCell.swift in Sources */,
 				8D0D78A322D459AC00F61F0B /* SpecialTripData.swift in Sources */,
 				4353BA5822DECE9F004BD807 /* FindPassWordPageViewController.swift in Sources */,
 				8D0D793122DB841900F61F0B /* AllHousesTableCell.swift in Sources */,
@@ -968,6 +996,7 @@
 				208BC8F422E08C9300EBDDBA /* TopBarItemView.swift in Sources */,
 				8D0D78DA22D74BDC00F61F0B /* PlaceTableViewCell.swift in Sources */,
 				8D518FEE22E06F29009D6792 /* QualifiedHouseTableCell.swift in Sources */,
+				202B9A5522F9940B0085F770 /* FavoriteHouseListView.swift in Sources */,
 				8D4FDA0C22EF4F5A00E31CF5 /* InfoCategoryView.swift in Sources */,
 				8D0D78DE22D864F700F61F0B /* SpecialTripDetailData.swift in Sources */,
 				4353BA2122DC40B5004BD807 /* FSCalendarCell.m in Sources */,
@@ -1000,6 +1029,7 @@
 				8D518FF222E090D7009D6792 /* PriceRangeSlider.swift in Sources */,
 				4353B8F422D31D68004BD807 /* MainCategoryTableCell.swift in Sources */,
 				43E36CDE22E5AC77006C8AEF /* HouseDetailCheckInTableCell.swift in Sources */,
+				202B9A5322F993D50085F770 /* FavoriteHouseListViewController.swift in Sources */,
 				4313F09222E83FA2003BB3D1 /* LaunchScreenViewController.swift in Sources */,
 				8D4FDA3622F00A3E00E31CF5 /* OtherCityTripCollectionCell.swift in Sources */,
 				4353BA2522DC40B5004BD807 /* FSCalendarWeekdayView.m in Sources */,
@@ -1059,6 +1089,7 @@
 				4353B91422D73E0D004BD807 /* FourSquareCollectCell.swift in Sources */,
 				4353B8E422D0797E004BD807 /* MainViewController.swift in Sources */,
 				43F5AA8722EB2683007511E1 /* SearchBarTableCell.swift in Sources */,
+				202B9A5D22F994800085F770 /* TitleCell.swift in Sources */,
 				4353BA8F22E09FC5004BD807 /* TestSaveViewController.swift in Sources */,
 				8D0D794222DDE50900F61F0B /* AVFoundationViewController.swift in Sources */,
 				8D0D789A22D3610C00F61F0B /* SeoulRecommendedDetailViewController.swift in Sources */,
@@ -1071,6 +1102,7 @@
 				8D4FDA4022F1746500E31CF5 /* HouseDetailReserveInfoViewController.swift in Sources */,
 				4353BA2B22DC40B5004BD807 /* FSCalendarTransitionCoordinator.m in Sources */,
 				8D51902C22E81811009D6792 /* MessageViewController.swift in Sources */,
+				202B9A5922F9944F0085F770 /* ThreePhotoCell.swift in Sources */,
 				8D51903D22E9AF88009D6792 /* BrowsePhotosCollectionCell.swift in Sources */,
 				4353BA1F22DC40B5004BD807 /* FSCalendarDelegationProxy.m in Sources */,
 				4353BA2622DC40B5004BD807 /* FSCalendarSeparatorDecorationView.m in Sources */,
