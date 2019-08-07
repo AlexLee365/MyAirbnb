@@ -22,11 +22,28 @@ class PlannedTravelViewController: UIViewController {
         return tableView
     }()
     
+    var reservationArray = [Reservation]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        configure()
+        refreshReservationsData()
         setAutolayout()
+        configure()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        reservationArray.removeAll()
+        refreshReservationsData()
+        tableView.reloadData()
+        print("🔴🔴🔴 reservationResultArray: ", reservationArray)
+    }
+    
+    private func setAutolayout() {
+        view.addSubview(tableView)
+        tableView.snp.makeConstraints { (make) in
+            make.top.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
     }
     
     private func configure() {
@@ -34,15 +51,18 @@ class PlannedTravelViewController: UIViewController {
         
         tableView.dataSource = self
         tableView.delegate = self
-        view.addSubview(tableView)
     }
     
-    private func setAutolayout() {
+    private func refreshReservationsData() {
         
-        tableView.snp.makeConstraints { (make) in
-            make.top.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+        guard let reservationDictionary = SingletonCommonData.shared.userInfo?.reservations else { return }
+        
+        for value in reservationDictionary {
+            guard let reservation = value?.values.first else { continue }
+            reservationArray.append(reservation)
         }
     }
+   
 }
 
 
@@ -50,7 +70,7 @@ class PlannedTravelViewController: UIViewController {
 
 extension PlannedTravelViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return reservationArray.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -65,11 +85,19 @@ extension PlannedTravelViewController: UITableViewDataSource {
             
             switch indexPath.row {
             case 1:
-                plannedHouseCell.setData(firstHidden: true, secondHidden: false)
-            case 3:
-                plannedHouseCell.setData(firstHidden: false, secondHidden: true)
-            default:
-                plannedHouseCell.setData(firstHidden: false, secondHidden: false)
+                plannedHouseCell.setData(firstHidden: true,
+                                         secondHidden: false,
+                                         reservation: reservationArray[indexPath.row - 1])
+            case 2..<reservationArray.count:
+                plannedHouseCell.setData(firstHidden: false,
+                                         secondHidden: false,
+                                         reservation: reservationArray[indexPath.row - 1])
+            case reservationArray.count:
+                plannedHouseCell.setData(firstHidden: false,
+                                         secondHidden: true,
+                                         reservation: reservationArray[indexPath.row - 1])
+            default: break
+                
             }
             
             

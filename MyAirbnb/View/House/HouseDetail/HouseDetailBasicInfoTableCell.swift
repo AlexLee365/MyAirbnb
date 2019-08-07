@@ -218,7 +218,7 @@ class HouseDetailBasicInfoTableCell: UITableViewCell {
         setDetailText(hostNameLabel)
         
         hostImageView.image = UIImage(named: "hostSample1")
-        hostImageView.contentMode = .scaleAspectFit
+        hostImageView.contentMode = .scaleAspectFill
         hostImageView.clipsToBounds = true
 //        hostImageView.layer.cornerRadius = 40
         

@@ -34,7 +34,7 @@ class LaunchScreenViewController: UIViewController {
         createFullImageHouseData()
 //        createLuxeHouseData()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             self.getEntireServerData {
                 self.reArrangeMainViewDataArray()    // 서버에서 받은 데이터들 배열안에서 index 재배치
                 

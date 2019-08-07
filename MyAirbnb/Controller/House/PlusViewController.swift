@@ -72,6 +72,7 @@ class PlusViewController: UIViewController {
                 self.tableView.reloadData()
 //                self.setBottomViewData()
                 UIView.animate(withDuration: 0.5, animations: {
+                    self.placeholderView.alpha = 0
                     self.view.bringSubviewToFront(self.tableView)
                     self.view.bringSubviewToFront(self.bottomView)
                     self.tableView.alpha = 1
@@ -112,6 +113,7 @@ class PlusViewController: UIViewController {
     }
     
     private func configure() {
+        view.backgroundColor = .white
         setHeaderView()
         
         tableView.dataSource = self
@@ -192,7 +194,8 @@ class PlusViewController: UIViewController {
         placeholderView.backgroundColor = .white
         view.addSubview(placeholderView)
         placeholderView.snp.makeConstraints { (make) in
-            make.top.leading.trailing.bottom.equalTo(view)
+            make.top.leading.trailing.equalTo(view)
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
         let imageView = UIImageView()
@@ -219,6 +222,7 @@ class PlusViewController: UIViewController {
         placeholderView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { (make) in
             make.leading.equalTo(StandardUIValue.shared.mainViewSideMargin)
+            make.trailing.equalTo(-35)
             make.top.equalTo(logoImageView.snp.bottom).offset(15 + locationLabelHeight)
         }
         

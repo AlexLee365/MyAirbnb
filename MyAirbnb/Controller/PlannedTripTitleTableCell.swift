@@ -50,14 +50,14 @@ class PlannedTripTitleTableCell: UITableViewCell {
     
     private func setAutolayout() {
         titleLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(50)
+            make.top.equalTo(48)
             make.leading.equalTo(20)
         }
         
         noOfPlannedTrip.snp.makeConstraints { (make) in
             make.top.equalTo(titleLabel.snp.bottom).offset(25)
             make.leading.equalTo(20)
-            make.bottom.equalTo(-10)
+            make.bottom.equalTo(0)
         }
     }
 }

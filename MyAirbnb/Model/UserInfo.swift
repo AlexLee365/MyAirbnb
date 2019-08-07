@@ -31,11 +31,13 @@ struct UserInfo: Codable {
 struct Reservation: Codable {
     let startDate, endDate: String
     let room, id: Int
+    let title: String
+    let image: String
     
     enum CodingKeys: String, CodingKey {
         case startDate = "start_date"
         case endDate = "end_date"
-        case room, id
+        case room, id, title, image
     }
 }
 

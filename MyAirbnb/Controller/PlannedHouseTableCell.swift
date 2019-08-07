@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 class PlannedHouseTableCell: UITableViewCell {
     static let identifier = "PlannedHouseTableCell"
@@ -59,6 +60,9 @@ class PlannedHouseTableCell: UITableViewCell {
         contentView.addSubview(houseNameLabel)
         contentView.addSubview(representImageView)
         
+        representImageView.contentMode = .scaleAspectFill
+        representImageView.layer.masksToBounds = true
+        
         leftLineFirstView.backgroundColor = StandardUIValue.shared.colorBlueGreen
         
         leftLineCircleView.backgroundColor = StandardUIValue.shared.colorBlueGreen
@@ -73,7 +77,8 @@ class PlannedHouseTableCell: UITableViewCell {
         let contentSideMargin: CGFloat = 50
         
         plannedDateLabel.snp.makeConstraints { (make) in
-            make.top.leading.equalTo(contentSideMargin-10)
+            make.leading.equalTo(contentSideMargin-10)
+            make.top.equalTo(25)
         }
         
         houseNameLabel.snp.makeConstraints { (make) in
@@ -114,8 +119,24 @@ class PlannedHouseTableCell: UITableViewCell {
         }
     }
     
-    func setData(firstHidden: Bool, secondHidden: Bool) {
+    func setData(firstHidden: Bool, secondHidden: Bool, reservation: Reservation) {
         leftLineFirstView.isHidden = firstHidden
         leftLineSecondView.isHidden = secondHidden
+        
+        let dateformatter = DateFormatter()
+        dateformatter.dateFormat = "yyyy-MM-dd"
+        
+        let startDate = dateformatter.date(from: reservation.startDate) ?? Date()
+        let endDate = dateformatter.date(from: reservation.endDate) ?? Date()
+        
+        let componentStart = Calendar.current.dateComponents([.month, .day], from: startDate)
+        let componentEnd = Calendar.current.dateComponents([.month, .day], from: endDate)
+        
+        plannedDateLabel.text = "\(componentStart.month ?? 0)월 \(componentStart.day ?? 0)일 - \(componentEnd.month ?? 0)월 \(componentEnd.day ?? 0)일"
+        houseNameLabel.text = reservation.title
+        
+        if let url = URL(string: reservation.image) {
+            representImageView.kf.setImage(with: url)
+        }
     }
 }

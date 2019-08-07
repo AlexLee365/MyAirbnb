@@ -661,12 +661,14 @@ extension MainViewController {
                     return
                 }
                 
-                DispatchQueue.main.async {
-                    let tripVC = TripViewController()
-                    tripVC.tripMainViewData = result
-                    tripVC.modalPresentationStyle = .currentContext
-                    self.navigationController?.pushViewController(tripVC, animated: false)
-                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
+                    DispatchQueue.main.async {
+                        let tripVC = TripViewController()
+                        tripVC.tripMainViewData = result
+                        tripVC.modalPresentationStyle = .currentContext
+                        self.navigationController?.pushViewController(tripVC, animated: false)
+                    }                    
+                })
             }
                  
             
