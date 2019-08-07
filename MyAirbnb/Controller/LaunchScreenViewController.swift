@@ -30,7 +30,7 @@ class LaunchScreenViewController: UIViewController {
         startAnimation()
         
         createCategoryData()
-        createPlusHouseData()
+//        createPlusHouseData()
         createFullImageHouseData()
 //        createLuxeHouseData()
         
@@ -137,42 +137,42 @@ extension LaunchScreenViewController {
         mainViewDataArray.append(MainViewData(data: categoryDataArray, cellStyle: .category))
     }
     
-    private func createPlusHouseData() {
-        let imageArray = ["plusHouseSample1", "plusHouseSample2", "plusHouseSample3", "plusHouseSample4", "plusHouseSample5"]
-        let housePlusDataArray: [HousePlusDataInList] = [
-            HousePlusDataInList(houseMainImage: UIImage(named: imageArray[0]),
-                                houseImageString: imageArray,
-                                houseLocation: "아테네",
-                                houseName: "Stay on a Working Flower Farm in a Modern Home",
-                                houseTotalRate: 5,
-                                houseRateCount: 65),
-            HousePlusDataInList(houseMainImage: UIImage(named: imageArray[1]),
-                                houseImageString: imageArray,
-                                houseLocation: "멕시코시티",
-                                houseName: "Elegant Art Deco Home with Garden in Condesa",
-                                houseTotalRate: 3.5,
-                                houseRateCount: 30),
-            HousePlusDataInList(houseMainImage: UIImage(named: imageArray[2]),
-                                houseImageString: imageArray,
-                                houseLocation: "오스틴",
-                                houseName: "Historic Casa Cartel - Austin Villa with Courtyard Pool",
-                                houseTotalRate: 4.3,
-                                houseRateCount: 103),
-            HousePlusDataInList(houseMainImage: UIImage(named: imageArray[3]),
-                                houseImageString: imageArray,
-                                houseLocation: "ToberMory",
-                                houseName: "Unique and Secluded AirShip with breathtaking Highland Views",
-                                houseTotalRate: 4.6,
-                                houseRateCount: 99),
-            HousePlusDataInList(houseMainImage: UIImage(named: imageArray[4]),
-                                houseImageString: imageArray,
-                                houseLocation: "조슈아 트리",
-                                houseName: "Dome in the Desert in Joshua Tree",
-                                houseTotalRate: 3.2,
-                                houseRateCount: 49),
-        ]
-        mainViewDataArray.append(MainViewData(data: housePlusDataArray, cellStyle: .plus))
-    }
+//    private func createPlusHouseData() {
+//        let imageArray = ["plusHouseSample1", "plusHouseSample2", "plusHouseSample3", "plusHouseSample4", "plusHouseSample5"]
+//        let housePlusDataArray: [HousePlusDataInList] = [
+//            HousePlusDataInList(houseMainImage: UIImage(named: imageArray[0]),
+//                                houseImageString: imageArray,
+//                                houseLocation: "아테네",
+//                                houseName: "Stay on a Working Flower Farm in a Modern Home",
+//                                houseTotalRate: 5,
+//                                houseRateCount: 65),
+//            HousePlusDataInList(houseMainImage: UIImage(named: imageArray[1]),
+//                                houseImageString: imageArray,
+//                                houseLocation: "멕시코시티",
+//                                houseName: "Elegant Art Deco Home with Garden in Condesa",
+//                                houseTotalRate: 3.5,
+//                                houseRateCount: 30),
+//            HousePlusDataInList(houseMainImage: UIImage(named: imageArray[2]),
+//                                houseImageString: imageArray,
+//                                houseLocation: "오스틴",
+//                                houseName: "Historic Casa Cartel - Austin Villa with Courtyard Pool",
+//                                houseTotalRate: 4.3,
+//                                houseRateCount: 103),
+//            HousePlusDataInList(houseMainImage: UIImage(named: imageArray[3]),
+//                                houseImageString: imageArray,
+//                                houseLocation: "ToberMory",
+//                                houseName: "Unique and Secluded AirShip with breathtaking Highland Views",
+//                                houseTotalRate: 4.6,
+//                                houseRateCount: 99),
+//            HousePlusDataInList(houseMainImage: UIImage(named: imageArray[4]),
+//                                houseImageString: imageArray,
+//                                houseLocation: "조슈아 트리",
+//                                houseName: "Dome in the Desert in Joshua Tree",
+//                                houseTotalRate: 3.2,
+//                                houseRateCount: 49),
+//        ]
+//        mainViewDataArray.append(MainViewData(data: housePlusDataArray, cellStyle: .plus))
+//    }
     
     private func createFullImageHouseData() {
         let fullImageHouseData = [
@@ -233,6 +233,16 @@ extension LaunchScreenViewController {
             self.getServerLuxeData(completion: { (luxeHouseArray) in
                 self.mainViewDataArray.append(MainViewData(data: luxeHouseArray, cellStyle: .luxe))
                 print("🔸🔸🔸 gorup getServerLuxeData Finished ")
+                dispatchGroup.leave()
+            })
+        }
+        
+        dispatchGroup.enter()
+        globalQueue.async {
+            print("🔸🔸🔸 gorup getServerPlusHouseData Finished ")
+            self.getServerPlusHouseData(completion: { (plusHouseArray) in
+                self.mainViewDataArray.append(MainViewData(data: plusHouseArray, cellStyle: .plus))
+                print("🔸🔸🔸 gorup getServerPlusHouseData Finished ")
                 dispatchGroup.leave()
             })
         }
@@ -337,6 +347,33 @@ extension LaunchScreenViewController {
             }
             
             completion(luxeHouseArray)
+        }
+    }
+    
+    private func getServerPlusHouseData(completion: @escaping ([HousePlusDataInList]) -> () ) {
+        let urlString = netWork.basicUrlString
+            + "/rooms/?search=russia&ordering=-total_rating&page_size=10&page=1"
+        
+        netWork.getJsonObjectFromAPI(urlString: urlString, urlForSpecificProcessing: nil) { (json, success) in
+            guard success else {
+                return
+            }
+            
+            guard let object = json as? [String: Any]
+                , let resultArray = object["results"] as? [[String: Any]]
+                else { print("object convert error"); return }
+            
+            guard let data = try? JSONSerialization.data(withJSONObject: resultArray) else {
+                print("‼️ LaunchVC data convert error")
+                return
+            }
+            
+            guard let plusHouseArray = try? self.jsonDecoder.decode([HousePlusDataInList].self, from: data) else {
+                print("‼️ LaunchVC result decoding convert error")
+                return
+            }
+            
+            completion(plusHouseArray)
         }
     }
     

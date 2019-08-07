@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 class PlusIntroTableCell: UITableViewCell {
     static let identifier = "PlusIntroTableCell"
@@ -24,7 +25,7 @@ class PlusIntroTableCell: UITableViewCell {
     
     let logoImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = #imageLiteral(resourceName: "plusLogo")
+        imageView.image = UIImage(named: "plusLogo2")
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         return imageView
@@ -57,10 +58,14 @@ class PlusIntroTableCell: UITableViewCell {
     let descLabel: UILabel = {
         let label = UILabel()
         label.text = "Wake up in this bright apartment located right in the heart of historical Budapest. The rooms are decorated with unique accents, including submarine lighting, a bright blue barn door leading into the bedroom, and a mantle made from reclaimed wood."
-        label.font = UIFont(name: "AirbnbCerealApp-Book", size: 18)
-        label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
         label.numberOfLines = 0
-        label.setLineSpacing(lineSpacing: 3.0)
+//        label.font = UIFont(name: "AirbnbCerealApp-Book", size: 18)
+//        label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
+//        label.setLineSpacing(lineSpacing: 3.0)
+        
+        label.textColor = StandardUIValue.shared.colorRegularText
+        label.font = UIFont(name: StandardUIValue.shared.airbnbBookFontString, size: 16)
+        label.setLineSpacing(lineSpacing: 8, lineHeightMultiple: 1)
         return label
     }()
     
@@ -89,18 +94,23 @@ class PlusIntroTableCell: UITableViewCell {
         return label
     }()
     
-    let infoLabelData = ["인원 3명", "침실 1개", "침대 2개", "욕실 1개"]
+//    var infoLabelData = ["인원 3명", "침실 1개", "침대 2개", "욕실 1개"]
+    var infoLabelData = [String]()
     
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         configure()
-        setAutolayout()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        setAutolayout()
     }
     
     private func configure() {
@@ -131,7 +141,7 @@ class PlusIntroTableCell: UITableViewCell {
         logoImageView.snp.makeConstraints { (make) in
             make.top.equalTo(10)
             make.leading.equalTo(20)
-            make.width.equalTo(100)
+            make.width.equalTo(90)
             make.height.equalTo(70)
         }
         
@@ -150,7 +160,7 @@ class PlusIntroTableCell: UITableViewCell {
             make.top.equalTo(titleLabel.snp.bottom).offset(27)
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(40)
-            make.bottom.equalTo(descLabel.snp.top).offset(-20)
+            make.bottom.equalTo(descLabel.snp.top).offset(-15)
         }
         
         descLabel.snp.makeConstraints { (make) in
@@ -159,7 +169,7 @@ class PlusIntroTableCell: UITableViewCell {
         }
         
         hostImageView.snp.makeConstraints { (make) in
-            make.top.equalTo(descLabel.snp.bottom).offset(25)
+            make.top.equalTo(descLabel.snp.bottom).offset(45)
             make.leading.equalTo(20)
             make.width.height.equalTo(64)
             make.bottom.equalTo(-40)
@@ -175,6 +185,18 @@ class PlusIntroTableCell: UITableViewCell {
             make.centerY.equalTo(hostImageView)
             make.leading.equalTo(hostImageView.snp.trailing).offset(10)
         }
+    }
+    
+    func setData(plusData: HouseDetailData) {
+        houseTypeLabel.text = plusData.roomType
+        titleLabel.text =  plusData.title
+        infoLabelData = ["인원 \(plusData.capacity)", "침실 \(plusData.bedroom)개", "침대 \(plusData.beds)개", "욕실 \(plusData.bathroom)개"]
+        descLabel.text = plusData.houseDescription
+        descLabel.setLineSpacing(lineSpacing: 8, lineHeightMultiple: 1)
+        if let url = URL(string: plusData.host[2] ?? "") {
+            hostImageView.kf.setImage(with: url)
+        }
+        hostNameLabel.text = "호스트: \(plusData.host[0] ?? "László")님"
     }
 }
 

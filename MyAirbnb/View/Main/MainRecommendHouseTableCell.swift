@@ -108,7 +108,10 @@ extension MainRecommendHouseTableCell: UICollectionViewDelegate, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        notiCenter.post(name: .moveToPlusHouseDetailView, object: nil)
+        let plusData = plusHouseDataArray[indexPath.row]
+        
+        notiCenter.post(name: .moveToPlusHouseDetailView, object: nil, userInfo: ["roomID": plusData.id,
+                                                                                   "roomName": plusData.title])
     }
     
     

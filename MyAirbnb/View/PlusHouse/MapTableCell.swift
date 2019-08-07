@@ -32,10 +32,14 @@ class MapTableCell: UITableViewCell {
     let descLabel: UILabel = {
         let label = UILabel()
         label.text = "Located on Karoly Boulevard, the apartment is a close walk to Deák tér, one of the largest transportation hub, making it easy to get around the city. The building is right next door to one of the city's most famous landmarks, the Great Synagogue."
-        label.font = UIFont(name: "AirbnbCerealApp-Book", size: 18)
-        label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
         label.numberOfLines = 0
-        label.setLineSpacing(lineSpacing: 4.0)
+//        label.font = UIFont(name: "AirbnbCerealApp-Book", size: 18)
+//        label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
+//        label.setLineSpacing(lineSpacing: 4.0)
+        
+        label.textColor = StandardUIValue.shared.colorRegularText
+        label.font = UIFont(name: StandardUIValue.shared.airbnbBookFontString, size: 16)
+        label.setLineSpacing(lineSpacing: 8, lineHeightMultiple: 1)
         return label
     }()
     
@@ -101,8 +105,8 @@ class MapTableCell: UITableViewCell {
         mapView.addGestureRecognizer(mapViewTapGesture)
         contentView.addSubview(mapView)
         
-        let address = "Budapest, Károly krt., 헝가리"
-        getLocationFromAddress(address: address)
+//        let address = "Budapest, Károly krt., 헝가리"
+//        getLocationFromAddress(address: address)
         
         contentView.addSubview(distanceFromAirportLabel)
         contentView.addSubview(timeTakenLabel)
@@ -169,6 +173,14 @@ class MapTableCell: UITableViewCell {
             let pin = PlusHouseAnnotation(coordinate: coordinate)
             self.mapView.addAnnotation(pin)
         }
+    }
+    
+    func setData(plusData: HouseDetailData) {
+        locationLabel.text = "\(plusData.state), Russia"
+        descLabel.text = plusData.locationalDescription
+        descLabel.setLineSpacing(lineSpacing: 8, lineHeightMultiple: 1)
+        
+        getLocationFromAddress(address: plusData.address)
     }
 }
 

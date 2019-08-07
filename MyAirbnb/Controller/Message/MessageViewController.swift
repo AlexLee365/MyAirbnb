@@ -53,6 +53,7 @@ class MessageViewController: UIViewController, NVActivityIndicatorViewable {
     }()
     
     let indicator = NVActivityIndicatorView(frame: .zero)
+    private var refreshControl = UIRefreshControl()
     
     // MARK: - Properties
     let netWork = NetworkCommunicator()
@@ -166,6 +167,10 @@ class MessageViewController: UIViewController, NVActivityIndicatorViewable {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorInset = UIEdgeInsets.init(top: 0, left: 800, bottom: 0, right: -800)
+        tableView.refreshControl = refreshControl
+        
+        refreshControl.attributedTitle = NSAttributedString(string: "데이터를 불러오는 중입니다.")
+        refreshControl.addTarget(self, action: #selector(refreshServerData), for: .valueChanged)
         
         statusLabel.isHidden = false
         
@@ -201,7 +206,7 @@ class MessageViewController: UIViewController, NVActivityIndicatorViewable {
         startIndicatorView()
         
         // 눌러서 호스트모드가 됨 => 호스트 채팅을 가져와야함 / 눌러서 게스트모드가 됨 => 게스트 채팅을 가져와야함
-        var urlString = netWork.basicUrlString + (hostMode ? "/chat/?user_type=host" : "/chat/")
+        let urlString = netWork.basicUrlString + (hostMode ? "/chat/?user_type=host" : "/chat/")
        
         netWork.getServerDataWithToken(urlString: urlString) { (result) in
             switch result {
@@ -219,6 +224,41 @@ class MessageViewController: UIViewController, NVActivityIndicatorViewable {
                 print("‼️ hostMode Chat Data downlload error: ", error.localizedDescription)
                 self.stopIndicator()
             }
+        }
+    }
+    
+    @objc private func refreshServerData() {
+        refreshControl.beginRefreshing()
+        let urlString = netWork.basicUrlString + (hostMode ? "/chat/?user_type=host" : "/chat/")
+        
+        netWork.getServerDataWithToken(urlString: urlString) { (result) in
+            switch result {
+            case .success(let value):
+                guard let data = try? JSONDecoder().decode([ChatRoom].self, from: value) else { print("‼️ : "); break }
+                SingletonCommonData.shared.userChatRoomsArray = data
+                self.chatRoomArray = data
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                    self.refreshControl.endRefreshing()
+                    self.tableView.reloadData()
+                    
+                    if self.chatRoomArray.count > 0 {
+                        // 데이터가 있을 시
+                        self.statusLabel.text = "메세지를 모두 읽으셨습니다."
+                        self.noDataMessageLabel.isHidden = true
+                    } else {
+                        // 데이터가 없을 시
+                        self.statusLabel.text = "새로운 여행을 시작해보세요."
+                        self.noDataMessageLabel.isHidden = false
+                    }
+                })
+                
+            case .failure(let error):
+                print("‼️ hostMode Chat Data downlload error: ", error.localizedDescription)
+                self.refreshControl.endRefreshing()
+            }
+            
+         
         }
     }
     
@@ -267,9 +307,13 @@ extension MessageViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        (indexPath.row == chatRoomArray.count-1) ? (cell.separatorInset = .init(top: 0, left: 800, bottom: 0, right: -800)) : ()
+        
+        cell.separatorInset = (indexPath.row == chatRoomArray.count-1) ? UIEdgeInsets(top: 0, left: 800, bottom: 0, right: -800) : UIEdgeInsets(top: 0, left: 20, bottom: 02, right: 20)
+        
+        
+        
         print(indexPath.row)
-        let msgListCell = tableView.dequeueReusableCell(withIdentifier: MsgListTableCell.identifier, for: indexPath) as! MsgListTableCell
+//        let msgListCell = tableView.dequeueReusableCell(withIdentifier: MsgListTableCell.identifier, for: indexPath) as! MsgListTableCell
         
 //        msgListCell.msgPreviewLabel.text = msgListCell.chatRoomData?.messages.text ?? ""
 //        msgListCell.timeLabel.text = msgListCell.getMessagesLastTime()

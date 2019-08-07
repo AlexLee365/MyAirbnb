@@ -130,10 +130,13 @@ class MainRecommendHouseCollectCell: UICollectionViewCell {
     }
     
     func setData(plusHouseData: HousePlusDataInList) {
-        mainImageView.image = plusHouseData.houseMainImage
-        dateAndGuestLabel.text = "검증됨 ・ \(plusHouseData.houseLocation)"
-        houseNameLabel.text = plusHouseData.houseName
+        if let url = URL(string: plusHouseData.image) {
+            mainImageView.kf.setImage(with: url)
+        }
+        
+        dateAndGuestLabel.text = "검증됨 ・ \(plusHouseData.state)"
+        houseNameLabel.text = plusHouseData.title
         ratingImageLabel.text = plusHouseData.drawStarsWithHouseRate()
-        ratingAndHostInfoLabel.text = "\(plusHouseData.houseRateCount) ・ 슈퍼호스트"
+        ratingAndHostInfoLabel.text = "\(plusHouseData.reservations) ・ 슈퍼호스트"
     }
 }

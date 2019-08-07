@@ -31,8 +31,8 @@ struct HouseDetailData: Codable {
     let reservations: [[String]]
     let updatedAt, createdAt: String
     let label: String?
-    let accuracyScore, locationScore, communicationScore, checkinScore: Int
-    let cleanScore, valueScore: Int
+    let accuracyScore, locationScore, communicationScore, checkinScore: Double
+    let cleanScore, valueScore: Double
     let superHost: String?
     let reviews: [[String]]
     

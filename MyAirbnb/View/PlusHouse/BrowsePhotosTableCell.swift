@@ -49,6 +49,11 @@ class BrowsePhotosTableCell: UITableViewCell {
     }()
     
     let browseImageArray = ["kitchen1", "kitchen2", "kitchen3"]
+    
+    let sampleImage = [["plusKitchen1", "plusKitchen2", "plusKitchen3"],
+                       ["plusBedroom1", "plusBedroom2", "plusBedroom3"],
+                       ["plutBathroom1", "plutBathroom2", "plutBathroom3"],
+                       ["plusDoor1", "plusDoor2", "plusDoor3"]]
     let footerKeysArray = [("주방", ""), ("침실", "· 킹사이즈 침대 · 싱글 침대"), ("욕실", ""), ("출입문", "")]
     
     
@@ -117,16 +122,16 @@ class BrowsePhotosTableCell: UITableViewCell {
 
 extension BrowsePhotosTableCell: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 4
+        return sampleImage.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return sampleImage[section].count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let browseCell = collectionView.dequeueReusableCell(withReuseIdentifier: BrowsePhotosCollectionCell.identifier, for: indexPath) as! BrowsePhotosCollectionCell
-        browseCell.browseImageView.image = UIImage(named: browseImageArray[indexPath.row])
+        browseCell.browseImageView.image = UIImage(named: sampleImage[indexPath.section][indexPath.row])
         
         return browseCell
     }

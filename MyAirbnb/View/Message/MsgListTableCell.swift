@@ -13,7 +13,7 @@ import Kingfisher
 class MsgListTableCell: UITableViewCell {
     static let identifier = "MsgListTableCell"
     
-    let hostImageView: UIImageView = {
+    let otherPartysImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "hostSample2")
         imageView.contentMode = .scaleAspectFill
@@ -22,7 +22,7 @@ class MsgListTableCell: UITableViewCell {
         return imageView
     }()
     
-    let hostNameLabel: UILabel = {
+    let otherPartysLabel: UILabel = {
         let label = UILabel()
         label.text = "K Family"
         label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
@@ -110,8 +110,8 @@ class MsgListTableCell: UITableViewCell {
         self.separatorInset = .init(top: 0, left: 20, bottom: 0, right: 20)
         self.selectionStyle = .none
         
-        contentView.addSubview(hostImageView)
-        contentView.addSubview(hostNameLabel)
+        contentView.addSubview(otherPartysImageView)
+        contentView.addSubview(otherPartysLabel)
         contentView.addSubview(timeLabel)
         contentView.addSubview(nextImageLabel)
         contentView.addSubview(msgPreviewLabel)
@@ -142,21 +142,20 @@ class MsgListTableCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        print("--------------------------[layout subviews]--------------------------")
 //        msgPreviewLabel.text = chatRoomData?.messages.text ?? ""
 //        timeLabel.text = getMessagesLastTime()
     }
     
     private func setAutolayout() {
-        hostImageView.snp.makeConstraints { (make) in
+        otherPartysImageView.snp.makeConstraints { (make) in
             make.leading.equalTo(20)
             make.centerY.equalToSuperview()
             make.height.width.equalTo(50)
         }
         
-        hostNameLabel.snp.makeConstraints { (make) in
+        otherPartysLabel.snp.makeConstraints { (make) in
             make.top.equalTo(20)
-            make.leading.equalTo(hostImageView.snp.trailing).offset(15)
+            make.leading.equalTo(otherPartysImageView.snp.trailing).offset(15)
         }
         
         nextImageLabel.snp.makeConstraints { (make) in
@@ -170,21 +169,21 @@ class MsgListTableCell: UITableViewCell {
         }
         
         msgPreviewLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(hostNameLabel.snp.bottom).offset(5)
-            make.leading.equalTo(hostNameLabel)
+            make.top.equalTo(otherPartysLabel.snp.bottom).offset(5)
+            make.leading.equalTo(otherPartysLabel)
             make.trailing.equalTo(-30)
         }
         
         stackView.snp.makeConstraints { (make) in
             make.top.equalTo(msgPreviewLabel.snp.bottom).offset(3)
-            make.leading.equalTo(hostNameLabel)
+            make.leading.equalTo(otherPartysLabel)
         }
     }
     
     func getMessagesLastTime(chatRoom: ChatRoom) -> String {
         
         let lastTimeString = chatRoom.messages.created
-        print("lastTimeString: ", lastTimeString)
+//        print("lastTimeString: ", lastTimeString)
         
         let dateformatter = DateFormatter()
         dateformatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
@@ -200,21 +199,23 @@ class MsgListTableCell: UITableViewCell {
     
     func setData(chatRoomData: ChatRoom, isHost: Bool) {
         
-        msgPreviewLabel.text = chatRoomData.messages.text ?? ""
+        msgPreviewLabel.text = chatRoomData.messages.text
         timeLabel.text = getMessagesLastTime(chatRoom: chatRoomData)
         
-        let startDate = chatRoomData.startDate.replacingOccurrences(of: "-", with: ".") ?? ""
-        let endDate = chatRoomData.endDate.replacingOccurrences(of: "-", with: ".") ?? ""
+        let startDate = chatRoomData.startDate.replacingOccurrences(of: "-", with: ".")
+        let endDate = chatRoomData.endDate.replacingOccurrences(of: "-", with: ".")
         bookDateLabel.text = "\(startDate) ~ \(endDate)"
         
-        
         if isHost {
-            hostNameLabel.text = chatRoomData.messages.author.username ?? ""
-            hostImageView.image = UIImage(named: "userProfileImage")
+            otherPartysLabel.text = chatRoomData.messages.author.username
+            otherPartysImageView.image = UIImage(named: "userProfileImage")    // 유저 이미지: Placeholder Image
         } else {
-            hostNameLabel.text = chatRoomData.room.host.username
-            guard let imageUrl = URL(string: chatRoomData.room.host.image ?? "") else { return }
-            hostImageView.kf.setImage(with: imageUrl)
+            otherPartysLabel.text = chatRoomData.room.host.username
+            guard let imageUrl = URL(string: chatRoomData.room.host.image ?? "") else {
+                otherPartysImageView.image = UIImage(named: "hostSample2")
+                return
+            }
+            otherPartysImageView.kf.setImage(with: imageUrl)
         }
     }
 }

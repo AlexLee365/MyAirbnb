@@ -613,7 +613,16 @@ extension MainViewController {
             
         // 숙소 Plus 상세VC 로 이동
         case Notification.Name.moveToPlusHouseDetailView:
+            guard let userInfo = sender.userInfo
+                , let roomID = userInfo["roomID"] as? Int
+                , let roomTitle = userInfo["roomName"] as? String else {
+                    print("‼️ moveTo HouseDetailView Noti userinfo error ")
+                    return
+            }
+            
             let plusHouseVC = PlusViewController()
+            plusHouseVC.roomID = roomID
+            plusHouseVC.roomTitle = roomTitle
             navigationController?.pushViewController(plusHouseVC, animated: true)
             
         // Luxe 숙소 디테일 VC 로 이동
