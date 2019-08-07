@@ -83,7 +83,8 @@ class MainCategoryTableCell: UITableViewCell {
         titleLabel.configureMainTableViewCellsTitle()
         titleLabel.text = "MainCategoryTabelCell"
         titleLabel.sizeToFit()
-        titleLabel.text = "Jung Jin Alex님, 무엇을 찾고 계신가요?"
+//        titleLabel.text = "Jung Jin Alex님, 무엇을 찾고 계신가요?"
+        titleLabel.text = "\(SingletonCommonData.shared.userInfo?.username ?? "")님, 무엇을 찾고 계신가요?"
 //        titleLabel.font = .systemFont(ofSize: 21, weight: .bold)
     }
     

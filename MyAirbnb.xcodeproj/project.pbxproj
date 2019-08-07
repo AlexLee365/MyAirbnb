@@ -90,7 +90,6 @@
 		4353BA6722DF10A0004BD807 /* HouseDetailPicturesTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA6622DF10A0004BD807 /* HouseDetailPicturesTableCell.swift */; };
 		4353BA6922DF11CC004BD807 /* HouseDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA6822DF11CC004BD807 /* HouseDetailViewController.swift */; };
 		4353BA6B22DF20B8004BD807 /* HouseDetailBasicInfoTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA6A22DF20B8004BD807 /* HouseDetailBasicInfoTableCell.swift */; };
-		4353BA8F22E09FC5004BD807 /* TestSaveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA8E22E09FC5004BD807 /* TestSaveViewController.swift */; };
 		4353BA9722E1A06D004BD807 /* HouseDetailIntroductionTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA9622E1A06D004BD807 /* HouseDetailIntroductionTableCell.swift */; };
 		4353BA9922E1A2B4004BD807 /* HouseDetailStayingDaysTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA9822E1A2B4004BD807 /* HouseDetailStayingDaysTableCell.swift */; };
 		4353BA9B22E1A335004BD807 /* HouseDetailFacilityTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353BA9A22E1A335004BD807 /* HouseDetailFacilityTableCell.swift */; };
@@ -108,6 +107,7 @@
 		43E36CDA22E586D4006C8AEF /* HouseDetailFacilityCollectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E36CD922E586D4006C8AEF /* HouseDetailFacilityCollectCell.swift */; };
 		43E36CDC22E59B03006C8AEF /* HouseDetailLocationTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E36CDB22E59B03006C8AEF /* HouseDetailLocationTableCell.swift */; };
 		43E36CDE22E5AC77006C8AEF /* HouseDetailCheckInTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E36CDD22E5AC77006C8AEF /* HouseDetailCheckInTableCell.swift */; };
+		43E8B84922FAC20D00741B95 /* PlannedTravelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E8B84822FAC20D00741B95 /* PlannedTravelViewController.swift */; };
 		43F5AA8722EB2683007511E1 /* SearchBarTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F5AA8622EB2683007511E1 /* SearchBarTableCell.swift */; };
 		43F5AA8F22F00055007511E1 /* HouseDatasInList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F5AA8E22F00055007511E1 /* HouseDatasInList.swift */; };
 		43F5AA9122F03504007511E1 /* NotificationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F5AA9022F03504007511E1 /* NotificationExtension.swift */; };
@@ -351,7 +351,6 @@
 		4353BA6622DF10A0004BD807 /* HouseDetailPicturesTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailPicturesTableCell.swift; sourceTree = "<group>"; };
 		4353BA6822DF11CC004BD807 /* HouseDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailViewController.swift; sourceTree = "<group>"; };
 		4353BA6A22DF20B8004BD807 /* HouseDetailBasicInfoTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailBasicInfoTableCell.swift; sourceTree = "<group>"; };
-		4353BA8E22E09FC5004BD807 /* TestSaveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSaveViewController.swift; sourceTree = "<group>"; };
 		4353BA9622E1A06D004BD807 /* HouseDetailIntroductionTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailIntroductionTableCell.swift; sourceTree = "<group>"; };
 		4353BA9822E1A2B4004BD807 /* HouseDetailStayingDaysTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailStayingDaysTableCell.swift; sourceTree = "<group>"; };
 		4353BA9A22E1A335004BD807 /* HouseDetailFacilityTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailFacilityTableCell.swift; sourceTree = "<group>"; };
@@ -369,6 +368,7 @@
 		43E36CD922E586D4006C8AEF /* HouseDetailFacilityCollectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailFacilityCollectCell.swift; sourceTree = "<group>"; };
 		43E36CDB22E59B03006C8AEF /* HouseDetailLocationTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailLocationTableCell.swift; sourceTree = "<group>"; };
 		43E36CDD22E5AC77006C8AEF /* HouseDetailCheckInTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDetailCheckInTableCell.swift; sourceTree = "<group>"; };
+		43E8B84822FAC20D00741B95 /* PlannedTravelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannedTravelViewController.swift; sourceTree = "<group>"; };
 		43F5AA8622EB2683007511E1 /* SearchBarTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarTableCell.swift; sourceTree = "<group>"; };
 		43F5AA8E22F00055007511E1 /* HouseDatasInList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDatasInList.swift; sourceTree = "<group>"; };
 		43F5AA9022F03504007511E1 /* NotificationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationExtension.swift; sourceTree = "<group>"; };
@@ -627,7 +627,7 @@
 				43F5AA8A22EE9EB5007511E1 /* Message */,
 				2080604222DDE6C5008672D9 /* LoginControllers */,
 				202B9A5122F993890085F770 /* SaveList */,
-				4353BA8E22E09FC5004BD807 /* TestSaveViewController.swift */,
+				43E8B84822FAC20D00741B95 /* PlannedTravelViewController.swift */,
 				8D4FDAD322FA0AE200E31CF5 /* PlannedTripTitleTableCell.swift */,
 				8D4FDAD122FA07E200E31CF5 /* PlannedHouseTableCell.swift */,
 				8D4FDAD522FA0F3A00E31CF5 /* SaveDetailViewController.swift */,
@@ -1257,6 +1257,7 @@
 				4353BA2522DC40B5004BD807 /* FSCalendarWeekdayView.m in Sources */,
 				4353BA5C22DECE9F004BD807 /* MakeIdPageViewController.swift in Sources */,
 				20CD1F2322E303F4009641F4 /* ConfirmBirthDayViewController.swift in Sources */,
+				43E8B84922FAC20D00741B95 /* PlannedTravelViewController.swift in Sources */,
 				8D4FDAD622FA0F3A00E31CF5 /* SaveDetailViewController.swift in Sources */,
 				8D4FDA9522F6D84E00E31CF5 /* TripDetailData.swift in Sources */,
 				8D518FF422E0A222009D6792 /* RangeSliderTrackLayer.swift in Sources */,
@@ -1333,7 +1334,6 @@
 				43F5AA8722EB2683007511E1 /* SearchBarTableCell.swift in Sources */,
 				202B9A5D22F994800085F770 /* TitleCell.swift in Sources */,
 				8D4FDA6D22F3593100E31CF5 /* ReserveStepThreeViewController.swift in Sources */,
-				4353BA8F22E09FC5004BD807 /* TestSaveViewController.swift in Sources */,
 				8D4FDA5B22F2E18700E31CF5 /* StepOneTitleTableCell.swift in Sources */,
 				8D0D794222DDE50900F61F0B /* AVFoundationViewController.swift in Sources */,
 				4342404B22F9E819001B8AB6 /* LuxeDetailBasicServiceTableCell.swift in Sources */,

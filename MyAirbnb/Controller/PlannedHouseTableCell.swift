@@ -14,7 +14,7 @@ class PlannedHouseTableCell: UITableViewCell {
     
     let plannedDateLabel: UILabel = {
         let label = UILabel()
-        label.text = "• 7월 26일 - 7월 31일"
+        label.text = "7월 26일 - 7월 31일"
         label.textColor = #colorLiteral(red: 0.370555222, green: 0.3705646992, blue: 0.3705595732, alpha: 1)
         label.font = UIFont(name: "AirbnbCerealApp-Medium", size: 15)
         return label
@@ -37,10 +37,13 @@ class PlannedHouseTableCell: UITableViewCell {
         return imageView
     }()
     
+    let leftLineFirstView = UIView()
+    let leftLineSecondView = UIView()
+    let leftLineCircleView = UIView()
+    
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
         configure()
         setAutolayout()
     }
@@ -55,25 +58,64 @@ class PlannedHouseTableCell: UITableViewCell {
         contentView.addSubview(plannedDateLabel)
         contentView.addSubview(houseNameLabel)
         contentView.addSubview(representImageView)
+        
+        leftLineFirstView.backgroundColor = StandardUIValue.shared.colorBlueGreen
+        
+        leftLineCircleView.backgroundColor = StandardUIValue.shared.colorBlueGreen
+        leftLineCircleView.layer.cornerRadius = 4
+        leftLineCircleView.layer.masksToBounds = true
+        
+        leftLineSecondView.backgroundColor = StandardUIValue.shared.colorBlueGreen
     }
     
     private func setAutolayout() {
+        let sideMargin: CFloat = 20
+        let contentSideMargin: CGFloat = 50
+        
         plannedDateLabel.snp.makeConstraints { (make) in
-            make.top.leading.equalTo(30)
+            make.top.leading.equalTo(contentSideMargin-10)
         }
         
         houseNameLabel.snp.makeConstraints { (make) in
             make.top.equalTo(plannedDateLabel.snp.bottom).offset(10)
-            make.leading.equalTo(20)
+            make.leading.equalTo(contentSideMargin)
             make.trailing.equalTo(-30)
         }
         
         representImageView.snp.makeConstraints { (make) in
-            make.top.equalTo(houseNameLabel.snp.bottom).offset(15)
-            make.leading.equalTo(20)
+            make.top.equalTo(houseNameLabel.snp.bottom).offset(10)
+            make.leading.equalTo(contentSideMargin)
             make.width.equalToSuperview().multipliedBy(0.7)
             make.height.equalTo(representImageView.snp.width).multipliedBy(0.6)
             make.bottom.equalTo(-20)
         }
+        
+        self.addSubview(leftLineFirstView)
+        leftLineFirstView.snp.makeConstraints { (make) in
+            make.top.equalToSuperview()
+            make.leading.equalTo(sideMargin)
+            make.bottom.equalTo(plannedDateLabel.snp.centerY)
+            make.width.equalTo(1.2)
+        }
+        
+        self.addSubview(leftLineCircleView)
+        leftLineCircleView.snp.makeConstraints { (make) in
+            make.centerX.equalTo(leftLineFirstView.snp.centerX)
+            make.centerY.equalTo(plannedDateLabel.snp.centerY)
+            make.width.height.equalTo(8)
+        }
+        
+        self.addSubview(leftLineSecondView)
+        leftLineSecondView.snp.makeConstraints { (make) in
+            make.top.equalTo(plannedDateLabel.snp.centerY)
+            make.leading.equalTo(sideMargin)
+            make.width.equalTo(1.2)
+            make.bottom.equalToSuperview()
+        }
+    }
+    
+    func setData(firstHidden: Bool, secondHidden: Bool) {
+        leftLineFirstView.isHidden = firstHidden
+        leftLineSecondView.isHidden = secondHidden
     }
 }

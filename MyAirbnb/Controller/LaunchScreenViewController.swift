@@ -49,6 +49,7 @@ class LaunchScreenViewController: UIViewController {
                     
                     mainVC.mainView.mainViewDatas = self.mainViewDataArray
                     self.present(tabbarVC, animated: false)
+                    print("--------------------------[Tabbar-MainVC Launched]--------------------------")
                 }
             }
         }

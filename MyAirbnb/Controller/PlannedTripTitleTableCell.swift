@@ -16,7 +16,8 @@ class PlannedTripTitleTableCell: UITableViewCell {
         let label = UILabel()
         label.text = "여행"
         label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
-        label.font = UIFont(name: "AirbnbCerealApp-Bold", size: 30)
+//        label.font = UIFont(name: "AirbnbCerealApp-Bold", size: 29)
+        label.font = UIFont.systemFont(ofSize: 29, weight: .bold)
         return label
     }()
     
@@ -49,14 +50,14 @@ class PlannedTripTitleTableCell: UITableViewCell {
     
     private func setAutolayout() {
         titleLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(30)
+            make.top.equalTo(50)
             make.leading.equalTo(20)
         }
         
         noOfPlannedTrip.snp.makeConstraints { (make) in
             make.top.equalTo(titleLabel.snp.bottom).offset(25)
             make.leading.equalTo(20)
-            make.bottom.equalTo(-20)
+            make.bottom.equalTo(-10)
         }
     }
 }

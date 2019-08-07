@@ -35,7 +35,7 @@ class TabbarController: UITabBarController {
     private func setTabbarItems() {
         let mainVC = UINavigationController(rootViewController: MainViewController()) 
         let saveListVC = FavoriteHouseListViewController()
-        let tripNaviController = TestSaveViewController()
+        let tripNaviController = PlannedTravelViewController()
         let messageVC = UINavigationController(rootViewController: MessageViewController()) 
         let profileVC = MyPageViewController()
             
