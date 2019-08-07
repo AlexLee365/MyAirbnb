@@ -13,7 +13,8 @@ struct HouseDetailData: Codable {
     let id: Int
     let title: String
     let host: [String?]
-    let address, state, postalCode, mobile: String
+    let address, state, postalCode: String
+    let mobile: String?
     let image, image1, image2, image3, image4, image5, image6: String?
     let bedImage0, bedImage1, bedImage2, bedImage3, bedImage4, bedImage5: String?
     let checkIn, checkOut: String?
