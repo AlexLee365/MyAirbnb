@@ -20,10 +20,10 @@ class HouseReservationCompleteViewController: UIViewController {
         return tableView
     }()
     
+    var houseDetailData: HouseDetailData?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         configure()
         setAutolayout()
     }
@@ -74,6 +74,15 @@ extension HouseReservationCompleteViewController: UITableViewDataSource {
 
 extension HouseReservationCompleteViewController: PaymentOverviewTableCellDelegate {
     func returnToMainVC() {
+        guard let tabbarVC = SingletonCommonData.shared.tabbarController as? TabbarController
+            , let naviVC = tabbarVC.viewControllers?.first as? UINavigationController
+            , let mainVC = naviVC.viewControllers.first as? MainViewController else {
+                print("‼️ tabbarVC, naviVC convert error ")
+                return
+        }
         
+        self.dismiss(animated: false)
+        naviVC.popToRootViewController(animated: true)
+        mainVC.mainView.mainTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
     }
 }
