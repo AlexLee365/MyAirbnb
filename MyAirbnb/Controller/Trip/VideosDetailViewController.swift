@@ -49,7 +49,6 @@ class VideosDetailViewController: UIViewController {
     
     let priceLabel: UILabel = {
         let label = UILabel()
-//        label.text = "₩40,000 /인"
         label.font = UIFont(name: "AirbnbCerealApp-Bold", size: 17)
         label.textColor = .white
         return label
@@ -57,7 +56,6 @@ class VideosDetailViewController: UIViewController {
     
     let starImageLabel: UILabel = {
         let label = UILabel()
-//        label.text = String(repeating: "★", count: 5)
         label.font = UIFont(name: "AirbnbCerealApp-Book", size: 13)
         label.textColor = .white
         return label
@@ -65,7 +63,6 @@ class VideosDetailViewController: UIViewController {
     
     let noOfReviewLabel: UILabel = {
         let label = UILabel()
-//        label.text = "201"
         label.textColor = .white
         label.font = UIFont(name: "AirbnbCerealApp-Book", size: 12)
         return label
@@ -83,7 +80,6 @@ class VideosDetailViewController: UIViewController {
     
     let newTripLabel: UILabel = {
         let label = UILabel()
-//        label.text = "신규 트립"
         label.textColor = .white
         label.font = UIFont(name: "AirbnbCerealApp-Book", size: 12)
         return label

@@ -207,6 +207,9 @@
 		8D4FDADA22FA200200E31CF5 /* HostAndHouseTypeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDAD922FA200200E31CF5 /* HostAndHouseTypeTableCell.swift */; };
 		8D4FDADC22FA251600E31CF5 /* BillsTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDADB22FA251600E31CF5 /* BillsTableCell.swift */; };
 		8D4FDADE22FA29CE00E31CF5 /* BillsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDADD22FA29CE00E31CF5 /* BillsViewController.swift */; };
+		8D4FDAE022FA9D2200E31CF5 /* HouseReservationCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDADF22FA9D2200E31CF5 /* HouseReservationCompleteViewController.swift */; };
+		8D4FDB0422FAB67000E31CF5 /* ConfirmedTitleTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDB0322FAB67000E31CF5 /* ConfirmedTitleTableCell.swift */; };
+		8D4FDB0622FAB69100E31CF5 /* PaymentOverviewTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDB0522FAB69100E31CF5 /* PaymentOverviewTableCell.swift */; };
 		8D518FEC22DF280B009D6792 /* InstantBookTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D518FEB22DF280B009D6792 /* InstantBookTableCell.swift */; };
 		8D518FEE22E06F29009D6792 /* QualifiedHouseTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D518FED22E06F29009D6792 /* QualifiedHouseTableCell.swift */; };
 		8D518FF022E07769009D6792 /* PriceRangeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D518FEF22E07769009D6792 /* PriceRangeTableCell.swift */; };
@@ -466,6 +469,9 @@
 		8D4FDAD922FA200200E31CF5 /* HostAndHouseTypeTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostAndHouseTypeTableCell.swift; sourceTree = "<group>"; };
 		8D4FDADB22FA251600E31CF5 /* BillsTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillsTableCell.swift; sourceTree = "<group>"; };
 		8D4FDADD22FA29CE00E31CF5 /* BillsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillsViewController.swift; sourceTree = "<group>"; };
+		8D4FDADF22FA9D2200E31CF5 /* HouseReservationCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseReservationCompleteViewController.swift; sourceTree = "<group>"; };
+		8D4FDB0322FAB67000E31CF5 /* ConfirmedTitleTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmedTitleTableCell.swift; sourceTree = "<group>"; };
+		8D4FDB0522FAB69100E31CF5 /* PaymentOverviewTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentOverviewTableCell.swift; sourceTree = "<group>"; };
 		8D518FEB22DF280B009D6792 /* InstantBookTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstantBookTableCell.swift; sourceTree = "<group>"; };
 		8D518FED22E06F29009D6792 /* QualifiedHouseTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QualifiedHouseTableCell.swift; sourceTree = "<group>"; };
 		8D518FEF22E07769009D6792 /* PriceRangeTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceRangeTableCell.swift; sourceTree = "<group>"; };
@@ -892,6 +898,8 @@
 				8D4FDA7822F3FB6100E31CF5 /* CouponTableCell.swift */,
 				8D4FDA7A22F3FE6200E31CF5 /* RefundPolicyTableCell.swift */,
 				8D4FDA7C22F3FE9600E31CF5 /* AgreementTableCell.swift */,
+				8D4FDB0322FAB67000E31CF5 /* ConfirmedTitleTableCell.swift */,
+				8D4FDB0522FAB69100E31CF5 /* PaymentOverviewTableCell.swift */,
 			);
 			path = Reservation;
 			sourceTree = "<group>";
@@ -972,6 +980,7 @@
 				8D4FDA7422F367CA00E31CF5 /* SelectPayMethodViewController.swift */,
 				8D4FDA7222F3647100E31CF5 /* AddCardDetailViewController.swift */,
 				8D4FDA7E22F4040200E31CF5 /* CouponApplyViewController.swift */,
+				8D4FDADF22FA9D2200E31CF5 /* HouseReservationCompleteViewController.swift */,
 			);
 			path = House;
 			sourceTree = "<group>";
@@ -1208,6 +1217,7 @@
 				8D0D78A122D4598200F61F0B /* TripIntroData.swift in Sources */,
 				8D518FEC22DF280B009D6792 /* InstantBookTableCell.swift in Sources */,
 				4342404F22F9E8AD001B8AB6 /* LuxeDetailServicesCollectCell.swift in Sources */,
+				8D4FDAE022FA9D2200E31CF5 /* HouseReservationCompleteViewController.swift in Sources */,
 				20081F8022EEBCB200BAB0FD /* StatusChangeBtn.swift in Sources */,
 				8D0D793522DC5F0700F61F0B /* TripLocalHostingViewController.swift in Sources */,
 				8D0D788E22D222A400F61F0B /* TripInfoCollectionViewCell.swift in Sources */,
@@ -1301,11 +1311,8 @@
 				8D0D792522DB29B200F61F0B /* HouseLuxeTableCell.swift in Sources */,
 				8D4FDA7D22F3FE9600E31CF5 /* AgreementTableCell.swift in Sources */,
 				8D51902622E5B54D009D6792 /* CheckboxContainerView.swift in Sources */,
-
 				8D4FDAD422FA0AE200E31CF5 /* PlannedTripTitleTableCell.swift in Sources */,
-
 				4342404322F9CEAE001B8AB6 /* LuxeDetailImagesTableCell.swift in Sources */,
-
 				8D4FDA7722F3F6A100E31CF5 /* PriceOverviewTableCell.swift in Sources */,
 				8D4FDAD022F984E500E31CF5 /* AllTripData.swift in Sources */,
 				8D4FDADA22FA200200E31CF5 /* HostAndHouseTypeTableCell.swift in Sources */,
@@ -1334,6 +1341,7 @@
 				43F5AA9122F03504007511E1 /* NotificationExtension.swift in Sources */,
 				4353BA2A22DC40B5004BD807 /* FSCalendarHeaderView.m in Sources */,
 				8D4FDA4322F1790700E31CF5 /* ReserveInfoTableCell.swift in Sources */,
+				8D4FDB0622FAB69100E31CF5 /* PaymentOverviewTableCell.swift in Sources */,
 				4353B90A22D4A5A6004BD807 /* MainRecommendHouseTableCell.swift in Sources */,
 				4353BA2722DC40B5004BD807 /* FSCalendarExtensions.m in Sources */,
 				4353BA6722DF10A0004BD807 /* HouseDetailPicturesTableCell.swift in Sources */,
@@ -1354,6 +1362,7 @@
 				438BDDAA22F32F2300944276 /* ChatTableViewCell.swift in Sources */,
 				8D4FDA7B22F3FE6200E31CF5 /* RefundPolicyTableCell.swift in Sources */,
 				8D4FDA8522F428BD00E31CF5 /* AllInterestTableCell.swift in Sources */,
+				8D4FDB0422FAB67000E31CF5 /* ConfirmedTitleTableCell.swift in Sources */,
 				4353BA1E22DC40B5004BD807 /* FSCalendarCollectionView.m in Sources */,
 				4353BA6922DF11CC004BD807 /* HouseDetailViewController.swift in Sources */,
 				20272A1322EF0C3200848BC5 /* SucessViewController.swift in Sources */,
