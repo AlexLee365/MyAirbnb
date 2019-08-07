@@ -69,6 +69,7 @@ class WorldAdventureTableCell: UITableViewCell {
     weak var delegate: WorldAdventureTableCellDelegate?
     var globalAdventureDataArray = [BestTrip]()
     
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -123,7 +124,6 @@ class WorldAdventureTableCell: UITableViewCell {
         let cellHeight = cellWidth * 1.9
         
         let collectionHeight = cellHeight + 15 + 5
-//            ((cellHeight + 15) * CGFloat(globalAdventureDataArray.count / 2)) + 10
         
         collectionView.snp.makeConstraints { (make) in
             make.top.equalTo(descLabel.snp.bottom).offset(10)
@@ -144,7 +144,7 @@ extension WorldAdventureTableCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let adventureCell = collectionView.dequeueReusableCell(withReuseIdentifier: WorldAdventureCollectionCell.identifier, for: indexPath) as! WorldAdventureCollectionCell
 
-        adventureCell.setData(worldAdventureData: globalAdventureDataArray[indexPath.row])
+        adventureCell.setData(worldAdventureData: globalAdventureDataArray[indexPath.row], state: "")
         
         return adventureCell
     }

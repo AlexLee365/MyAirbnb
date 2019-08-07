@@ -23,8 +23,8 @@ class ConfirmedTitleTableCell: UITableViewCell {
     let airbnbTitle: UILabel = {
         let label = UILabel()
         label.text = "airbnb"
-        label.textColor = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 0.7462542808)
-        label.font = UIFont.systemFont(ofSize: 30, weight: .bold)
+        label.textColor = StandardUIValue.shared.colorPink
+        label.font = UIFont(name: "AirbnbCerealApp-Bold", size: 30)
         return label
     }()
     
@@ -34,7 +34,7 @@ class ConfirmedTitleTableCell: UITableViewCell {
         label.textColor = #colorLiteral(red: 0.1298420429, green: 0.1298461258, blue: 0.1298439503, alpha: 1)
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 40, weight: .bold)
+        label.font = UIFont(name: "AirbnbCerealApp-Bold", size: 40)
         return label
     }()
     
@@ -42,24 +42,15 @@ class ConfirmedTitleTableCell: UITableViewCell {
         let label = UILabel()
         label.text = "서울 여행 관련 정보입니다."
         label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
-        label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        label.font = UIFont(name: "AirbnbCerealApp-Medium", size: 16)
         return label
     }()
-    
-    //    let representHouseImage: UIImageView = {
-    //        let imageView = UIImageView()
-    //        imageView.image = UIImage(named: "kitchen2")
-    //        imageView.contentMode = .scaleAspectFill
-    //        imageView.clipsToBounds = true
-    //        return imageView
-    //    }()
     
     let categoryLabel: UILabel = {
         let label = UILabel()
         label.text = "Vienna의 집 전체"
         label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
-        //        label.font = UIFont(name: "AirbnbCerealApp-Bold", size: 15)
-        label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        label.font = UIFont(name: "AirbnbCerealApp-Bold", size: 16)
         return label
     }()
     
@@ -67,8 +58,7 @@ class ConfirmedTitleTableCell: UITableViewCell {
         let label = UILabel()
         label.text = "8월 29일~30일, 게스트 1명"
         label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
-        //        label.font = UIFont(name: "AirbnbCerealApp-Book", size: 15)
-        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        label.font = UIFont(name: "AirbnbCerealApp-Book", size: 16)
         return label
     }()
     
