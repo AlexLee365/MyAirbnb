@@ -10,17 +10,20 @@ import Foundation
 
 // MARK: - TripMainViewData
 struct TripMainViewData: Codable {
+    let representationTrip5: [RepresentationTrip5]
     let mainCategories: [MainCategory]
     let globalAdventureTrip, globalRecommendTrip: [BestTrip]
     let stateArray: [State]
     
     enum CodingKeys: String, CodingKey {
+        case representationTrip5 = "representation_trip_5"
         case mainCategories = "main_categories"
         case globalAdventureTrip = "global_adventure_trip"
         case globalRecommendTrip = "global_recommend_trip"
         case stateArray = "state"
     }
 }
+
 
 // MARK: - MainCategory
 struct MainCategory: Codable {
@@ -32,6 +35,19 @@ struct MainCategory: Codable {
     enum CodingKeys: String, CodingKey {
         case url, name, image
         case mainCategoryDescription = "description"
+    }
+}
+
+// MARK: - RepresentationTrip5
+struct RepresentationTrip5: Codable {
+    let trip: Int
+    let media: String
+    let representationTrip5_Description, image1: String
+    
+    enum CodingKeys: String, CodingKey {
+        case trip, media
+        case representationTrip5_Description = "description"
+        case image1 = "image_1"
     }
 }
 

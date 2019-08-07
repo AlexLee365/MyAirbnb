@@ -33,8 +33,7 @@ class PaymentOverviewTableCell: UITableViewCell {
         let label = UILabel()
         label.text = "₩2,290,481"
         label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
-        //        label.font = UIFont(name: "AirbnbCerealApp-Bold", size: 18)
-        label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        label.font = UIFont(name: "AirbnbCerealApp-Bold", size: 18)
         return label
     }()
     
@@ -51,7 +50,7 @@ class PaymentOverviewTableCell: UITableViewCell {
         btn.setTitleColor(.white, for: .normal)
         btn.backgroundColor = #colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1)
         btn.titleLabel?.textAlignment = .center
-        btn.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        btn.titleLabel?.font = UIFont(name: "AirbnbCerealApp-Medium", size: 16)
         btn.layer.cornerRadius = 4
         return btn
     }()
@@ -165,14 +164,12 @@ class PaymentOverviewTableCell: UITableViewCell {
         let string = first + second as NSString
         let result = NSMutableAttributedString(string: string as String)
         let attributesForFirstWord = [
-            NSAttributedString.Key.font : UIFont.systemFont(ofSize: 18, weight: .medium),
-            //                UIFont(name: "AirbnbCerealApp-Medium", size: 18) ?? "",
+            NSAttributedString.Key.font : UIFont(name: "AirbnbCerealApp-Medium", size: 18) ?? "",
             NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
             ] as [NSAttributedString.Key : Any]
         
         let attributesForSecondWord = [
-            NSAttributedString.Key.font : UIFont.systemFont(ofSize: 18, weight: .medium),
-            //                UIFont(name: "AirbnbCerealApp-Medium", size: 18) ?? "",
+            NSAttributedString.Key.font : UIFont(name: "AirbnbCerealApp-Medium", size: 18) ?? "",
             NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0, green: 0.5690457821, blue: 0.5746168494, alpha: 1)
             ] as [NSAttributedString.Key : Any]
         

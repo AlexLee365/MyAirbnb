@@ -124,9 +124,9 @@ class WorldAdventureCollectionCell: UICollectionViewCell {
         }
     }
     
-    func setData(worldAdventureData: BestTrip) {
+    func setData(worldAdventureData: BestTrip, state: String) {
         imageView.image = UIImage(named: "worldAdventure1")
-        categoryLabel.text = "6일 여행 코스 · 푸에르토아요라 "
+        categoryLabel.text = "\(worldAdventureData.durationTime)일 여행 코스 · 푸에르토아요라"
         titleLabel.text = worldAdventureData.name
         
         if worldAdventureData.ratingScore > 0.0 {
