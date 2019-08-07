@@ -80,7 +80,16 @@ class AllTripsTableCell: UITableViewCell {
         let cellWidth = (UIScreen.main.bounds.width - 40 - 13) / 2
         let cellHeight = cellWidth * 2.3
         
-        let collectionHeight = ((cellHeight + 20) * CGFloat(allTripsArray.count / 2)) + 20
+        let lineCount = allTripsArray.count / 2
+        var collectionHeight: CGFloat = 0
+        
+        if lineCount % 2 == 0 {
+            let lineSpacings = CGFloat(20 * (lineCount - 1))
+            collectionHeight = cellHeight * CGFloat(lineCount) + lineSpacings + 20
+        } else {
+            let lineSpacings = CGFloat(20 * ((lineCount + 1) - 1))
+            collectionHeight = cellHeight * CGFloat(lineCount) + lineSpacings + 20
+        }
         
         collectionView.snp.makeConstraints { (make) in
             make.top.equalTo(titleLabel.snp.bottom).offset(10)

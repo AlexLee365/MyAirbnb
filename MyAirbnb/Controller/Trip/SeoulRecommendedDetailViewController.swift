@@ -75,8 +75,12 @@ class SeoulRecommendedDetailViewController: UIViewController {
     
     let netWork = NetworkCommunicator()
     let jsonDecoder = JSONDecoder()
+    let kingfisher = ImageDownloader.default
+    
     var tripDetailData: TripDetailData?
     var numberOfCell = 0
+    
+    var imageArray = [UIImage]()
     var tripAdditionalDetail = [(String, String)]()
 
     
@@ -86,7 +90,11 @@ class SeoulRecommendedDetailViewController: UIViewController {
         configure()
         setAutolayout()
         addNotificationObserver()
-        getServerData()
+        getServerData {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -153,6 +161,7 @@ class SeoulRecommendedDetailViewController: UIViewController {
         return NSAttributedString(attributedString: result)
     }
     
+    
     // add notification observer for mapView tapped
     private func addNotificationObserver() {
         notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .mapViewDidTapInHouseDetailView, object: nil)
@@ -212,7 +221,7 @@ class SeoulRecommendedDetailViewController: UIViewController {
         }
     }
     
-    func getServerData() {
+    func getServerData(completion: @escaping () -> ()) {
         let urlString = tripDetailUrl
         
         netWork.getJsonObjectFromAPI(urlString: urlString, urlForSpecificProcessing: nil) { (json, success) in
@@ -237,6 +246,32 @@ class SeoulRecommendedDetailViewController: UIViewController {
             self.tripAdditionalDetail = [("수용 인원: 최대 게스트 \(result.tripDetail.maxGuest)명", ""), ("게스트 필수조건", ""), ("호스트에게 연락하기", ""), ("트립 환불 정책", "모든 트립은 예약 후 24시간 이내에 취소 및 전액 환불이 가능합니다.")]
  
             self.numberOfCell = 7 + 4
+            
+            let tripDetail = result.tripDetail
+            let imageStringArray = [tripDetail.image1, tripDetail.image2, tripDetail.image3, tripDetail.image4, tripDetail.image5, tripDetail.image6, tripDetail.image7]
+            
+            for i in 0..<imageStringArray.count{
+                guard let url = URL(string: imageStringArray[i] ?? "") else { print("tripDetail getServerData imageUrl convert failed"); continue }
+                
+                // 이미지 차례대로 받으려고
+                let group = DispatchGroup()
+                group.enter()
+                self.kingfisher.downloadImage(with: url, options: [], progressBlock: nil, completionHandler: { (result) in
+                    switch result {
+                    case .success(let value) :
+                        self.imageArray.append(value.image)
+                        (i == imageStringArray.count - 1) ? completion() : ()
+                        group.leave()
+                    case .failure(let error):
+//                        (i == 0) ? self.imageArray.append(UIImage(named: "hostSample2") ?? UIImage()) : () // 첫번째 호스트이미지가 없을시에 호스트 샘플이미지를 추가해줌
+                        print("kingfisher image download failed: ", error.localizedDescription)
+                        (i == imageStringArray.count - 1) ? completion() : ()
+                        group.leave()
+                    }
+                })
+                group.wait()
+                
+            }
             
             DispatchQueue.main.async {
                 let priceString = String(self.tripDetailData?.tripDetail.price ?? 0).limitFractionDigits()
@@ -264,6 +299,7 @@ extension SeoulRecommendedDetailViewController: UITableViewDataSource {
         case 0:
             let seoulRecommendCell = tableView.dequeueReusableCell(withIdentifier: SeoulRecommendTableViewCell.identifier, for: indexPath) as! SeoulRecommendTableViewCell
             
+            seoulRecommendCell.images = imageArray
             seoulRecommendCell.setData(tripDetailData: tripDetail)
             
             return seoulRecommendCell
