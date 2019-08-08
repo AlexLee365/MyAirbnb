@@ -48,6 +48,10 @@ class OtherCityTripTableCell: UITableViewCell {
     
     var stateListArray = [State]()
     
+    let stateImageArray = ["stateSeoul", "paris", "stateJeju", "mexico", "newyork", "london", "pocara", "california", "argadir", "galapagos", "waterloo"]
+    
+    
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -102,6 +106,7 @@ extension OtherCityTripTableCell: UICollectionViewDataSource {
         let otherCityCell = collectionView.dequeueReusableCell(withReuseIdentifier: OtherCityTripCollectionCell.identifier, for: indexPath) as! OtherCityTripCollectionCell
         
         otherCityCell.setData(cityListArray: stateListArray[indexPath.row])
+        otherCityCell.otherCityImage.image = UIImage(named: stateImageArray[indexPath.row])
         
         return otherCityCell
     }
