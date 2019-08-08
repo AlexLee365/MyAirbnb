@@ -31,8 +31,8 @@ class VideosDetailViewController: UIViewController {
         let tableView = UITableView()
         tableView.contentInsetAdjustmentBehavior = .never
         tableView.separatorStyle = .none
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 100
+//        tableView.rowHeight = UITableView.automaticDimension
+//        tableView.estimatedRowHeight = 100
         
         tableView.register(VideosDetailTableCell.self, forCellReuseIdentifier: VideosDetailTableCell.identifier)
         tableView.register(ProgramDescriptionTableCell.self, forCellReuseIdentifier: ProgramDescriptionTableCell.identifier)
@@ -450,19 +450,18 @@ extension VideosDetailViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 
 extension VideosDetailViewController: UITableViewDelegate {
-    //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    //        switch indexPath.row {
-    //        case 0:
-    //        case 1:
-    //        case 2:
-    //        case 3:
-    //        case 4:
-    //        case 5:
-    //
-    //        default:
-    //            <#code#>
-    //        }
-    //    }
+        func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+            switch indexPath.row {
+            case 4:
+                if adventureAdditionalArray.isEmpty {
+                    return 0
+                } else {
+                    return UITableView.automaticDimension
+                }
+            default:
+                return UITableView.automaticDimension
+            }
+        }
     
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
