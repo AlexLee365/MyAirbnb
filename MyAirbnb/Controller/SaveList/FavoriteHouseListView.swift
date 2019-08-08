@@ -42,6 +42,7 @@ class FavoriteHouseListView: UIView {
         
         favoriteTableView.delegate = self
         favoriteTableView.dataSource = self
+        favoriteTableView.contentInsetAdjustmentBehavior = .never
         favoriteTableView.register(TitleCell.self, forCellReuseIdentifier: TitleCell.identifier)
         favoriteTableView.register(OnePhotoCell.self, forCellReuseIdentifier: OnePhotoCell.identifier)
         favoriteTableView.register(ThreePhotoCell.self, forCellReuseIdentifier: ThreePhotoCell.identifier)

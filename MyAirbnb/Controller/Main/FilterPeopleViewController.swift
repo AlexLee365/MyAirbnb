@@ -421,7 +421,7 @@ class FilterPeopleViewController: UIViewController {
         
         var houseViewDataArray = [HouseViewData]()
         let urlString = netWork.basicUrlString
-            + "/rooms/?search=seoul&ordering=total_rating&page_size=5&page=1&capacity=\(totalPeopleCount)"
+            + "/rooms/?search=korea&ordering=-total_rating&page_size=5&page=1&capacity=\(totalPeopleCount)"
         netWork.getHouseServerData(urlString: urlString) { (houseDataArray, success) in
             DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
                 

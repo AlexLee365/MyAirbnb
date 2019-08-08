@@ -564,7 +564,7 @@ extension MainViewController {
         case Notification.Name.moveToHouseView:
             startIndicator()
             let urlString = netWork.basicUrlString
-                + "/rooms/?search=korea&ordering=total_rating&page_size=20&page=1"
+                + "/rooms/?search=korea&ordering=-total_rating&page_size=20&page=1"
             
             netWork.getHouseServerData(urlString: urlString) { (housedataArray, success) in
                 guard let housedataArray = housedataArray else { return }

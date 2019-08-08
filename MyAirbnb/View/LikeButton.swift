@@ -14,12 +14,19 @@ enum LikeButtonContentType {
 }
 
 class LikeButton: UIButton {
-    var contentID: Int
+    var contentID: Int {
+        didSet {
+            if SingletonCommonData.shared.usersLikeRoomNumbersArray.contains(contentID) {
+                isSelected = true
+            }
+        }
+    }
     var contentType: LikeButtonContentType
     
     var houseData: HouseDataInList?
+    
     let netWork = NetworkCommunicator()
-
+    
     override init(frame: CGRect) {
         contentID = 0
         contentType = .room
@@ -35,8 +42,8 @@ class LikeButton: UIButton {
         self.contentID = contentID
         self.contentType = contentType
         
-        setImage(UIImage(named: "heart"), for: .normal)
-        setImage(UIImage(named: "heartSelected"), for: .selected)
+        setImage(UIImage(named: "heartDefault2"), for: .normal)
+        setImage(UIImage(named: "heartSelected2"), for: .selected)
         addTarget(self, action: #selector(buttonDidTap), for: .touchUpInside)
     }
     
@@ -44,7 +51,16 @@ class LikeButton: UIButton {
         isSelected.toggle()
         print("LikeButton ContentID: \(contentID) / ContentType: \(contentType)")
         
-        
+        switch isSelected {
+        case true:
+            //눌러서 셀렉트가됨 => 좋아요가됨 => POST
+            postAndDeleteRoomLikeData(httpMethod: "POST")
+            
+            
+        case false:
+            // 눌러서 해제됨 => 좋아요가 제거됨 => DELETE
+            postAndDeleteRoomLikeData(httpMethod: "DELETE")
+        }
     }
     
     func resetContentIDAndTypeAndHouseData(contentID: Int, contentType: LikeButtonContentType, houseData: HouseDataInList) {
@@ -77,31 +93,15 @@ class LikeButton: UIButton {
                     return
             }
             
-//            guard let reservation = try? JSONDecoder().decode(Reservation.self, from: data) else { print("‼️ : "); return }
-//            SingletonCommonData.shared.userInfo?.reservations.append([SingletonCommonData.shared.makeRandomString(): reservation])
+            //            guard let reservation = try? JSONDecoder().decode(Reservation.self, from: data) else { print("‼️ : "); return }
+            //            SingletonCommonData.shared.userInfo?.reservations.append([SingletonCommonData.shared.makeRandomString(): reservation])
             
             print("🔵🔵🔵 After Reservation get Data: ", jsonObject)
-//            print("After Converting: ", reservation)
+            //            print("After Converting: ", reservation)
             
             }.resume()
     }
     
-//
-//
-//    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        isSelected.toggle()
-//        print("button state: ", isSelected)
-//        setImage(UIImage(named: "heartSelected"), for: .selected)
-//        setImage(UIImage(named: "heartDefault"), for: .normal)
-//        switch isSelected {
-//        case true:
-//            setImage(UIImage(named: "heartSelected"), for: .selected)
-//        case false:
-//            setImage(UIImage(named: "heartDefault"), for: .normal)
-//            tintColor = .white
-//        }
-//
-//        print("Button's ContentID:", contentID)
-//    }
-
+    
+    
 }

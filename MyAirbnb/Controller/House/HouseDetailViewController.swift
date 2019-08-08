@@ -345,6 +345,8 @@ extension HouseDetailViewController: UITableViewDelegate, UITableViewDataSource 
             
         case 8:
             let reviewTableCell = tableView.dequeueReusableCell(withIdentifier: HouseDetailReviewTableCell.identifier, for: indexPath) as! HouseDetailReviewTableCell
+            reviewTableCell.setData(review: data.reviews)
+            reviewTableCell.reviewsArray = data.reviews
             reviewTableCell.hideSeparator()
             reviewTableCell.delegate = self
             return reviewTableCell
@@ -378,8 +380,14 @@ extension HouseDetailViewController: UITableViewDelegate, UITableViewDataSource 
 // MARK: - HouseDetailReviewTableCellDelegate
 
 extension HouseDetailViewController: HouseDetailReviewTableCellDelegate {
-    func presentReviewVC() {
+//    func presentReviewVC() {
+//        let reviewVC = HouseReviewViewController()
+//        present(reviewVC, animated: true)
+//    }
+    
+    func presentReviewVC(reviews: [[String]]) {
         let reviewVC = HouseReviewViewController()
+        reviewVC.reviewsArray = reviews
         present(reviewVC, animated: true)
     }
 }

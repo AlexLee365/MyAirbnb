@@ -530,10 +530,10 @@
 				202B9A5222F993D50085F770 /* FavoriteHouseListViewController.swift */,
 				43E8B86A22FC29AA00741B95 /* FavoriteHouseDetailViewController.swift */,
 				202B9A5422F9940B0085F770 /* FavoriteHouseListView.swift */,
-				202B9A5622F9942C0085F770 /* FavoriteViewData.swift */,
-				202B9A5822F9944F0085F770 /* ThreePhotoCell.swift */,
-				202B9A5A22F994680085F770 /* OnePhotoCell.swift */,
 				202B9A5C22F994800085F770 /* TitleCell.swift */,
+				202B9A5A22F994680085F770 /* OnePhotoCell.swift */,
+				202B9A5822F9944F0085F770 /* ThreePhotoCell.swift */,
+				202B9A5622F9942C0085F770 /* FavoriteViewData.swift */,
 			);
 			path = SaveList;
 			sourceTree = "<group>";

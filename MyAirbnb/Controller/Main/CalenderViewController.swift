@@ -374,7 +374,7 @@ class CalenderViewController: UIViewController {
         let startDate = selectedDatesArray.first?.getDateStringFormatYearMonthDay(dateFormat: "yyyy-MM-dd") ?? ""
         let endDate = selectedDatesArray.last?.getDateStringFormatYearMonthDay(dateFormat: "yyyy-MM-dd") ?? ""
         let urlString = netWork.basicUrlString
-            + "/rooms/?search=seoul&ordering=total_rating&page_size=5&page=1"
+            + "/rooms/?search=korea&ordering=-total_rating&page_size=10&page=1"
             + "&start_date=\(startDate)&end_date=\(endDate)"
         
         netWork.getJsonObjectFromAPI(urlString: urlString, urlForSpecificProcessing: nil) { (json, success) in

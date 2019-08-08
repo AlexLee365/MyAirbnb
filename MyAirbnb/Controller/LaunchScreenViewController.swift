@@ -255,8 +255,10 @@ extension LaunchScreenViewController {
                 switch result {
                 case .success(let value):
                     SingletonCommonData.shared.userInfo = value
+                    SingletonCommonData.shared.usersLikeRoomNumbersArray = value.likes.compactMap{$0}
                     print("🔸🔸🔸 getLoginedUserData finished ")
                     print("🔵🔵🔵 로그인한 유저정보: ", value)
+                    
                     
                     dispatchGroup.leave()
                     
@@ -277,7 +279,7 @@ extension LaunchScreenViewController {
             self.getUsersChatRoomsData(completion: { (result) in
                 switch result {
                 case .success(_):
-                    print("🔵🔵🔵 chatroomData Array: ", SingletonCommonData.shared.userChatRoomsArray)
+//                    print("🔵🔵🔵 chatroomData Array: ", SingletonCommonData.shared.userChatRoomsArray)
                     print("🔸🔸🔸 getUsersChatRoomsData finished ")
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
@@ -469,7 +471,10 @@ extension LaunchScreenViewController {
                 completion(.failure(error))
             }
         }
-        
-        
     }
+    
+    
+    
+    
+    
 }

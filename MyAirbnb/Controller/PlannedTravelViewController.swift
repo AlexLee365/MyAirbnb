@@ -125,7 +125,7 @@ class PlannedTravelViewController: UIViewController {
         
         titleLabel.text = "여행"
         titleLabel.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
-        titleLabel.font = UIFont.systemFont(ofSize: 29, weight: .bold)
+        titleLabel.font = UIFont.systemFont(ofSize: 27, weight: .bold)
         
         subtitleLabel.text = "예정된 여행 없음"
         subtitleLabel.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
@@ -197,6 +197,7 @@ class PlannedTravelViewController: UIViewController {
         tableView.isHidden = false
         containerViewWhenNoTravel.isHidden = true
         
+        
         for value in reservationDictionary {
             guard let reservation = value?.values.first else { continue }
             reservationArray.append(reservation)
@@ -208,6 +209,7 @@ class PlannedTravelViewController: UIViewController {
             tabbarVC.selectedIndex = 0
             
             show(tabbarVC, sender: nil)
+            
             
         }
     }

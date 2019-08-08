@@ -17,6 +17,7 @@ struct UserInfo: Codable {
     let description: String?
     let rooms: [Int?]
     var reservations: [[String: Reservation]?]
+    var likes: [Int?]
     
     enum CodingKeys: String, CodingKey {
         case id, username, email
@@ -25,6 +26,7 @@ struct UserInfo: Codable {
         case image
         case description = "description"
         case rooms, reservations
+        case likes
     }
 }
 

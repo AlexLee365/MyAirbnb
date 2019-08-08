@@ -217,6 +217,38 @@ struct HouseTitleLabelDataInList: HouseViewDataProtocol {
     let title: String
 }
 
+struct UsersLikeHouseList {
+    var id: Int
+    var title: String
+    var state: String
+    var roomType: String
+    var image, image1, image2, image3, image4: String
+    
+    var bedroom: Int
+    var price: Int
+    var totalRating: Double
+    
+    func drawStarsWithHouseRate() -> String {
+        var starCount = 0
+        
+        switch totalRating {
+        case 0..<1.1:
+            starCount = 1
+        case 1.1..<2.1:
+            starCount = 2
+        case 2.1..<3.1:
+            starCount = 3
+        case 3.1..<4.1:
+            starCount = 4
+        case 4.1...5:
+            starCount = 5
+        default:
+            starCount = 5
+        }
+        return String(repeating: "★", count: starCount)
+    }
+}
+
 
 // 기존 룩스숙소 가데이터 구조체
 //struct HouseLuxeDataInList: MainViewDataProtocol, HouseViewDataProtocol {

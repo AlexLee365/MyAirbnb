@@ -30,14 +30,16 @@ class TitleCell: UITableViewCell {
         
         contentView.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 40).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 48).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
         titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -40).isActive = true
     }
     
     private func setupConfigure() {
         
-        titleLabel.font = UIFont.systemFont(ofSize: 25, weight: UIFont.Weight.init(7))
+//        titleLabel.font = UIFont.systemFont(ofSize: 25, weight: UIFont.Weight.init(7))
+        titleLabel.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
+        titleLabel.font = UIFont.systemFont(ofSize: 27, weight: .bold)
         titleLabel.textAlignment = .left
         titleLabel.sizeToFit()
         

@@ -29,6 +29,8 @@ class SingletonCommonData {
     
     var userInfo: UserInfo?
     var userChatRoomsArray = [ChatRoom]()
+    var usersLikeContentsArray = [[String: Int]]()
+    var usersLikeRoomNumbersArray = [Int]()
     
     var tempValue: Any?
     

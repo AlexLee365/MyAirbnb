@@ -38,6 +38,8 @@ class HouseReviewViewController: UIViewController {
         return tableView
     }()
     
+    var reviewsArray = [[String]]()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,16 +77,18 @@ class HouseReviewViewController: UIViewController {
 
 extension HouseReviewViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return reviewsArray.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.row == 0 {
             let  averageRateCell = tableView.dequeueReusableCell(withIdentifier: AverageReviewRateTableCell.identifier, for: indexPath) as! AverageReviewRateTableCell
+            averageRateCell.setData(reviewCount: reviewsArray.count)
             return averageRateCell
         } else {
             let reviewTableCell = tableView.dequeueReusableCell(withIdentifier: ReviewTableCell.identifier, for: indexPath) as! ReviewTableCell
+            reviewTableCell.setData(review: reviewsArray[indexPath.row - 1])
             return reviewTableCell
         }
     }

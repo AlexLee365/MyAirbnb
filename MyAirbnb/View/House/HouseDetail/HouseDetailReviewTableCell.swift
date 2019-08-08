@@ -8,9 +8,10 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 protocol HouseDetailReviewTableCellDelegate: class {
-    func presentReviewVC()
+    func presentReviewVC(reviews: [[String]])
 }
 
 class HouseDetailReviewTableCell: UITableViewCell {
@@ -37,7 +38,7 @@ class HouseDetailReviewTableCell: UITableViewCell {
     
     let dateLabel: UILabel = {
         let label = UILabel()
-        label.text = "2019년 3월"
+        label.text = "2019년 8월"
         label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
         label.font = UIFont(name: "AirbnbCerealApp-Book", size: 14)
         return label
@@ -75,6 +76,8 @@ class HouseDetailReviewTableCell: UITableViewCell {
         label.font = .systemFont(ofSize: 12, weight: .regular)
         return label
     }()
+    
+    var reviewsArray = [[String]]()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -143,6 +146,18 @@ class HouseDetailReviewTableCell: UITableViewCell {
     }
     
     @objc private func readReviewBtnDidTap(_ sender: UIButton) {
-        delegate?.presentReviewVC()
+        delegate?.presentReviewVC(reviews: reviewsArray)
+    }
+    
+    func setData(review: [[String]]) {
+        guard review.count > 0 else { return }
+        userNameLabel.text = review.first?[0] ?? ""
+//        dateLabel
+        
+        reviewLabel.text = review.first?[2]
+        if let url = URL(string: review.first?[1] ?? "") {
+            userProfileImage.kf.setImage(with: url)
+        }
+        readBtnLabel.text = "후기 \(review.count)개 읽기"
     }
 }
