@@ -52,7 +52,6 @@ class TripIntroCollectionViewCell: UICollectionViewCell {
     }
     
     private func setAutolayout() {
-        
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
@@ -71,6 +70,12 @@ class TripIntroCollectionViewCell: UICollectionViewCell {
         titleLabel.bottomAnchor.constraint(equalTo: hostNameLabel.topAnchor, constant: -10).isActive = true
         titleLabel.centerXAnchor.constraint(equalTo: hostNameLabel.centerXAnchor).isActive = true
         titleLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.85).isActive = true
-        
+    }
+    
+    func setData(representTripData: RepresentationTrip5) {
+        imageView.image = UIImage(named: "adventure")
+        categoryLabel.text = representTripData.category
+        hostNameLabel.text = representTripData.host.username
+        titleLabel.text = representTripData.name
     }
 }

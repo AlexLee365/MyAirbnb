@@ -24,14 +24,10 @@ class TripIntroTableViewCell: UITableViewCell {
         static let nextOffset: CGFloat = 8
     }
     
+    weak var delegate: TripIntroTableViewCellDelegate?
     
+    var representationTripArray = [RepresentationTrip5]()
     
-//    let gradientView: UIView = {
-//        let view = UIView()
-//        view.backgroundColor = .blue
-//        view.translatesAutoresizingMaskIntoConstraints = false
-//        return view
-//    }()
     
     let redTitleLabel: UILabel = {
         let label = UILabel()
@@ -58,10 +54,6 @@ class TripIntroTableViewCell: UITableViewCell {
         return collectionView
     }()
     
-//    private var gradient = CAGradientLayer()
-    
-    weak var delegate: TripIntroTableViewCellDelegate?
-    
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -74,33 +66,16 @@ class TripIntroTableViewCell: UITableViewCell {
         super.init(coder: aDecoder)
     }
     
-//    var setLayout = true
-//
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//        if setLayout {
-//            createGradient()
-//            gradient.frame = gradientView.bounds
-//            setLayout = false
-//        }
-//    }
-    
-//    private func createGradient() {
-//
-//        gradient.colors = [UIColor.gray.cgColor, UIColor.red.cgColor]
-//        gradient.locations = [0.9, 1]
-//        gradientView.layer.mask = gradient
-//    }
     
     private func configure() {
-//        contentView.addSubview(gradientView)
         self.backgroundColor = .black
         self.selectionStyle = .none
+        
+        setupGradientLayer()
         
         contentView.addSubview(redTitleLabel)
         contentView.addSubview(introTitleLabel)
 
-        
         collectionView.dataSource = self
         collectionView.register(TripIntroCollectionViewCell.self, forCellWithReuseIdentifier: TripIntroCollectionViewCell.identifier)
         collectionView.delegate = self
@@ -115,11 +90,6 @@ class TripIntroTableViewCell: UITableViewCell {
     }
     
     private func setAutolayout() {
-//        gradientView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-//        gradientView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-//        gradientView.widthAnchor.constraint(equalToConstant: contentView.frame.width).isActive = true
-//        gradientView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.7).isActive = true
-        
         redTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         redTitleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 120).isActive = true
         redTitleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
@@ -134,6 +104,17 @@ class TripIntroTableViewCell: UITableViewCell {
         collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
     }
+    
+    private func setupGradientLayer() {
+        let gradientLayer = CAGradientLayer()
+        
+        let tempSize = CGSize(width: UIScreen.main.bounds.width, height: 545)
+
+        gradientLayer.frame =  CGRect(origin: .zero, size: tempSize)
+        gradientLayer.colors = [UIColor.clear.cgColor, UIColor.init(white: 1, alpha: 0.15).cgColor, UIColor.init(white: 1, alpha: 0.15).cgColor, UIColor.clear.cgColor]
+//        gradientLayer.locations = [0.0, 0.5, 1.2]
+        contentView.layer.addSublayer(gradientLayer)
+    }
 }
 
 
@@ -141,17 +122,14 @@ class TripIntroTableViewCell: UITableViewCell {
 
 extension TripIntroTableViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return representationTripArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TripIntroCollectionViewCell.identifier, for: indexPath) as! TripIntroCollectionViewCell
         
-        cell.imageView.image = UIImage(named: tripIntroDatas[indexPath.row].image)
-        cell.categoryLabel.text = tripIntroDatas[indexPath.row].category
-        cell.titleLabel.text = tripIntroDatas[indexPath.row].title
-        cell.hostNameLabel.text = tripIntroDatas[indexPath.row].hostName
+        cell.setData(representTripData: representationTripArray[indexPath.row])
         
         return cell
     }
@@ -176,7 +154,7 @@ extension TripIntroTableViewCell: UICollectionViewDelegateFlowLayout {
         
         let horizontalSpacing = lineSpacing + horizontalInset + UI.nextOffset
         let cellWidth: CGFloat = ((collectionView.frame.width - horizontalSpacing) / UI.linesOnScreen)
-        let cellHeight = collectionView.frame.height * 0.9
+        let cellHeight = collectionView.frame.height * 0.87
         
         let roundedWidth = cellWidth.rounded(.down)
         let roundedHeight = cellHeight.rounded(.down)
