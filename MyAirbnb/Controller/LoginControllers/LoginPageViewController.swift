@@ -43,7 +43,9 @@ class LoginPageViewController: UIViewController {
     
     var netWork = NetworkCommunicator()
     
-      let validation = Vaildation()
+    let loginIndicator = UIActivityIndicatorView()
+    
+    let validation = Vaildation()
     
     let normalStateColor = UIColor.init(displayP3Red: 185, green: 216, blue: 218, alpha: 0.8)
     let selectStateColor = UIColor.init(displayP3Red: 57, green: 129, blue: 136, alpha: 0.3)
@@ -77,6 +79,7 @@ class LoginPageViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         self.emailTxtField.becomeFirstResponder()
+        self.loginIndicator.stopAnimating()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -133,6 +136,7 @@ class LoginPageViewController: UIViewController {
         loginScrollView.addSubview(passwordTxtField)
         loginScrollView.addSubview(passwordTxtUnderLine)
         loginScrollView.addSubview(keyboardTopView)
+        loginScrollView.addSubview(loginIndicator)
         
         keyboardTopView.addSubview(usePhoneNumberBtn)
         keyboardTopView.addSubview(loginBtn)
@@ -196,6 +200,7 @@ class LoginPageViewController: UIViewController {
         keyboardTopView.translatesAutoresizingMaskIntoConstraints = false
         usePhoneNumberBtn.translatesAutoresizingMaskIntoConstraints = false
         loginBtn.translatesAutoresizingMaskIntoConstraints = false
+        loginIndicator.translatesAutoresizingMaskIntoConstraints = false
         
         let backBtnWidth = view.frame.width - (view.frame.width - 28)
         let backBtnHeight = view.frame.height - (view.frame.height - 25)
@@ -274,6 +279,11 @@ class LoginPageViewController: UIViewController {
             loginBtn.trailingAnchor.constraint(equalTo: keyboardTopView.trailingAnchor, constant: -20),
             loginBtn.heightAnchor.constraint(equalToConstant: 50),
             loginBtn.widthAnchor.constraint(equalToConstant: 100),
+            
+            loginIndicator.topAnchor.constraint(equalTo: passwordTxtUnderLine.bottomAnchor, constant: 20),
+            loginIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            loginIndicator.widthAnchor.constraint(equalToConstant: 30),
+            loginIndicator.heightAnchor.constraint(equalToConstant: 30),
             ])
         
         bottomLayout = keyboardTopView.bottomAnchor.constraint(equalTo: guide.bottomAnchor)
@@ -371,6 +381,9 @@ class LoginPageViewController: UIViewController {
         loginBtn.layer.shadowRadius = 0.0
         loginBtn.layer.shadowOffset = CGSize.init(width: 2, height: 2)
         loginBtn.addTarget(self, action: #selector(didTapLoginBtn(_:)), for: .touchUpInside)
+        
+        // 인디케이터 스타일
+        loginIndicator.style = .whiteLarge
     }
     
     // 이메일 Validation
@@ -420,7 +433,8 @@ class LoginPageViewController: UIViewController {
         } else {
             // send HTTP request
             // 토큰 요청 코드
-           tryLogin()
+            tryLogin()
+            loginIndicator.startAnimating()
         }
     }
     
