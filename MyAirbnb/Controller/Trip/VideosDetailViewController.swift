@@ -391,16 +391,19 @@ extension VideosDetailViewController: UITableViewDataSource {
             
 //        case 5...(scheduleImages.count + 4):
         case 5..<((scheduleDataArray.count) + 5):
-            
             let tripScheduleCell = tableView.dequeueReusableCell(withIdentifier: TripScheduleTableCell.identifier, for: indexPath) as! TripScheduleTableCell
+            tripScheduleCell.currentIndex = indexPath.row
             tripScheduleCell.setData(additionalScheduleData: scheduleDataArray[indexPath.row - 5])
             
-//            tripScheduleCell.dayLabel.text = "\(indexPath.row - 4)일차"
-//            tripScheduleCell.programImage.image = UIImage(named: scheduleImages[indexPath.row - 5])
-//            tripScheduleCell.titleLabel.text = contentsArray[indexPath.row - 5].0
-//            tripScheduleCell.descLabel.text = contentsArray[indexPath.row - 5].1
-//            tripScheduleCell.tripTotalDays = contentsArray.count
-//            tripScheduleCell.currentIndex = indexPath.row
+            if indexPath.row == 5 {
+                tripScheduleCell.lineTopView.isHidden = true
+            } else if  indexPath.row == scheduleDataArray.count + 4 {
+                tripScheduleCell.lineView.isHidden = true
+            } else {
+                tripScheduleCell.lineTopView.isHidden = false
+                tripScheduleCell.lineView.isHidden = false
+            }
+        
             
             return tripScheduleCell
         

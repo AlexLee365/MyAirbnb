@@ -67,13 +67,13 @@ class TripScheduleTableCell: UITableViewCell {
     
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
-        switch currentIndex {
-        case 5:
-            lineTopView.isHidden = true
-        case tripTotalDays + 4:
-            lineView.isHidden = true
-        default: break
-        }
+//        switch currentIndex {
+//        case 5:
+//            lineTopView.isHidden = true
+//        case tripTotalDays + 4:
+//            lineView.isHidden = true
+//        default: break
+//        }
     }
     
     private func configure() {
@@ -145,7 +145,7 @@ class TripScheduleTableCell: UITableViewCell {
     }
     
     func setData(additionalScheduleData: AdditionalSchedule) {
-            dayLabel.text = "\(additionalScheduleData.day)일차 · \(additionalScheduleData.day)번째 액티비티"
+            dayLabel.text = "\(additionalScheduleData.day)일차 · \(currentIndex - 4)번째 액티비티"
             
             let imageUrl = URL(string: additionalScheduleData.image1)
             programImage.kf.setImage(with: imageUrl)
