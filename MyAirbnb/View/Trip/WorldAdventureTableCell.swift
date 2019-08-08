@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 protocol WorldAdventureTableCellDelegate: class {
-    func pushAdventureVC(globalAdventureData: BestTrip)
+    func pushAdventureVC(globalAdventureData: GlobalTrip)
 }
 
 class WorldAdventureTableCell: UITableViewCell {
@@ -19,7 +19,7 @@ class WorldAdventureTableCell: UITableViewCell {
     private enum UI {
         static let itemsInLine: CGFloat = 2
         static let linesOnScreen: CGFloat = 2
-        static let lineSpacing: CGFloat = 15.0
+        static let lineSpacing: CGFloat = 20.0
         static let itemSpacing: CGFloat = 13.0
         static let edgeInsets = UIEdgeInsets(top: 15, left: 20, bottom: 0, right: 20)
     }
@@ -67,7 +67,7 @@ class WorldAdventureTableCell: UITableViewCell {
     }()
     
     weak var delegate: WorldAdventureTableCellDelegate?
-    var globalAdventureDataArray = [BestTrip]()
+    var globalAdventureDataArray = [GlobalTrip]()
     
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -123,7 +123,7 @@ class WorldAdventureTableCell: UITableViewCell {
         let cellWidth = (UIScreen.main.bounds.width - 40 - 13) / 2
         let cellHeight = cellWidth * 1.85
         
-        let collectionHeight = (cellHeight * 2) + 30 + 10
+        let collectionHeight = (cellHeight * 2) + 30 + 25
         
         collectionView.snp.makeConstraints { (make) in
             make.top.equalTo(descLabel.snp.bottom).offset(10)

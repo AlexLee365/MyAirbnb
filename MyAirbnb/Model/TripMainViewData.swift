@@ -69,7 +69,7 @@ struct AdventureAdditional: Codable {
 // MARK: - GlobalTrip
 struct GlobalTrip: Codable {
     let name: String
-    let image1: String
+    let image1: String?
     let state: GlobalAdventureTripState
     let ratingScore: Double
     let reviewCount: Int

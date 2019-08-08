@@ -9,9 +9,10 @@
 import UIKit
 import AVFoundation
 import SnapKit
+import Kingfisher
 
 protocol VideoCollectionViewCellDelegate: class {
-    func pushView()
+    func pushView(url: String)
 }
 
 class VideoCollectionViewCell: UICollectionViewCell {
@@ -97,6 +98,8 @@ class VideoCollectionViewCell: UICollectionViewCell {
     
     var index = 0
     var player: AVPlayer?
+    
+    var data: RepresentationTrip5?
     
     private let videoView = UIView()
     private let descLabel = UILabel()
@@ -258,7 +261,9 @@ class VideoCollectionViewCell: UICollectionViewCell {
 //        hostLabel.text = "호스트: \n \(data["hostName"] ?? "")"
 //        descLabel.text = data["desc"]!
         
-        imageView.image = UIImage(named: "adventure")
+        let imageUrl = URL(string: representationData.image1)
+        imageView.kf.setImage(with: imageUrl)
+        
         imageView.frame = CGRect(origin: .zero, size: tempSize)
         titleLabel.text = representationData.name
         categoryLabel.text = representationData.category
@@ -299,7 +304,7 @@ class VideoCollectionViewCell: UICollectionViewCell {
     
     // MARK: - seeDetailBtnDidTap
     @objc private func seeDetailBtnDidTap(_ sender: UIButton) {
-        delegate?.pushView()
+        delegate?.pushView(url: data?.url ?? "")
     }
     
     private func autoLayout() {

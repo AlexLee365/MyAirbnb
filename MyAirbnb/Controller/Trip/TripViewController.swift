@@ -291,14 +291,23 @@ extension TripViewController: SeoulRecommenedTripTableViewCellDelegate {
 // MARK: - WorldAdventureTableCellDelegate
 
 extension TripViewController: WorldAdventureTableCellDelegate {
-    func pushAdventureVC(globalAdventureData: BestTrip) {
+    func pushAdventureVC(globalAdventureData: GlobalTrip) {
         let adventureVC = VideosDetailViewController()
         
         adventureVC.adventureDetailUrl = globalAdventureData.url
-            
+        
         tabBarController?.tabBar.isHidden = true
         navigationController?.pushViewController(adventureVC, animated: true)
     }
+//
+//    func pushAdventureVC(globalAdventureData: BestTrip) {
+//        let adventureVC = VideosDetailViewController()
+//
+//        adventureVC.adventureDetailUrl = globalAdventureData.url
+//
+//        tabBarController?.tabBar.isHidden = true
+//        navigationController?.pushViewController(adventureVC, animated: true)
+//    }
 }
 
 // MARK: - OtherCityTripTableCellDelegate

@@ -124,18 +124,17 @@ class WorldAdventureCollectionCell: UICollectionViewCell {
         }
     }
     
-    func setData(worldAdventureData: BestTrip) {
-//        imageView.image = UIImage(named: "worldAdventure1")
+    func setData(worldAdventureData: GlobalTrip) {
         let imageUrl = URL(string: worldAdventureData.image1 ?? "")
         imageView.kf.setImage(with: imageUrl)
         
-        categoryLabel.text = "\(worldAdventureData.durationTime)일 여행 코스 · 푸에르토아요라"
+        categoryLabel.text = "\(worldAdventureData.detailCategory) · \(worldAdventureData.state.name)"
         titleLabel.text = worldAdventureData.name
         
         if worldAdventureData.ratingScore > 0.0 {
             starImage.image = UIImage(named: "star")
             rateLabel.text = String(worldAdventureData.ratingScore)
-            noOfReviewLabel.text = String(worldAdventureData.reviewCount)
+            noOfReviewLabel.text = "(\(worldAdventureData.reviewCount))"
         }
     }
 }

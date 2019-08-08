@@ -175,6 +175,8 @@ extension AVFoundationViewController: UICollectionViewDataSource {
         cell.index = indexPath.row
 //        cell.setting(data: videoData[indexPath.row])
         cell.setting(representationData: representationTripArray[indexPath.row])
+        cell.data = representationTripArray[indexPath.row]
+        let representationUrl = 
         cells.append(cell)
         
         return cell
@@ -203,11 +205,19 @@ extension AVFoundationViewController: UICollectionViewDelegate {
 // MARK: - VideoCollectionViewCellDelegate
 
 extension AVFoundationViewController: VideoCollectionViewCellDelegate {
-    func pushView() {
+//    func pushView() {
+//        cells.forEach { $0.endAnimate() }
+//
+//        let videosDetailVC = VideosDetailViewController()
+//        videosDetailVC.adventureDetailUrl = representationTripArray
+//        navigationController?.pushViewController(videosDetailVC, animated: true)
+//    }
+    
+    func pushView(url: String) {
         cells.forEach { $0.endAnimate() }
         
         let videosDetailVC = VideosDetailViewController()
-        
+        videosDetailVC.adventureDetailUrl = url
         navigationController?.pushViewController(videosDetailVC, animated: true)
     }
 }
