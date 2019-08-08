@@ -38,7 +38,7 @@ class FavoriteHouseListView: UIView {
     private func configureViewsOptions() {
         
         favoriteTableView.rowHeight = UITableView.automaticDimension
-        favoriteTableView.allowsSelection = false
+        
         
         favoriteTableView.delegate = self
         favoriteTableView.dataSource = self
@@ -109,6 +109,11 @@ extension FavoriteHouseListView: UITableViewDelegate, UITableViewDataSource {
             }
         }
         return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("didSelect")
+        NotificationCenter.default.post(name: .moveToFavoriteHouseDetailVC, object: nil)
     }
     
     

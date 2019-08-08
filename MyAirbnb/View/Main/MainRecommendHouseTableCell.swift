@@ -20,7 +20,7 @@ class MainRecommendHouseTableCell: UITableViewCell {
     let collectionViewCellWidth: CGFloat = UIScreen.main.bounds.width * 0.4
     let notiCenter = NotificationCenter.default
     
-    var plusHouseDataArray = [HousePlusDataInList]()
+    var plusHouseDataArray = [HouseDataInList]()    // HOusePlustDataInList
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: MainRecommendHouseTableCell.identifier)

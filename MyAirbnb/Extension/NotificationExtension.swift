@@ -55,4 +55,5 @@ extension Notification.Name {
     
     // MARK: - Else
     static let downloadingMessagesDataFinished = Notification.Name("DownloadingMessagesDataFinished")
+    static let moveToFavoriteHouseDetailVC = Notification.Name("moveToFavoriteHouseDetailVC")
 }

@@ -60,7 +60,7 @@ class HousePlusTableCell: UITableViewCell {
     
     let notiCenter = NotificationCenter.default
     let collectionViewCellWidth: CGFloat = UIScreen.main.bounds.width * 0.65
-    var plusHouseDataArray = [HousePlusDataInList]()
+    var plusHouseDataArray = [HouseDataInList]()    // HousePluseDataInList
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

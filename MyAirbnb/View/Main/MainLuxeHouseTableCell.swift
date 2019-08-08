@@ -24,7 +24,7 @@ class MainLuxeHouseTableCell: UITableViewCell {
 //    lazy var collectionViewCellHeight: CGFloat = collectionViewCellWidth * 1.25
     var collectionViewCellHeight: CGFloat = (UIScreen.main.bounds.width * 0.4) * 1.05
     
-    var luxeHouseDataArray = [HouseLuxeDataInList]()
+    var luxeHouseDataArray = [HouseDataInList]()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

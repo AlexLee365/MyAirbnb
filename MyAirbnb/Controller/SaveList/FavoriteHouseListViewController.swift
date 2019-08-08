@@ -13,12 +13,14 @@ class FavoriteHouseListViewController: UIViewController {
     let mainTableView = FavoriteHouseListView()
     var favoriteDataArray = [FavoriteData]()
     
+    let notiCenter = NotificationCenter.default
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupLayout()
         setupConfigure()
-        
+        navigationController?.navigationBar.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,6 +41,12 @@ class FavoriteHouseListViewController: UIViewController {
     }
     
     private func setupConfigure() {
-        
+        notiCenter.addObserver(self, selector: #selector(receiveNotification(_:)), name: .moveToFavoriteHouseDetailVC, object: nil)
+    }
+    
+    @objc func receiveNotification(_ sender: Notification) {
+        print("receive Noti")
+        let favoriteDetailVC = FavoriteHouseDetailViewController()
+        navigationController?.pushViewController(favoriteDetailVC, animated: true)
     }
 }

@@ -82,7 +82,7 @@ extension MainView: UITableViewDelegate, UITableViewDataSource {
             }
         
         case .plus:
-            if let plusHouseData = houseData.data as? [HousePlusDataInList] {
+            if let plusHouseData = houseData.data as? [HouseDataInList] {
                 let recommendHoseCell = tableView.dequeueReusableCell(withIdentifier: MainRecommendHouseTableCell.identifier, for: indexPath) as! MainRecommendHouseTableCell
                 recommendHoseCell.plusHouseDataArray = plusHouseData
                 
@@ -102,7 +102,7 @@ extension MainView: UITableViewDelegate, UITableViewDataSource {
             }
            
         case .luxe:
-            if let luxeHouseData = houseData.data as? [HouseLuxeDataInList] {
+            if let luxeHouseData = houseData.data as? [HouseDataInList] {
                 let luxeHouseCell = tableView.dequeueReusableCell(withIdentifier: MainLuxeHouseTableCell.identifier, for: indexPath) as! MainLuxeHouseTableCell
                 luxeHouseCell.luxeHouseDataArray = luxeHouseData
                 

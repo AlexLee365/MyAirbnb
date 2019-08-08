@@ -108,9 +108,9 @@ class LaunchScreenViewController: UIViewController {
     private func reArrangeMainViewDataArray() {
         var newArrangedArray = [MainViewData]()
         guard let categoryData = ( mainViewDataArray.filter { $0.cellStyle == .category}.map{$0.data}.first ) as? [Category]
-            , let plusHouseData = ( mainViewDataArray.filter { $0.cellStyle == .plus}.map{$0.data}.first ) as? [HousePlusDataInList]
+            , let plusHouseData = ( mainViewDataArray.filter { $0.cellStyle == .plus}.map{$0.data}.first ) as? [HouseDataInList]
             , let fullImageData = ( mainViewDataArray.filter { $0.cellStyle == .fullImage}.map{$0.data}.first ) as? [HouseFullImagDataInList]
-            , let luxeHouseData = ( mainViewDataArray.filter { $0.cellStyle == .luxe}.map{$0.data}.first ) as? [HouseLuxeDataInList]
+            , let luxeHouseData = ( mainViewDataArray.filter { $0.cellStyle == .luxe}.map{$0.data}.first ) as? [HouseDataInList]
             , let normalHouseData = ( mainViewDataArray.filter { $0.cellStyle == .fourSquare}.map{$0.data}.first ) as? [HouseDataInList] else {
                 print("‼️ reArrangeMainViewDataArray convert ")
                 return
@@ -324,7 +324,7 @@ extension LaunchScreenViewController {
         }
     }
     
-    private func getServerLuxeData(completion: @escaping ([HouseLuxeDataInList]) -> ()) {
+    private func getServerLuxeData(completion: @escaping ([HouseDataInList]) -> ()) {
         let urlString = netWork.basicUrlString
             + "/rooms/?search=sanjose&ordering=-total_rating&page_size=10&page=1"
         
@@ -342,7 +342,7 @@ extension LaunchScreenViewController {
                 return
             }
             
-            guard let luxeHouseArray = try? self.jsonDecoder.decode([HouseLuxeDataInList].self, from: data) else {
+            guard let luxeHouseArray = try? self.jsonDecoder.decode([HouseDataInList].self, from: data) else {
                 print("‼️ LaunchVC result decoding convert error")
                 return
             }
@@ -351,7 +351,7 @@ extension LaunchScreenViewController {
         }
     }
     
-    private func getServerPlusHouseData(completion: @escaping ([HousePlusDataInList]) -> () ) {
+    private func getServerPlusHouseData(completion: @escaping ([HouseDataInList]) -> () ) {
         let urlString = netWork.basicUrlString
             + "/rooms/?search=russia&ordering=-total_rating&page_size=10&page=1"
         
@@ -369,7 +369,7 @@ extension LaunchScreenViewController {
                 return
             }
             
-            guard let plusHouseArray = try? self.jsonDecoder.decode([HousePlusDataInList].self, from: data) else {
+            guard let plusHouseArray = try? self.jsonDecoder.decode([HouseDataInList].self, from: data) else {
                 print("‼️ LaunchVC result decoding convert error")
                 return
             }

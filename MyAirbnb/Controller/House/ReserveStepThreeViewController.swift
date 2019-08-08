@@ -122,6 +122,7 @@ class ReserveStepThreeViewController: UIViewController {
             switch result {
             case .success(let value):
                 print("🔵🔵🔵 Success!! / data: ", value)
+                
                 DispatchQueue.main.async {
                     let reservationCompleteVC = HouseReservationCompleteViewController()
                     self.navigationController?.pushViewController(reservationCompleteVC, animated: false)
@@ -176,6 +177,12 @@ class ReserveStepThreeViewController: UIViewController {
                     completion(.failure(NSError()))
                     return
             }
+            
+            guard let reservation = try? JSONDecoder().decode(Reservation.self, from: data) else { print("‼️ : "); return }
+            SingletonCommonData.shared.userInfo?.reservations.append([SingletonCommonData.shared.makeRandomString(): reservation])
+            
+            print("🔵🔵🔵 After Reservation get Data: ", data)
+            print("After Converting: ", reservation)
             
             completion(.success(jsonObject))
             }.resume()

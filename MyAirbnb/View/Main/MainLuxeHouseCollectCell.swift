@@ -13,7 +13,7 @@ class MainLuxeHouseCollectCell: UICollectionViewCell {
     static let identifier = "MainLuxeHouseCollectCell"
     
     let mainImageView = UIImageView()
-    let likeBtn = UIButton()
+    let likeBtn = LikeButton(contentID: 0, contentType: .room)
     
     let houseGradeImageView = UIImageView()
     let dateAndGuestLabel = UILabel()
@@ -42,10 +42,10 @@ class MainLuxeHouseCollectCell: UICollectionViewCell {
         
         mainImageView.addSubview(likeBtn)
         likeBtn.translatesAutoresizingMaskIntoConstraints = false
-        likeBtn.topAnchor.constraint(equalTo: mainImageView.topAnchor, constant: 5).isActive = true
-        likeBtn.trailingAnchor.constraint(equalTo: mainImageView.trailingAnchor, constant: -5).isActive = true
-        likeBtn.widthAnchor.constraint(equalToConstant: 16).isActive = true
-        likeBtn.heightAnchor.constraint(equalToConstant: 16).isActive = true
+        likeBtn.topAnchor.constraint(equalTo: mainImageView.topAnchor, constant: 0).isActive = true
+        likeBtn.trailingAnchor.constraint(equalTo: mainImageView.trailingAnchor, constant: -2).isActive = true
+        likeBtn.widthAnchor.constraint(equalToConstant: 26).isActive = true
+        likeBtn.heightAnchor.constraint(equalToConstant: 26).isActive = true
         
         contentView.addSubview(firstStackView)
         firstStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -73,8 +73,10 @@ class MainLuxeHouseCollectCell: UICollectionViewCell {
         mainImageView.layer.masksToBounds = true
         mainImageView.layer.cornerRadius = 2
         mainImageView.image = UIImage(named: "luxeSample")
+        mainImageView.isUserInteractionEnabled = true
         
         likeBtn.setImage(UIImage(named: "heart"), for: .normal)
+        likeBtn.imageEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         
         firstStackView.axis = .horizontal
         firstStackView.alignment = .leading
@@ -98,7 +100,7 @@ class MainLuxeHouseCollectCell: UICollectionViewCell {
        
     }
     
-    func setData(luxeHouseData: HouseLuxeDataInList) {
+    func setData(luxeHouseData: HouseDataInList) {
 //        mainImageView.image = luxeHouseData.houseMainImage
 //        dateAndGuestLabel.text = "검증됨 ・ \(luxeHouseData.houseLocation)"
 //        houseNameLabel.text = luxeHouseData.houseName
@@ -107,5 +109,6 @@ class MainLuxeHouseCollectCell: UICollectionViewCell {
         houseNameLabel.text = luxeHouseData.title
         guard let url = URL(string: luxeHouseData.image) else { return }
         mainImageView.kf.setImage(with: url)
+        likeBtn.resetContentIDAndTypeAndHouseData(contentID: luxeHouseData.id, contentType: .room, houseData: luxeHouseData)
     }
 }

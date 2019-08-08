@@ -288,8 +288,8 @@ class HouseDetailCalendarViewController: UIViewController {
     
     private func setUnAvailableDates() {
         let reservationsString = houseDetailData?.reservations ?? []
-        print("--------------------------[Set Unavailable Dates]--------------------------")
-        print(reservationsString)
+//        print("--------------------------[Set Unavailable Dates]--------------------------")
+//        print(reservationsString)
         
         for reservation in reservationsString {
             
@@ -424,7 +424,7 @@ extension HouseDetailCalendarViewController: FSCalendarDelegate, FSCalendarDataS
     }
     
     func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at monthPosition: FSCalendarMonthPosition) {
-        print("willDisplay cell date: ", date)
+//        print("willDisplay cell date: ", date)
         
         dateFormatter.dateFormat = "MM-dd"
         let dateString = dateFormatter.string(from: date)

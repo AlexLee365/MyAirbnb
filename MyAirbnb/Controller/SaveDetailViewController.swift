@@ -48,6 +48,7 @@ class SaveDetailViewController: UIViewController {
         let tableView = UITableView()
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorInset = UIEdgeInsets(top: 0, left: UIScreen.main.bounds.width, bottom: 0, right: 0)
+        tableView.contentInsetAdjustmentBehavior = .never
         
         tableView.register(HouseInfoTableCell.self, forCellReuseIdentifier: HouseInfoTableCell.identifier)
         tableView.register(HostAndHouseTypeTableCell.self, forCellReuseIdentifier: HostAndHouseTypeTableCell.identifier)

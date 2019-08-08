@@ -58,6 +58,7 @@ class OnePhotoCell: UITableViewCell {
     }
     
     private func setupConfigure() {
+        self.selectionStyle = .none
         
         firstImage.contentMode = .scaleAspectFill
         firstImage.clipsToBounds = true

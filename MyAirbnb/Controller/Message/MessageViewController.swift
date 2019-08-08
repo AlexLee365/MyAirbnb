@@ -91,7 +91,7 @@ class MessageViewController: UIViewController, NVActivityIndicatorViewable {
         navigationController?.view.backgroundColor = UIColor.clear
         
         tabBarController?.tabBar.isHidden = false
-        print("🔴🔴🔴 MessageVC chatroomArray: ", chatRoomArray)
+//        print("🔴🔴🔴 MessageVC chatroomArray: ", chatRoomArray)
         chatRoomArray = SingletonCommonData.shared.userChatRoomsArray
         tableView.reloadData()
     }

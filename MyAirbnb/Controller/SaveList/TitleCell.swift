@@ -26,6 +26,7 @@ class TitleCell: UITableViewCell {
     }
     
     private func setupLayout() {
+        self.selectionStyle = .none
         
         contentView.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false

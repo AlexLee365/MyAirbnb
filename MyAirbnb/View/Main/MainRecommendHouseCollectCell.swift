@@ -13,7 +13,8 @@ class MainRecommendHouseCollectCell: UICollectionViewCell {
     
     // MARK: - UI Properties
     let mainImageView = UIImageView()
-    let likeBtn = UIButton()
+    let likeBtn = LikeButton(contentID: 10, contentType: .room)
+//    var likeBtn = UIButton()
     
     let houseGradeImageView = UIImageView()
     let dateAndGuestLabel = UILabel()
@@ -27,7 +28,6 @@ class MainRecommendHouseCollectCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         setAutoLayout()
         configureViewsOptions()
     }
@@ -46,10 +46,11 @@ class MainRecommendHouseCollectCell: UICollectionViewCell {
         
         mainImageView.addSubview(likeBtn)
         likeBtn.translatesAutoresizingMaskIntoConstraints = false
-        likeBtn.topAnchor.constraint(equalTo: mainImageView.topAnchor, constant: 5).isActive = true
-        likeBtn.trailingAnchor.constraint(equalTo: mainImageView.trailingAnchor, constant: -5).isActive = true
-        likeBtn.widthAnchor.constraint(equalToConstant: 16).isActive = true
-        likeBtn.heightAnchor.constraint(equalToConstant: 16).isActive = true
+        likeBtn.topAnchor.constraint(equalTo: mainImageView.topAnchor, constant: 0).isActive = true
+        likeBtn.trailingAnchor.constraint(equalTo: mainImageView.trailingAnchor, constant: -2).isActive = true
+        likeBtn.widthAnchor.constraint(equalToConstant: 28).isActive = true     // 원래크기 16
+        likeBtn.heightAnchor.constraint(equalToConstant: 28).isActive = true
+        
         
         contentView.addSubview(firstStackView)
         firstStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -86,14 +87,18 @@ class MainRecommendHouseCollectCell: UICollectionViewCell {
         
 //        ratingImageLabel.heightAnchor.constraint(equalTo: secondStackView.heightAnchor).isActive = true
 //        ratingAndHostInfoLabel.heightAnchor.constraint(equalTo: secondStackView.heightAnchor).isActive = true
+        
+        self.bringSubviewToFront(likeBtn)
     }
     
     private func configureViewsOptions() {
         mainImageView.contentMode = .scaleAspectFill
         mainImageView.layer.masksToBounds = true
         mainImageView.layer.cornerRadius = 2
+        mainImageView.isUserInteractionEnabled = true
         
-        likeBtn.setImage(UIImage(named: "heart"), for: .normal)
+//        likeBtn.setImage(UIImage(named: "heart"), for: .normal)
+        likeBtn.imageEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         
         firstStackView.axis = .horizontal
         firstStackView.alignment = .leading
@@ -129,7 +134,8 @@ class MainRecommendHouseCollectCell: UICollectionViewCell {
         ratingAndHostInfoLabel.sizeToFit()
     }
     
-    func setData(plusHouseData: HousePlusDataInList) {
+    
+    func setData(plusHouseData: HouseDataInList) {  // HOusePlusDataInList
         if let url = URL(string: plusHouseData.image) {
             mainImageView.kf.setImage(with: url)
         }
@@ -138,5 +144,6 @@ class MainRecommendHouseCollectCell: UICollectionViewCell {
         houseNameLabel.text = plusHouseData.title
         ratingImageLabel.text = plusHouseData.drawStarsWithHouseRate()
         ratingAndHostInfoLabel.text = "\(plusHouseData.reservations) ・ 슈퍼호스트"
+        likeBtn.resetContentIDAndTypeAndHouseData(contentID: plusHouseData.id, contentType: .room, houseData: plusHouseData)
     }
 }

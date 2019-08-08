@@ -710,8 +710,8 @@ extension MainViewController {
     
     private func setHouseDatasWithLuxePlusData() -> [HouseViewData] {
         
-        let luxeData = mainView.mainViewDatas.filter{$0.cellStyle == .luxe}.map{$0.data as! [HouseLuxeDataInList]}.first ?? []
-        let plusData = mainView.mainViewDatas.filter{$0.cellStyle == .plus}.map{$0.data as! [HousePlusDataInList]}.first ?? []
+        let luxeData = mainView.mainViewDatas.filter{$0.cellStyle == .luxe}.map{$0.data as! [HouseDataInList]}.first ?? []  // HouseLuxeDataInList
+        let plusData = mainView.mainViewDatas.filter{$0.cellStyle == .plus}.map{$0.data as! [HouseDataInList]}.first ?? []  // HousePlusDataInList
         
         let houseviewDataIntroLabel = HouseViewData(
             data: [HouseIntroLabelDataInList(intro: "여행 날짜와 게스트 인원수를 입력하면 1박당 총 요금을 확인할 수 있습니다. 관광세가 추가로 부과될 수 있습니다.")],

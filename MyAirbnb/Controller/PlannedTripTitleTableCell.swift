@@ -32,7 +32,6 @@ class PlannedTripTitleTableCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
         configure()
         setAutolayout()
     }
@@ -55,7 +54,7 @@ class PlannedTripTitleTableCell: UITableViewCell {
         }
         
         noOfPlannedTrip.snp.makeConstraints { (make) in
-            make.top.equalTo(titleLabel.snp.bottom).offset(25)
+            make.top.equalTo(titleLabel.snp.bottom).offset(15)
             make.leading.equalTo(20)
             make.bottom.equalTo(0)
         }

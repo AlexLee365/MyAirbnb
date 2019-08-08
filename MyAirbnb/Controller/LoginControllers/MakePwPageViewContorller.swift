@@ -30,7 +30,7 @@ class MakePwPageViewContorller: UIViewController {
         
         topBarItem.delegate = self
         keyboardTopViewItem.delegate = self
-        
+     
         
         setupItems()
         setupConstraint()
@@ -43,7 +43,10 @@ class MakePwPageViewContorller: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         registForKeyboardNotification()
-        
+        print("🔵🔵🔵 : ")
+        print(presentingViewController)
+        print(navigationController)
+        print(navigationController?.viewControllers)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -79,9 +82,9 @@ class MakePwPageViewContorller: UIViewController {
         let keyboardFrame: NSValue = userInfo.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as! NSValue
         let keyboardRect = keyboardFrame.cgRectValue
         
-        print("키보드 높이 : \(keyboardRect.height)")
+//        print("키보드 높이 : \(keyboardRect.height)")
         keyboardHeight = keyboardRect.height - bottomInsets
-        print("safeAreaInsets을 뺀 키보드 높이 : \(keyboardHeight)")
+//        print("safeAreaInsets을 뺀 키보드 높이 : \(keyboardHeight)")
         bottomLayout.constant = -keyboardHeight
     }
     
@@ -92,7 +95,7 @@ class MakePwPageViewContorller: UIViewController {
         let hideKeyboardFrame: NSValue = userInfo.value(forKey: UIResponder.keyboardFrameBeginUserInfoKey) as! NSValue
         let hideKeyboardRect = hideKeyboardFrame.cgRectValue
         let hideKeyboardHeight = hideKeyboardRect.height
-        print("내려간 키보드 높이 : \(hideKeyboardHeight)")
+//        print("내려간 키보드 높이 : \(hideKeyboardHeight)")
         bottomLayout.constant = 0
     }
     
@@ -207,6 +210,18 @@ class MakePwPageViewContorller: UIViewController {
         
     }
     
+    private func makeAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let action1 = UIAlertAction(title: "OK", style: .default) { _ in
+            self.navigationController?.popToRootViewController(animated: true)
+//            let loginVC = LoginPageViewController()
+//            self.present(loginVC, animated: false)
+        }
+        
+        alert.addAction(action1)
+        present(alert, animated: true)
+    }
+    
 }
 
 extension MakePwPageViewContorller: TopBarItemViewDelegate {
@@ -218,9 +233,8 @@ extension MakePwPageViewContorller: TopBarItemViewDelegate {
 extension MakePwPageViewContorller: KeyboardTopViewNextBtnDelegate {
     func pushView() {
         
-        let birthDayVC = ConfirmBirthDayViewController()
-        
-        navigationController?.pushViewController(birthDayVC, animated: true)
+//        let birthDayVC = ConfirmBirthDayViewController()
+//        navigationController?.pushViewController(birthDayVC, animated: true)
         
         let makePassword = inputPwTxtField.text ?? ""
         UserDefaults.standard.set(makePassword, forKey: "password")
@@ -232,7 +246,10 @@ extension MakePwPageViewContorller: KeyboardTopViewNextBtnDelegate {
         let firstName = UserDefaults.standard.string(forKey: "firstname")!
         let lastName = UserDefaults.standard.string(forKey: "lastname")!
         
+
+        
         loginPost(username: username, email: email, password: password, firstName: firstName, lastName: lastName)
+        makeAlert(title: "Message", message: "로그인 성공하였습니다.")
     }
     
     

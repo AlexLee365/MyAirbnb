@@ -16,7 +16,7 @@ struct UserInfo: Codable {
     let image: String?
     let description: String?
     let rooms: [Int?]
-    let reservations: [[String: Reservation]?]
+    var reservations: [[String: Reservation]?]
     
     enum CodingKeys: String, CodingKey {
         case id, username, email
