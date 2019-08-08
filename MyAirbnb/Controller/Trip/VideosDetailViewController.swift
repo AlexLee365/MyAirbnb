@@ -10,18 +10,20 @@ import UIKit
 import AVFoundation
 import MapKit
 import Kingfisher
+import NVActivityIndicatorView
 
 class VideosDetailViewController: UIViewController {
     
-//    let videoData: [[String: String]] = [
-//        ["image": "adventure",
-//         "videoUrl": "http://tetris.dicemono.xyz/test.mp4"
-//        ]
-//    ]
-    
+    //    let videoData: [[String: String]] = [
+    //        ["image": "adventure",
+    //         "videoUrl": "http://tetris.dicemono.xyz/test.mp4"
+    //        ]
+    //    ]
     let tempView = UIView()
     let videoImageView = UIImageView()
     let videoView = UIView()
+    let placeholderView = UIView()
+    let indicator = NVActivityIndicatorView(frame: .zero)
     
     var player: AVPlayer?
     
@@ -85,12 +87,12 @@ class VideosDetailViewController: UIViewController {
         label.font = UIFont(name: "AirbnbCerealApp-Book", size: 12)
         return label
     }()
-
     
-//    let scheduleImages = ["schedule1", "schedule2", "schedule3"]
-//    let contentsArray = [("Lake Crescent & the Pacific Coast", "Ferry across the Puget Sound. Walk Marymere Falls & Ruby Beach. Coastal campfire & dinner!"), ("Hoh Rainforest & Vanishing Silence", "Hike along the pristine Hoh River. Discover silence in the giant trees of Hoh Rainforest!"), ("Hike Hurricane Ridge", "Climb to Hurricane Ridge and explore new heights in the panoramic Olympic Mountain range.")]
-//    
-//    let imageCollectionArray = ["videoDetailImage1", "videoDetailImage2", "videoDetailImage3", "videoDetailImage4", "videoDetailImage5", "videoDetailImage6", "videoDetailImage7"]
+    
+    //    let scheduleImages = ["schedule1", "schedule2", "schedule3"]
+    //    let contentsArray = [("Lake Crescent & the Pacific Coast", "Ferry across the Puget Sound. Walk Marymere Falls & Ruby Beach. Coastal campfire & dinner!"), ("Hoh Rainforest & Vanishing Silence", "Hike along the pristine Hoh River. Discover silence in the giant trees of Hoh Rainforest!"), ("Hike Hurricane Ridge", "Climb to Hurricane Ridge and explore new heights in the panoramic Olympic Mountain range.")]
+    //
+    //    let imageCollectionArray = ["videoDetailImage1", "videoDetailImage2", "videoDetailImage3", "videoDetailImage4", "videoDetailImage5", "videoDetailImage6", "videoDetailImage7"]
     
     
     let notiCenter = NotificationCenter.default
@@ -115,15 +117,30 @@ class VideosDetailViewController: UIViewController {
         
         configure()
         setAutolayout()
-        
+        setPlaceholderView()
         addNotificationObserver()
+        showIdicator()
+        
         getServerData {
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
+            print("getSErverData finished")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                print("after 1second")
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.view.bringSubviewToFront(self.tableView)
+                    self.view.bringSubviewToFront(self.bottomView)
+                    self.tableView.alpha = 1
+                    self.bottomView.alpha = 1
+                })
+                self.stopIndicator()
+                
+            })
+            
+//            DispatchQueue.main.async {
+//                self.tableView.reloadData()
+//            }
         }
     }
-        
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.barStyle = .blackTranslucent
@@ -133,7 +150,7 @@ class VideosDetailViewController: UIViewController {
         super.viewDidAppear(animated)
         startAnimate()
     }
-
+    
     
     private func configure() {
         view.backgroundColor = .white
@@ -144,7 +161,7 @@ class VideosDetailViewController: UIViewController {
         tempView.addSubview(videoView)
         tempView.addSubview(videoImageView)
         
-//        setting(data: videoData[0])
+        //        setting(data: videoData[0])
         
         if !adventureAdditionalArray.isEmpty {
             setting(data: adventureAdditionalArray[0])
@@ -152,6 +169,7 @@ class VideosDetailViewController: UIViewController {
         
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.alpha = 0
         view.addSubview(tableView)
         
         topView.delegate = self
@@ -163,6 +181,7 @@ class VideosDetailViewController: UIViewController {
         bottomView.addSubview(noOfReviewLabel)
         bottomView.addSubview(newTripLabel)
         bottomView.addSubview(seeDateBtn)
+        bottomView.alpha = 0
     }
     
     private func setAutolayout() {
@@ -223,26 +242,26 @@ class VideosDetailViewController: UIViewController {
     }
     
     
-//    func setting(data: [String: String]) {
-//        let url = URL(string: data["videoUrl"]!)
-//        let playerItem = AVPlayerItem(url: url!)
-//        player = AVPlayer(playerItem: playerItem)
-//
-//        let playerLayer = AVPlayerLayer(player: player)
-//
-//        let tempSize = CGSize(width: view.frame.width, height: 500)
-//
-//        playerLayer.frame = CGRect(origin: .zero, size: tempSize)
-//        playerLayer.videoGravity = .resizeAspectFill
-//        videoView.layer.addSublayer(playerLayer)
-//
-//        videoImageView.image = UIImage(named: data["image"]!)
-//        videoImageView.frame = CGRect(origin: .zero, size: tempSize)
-//    }
+    //    func setting(data: [String: String]) {
+    //        let url = URL(string: data["videoUrl"]!)
+    //        let playerItem = AVPlayerItem(url: url!)
+    //        player = AVPlayer(playerItem: playerItem)
+    //
+    //        let playerLayer = AVPlayerLayer(player: player)
+    //
+    //        let tempSize = CGSize(width: view.frame.width, height: 500)
+    //
+    //        playerLayer.frame = CGRect(origin: .zero, size: tempSize)
+    //        playerLayer.videoGravity = .resizeAspectFill
+    //        videoView.layer.addSublayer(playerLayer)
+    //
+    //        videoImageView.image = UIImage(named: data["image"]!)
+    //        videoImageView.frame = CGRect(origin: .zero, size: tempSize)
+    //    }
     
-//    func setting(data: [String: String]) {
+    //    func setting(data: [String: String]) {
     func setting(data: AdventureAdditional) {
-//        let url = URL(string: data["videoUrl"]!)
+        //        let url = URL(string: data["videoUrl"]!)
         let url = URL(string: data.media)
         let playerItem = AVPlayerItem(url: url!)
         player = AVPlayer(playerItem: playerItem)
@@ -255,7 +274,7 @@ class VideosDetailViewController: UIViewController {
         playerLayer.videoGravity = .resizeAspectFill
         videoView.layer.addSublayer(playerLayer)
         
-//        videoImageView.image = UIImage(named: data["image"]!)
+        //        videoImageView.image = UIImage(named: data["image"]!)
         let imageUrl = URL(string: data.image1 ?? "")
         videoImageView.kf.setImage(with: imageUrl)
         videoImageView.frame = CGRect(origin: .zero, size: tempSize)
@@ -299,8 +318,8 @@ class VideosDetailViewController: UIViewController {
             }
             
             self.tripDetailData = result
-//            self.numberOfCell = 7 + self.scheduleImages.count
-
+            //            self.numberOfCell = 7 + self.scheduleImages.count
+            
             if !(result.tripDetail.additional[0]?.additionalSchedule.isEmpty ?? true) {
                 self.numberOfCell = 7 + (result.tripDetail.additional[0]?.additionalSchedule.count ?? 0)
             } else {
@@ -335,6 +354,7 @@ class VideosDetailViewController: UIViewController {
                 
                 self.priceLabel.text = "₩\(priceString)/인"
                 self.tableView.reloadData()
+                completion()
             }
         }
     }
@@ -344,7 +364,7 @@ class VideosDetailViewController: UIViewController {
 // MARK: - UITableViewDataSource
 
 extension VideosDetailViewController: UITableViewDataSource {
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return numberOfCell
     }
@@ -370,7 +390,7 @@ extension VideosDetailViewController: UITableViewDataSource {
             
         case 2:
             let imageCollectionCell = tableView.dequeueReusableCell(withIdentifier: ImagesCollectionTableCell.identifier, for: indexPath) as! ImagesCollectionTableCell
-
+            
             if let data = additionalData {
                 imageCollectionCell.setData(tripAdditionalData: data)
             }
@@ -389,7 +409,7 @@ extension VideosDetailViewController: UITableViewDataSource {
             cell.selectionStyle = .none
             return cell
             
-//        case 5...(scheduleImages.count + 4):
+        //        case 5...(scheduleImages.count + 4):
         case 5..<((scheduleDataArray.count) + 5):
             let tripScheduleCell = tableView.dequeueReusableCell(withIdentifier: TripScheduleTableCell.identifier, for: indexPath) as! TripScheduleTableCell
             tripScheduleCell.currentIndex = indexPath.row
@@ -403,10 +423,10 @@ extension VideosDetailViewController: UITableViewDataSource {
                 tripScheduleCell.lineTopView.isHidden = false
                 tripScheduleCell.lineView.isHidden = false
             }
-        
+            
             
             return tripScheduleCell
-        
+            
         case (scheduleDataArray.count + 5):
             let hostCell = tableView.dequeueReusableCell(withIdentifier: VideoHostInfoTableCell.identifier, for: indexPath) as! VideoHostInfoTableCell
             
@@ -430,19 +450,19 @@ extension VideosDetailViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 
 extension VideosDetailViewController: UITableViewDelegate {
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        switch indexPath.row {
-//        case 0:
-//        case 1:
-//        case 2:
-//        case 3:
-//        case 4:
-//        case 5:
-//            
-//        default:
-//            <#code#>
-//        }
-//    }
+    //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    //        switch indexPath.row {
+    //        case 0:
+    //        case 1:
+    //        case 2:
+    //        case 3:
+    //        case 4:
+    //        case 5:
+    //
+    //        default:
+    //            <#code#>
+    //        }
+    //    }
     
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -500,3 +520,46 @@ extension VideosDetailViewController: TableviewTopViewDelegate {
     }
 }
 
+
+
+extension VideosDetailViewController {
+    private func setPlaceholderView() {
+        let placeholderColor = #colorLiteral(red: 0.6902005672, green: 0.6860997081, blue: 0.6933541894, alpha: 0.3706389127)
+        
+        placeholderView.backgroundColor = .white
+        view.addSubview(placeholderView)
+        placeholderView.snp.makeConstraints { (make) in
+            make.top.leading.trailing.bottom.equalTo(view)
+            
+        }
+        
+        let blackView = UIView()
+        placeholderView.addSubview(blackView)
+        blackView.snp.makeConstraints { (make) in
+            make.leading.trailing.bottom.equalTo(view)
+            make.height.equalTo(UIScreen.main.bounds.height-500)
+        }
+        
+        blackView.backgroundColor = .black
+    }
+    
+    private func showIdicator() {
+        let centerX = UIScreen.main.bounds.width/2
+        let centerY = UIScreen.main.bounds.height/2
+        placeholderView.addSubview(indicator)
+        indicator.frame = CGRect(x: centerX-15, y: centerY-50, width: 30, height: 30)
+        indicator.type = .ballBeat
+        indicator.color = .black
+        startIndicator()
+    }
+    
+    private func startIndicator() {
+        view.bringSubviewToFront(placeholderView)
+        indicator.startAnimating()
+    }
+    private func stopIndicator() {
+        print("stopIndicator")
+        view.sendSubviewToBack(placeholderView)
+        indicator.stopAnimating()
+    }
+}

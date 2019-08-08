@@ -159,6 +159,8 @@ class VideoCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(seeDetailButton)
         
         contentView.addSubview(imageView)
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.masksToBounds = true
         contentView.addSubview(categoryLabel)
         contentView.addSubview(titleLabel)
         contentView.addSubview(hostLabel)

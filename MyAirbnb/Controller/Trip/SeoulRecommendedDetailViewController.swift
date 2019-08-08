@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 import MapKit
 import Kingfisher
+import NVActivityIndicatorView
 
 class SeoulRecommendedDetailViewController: UIViewController {
     
@@ -68,6 +69,9 @@ class SeoulRecommendedDetailViewController: UIViewController {
         return button
     }()
     
+    let placeholderView = UIView()
+    let indicator = NVActivityIndicatorView(frame: .zero)
+    
     let notiCenter = NotificationCenter.default
     
     var tripDetailUrl = ""
@@ -90,10 +94,24 @@ class SeoulRecommendedDetailViewController: UIViewController {
         configure()
         setAutolayout()
         addNotificationObserver()
+        setPlaceholderView()
+        showIdicator()
         getServerData {
-            DispatchQueue.main.async {
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
                 self.tableView.reloadData()
-            }
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.view.bringSubviewToFront(self.tableView)
+                    self.view.bringSubviewToFront(self.bottomView)
+                    self.tableView.alpha = 1
+                    self.bottomView.alpha = 1
+                })
+                self.stopIndicator()
+            })
+            
+//            DispatchQueue.main.async {
+//                self.tableView.reloadData()
+//            }
         }
     }
     
@@ -121,6 +139,7 @@ class SeoulRecommendedDetailViewController: UIViewController {
     private func configure() {
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.alpha = 0
         view.addSubview(tableView)
         
         topView.delegate = self
@@ -131,6 +150,7 @@ class SeoulRecommendedDetailViewController: UIViewController {
         bottomView.addSubview(starImageLabel)
         bottomView.addSubview(noOfReviewLabel)
         bottomView.addSubview(seeDateBtn)
+        bottomView.alpha = 0
     }
     
     @objc func popnav() {
@@ -278,6 +298,7 @@ class SeoulRecommendedDetailViewController: UIViewController {
                 self.priceLabel.attributedText = self.attributedText(first: "₩" + "\(priceString) ", second: "/인")
                 self.noOfReviewLabel.text = "(\(self.tripDetailData?.tripDetail.tripReviews.count ?? 0))"
                 self.tableView.reloadData()
+                completion()
             }
         }
     }
@@ -480,5 +501,47 @@ extension SeoulRecommendedDetailViewController: TripDetailReviewTableCellDelegat
         reviewVC.reviewCount = tripDetailData?.tripDetail.tripReviews.count ?? 0
         reviewVC.reviewArray = tripDetailData?.tripDetail.tripReviews.compactMap{$0} ?? []
         present(reviewVC, animated: true)
+    }
+}
+
+extension SeoulRecommendedDetailViewController {
+    private func setPlaceholderView() {
+        let placeholderColor = #colorLiteral(red: 0.6902005672, green: 0.6860997081, blue: 0.6933541894, alpha: 0.3706389127)
+        
+        placeholderView.backgroundColor = .white
+        view.addSubview(placeholderView)
+        placeholderView.snp.makeConstraints { (make) in
+            make.top.leading.trailing.bottom.equalTo(view)
+            
+        }
+        
+        let blackView = UIView()
+        placeholderView.addSubview(blackView)
+        blackView.snp.makeConstraints { (make) in
+            make.leading.trailing.bottom.equalTo(view)
+            make.height.equalTo(UIScreen.main.bounds.height*0.2)
+        }
+        
+        blackView.backgroundColor = .black
+    }
+    
+    private func showIdicator() {
+        let centerX = UIScreen.main.bounds.width/2
+        let centerY = UIScreen.main.bounds.height/2
+        placeholderView.addSubview(indicator)
+        indicator.frame = CGRect(x: centerX-15, y: centerY-50, width: 30, height: 30)
+        indicator.type = .ballBeat
+        indicator.color = .black
+        startIndicator()
+    }
+    
+    private func startIndicator() {
+        view.bringSubviewToFront(placeholderView)
+        indicator.startAnimating()
+    }
+    private func stopIndicator() {
+        print("stopIndicator")
+        view.sendSubviewToBack(placeholderView)
+        indicator.stopAnimating()
     }
 }
