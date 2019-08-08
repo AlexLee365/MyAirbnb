@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class SpecialTripCollectionViewCell: UICollectionViewCell {
     static let identifier = "specialTripCollectionViewCell"
@@ -79,7 +80,8 @@ class SpecialTripCollectionViewCell: UICollectionViewCell {
     }
     
     func setData(mainCategoryData: MainCategory) {
-        imageView.image = UIImage(named: "airbnb_adventure")
+        let imageUrl = URL(string: mainCategoryData.image ?? "")
+        imageView.kf.setImage(with: imageUrl)
         titleLabel.text = mainCategoryData.name
         descLabel.text = mainCategoryData.mainCategoryDescription
     }

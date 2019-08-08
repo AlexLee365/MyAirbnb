@@ -85,10 +85,10 @@ class AllTripsTableCell: UITableViewCell {
         
         if lineCount % 2 == 0 {
             let lineSpacings = CGFloat(20 * (lineCount - 1))
-            collectionHeight = cellHeight * CGFloat(lineCount) + lineSpacings + 20
+            collectionHeight = cellHeight * CGFloat(lineCount) + lineSpacings + 20 + 30
         } else {
             let lineSpacings = CGFloat(20 * ((lineCount + 1) - 1))
-            collectionHeight = cellHeight * CGFloat(lineCount) + lineSpacings + 20
+            collectionHeight = cellHeight * CGFloat(lineCount) + lineSpacings + 20 + 30
         }
         
         collectionView.snp.makeConstraints { (make) in
