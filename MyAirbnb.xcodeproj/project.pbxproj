@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2005512B22FC10E000DFCD48 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2005512A22FC10E000DFCD48 /* Validation.swift */; };
+		2005512F22FC5D2C00DFCD48 /* ButtonColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2005512E22FC5D2C00DFCD48 /* ButtonColorExtension.swift */; };
 		20081F7A22EEBC4C00BAB0FD /* KeyboardTopViewNextBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20081F7922EEBC4C00BAB0FD /* KeyboardTopViewNextBtn.swift */; };
 		20081F7C22EEBC6300BAB0FD /* InputPhoneNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20081F7B22EEBC6300BAB0FD /* InputPhoneNumberView.swift */; };
 		20081F7E22EEBC8300BAB0FD /* InputEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20081F7D22EEBC8300BAB0FD /* InputEmailView.swift */; };
@@ -231,6 +233,8 @@
 
 /* Begin PBXFileReference section */
 		1B374C2A2B972FE4E8580B8D /* Pods-MyAirbnb.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyAirbnb.release.xcconfig"; path = "Target Support Files/Pods-MyAirbnb/Pods-MyAirbnb.release.xcconfig"; sourceTree = "<group>"; };
+		2005512A22FC10E000DFCD48 /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
+		2005512E22FC5D2C00DFCD48 /* ButtonColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonColorExtension.swift; sourceTree = "<group>"; };
 		20081F7922EEBC4C00BAB0FD /* KeyboardTopViewNextBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardTopViewNextBtn.swift; sourceTree = "<group>"; };
 		20081F7B22EEBC6300BAB0FD /* InputPhoneNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputPhoneNumberView.swift; sourceTree = "<group>"; };
 		20081F7D22EEBC8300BAB0FD /* InputEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputEmailView.swift; sourceTree = "<group>"; };
@@ -623,6 +627,8 @@
 				438BDDA422F2C76000944276 /* SingletonCommonData.swift */,
 				4313F09322E8478E003BB3D1 /* MainViewData.swift */,
 				43F5AA8E22F00055007511E1 /* HouseDatasInList.swift */,
+				2005512E22FC5D2C00DFCD48 /* ButtonColorExtension.swift */,
+				2005512A22FC10E000DFCD48 /* Validation.swift */,
 				4399347422E9B12700FAE15C /* HouseDetailData.swift */,
 				8D4FDA9022F4552000E31CF5 /* TripMainViewData.swift */,
 				8D4FDACF22F984E400E31CF5 /* AllTripData.swift */,
@@ -1164,6 +1170,7 @@
 				8D0D78A122D4598200F61F0B /* TripIntroData.swift in Sources */,
 				8D518FEC22DF280B009D6792 /* InstantBookTableCell.swift in Sources */,
 				20081F8022EEBCB200BAB0FD /* StatusChangeBtn.swift in Sources */,
+				2005512F22FC5D2C00DFCD48 /* ButtonColorExtension.swift in Sources */,
 				8D0D793522DC5F0700F61F0B /* TripLocalHostingViewController.swift in Sources */,
 				8D0D788E22D222A400F61F0B /* TripInfoCollectionViewCell.swift in Sources */,
 				8D4FDA8722F42A3300E31CF5 /* AllInterestCollectionCell.swift in Sources */,
@@ -1176,6 +1183,7 @@
 				8D4FDA5322F2BFC200E31CF5 /* HouseDetailReviewTableCell.swift in Sources */,
 				4353BA3322DDB7CF004BD807 /* FilterPeopleViewController.swift in Sources */,
 				4353B91222D73B80004BD807 /* FourSquareTableCell.swift in Sources */,
+				2005512B22FC10E000DFCD48 /* Validation.swift in Sources */,
 				8D51904B22EC1DAD009D6792 /* TripContentsTableCell.swift in Sources */,
 				8D51907C22EEDEEB009D6792 /* ItemsProvidingTableCell.swift in Sources */,
 				4353BA6522DF0F4A004BD807 /* HouseTopLabelTableCell.swift in Sources */,
@@ -1268,11 +1276,8 @@
 				4353B91422D73E0D004BD807 /* FourSquareCollectCell.swift in Sources */,
 				4353B8E422D0797E004BD807 /* MainViewController.swift in Sources */,
 				43F5AA8722EB2683007511E1 /* SearchBarTableCell.swift in Sources */,
-
 				202B9A5D22F994800085F770 /* TitleCell.swift in Sources */,
-
 				8D4FDA6D22F3593100E31CF5 /* ReserveStepThreeViewController.swift in Sources */,
-
 				4353BA8F22E09FC5004BD807 /* TestSaveViewController.swift in Sources */,
 				8D4FDA5B22F2E18700E31CF5 /* StepOneTitleTableCell.swift in Sources */,
 				8D0D794222DDE50900F61F0B /* AVFoundationViewController.swift in Sources */,
@@ -1455,13 +1460,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = G4MM77V7NH;
+				DEVELOPMENT_TEAM = 64WAG22Y2J;
 				INFOPLIST_FILE = MyAirbnb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = kr.doyeong.MyAirbnb;
+				PRODUCT_BUNDLE_IDENTIFIER = com.VincentGeranium;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "./FSCalendar/Objc-Bridge-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -1475,13 +1480,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = G4MM77V7NH;
+				DEVELOPMENT_TEAM = 64WAG22Y2J;
 				INFOPLIST_FILE = MyAirbnb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = kr.doyeong.MyAirbnb;
+				PRODUCT_BUNDLE_IDENTIFIER = com.VincentGeranium;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "./FSCalendar/Objc-Bridge-Header.h";
 				SWIFT_VERSION = 5.0;

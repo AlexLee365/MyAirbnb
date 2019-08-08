@@ -43,6 +43,11 @@ class LoginPageViewController: UIViewController {
     
     var netWork = NetworkCommunicator()
     
+      let validation = Vaildation()
+    
+    let normalStateColor = UIColor.init(displayP3Red: 185, green: 216, blue: 218, alpha: 0.8)
+    let selectStateColor = UIColor.init(displayP3Red: 57, green: 129, blue: 136, alpha: 0.3)
+    
     
     
     
@@ -315,6 +320,7 @@ class LoginPageViewController: UIViewController {
         emailTxtField.textColor = .white
         emailTxtField.textAlignment = .left
         emailTxtField.backgroundColor = .clear
+        emailTxtField.addTarget(self, action: #selector(beginEditingemailTxtField(_:)), for: .allEditingEvents)
         
         emailTxtUnderLine.backgroundColor = .white
         
@@ -333,10 +339,10 @@ class LoginPageViewController: UIViewController {
         passwordTxtField.textColor = .white
         passwordTxtField.textAlignment = .left
         passwordTxtField.backgroundColor = .clear
+        passwordTxtField.addTarget(self, action: #selector(beginEditingPasswordTxtField(_:)), for: .allEditingEvents)
         
         passwordTxtUnderLine.backgroundColor = .white
         
-        emailCheckImage.image = UIImage.init(named: "checkMark")
         emailCheckImage.isHidden = true
         emailCheckImage.backgroundColor = .clear
         
@@ -349,15 +355,15 @@ class LoginPageViewController: UIViewController {
         usePhoneNumberBtn.backgroundColor = .clear
         usePhoneNumberBtn.addTarget(self, action: #selector(didTapUsePhoneNumberBtn(_:)), for: .touchUpInside)
         
-//        let selectedBackColor = UIColor.init(displayP3Red: 58, green: 130, blue: 136, alpha: 1.0)
-//        let normalBackColor = UIColor.init(displayP3Red: 185, green: 216, blue: 218, alpha: 0.8)
-//        var loginBtnBackColor = loginBtn.backgroundColor
-        
         loginBtn.setTitle("로그인", for: .normal)
         loginBtn.setTitleColor(.white, for: .normal)
+        loginBtn.setTitle("로그인", for: .selected)
+        loginBtn.setTitleColor(.white, for: .selected)
         loginBtn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-//        loginBtnBackColor = UIColor.init(displayP3Red: 185, green: 216, blue: 218, alpha: 0.8)
-        loginBtn.backgroundColor = UIColor.init(displayP3Red: 185, green: 216, blue: 218, alpha: 0.8)
+        
+        loginBtn.setBackgroundColor(normalStateColor, for: .normal)
+        loginBtn.setBackgroundColor(selectStateColor, for: .selected)
+
         loginBtn.layer.cornerRadius = 5.0
         loginBtn.layer.shadowColor = UIColor.init(displayP3Red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
         //        loginBtn.layer.shadowColor = UIColor.green.cgColor
@@ -367,6 +373,41 @@ class LoginPageViewController: UIViewController {
         loginBtn.addTarget(self, action: #selector(didTapLoginBtn(_:)), for: .touchUpInside)
     }
     
+    // 이메일 Validation
+    @objc private func beginEditingemailTxtField(_ sender: UITextField) {
+        
+        let emailStr = sender.text ?? ""
+
+        if (sender.text?.isEmpty)! == true {
+
+            emailCheckImage.isHidden = true
+            
+        } else if (sender.text?.isEmpty)! == false {
+            
+            if validation.isValidEmail(emailStr: emailStr) == true {
+                emailCheckImage.image = UIImage.init(named: "checkMark")
+                emailCheckImage.isHidden = false
+                
+            } else if validation.isValidEmail(emailStr: emailStr) == false {
+                emailCheckImage.image = UIImage.init(named: "exclamationMark")
+                emailCheckImage.isHidden = false
+            }
+        }
+    }
+    
+    
+    // 비밀번호 입력시 로그인 버튼 활성화
+    @objc private func beginEditingPasswordTxtField(_ sender: UITextField) {
+        if (sender.text?.isEmpty)! == true {
+            
+            loginBtn.isSelected = false
+        } else if (sender.text?.isEmpty)! == false {
+            
+            loginBtn.isSelected = true
+        }
+    }
+    
+    // 로그인 버튼 눌렀을 때
     @objc private func didTapLoginBtn(_ sender: UIButton) {
         
         // validation
@@ -443,38 +484,44 @@ class LoginPageViewController: UIViewController {
 }
 
 extension LoginPageViewController: UITextFieldDelegate {
-    // 이메일 주소 텍스트 필드가 채워질때만 체크박스 활성화 되도록 수정
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    
+    // 키보드 내 next 버튼 눌렀을때
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
-        let text = textField.text ?? ""
-        
-        let replaceText = (text as NSString).replacingCharacters(in: range, with: string)
-        
-        UIView.animate(withDuration: 0.1, delay: 0, animations: {
+        // validation
+        if (textField.isEqual(self.emailTxtField)) {
             
-            if replaceText.isEmpty {
-                self.emailCheckImage.isHidden = true
-            } else {
-                self.emailCheckImage.isHidden = false
+            if (emailTxtField.text?.isEmpty)! == true {
+                
+                //desplay alert message
+                print("email field must filled")
+                
+                emailCheckImage.image = UIImage.init(named: "exclamationMark")
+                emailCheckImage.isHidden = false
+                
+                return false
+                
+            } else if (emailTxtField.text?.isEmpty)! == false {
+                
+                passwordTxtField.becomeFirstResponder()
+                
             }
             
-        })
-        return true
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if (textField.isEqual(self.emailTxtField)) {
-            passwordTxtField.becomeFirstResponder()
-            
         } else if(textField.isEqual(self.passwordTxtField)) {
-            // send HTTP request
-            // 토큰 요청 코드
-          tryLogin()
+            
+            if (passwordTxtField.text?.isEmpty)! == true {
+                print("password field must filled")
+                
+                return false
+                
+            } else if (passwordTxtField.text?.isEmpty)! == false {
+                
+                // send HTTP request
+                // 토큰 요청 코드
+                tryLogin()
+            }
         }
         return true
     }
     
 }
-
-
-
