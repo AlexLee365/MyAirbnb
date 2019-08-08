@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 class ProfileInfoTableCell: UITableViewCell {
     static let identifier = "ProfileInfoTableCell"
@@ -100,6 +101,9 @@ class ProfileInfoTableCell: UITableViewCell {
         statusViewContainerView.addSubview(fillContainerView)
         contentView.addSubview(recommendLabel)
         
+        if let url = URL(string: SingletonCommonData.shared.userInfo?.image ?? "") {
+            profileImage.kf.setImage(with: url)            
+        }
         
     }
     

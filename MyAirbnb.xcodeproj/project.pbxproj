@@ -1370,9 +1370,6 @@
 				43F5AA8722EB2683007511E1 /* SearchBarTableCell.swift in Sources */,
 				202B9A5D22F994800085F770 /* TitleCell.swift in Sources */,
 				8D4FDA6D22F3593100E31CF5 /* ReserveStepThreeViewController.swift in Sources */,
-
-				4353BA8F22E09FC5004BD807 /* TestSaveViewController.swift in Sources */,
-
 				8D4FDA5B22F2E18700E31CF5 /* StepOneTitleTableCell.swift in Sources */,
 				8D0D794222DDE50900F61F0B /* AVFoundationViewController.swift in Sources */,
 				4342404B22F9E819001B8AB6 /* LuxeDetailBasicServiceTableCell.swift in Sources */,
@@ -1559,13 +1556,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 64WAG22Y2J;
+				DEVELOPMENT_TEAM = 5AVJM299X4;
 				INFOPLIST_FILE = MyAirbnb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.VincentGeranium;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.AlexLee0427.example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "./FSCalendar/Objc-Bridge-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -1579,13 +1576,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 64WAG22Y2J;
+				DEVELOPMENT_TEAM = 5AVJM299X4;
 				INFOPLIST_FILE = MyAirbnb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.VincentGeranium;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.AlexLee0427.example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "./FSCalendar/Objc-Bridge-Header.h";
 				SWIFT_VERSION = 5.0;
