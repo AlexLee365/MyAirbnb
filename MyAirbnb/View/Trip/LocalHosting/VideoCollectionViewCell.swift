@@ -12,7 +12,7 @@ import SnapKit
 import Kingfisher
 
 protocol VideoCollectionViewCellDelegate: class {
-    func pushView(url: String)
+    func pushView(url: String, adventureAdditional: [AdventureAdditional])
 }
 
 class VideoCollectionViewCell: UICollectionViewCell {
@@ -100,6 +100,7 @@ class VideoCollectionViewCell: UICollectionViewCell {
     var player: AVPlayer?
     
     var data: RepresentationTrip5?
+    
     
     private let videoView = UIView()
     private let descLabel = UILabel()
@@ -209,6 +210,7 @@ class VideoCollectionViewCell: UICollectionViewCell {
                 let seconds = CMTimeGetSeconds(duration)
                 
 //                var minutesText = Int(seconds) / 60
+                guard seconds.isFinite else { return }
                 let minutesText = String(format: "%02d", Int(seconds) / 60)
                 let secondsText = Int(seconds) % 60
                 
@@ -261,7 +263,7 @@ class VideoCollectionViewCell: UICollectionViewCell {
 //        hostLabel.text = "호스트: \n \(data["hostName"] ?? "")"
 //        descLabel.text = data["desc"]!
         
-        let imageUrl = URL(string: representationData.image1)
+        let imageUrl = URL(string: representationData.additional[0].image1 ?? "")
         imageView.kf.setImage(with: imageUrl)
         
         imageView.frame = CGRect(origin: .zero, size: tempSize)
@@ -304,7 +306,7 @@ class VideoCollectionViewCell: UICollectionViewCell {
     
     // MARK: - seeDetailBtnDidTap
     @objc private func seeDetailBtnDidTap(_ sender: UIButton) {
-        delegate?.pushView(url: data?.url ?? "")
+        delegate?.pushView(url: data?.url ?? "", adventureAdditional: data?.additional ?? [])
     }
     
     private func autoLayout() {

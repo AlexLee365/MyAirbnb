@@ -57,7 +57,8 @@ struct RepresentationTrip5: Codable {
 struct AdventureAdditional: Codable {
     let trip: Int
     let media: String
-    let additionalDescription, image1: String
+    let additionalDescription: String
+    let image1: String?
     
     enum CodingKeys: String, CodingKey {
         case trip, media

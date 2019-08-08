@@ -140,7 +140,7 @@ class TripDetailReviewTableCell: UITableViewCell {
     
     func setData(tripReviewData: TripReview, tripData: TripDetail) {
         userProfileImage.image = UIImage(named: "userProfileImage")
-        userNameLabel.text = tripReviewData.userSet
+        userNameLabel.text = tripReviewData.userSet.username
         
         let dateformatter = DateFormatter()
         dateformatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
@@ -149,7 +149,7 @@ class TripDetailReviewTableCell: UITableViewCell {
         let reviewDate = Calendar.current.dateComponents([.year, .month], from: date)
         
         dateLabel.text = "\(reviewDate.year ?? 0)년 \(reviewDate.month ?? 0)월"
-        reviewLabel.text = tripReviewData.tripReviewDescription
+        reviewLabel.text = tripReviewData.reviewDesc
         readBtnLabel.text = "후기 \(tripData.tripReviews.count)개 읽기"
     }
     

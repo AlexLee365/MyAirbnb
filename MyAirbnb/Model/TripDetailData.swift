@@ -28,7 +28,7 @@ struct TripDetail: Codable {
     let language: String
     let provides: [Provide?]
     let schedules: [Schedule]
-    let tripReviews: [TripReview]
+    let tripReviews: [TripReview?]
     let host: Host
     let hostAbout, program, additionalCondition, guestMaterial: String
     let latitude, longitude: Double
@@ -40,7 +40,7 @@ struct TripDetail: Codable {
     let compatibility, strength, technic: String
     let image1, image2, image3, image4: String?
     let image5, image6, image7: String?
-    let additional: [Additional]
+    let additional: [Additional?]
     
     enum CodingKeys: String, CodingKey {
         case pk, name
@@ -77,7 +77,7 @@ struct TripDetail: Codable {
 struct Additional: Codable {
     let additionalDescription, image1, image2, image3: String
     let image4, image5, image6, image7: String
-    let additionalSchedule: [AdditionalSchedule]
+    let additionalSchedule: [AdditionalSchedule?]
     
     enum CodingKeys: String, CodingKey {
         case additionalDescription = "description"
@@ -146,14 +146,21 @@ struct AdventureState: Codable {
 
 // MARK: - TripReview
 struct TripReview: Codable {
-    let userSet, tripReviewDescription: String
+    let userSet: UserSet
+    let reviewDesc: String
     let ratingScore: Int
     let createdAt: String
     
     enum CodingKeys: String, CodingKey {
         case userSet = "user_set"
-        case tripReviewDescription = "description"
+        case reviewDesc = "description"
         case ratingScore = "rating_score"
         case createdAt = "created_at"
     }
 }
+
+// MARK: - UserSet
+struct UserSet: Codable {
+    let username: String
+}
+

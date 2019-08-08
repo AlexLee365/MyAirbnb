@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 class ImagesCollectionTableCell: UITableViewCell {
     static let identifier = "ImagesCollectionTableCell"
@@ -135,5 +136,30 @@ class ImagesCollectionTableCell: UITableViewCell {
             make.height.equalTo(thirdImage.snp.height)
             make.bottom.equalTo(-20)
         }
+    }
+    
+    func setData(tripAdditionalData: Additional) {
+        if let imageUrl = URL(string: tripAdditionalData.image1) {
+            firstImage.kf.setImage(with: imageUrl)
+        }
+        if let imageUrl = URL(string: tripAdditionalData.image2) {
+            secondImage.kf.setImage(with: imageUrl)
+        }
+        if let imageUrl = URL(string: tripAdditionalData.image3) {
+            thirdImage.kf.setImage(with: imageUrl)
+        }
+        if let imageUrl = URL(string: tripAdditionalData.image4) {
+            fourthImage.kf.setImage(with: imageUrl)
+        }
+        if let imageUrl = URL(string: tripAdditionalData.image5) {
+            fifthImage.kf.setImage(with: imageUrl)
+        }
+        if let imageUrl = URL(string: tripAdditionalData.image6) {
+            sixthImage.kf.setImage(with: imageUrl)
+        }
+        if let imageUrl = URL(string: tripAdditionalData.image7) {
+            seventhImage.kf.setImage(with: imageUrl)
+        }
+        
     }
 }
