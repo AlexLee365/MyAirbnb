@@ -24,7 +24,8 @@ class TripIntroTableViewCell: UITableViewCell {
         static let nextOffset: CGFloat = 8
     }
     
-    
+    var representationTripArray = [RepresentationTrip5]()
+
     
 //    let gradientView: UIView = {
 //        let view = UIView()
@@ -141,17 +142,14 @@ class TripIntroTableViewCell: UITableViewCell {
 
 extension TripIntroTableViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return representationTripArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TripIntroCollectionViewCell.identifier, for: indexPath) as! TripIntroCollectionViewCell
         
-        cell.imageView.image = UIImage(named: tripIntroDatas[indexPath.row].image)
-        cell.categoryLabel.text = tripIntroDatas[indexPath.row].category
-        cell.titleLabel.text = tripIntroDatas[indexPath.row].title
-        cell.hostNameLabel.text = tripIntroDatas[indexPath.row].hostName
+        cell.setData(representTripData: representationTripArray[indexPath.row])
         
         return cell
     }
@@ -176,7 +174,7 @@ extension TripIntroTableViewCell: UICollectionViewDelegateFlowLayout {
         
         let horizontalSpacing = lineSpacing + horizontalInset + UI.nextOffset
         let cellWidth: CGFloat = ((collectionView.frame.width - horizontalSpacing) / UI.linesOnScreen)
-        let cellHeight = collectionView.frame.height * 0.9
+        let cellHeight = collectionView.frame.height * 0.87
         
         let roundedWidth = cellWidth.rounded(.down)
         let roundedHeight = cellHeight.rounded(.down)

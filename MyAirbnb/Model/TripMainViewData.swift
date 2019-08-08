@@ -42,11 +42,11 @@ struct MainCategory: Codable {
 struct RepresentationTrip5: Codable {
     let trip: Int
     let media: String
-    let representationTrip5_Description, image1: String
+    let representationTrip5Description, image1: String
     
     enum CodingKeys: String, CodingKey {
         case trip, media
-        case representationTrip5_Description = "description"
+        case representationTrip5Description = "description"
         case image1 = "image_1"
     }
 }

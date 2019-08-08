@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import SnapKit
 
 protocol VideoCollectionViewCellDelegate: class {
     func pushView()
@@ -52,12 +53,49 @@ class VideoCollectionViewCell: UICollectionViewCell {
     var index = 0
     var player: AVPlayer!
     
+    let activityIndicatorView: UIActivityIndicatorView = {
+        let aiv = UIActivityIndicatorView(style: .whiteLarge)
+        aiv.startAnimating()
+        return aiv
+    }()
+    
+    let pausePlayBtn: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(named: "pause"), for: .normal)
+        button.tintColor = .white
+        button.isHidden = true
+        return button
+    }()
+    
+    let controlsContainerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(white: 0, alpha: 1)
+        return view
+    }()
+    
+    let videoLengthLabel: UILabel = {
+        let label = UILabel()
+        label.text = "00:00"
+        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.textAlignment = .right
+        return label
+    }()
+    
+    let videoSlider: UISlider = {
+        let slider = UISlider()
+        return slider
+    }()
+    
     private let videoView = UIView()
     private let descLabel = UILabel()
     private let seeDetailButton = UIButton()
     private let imageView = UIImageView()
     
     weak var delegate: VideoCollectionViewCellDelegate?
+    
+    var isPlaying = false
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -74,8 +112,22 @@ class VideoCollectionViewCell: UICollectionViewCell {
             self.categoryLabel.alpha = 0
             self.hostLabel.alpha = 0
             self.player.play()
+  
+            self.player.addObserver(self, forKeyPath: "currentItem.loadedTimeRanges", options: .new, context: nil)
+            
             self.layoutIfNeeded()
         })
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        
+        // This is when the player is ready and rendering frames
+        if keyPath == "currentItem.loadedTimeRanges" {
+            activityIndicatorView.stopAnimating()
+            controlsContainerView.backgroundColor = .clear
+            pausePlayBtn.isHidden = false
+            isPlaying = true
+        }
     }
     
     func endAnimate() {
@@ -87,8 +139,10 @@ class VideoCollectionViewCell: UICollectionViewCell {
         player.pause()
     }
     
-    func setting(data: [String: String]) {
-        let url = URL(string: data["videoUrl"]!)
+//    func setting(data: [String: String], representationData: RepresentationTrip5) {
+    func setting(representationData: RepresentationTrip5) {
+//        let url = URL(string: data["videoUrl"]!)
+        let url = URL(string: representationData.media)
         let playerItem = AVPlayerItem(url: url!)
         player = AVPlayer(playerItem: playerItem)
         
@@ -100,13 +154,18 @@ class VideoCollectionViewCell: UICollectionViewCell {
         playerLayer.videoGravity = .resizeAspectFill
         videoView.layer.addSublayer(playerLayer)
         
-        imageView.image = UIImage(named: data["image"]!)
-        imageView.frame = CGRect(origin: .zero, size: tempSize)
+//        imageView.image = UIImage(named: data["image"]!)
+//        titleLabel.text = data["title"]!
+//        categoryLabel.text = data["category"]
+//        hostLabel.text = "호스트: \n \(data["hostName"] ?? "")"
+//        descLabel.text = data["desc"]!
         
-        titleLabel.text = data["title"]!
-        categoryLabel.text = data["category"]
-        hostLabel.text = "호스트: \n \(data["hostName"] ?? "")"
-        descLabel.text = data["desc"]!
+        imageView.image = UIImage(named: "adventure")
+        imageView.frame = CGRect(origin: .zero, size: tempSize)
+        titleLabel.text = "갈라파고스 슬로푸드 사파리"
+        categoryLabel.text = "어드벤처"
+        hostLabel.text = "Jill & Javier"
+        descLabel.text = representationData.representationTrip5Description
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -121,8 +180,21 @@ class VideoCollectionViewCell: UICollectionViewCell {
     private func configure() {
         contentView.backgroundColor = .black
         
+        let tempSize = CGSize(width: contentView.frame.width, height: contentView.frame.height - Standard.subViewHeight)
+        
         contentView.addSubview(videoView)
         
+        controlsContainerView.frame = CGRect(origin: .zero, size: tempSize)
+        contentView.addSubview(controlsContainerView)
+        
+        controlsContainerView.addSubview(activityIndicatorView)
+        
+        pausePlayBtn.addTarget(self, action: #selector(handlePauseBtn(_:)), for: .touchUpInside)
+        controlsContainerView.addSubview(pausePlayBtn)
+        
+        controlsContainerView.addSubview(videoLengthLabel)
+        controlsContainerView.addSubview(videoSlider)
+
         descLabel.numberOfLines = 0
         descLabel.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
         descLabel.textColor = .white
@@ -145,7 +217,18 @@ class VideoCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(hostLabel)
     }
     
-    @objc func seeDetailBtnDidTap(_ sender: UIButton) {
+    @objc private func handlePauseBtn(_ sender: UIButton) {
+        if isPlaying {
+            player.pause()
+            pausePlayBtn.setImage(UIImage(named: "play"), for: .normal)
+        } else {
+            player.play()
+            pausePlayBtn.setImage(UIImage(named: "pause"), for: .normal)
+        }
+        isPlaying.toggle()
+    }
+    
+    @objc private func seeDetailBtnDidTap(_ sender: UIButton) {
         delegate?.pushView()
     }
     
@@ -172,5 +255,27 @@ class VideoCollectionViewCell: UICollectionViewCell {
             = true
         descLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.8).isActive = true
         
+        activityIndicatorView.snp.makeConstraints { (make) in
+            make.centerX.centerY.equalToSuperview()
+        }
+        
+        pausePlayBtn.snp.makeConstraints { (make) in
+            make.centerX.centerY.equalToSuperview()
+            make.width.height.equalTo(70)
+        }
+        
+        videoLengthLabel.snp.makeConstraints { (make) in
+            make.bottom.equalToSuperview()
+            make.trailing.equalTo(-8)
+            make.width.equalTo(60)
+            make.height.equalTo(24)
+        }
+        
+        videoSlider.snp.makeConstraints { (make) in
+            make.trailing.equalTo(videoLengthLabel.snp.leading)
+            make.bottom.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.height.equalTo(30)
+        }
     }
 }

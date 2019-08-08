@@ -142,6 +142,7 @@ extension TripViewController: UITableViewDataSource {
             let introCell = tableView.dequeueReusableCell(withIdentifier: TripIntroTableViewCell.identifier, for: indexPath) as! TripIntroTableViewCell
             
             introCell.delegate = self
+            introCell.representationTripArray = tripMainViewData?.representationTrip5 ?? []
             
             return introCell
             
@@ -237,6 +238,7 @@ extension TripViewController: TripIntroTableViewCellDelegate {
     func presentView(index: IndexPath) {
         let avFoundationVC = AVFoundationViewController()
         avFoundationVC.beginPageCount = index.row
+        avFoundationVC.representationTripArray = tripMainViewData?.representationTrip5 ?? []
         let navi = UINavigationController(rootViewController: avFoundationVC)
         present(navi, animated: true)
     }
