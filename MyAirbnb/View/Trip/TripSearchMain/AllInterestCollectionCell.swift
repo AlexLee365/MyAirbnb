@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 class AllInterestCollectionCell: UICollectionViewCell {
     static let identifier = "AllInterestCollectionCell"
@@ -111,9 +112,18 @@ class AllInterestCollectionCell: UICollectionViewCell {
     }
     
     func setData(subTripCategoryData: SubTripCategory) {
-        imageView1.image = UIImage(named: "seoulAllInterestSports1")
-        imageView2.image = UIImage(named: "seoulAllInterestSports2")
-        imageView3.image = UIImage(named: "seoulAllInterestSports3")
+        if let imageUrl = URL(string: subTripCategoryData.image1) {
+            imageView1.kf.setImage(with: imageUrl)
+        }
+        
+        if let imageUrl = URL(string: subTripCategoryData.image2 ?? "") {
+            imageView2.kf.setImage(with: imageUrl)
+        }
+        
+        if let imageUrl = URL(string: subTripCategoryData.image3 ?? "") {
+            imageView3.kf.setImage(with: imageUrl)
+        }
+        
         titleLabel.text = subTripCategoryData.name
         descLabel.text = subTripCategoryData.subTripCategoryDescription
     }
