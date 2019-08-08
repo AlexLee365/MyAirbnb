@@ -67,8 +67,8 @@ class VisitingPlaceTableCell: UITableViewCell {
         mapView.addGestureRecognizer(mapViewTapGesture)
         contentView.addSubview(mapView)
         
-        let location = "Baltra Airport Rd"
-        getLocationFromAddress(address: location)
+//        let location = "Baltra Airport Rd"
+//        getLocationFromAddress(address: location)
     }
     
     private func setAutolayout() {
@@ -92,26 +92,35 @@ class VisitingPlaceTableCell: UITableViewCell {
         }
     }
     
+    func centerMapOnLocation(location: CLLocation) {
+        currentCoordinate = location.coordinate
+        let span = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
+        let coordinateRegion = MKCoordinateRegion(center: location.coordinate, span: span)
+        
+        mapView.setRegion(coordinateRegion, animated: true)
+        self.drawCircleInMap(centerCoordinate: coordinateRegion.center)
+    }
+    
     
     @objc private func mapViewDidTap(_ sender: UITapGestureRecognizer) {
         notiCenter.post(name: .mapViewDidTapInHouseDetailView, object: nil, userInfo: ["coordinate": currentCoordinate])
     }
     
     
-    private func getLocationFromAddress(address: String) {
-        geocoder.geocodeAddressString(address) { (placeMark, error) in
-            
-            guard let coordinate = placeMark?.first?.location?.coordinate
-                else { print("주소변환실패!"); return }
-            
-            self.currentCoordinate = coordinate
-            
-            let span = MKCoordinateSpan(latitudeDelta: 0.06, longitudeDelta: 0.06)
-            let region = MKCoordinateRegion(center: coordinate, span: span)
-            self.mapView.setRegion(region, animated: true)
-            self.drawCircleInMap(centerCoordinate: region.center)
-        }
-    }
+//    private func getLocationFromAddress(address: String) {
+//        geocoder.geocodeAddressString(address) { (placeMark, error) in
+//
+//            guard let coordinate = placeMark?.first?.location?.coordinate
+//                else { print("주소변환실패!"); return }
+//
+//            self.currentCoordinate = coordinate
+//
+//            let span = MKCoordinateSpan(latitudeDelta: 0.06, longitudeDelta: 0.06)
+//            let region = MKCoordinateRegion(center: coordinate, span: span)
+//            self.mapView.setRegion(region, animated: true)
+//            self.drawCircleInMap(centerCoordinate: region.center)
+//        }
+//    }
     
     private func drawCircleInMap(centerCoordinate: CLLocationCoordinate2D) {
         let center = centerCoordinate
@@ -122,6 +131,9 @@ class VisitingPlaceTableCell: UITableViewCell {
     func setData(tripData: TripDetail) {
         descLabel.text = tripData.placeInfo
         descLabel.setLineSpacing(lineSpacing: 3)
+        
+        let location = CLLocation(latitude: tripData.latitude, longitude: tripData.longitude)
+        centerMapOnLocation(location: location)
     }
 }
 

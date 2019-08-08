@@ -26,6 +26,7 @@ class OtherCityTripCollectionCell: UICollectionViewCell {
         return label
     }()
     
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -66,7 +67,6 @@ class OtherCityTripCollectionCell: UICollectionViewCell {
     }
     
     func setData(cityListArray: State) {
-        otherCityImage.image = UIImage(named: "stateSeoul")
         cityNameLabel.text = cityListArray.name
     }
 }
