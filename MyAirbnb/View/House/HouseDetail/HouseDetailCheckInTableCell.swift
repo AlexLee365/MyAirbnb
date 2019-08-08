@@ -54,7 +54,7 @@ class HouseDetailCheckInTableCell: UITableViewCell {
         configureTitleText(checkInLabel)
         checkInLabel.text = "체크인\n14:00 이후"
         
-        centerImageView.image = UIImage(named: "diagnoalLine")
+        centerImageView.image = UIImage(named: "CalendarDiagonalLine")
         centerImageView.contentMode = .scaleAspectFit
         
         configureTitleText(checkOutLabel)

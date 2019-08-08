@@ -22,21 +22,25 @@ struct TripDetailData: Codable {
 // MARK: - TripDetail
 struct TripDetail: Codable {
     let pk: Int
-    let name, subCategory, detailCategory, state: String
+    let name, subCategory, detailCategory: String
+    let state: AdventureState
     let durationTime: Int
     let language: String
     let provides: [Provide?]
     let schedules: [Schedule]
     let tripReviews: [TripReview]
     let host: Host
-    let hostAbout, program, additionalCondition: String
-    let guestMaterial, address, placeInfo: String
+    let hostAbout, program, additionalCondition, guestMaterial: String
+    let latitude, longitude: Double
+    let placeInfo: String
     let minAge, maxGuest: Int
     let certification: Bool
-    let price, ratingScore: Int
+    let price: Int
+    let ratingScore: Double
     let compatibility, strength, technic: String
-    let image1, image2, image3, image4, image5, image6, image7: String?
-    var scrollImagesArray = [UIImage]()
+    let image1, image2, image3, image4: String?
+    let image5, image6, image7: String?
+    let additional: [Additional]
     
     enum CodingKeys: String, CodingKey {
         case pk, name
@@ -51,7 +55,7 @@ struct TripDetail: Codable {
         case program
         case additionalCondition = "additional_condition"
         case guestMaterial = "guest_material"
-        case address
+        case latitude, longitude
         case placeInfo = "place_info"
         case minAge = "min_age"
         case maxGuest = "max_guest"
@@ -65,6 +69,40 @@ struct TripDetail: Codable {
         case image5 = "image_5"
         case image6 = "image_6"
         case image7 = "image_7"
+        case additional
+    }
+}
+
+// MARK: - Additional
+struct Additional: Codable {
+    let additionalDescription, image1, image2, image3: String
+    let image4, image5, image6, image7: String
+    let additionalSchedule: [AdditionalSchedule]
+    
+    enum CodingKeys: String, CodingKey {
+        case additionalDescription = "description"
+        case image1 = "image_1"
+        case image2 = "image_2"
+        case image3 = "image_3"
+        case image4 = "image_4"
+        case image5 = "image_5"
+        case image6 = "image_6"
+        case image7 = "image_7"
+        case additionalSchedule = "additional_schedule"
+    }
+}
+
+// MARK: - AdditionalSchedule
+struct AdditionalSchedule: Codable {
+    let day: Int
+    let additionalScheduleDescription, image1, image2, image3: String
+    
+    enum CodingKeys: String, CodingKey {
+        case day
+        case additionalScheduleDescription = "description"
+        case image1 = "image_1"
+        case image2 = "image_2"
+        case image3 = "image_3"
     }
 }
 
@@ -101,6 +139,11 @@ struct Schedule: Codable {
     }
 }
 
+// MARK: - State
+struct AdventureState: Codable {
+    let name, country: String
+}
+
 // MARK: - TripReview
 struct TripReview: Codable {
     let userSet, tripReviewDescription: String
@@ -114,4 +157,3 @@ struct TripReview: Codable {
         case createdAt = "created_at"
     }
 }
-

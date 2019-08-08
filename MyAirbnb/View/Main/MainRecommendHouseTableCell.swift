@@ -20,7 +20,7 @@ class MainRecommendHouseTableCell: UITableViewCell {
     let collectionViewCellWidth: CGFloat = UIScreen.main.bounds.width * 0.4
     let notiCenter = NotificationCenter.default
     
-    var plusHouseDataArray = [HousePlusDataInList]()
+    var plusHouseDataArray = [HouseDataInList]()    // HOusePlustDataInList
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: MainRecommendHouseTableCell.identifier)
@@ -108,7 +108,10 @@ extension MainRecommendHouseTableCell: UICollectionViewDelegate, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        notiCenter.post(name: .moveToPlusHouseDetailView, object: nil)
+        let plusData = plusHouseDataArray[indexPath.row]
+        
+        notiCenter.post(name: .moveToPlusHouseDetailView, object: nil, userInfo: ["roomID": plusData.id,
+                                                                                   "roomName": plusData.title])
     }
     
     

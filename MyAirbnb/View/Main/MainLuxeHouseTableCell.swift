@@ -24,7 +24,7 @@ class MainLuxeHouseTableCell: UITableViewCell {
 //    lazy var collectionViewCellHeight: CGFloat = collectionViewCellWidth * 1.25
     var collectionViewCellHeight: CGFloat = (UIScreen.main.bounds.width * 0.4) * 1.05
     
-    var luxeHouseDataArray = [HouseLuxeDataInList]()
+    var luxeHouseDataArray = [HouseDataInList]()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -48,15 +48,15 @@ class MainLuxeHouseTableCell: UITableViewCell {
         let sideMargin: CGFloat = 20
         
         contentView.addSubview(titleLabel)
-        let titleTextHeight:CGFloat = "가".size(withAttributes: [NSAttributedString.Key.font :
-            UIFont.systemFont(ofSize: StandardUIValue.shared.sizeTitleBoldText, weight: .bold)]).height
+//        let titleTextHeight:CGFloat = "가".size(withAttributes: [NSAttributedString.Key.font :
+//            UIFont.systemFont(ofSize: StandardUIValue.shared.sizeTitleBoldText, weight: .bold)]).height
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: topBottomMargin).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: sideMargin).isActive = true
         
         contentView.addSubview(detailTitleLabel)
-        let detailTitleTextHeight:CGFloat = "가".size(withAttributes: [NSAttributedString.Key.font :
-            UIFont.systemFont(ofSize: StandardUIValue.shared.sizeSubTitleText, weight: .semibold)]).height
+//        let detailTitleTextHeight:CGFloat = "가".size(withAttributes: [NSAttributedString.Key.font :
+//            UIFont.systemFont(ofSize: StandardUIValue.shared.sizeSubTitleText, weight: .semibold)]).height
         detailTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         detailTitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5).isActive = true
         detailTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: sideMargin).isActive = true

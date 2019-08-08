@@ -11,10 +11,11 @@ import UIKit
 class SeoulRecommendTableViewCell: UITableViewCell {
     static let identifier = "seoulRecommendTableViewCell"
     
-    var images = ["bathbomb", "designownbathbomb", "shareyourconcept", "natural", "vegantherapy", "addcolors", "variousdesign", "perfectsouvenier"]
-    var categories = ["공예 클래스", nil, nil, nil, nil, nil, nil, nil]
-    var titles = ["나만의 색과 향을 담은 배쓰밤을 만들어보세요!", "Design your own bath bomb", "Share your concepts", "Vegan & Natural Ingredients", "Vegan Therapy", "Add colors as you want", "Various design", "Perfect souvenirs from Korea:)"]
-    var scrollImageArray = [TopScrollView]()
+    var images = [UIImage]()
+//        ["bathbomb", "designownbathbomb", "shareyourconcept", "natural", "vegantherapy", "addcolors", "variousdesign", "perfectsouvenier"]
+//    var categories = ["공예 클래스", nil, nil, nil, nil, nil, nil, nil]
+//    var titles = ["나만의 색과 향을 담은 배쓰밤을 만들어보세요!", "Design your own bath bomb", "Share your concepts", "Vegan & Natural Ingredients", "Vegan Therapy", "Add colors as you want", "Various design", "Perfect souvenirs from Korea:)"]
+    var scrollViewArray = [TopScrollView]()
 
     var iconsArray = ["locationIcon", "timeIcon", "serviceIcon", "langIcon"]
     var infoViewArray = [InfoView]()
@@ -52,10 +53,19 @@ class SeoulRecommendTableViewCell: UITableViewCell {
         
         contentView.addSubview(scrollView)
         
-        createScrollViews()
-        
-        scrollingTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(scrollAutomatically(_:)), userInfo: nil, repeats: true)
+        scrollingTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(scrollAutomatically(_:)), userInfo: nil, repeats: true)
     }
+    
+    
+    var setLayout = false
+    
+    override func layoutSubviews() {
+        if setLayout == false {
+            createScrollViews()
+            setLayout = true
+        }
+    }
+    
     
     private func setAutolayout() {
         scrollView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
@@ -74,15 +84,16 @@ class SeoulRecommendTableViewCell: UITableViewCell {
             let tempFrame = CGRect(origin: tempPoint, size: tempSize)
 
             let uiView = TopScrollView(frame: tempFrame)
-            uiView.topImageView.image = UIImage(named: images[i])
-
-            if categories[i] != nil {
-                uiView.categoryLabel.text = categories[i]
-                uiView.titleLabel.text = titles[i]
-            } else {
-                uiView.titleLabel.font = UIFont.systemFont(ofSize: 14, weight: .bold)
-                uiView.titleLabel.text = titles[i]
-            }
+            uiView.topImageView.image = images[i]
+            scrollViewArray.append(uiView)
+            
+//            if categories[i] != nil {
+//                uiView.categoryLabel.text = categories[i]
+//                uiView.titleLabel.text = titles[i]
+//            } else {
+//                uiView.titleLabel.font = UIFont.systemFont(ofSize: 14, weight: .bold)
+//                uiView.titleLabel.text = titles[i]
+//            }
             scrollView.addSubview(uiView)
         }
         scrollView.contentSize = CGSize(width: frame.size.width * CGFloat(images.count), height: tempHeight-5)
@@ -107,7 +118,7 @@ class SeoulRecommendTableViewCell: UITableViewCell {
         }
         
         let infoLabelArray: [String] =
-            [tripDetailData.state, "총 \(tripDetailData.durationTime)시간", (provideText == "") ? nil : provideText, tripDetailData.language].compactMap{$0}
+            [tripDetailData.state.name, "총 \(tripDetailData.durationTime)시간", (provideText == "") ? nil : provideText, tripDetailData.language].compactMap{ $0 }
 
         if provideText == "" {
             iconsArray.remove(at: 2)
@@ -140,6 +151,7 @@ class SeoulRecommendTableViewCell: UITableViewCell {
         }
     }
     
+    // 자동 스크롤
     @objc private func scrollAutomatically(_ sender: Timer) {
         let totalPossibleOffset = CGFloat(images.count - 1) * UIScreen.main.bounds.size.width
         if offSet == totalPossibleOffset {

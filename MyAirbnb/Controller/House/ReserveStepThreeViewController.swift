@@ -122,19 +122,11 @@ class ReserveStepThreeViewController: UIViewController {
             switch result {
             case .success(let value):
                 print("🔵🔵🔵 Success!! / data: ", value)
+                
                 DispatchQueue.main.async {
-                    self.makeAlert(title: "Message", message: "결제가 완료되었습니다.\n행복한 여행 되시길 바랍니다.") {
-                        guard let tabbarVC = SingletonCommonData.shared.tabbarController as? TabbarController
-                            , let naviVC = tabbarVC.viewControllers?.first as? UINavigationController
-                            , let mainVC = naviVC.viewControllers.first as? MainViewController else {
-                                print("‼️ tabbarVC, naviVC convert error ")
-                                return
-                        }
-                        
-                        self.dismiss(animated: false)
-                        naviVC.popToRootViewController(animated: true)
-                        mainVC.mainView.mainTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
-                    }
+                    let reservationCompleteVC = HouseReservationCompleteViewController()
+                    self.navigationController?.pushViewController(reservationCompleteVC, animated: false)
+
                 }
             case .failure(let error):
                 print("‼️ : ", error.localizedDescription)
@@ -185,6 +177,12 @@ class ReserveStepThreeViewController: UIViewController {
                     completion(.failure(NSError()))
                     return
             }
+            
+            guard let reservation = try? JSONDecoder().decode(Reservation.self, from: data) else { print("‼️ : "); return }
+            SingletonCommonData.shared.userInfo?.reservations.append([SingletonCommonData.shared.makeRandomString(): reservation])
+            
+            print("🔵🔵🔵 After Reservation get Data: ", data)
+            print("After Converting: ", reservation)
             
             completion(.success(jsonObject))
             }.resume()

@@ -28,12 +28,7 @@ class AllHousesTableCell: UITableViewCell {
     
     let tempHeight = (UIScreen.main.bounds.width - 40) * 0.62
     
-    let likeBtn: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "heart"), for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
+    let likeBtn = LikeButton(contentID: 0, contentType: .room)
     
     let houseTypeLabel: UILabel = {
         let label = UILabel()
@@ -104,6 +99,8 @@ class AllHousesTableCell: UITableViewCell {
         contentView.addSubview(houseNameLabel)
         contentView.addSubview(ratingImageLabel)
         contentView.addSubview(ratingAndHostInfoLabel)
+        
+        likeBtn.imageEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
     }
     
     private func setAutolayout() {
@@ -112,10 +109,11 @@ class AllHousesTableCell: UITableViewCell {
         scrollView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20).isActive = true
         scrollView.heightAnchor.constraint(equalToConstant: tempHeight).isActive = true
         
-        likeBtn.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 10).isActive = true
-        likeBtn.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -15).isActive = true
-        likeBtn.widthAnchor.constraint(equalToConstant: 25).isActive = true
-        likeBtn.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        likeBtn.translatesAutoresizingMaskIntoConstraints = false
+        likeBtn.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 5).isActive = true
+        likeBtn.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -9).isActive = true
+        likeBtn.widthAnchor.constraint(equalToConstant: 35).isActive = true
+        likeBtn.heightAnchor.constraint(equalToConstant: 35).isActive = true
         
         pageController.translatesAutoresizingMaskIntoConstraints = false
         pageController.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -8).isActive = true
@@ -174,11 +172,28 @@ class AllHousesTableCell: UITableViewCell {
         houseNameLabel.text = houseData.title
         ratingImageLabel.text = houseData.drawStarsWithHouseRate()
         ratingAndHostInfoLabel.text = "\(houseData.reservations) ・ \(houseData.superHost ?? "일반 호스트")"
-        imageStringArray = [houseData.image, houseData.image1, houseData.image2, houseData.image3, houseData.image4]
+        likeBtn.resetContentIDAndTypeAndHouseData(contentID: houseData.id, contentType: .room, houseData: houseData)
 
-        guard let url = URL(string: imageStringArray.first ?? "") else { print("‼️ setData url convert error "); return }
-        imageViewArray.first?.kf.setImage(with: url)
-        downLoadAllImages()
+        if let url = URL(string: houseData.image) {
+            imageViewArray[0].kf.setImage(with: url)
+        }
+        if let url = URL(string: houseData.image1) {
+            imageViewArray[1].kf.setImage(with: url)
+        }
+        if let url = URL(string: houseData.image2) {
+            imageViewArray[2].kf.setImage(with: url)
+        }
+        if let url = URL(string: houseData.image3) {
+            imageViewArray[3].kf.setImage(with: url)
+        }
+        if let url = URL(string: houseData.image4) {
+            imageViewArray[4].kf.setImage(with: url)
+        }
+        
+//        imageStringArray = [houseData.image, houseData.image1, houseData.image2, houseData.image3, houseData.image4]
+//        guard let url = URL(string: imageStringArray.first ?? "") else { print("‼️ setData url convert error "); return }
+//        imageViewArray.first?.kf.setImage(with: url)
+//        downLoadAllImages()
     }
 }
 

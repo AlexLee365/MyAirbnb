@@ -40,6 +40,7 @@ class HouseDetailIntroductionTableCell: UITableViewCell {
     
     func setData(description: String) {
         label.text = description
+        label.setLineSpacing(lineSpacing: 5, lineHeightMultiple: 1)
     }
     
     

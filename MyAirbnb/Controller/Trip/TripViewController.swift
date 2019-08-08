@@ -41,6 +41,9 @@ class TripViewController: UIViewController {
         return searchBarView
     }()
     
+    let netWork = NetworkCommunicator()
+    let jsonDecoder = JSONDecoder()
+    
     var tripMainViewData: TripMainViewData?
     var numberOfRows = 0
     
@@ -92,8 +95,6 @@ class TripViewController: UIViewController {
         view.addSubview(searchBarView)
         searchBarView.filterStackView.isHidden = true
         searchBarView.searchTF.text = "트립"
-        
-        
         searchBarView.searchImageBtn.addTarget(self, action: #selector(searchBarBackBtnDidTap(_:)), for: .touchUpInside)
         
         view.addSubview(searchBarBackgroundView)
@@ -101,7 +102,7 @@ class TripViewController: UIViewController {
     }
     
     @objc private func searchBarBackBtnDidTap(_ sender: UIButton) {
-        dismiss(animated: false)
+        navigationController?.popViewController(animated: false)
     }
     
     private func setAutolayout() {
@@ -141,6 +142,7 @@ extension TripViewController: UITableViewDataSource {
             let introCell = tableView.dequeueReusableCell(withIdentifier: TripIntroTableViewCell.identifier, for: indexPath) as! TripIntroTableViewCell
             
             introCell.delegate = self
+            introCell.representationTripArray = tripMainViewData?.representationTrip5 ?? []
             
             return introCell
             
@@ -236,6 +238,7 @@ extension TripViewController: TripIntroTableViewCellDelegate {
     func presentView(index: IndexPath) {
         let avFoundationVC = AVFoundationViewController()
         avFoundationVC.beginPageCount = index.row
+        avFoundationVC.representationTripArray = tripMainViewData?.representationTrip5 ?? []
         let navi = UINavigationController(rootViewController: avFoundationVC)
         present(navi, animated: true)
     }
@@ -254,25 +257,57 @@ extension TripViewController: SeoulRecommenedTripTableViewCellDelegate {
     }
     
     func pushVCForBtn() {
-        let tripAllVC = TripAllViewController()
-        
-        
-        
-        navigationController?.pushViewController(tripAllVC, animated: false)
+//        let tripAllVC = TripAllViewController()
+//
+//        let urlString = "http://airbnb.tthae.com/api/trip/trips"
+//
+//        netWork.getJsonObjectFromAPI(urlString: urlString, urlForSpecificProcessing: nil) { (json, success) in
+//
+//            guard success else {
+//                print("get serverData failed")
+//                return
+//            }
+//
+//            guard let data = try? JSONSerialization.data(withJSONObject: json) else {
+//                print("‼️ moveToHouseDetail noti data convert error")
+//                return
+//            }
+//
+//            guard let result = try? self.jsonDecoder.decode([AllTripData].self, from: data) else {
+//                print("‼️ TripSearchMainViewController noti result decoding convert error")
+//                return
+//            }
+//
+//            tripAllVC.allTripData = result
+//            tripAllVC.numberOfCell = result.count
+//
+//            DispatchQueue.main.async {
+//                self.navigationController?.pushViewController(tripAllVC, animated: false)
+//            }
+//        }
     }
 }
 
 // MARK: - WorldAdventureTableCellDelegate
 
 extension TripViewController: WorldAdventureTableCellDelegate {
-    func pushAdventureVC(globalAdventureData: BestTrip) {
+    func pushAdventureVC(globalAdventureData: GlobalTrip) {
         let adventureVC = VideosDetailViewController()
         
         adventureVC.adventureDetailUrl = globalAdventureData.url
-            
+        
         tabBarController?.tabBar.isHidden = true
         navigationController?.pushViewController(adventureVC, animated: true)
     }
+//
+//    func pushAdventureVC(globalAdventureData: BestTrip) {
+//        let adventureVC = VideosDetailViewController()
+//
+//        adventureVC.adventureDetailUrl = globalAdventureData.url
+//
+//        tabBarController?.tabBar.isHidden = true
+//        navigationController?.pushViewController(adventureVC, animated: true)
+//    }
 }
 
 // MARK: - OtherCityTripTableCellDelegate

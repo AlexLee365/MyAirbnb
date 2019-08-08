@@ -16,7 +16,8 @@ struct UserInfo: Codable {
     let image: String?
     let description: String?
     let rooms: [Int?]
-    let reservations: [[String: Reservation]?]
+    var reservations: [[String: Reservation]?]
+    var likes: [Int?]
     
     enum CodingKeys: String, CodingKey {
         case id, username, email
@@ -25,17 +26,20 @@ struct UserInfo: Codable {
         case image
         case description = "description"
         case rooms, reservations
+        case likes
     }
 }
 
 struct Reservation: Codable {
     let startDate, endDate: String
     let room, id: Int
+    let title: String
+    let image: String
     
     enum CodingKeys: String, CodingKey {
         case startDate = "start_date"
         case endDate = "end_date"
-        case room, id
+        case room, id, title, image
     }
 }
 

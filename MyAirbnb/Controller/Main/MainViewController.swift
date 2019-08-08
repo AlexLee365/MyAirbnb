@@ -54,11 +54,12 @@ class MainViewController: UIViewController {
         super.viewWillDisappear(animated)
         searchBarView.searchTF.resignFirstResponder()
         searchBarView.searchTF.text = ""
+        hideSearchBarTableView()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        hideSearchBarTableView()
+//        hideSearchBarTableView()
         stopIndicator()
     }
     
@@ -120,6 +121,7 @@ class MainViewController: UIViewController {
     }
     
     private func showSearchBarTableView() {
+        tabBarController?.tabBar.isHidden = true
         view.bringSubviewToFront(searchBarTableViewBackWhiteView)
         self.searchBarTableViewBackWhiteView.alpha = 1
         
@@ -129,6 +131,7 @@ class MainViewController: UIViewController {
     }
     
     private func hideSearchBarTableView() {
+        tabBarController?.tabBar.isHidden = false
         UIView.animate(withDuration: 0.3, animations: {
             self.searchBarTableView.alpha = 0
         }) { (_) in
@@ -561,7 +564,7 @@ extension MainViewController {
         case Notification.Name.moveToHouseView:
             startIndicator()
             let urlString = netWork.basicUrlString
-                + "/rooms/?search=korea&ordering=total_rating&page_size=20&page=1"
+                + "/rooms/?search=korea&ordering=-total_rating&page_size=20&page=1"
             
             netWork.getHouseServerData(urlString: urlString) { (housedataArray, success) in
                 guard let housedataArray = housedataArray else { return }
@@ -610,7 +613,16 @@ extension MainViewController {
             
         // 숙소 Plus 상세VC 로 이동
         case Notification.Name.moveToPlusHouseDetailView:
+            guard let userInfo = sender.userInfo
+                , let roomID = userInfo["roomID"] as? Int
+                , let roomTitle = userInfo["roomName"] as? String else {
+                    print("‼️ moveTo HouseDetailView Noti userinfo error ")
+                    return
+            }
+            
             let plusHouseVC = PlusViewController()
+            plusHouseVC.roomID = roomID
+            plusHouseVC.roomTitle = roomTitle
             navigationController?.pushViewController(plusHouseVC, animated: true)
             
         // Luxe 숙소 디테일 VC 로 이동
@@ -649,12 +661,14 @@ extension MainViewController {
                     return
                 }
                 
-                DispatchQueue.main.async {
-                    let tripVC = TripViewController()
-                    tripVC.tripMainViewData = result
-                    tripVC.modalPresentationStyle = .currentContext
-                    self.navigationController?.pushViewController(tripVC, animated: false)
-                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
+                    DispatchQueue.main.async {
+                        let tripVC = TripViewController()
+                        tripVC.tripMainViewData = result
+                        tripVC.modalPresentationStyle = .currentContext
+                        self.navigationController?.pushViewController(tripVC, animated: false)
+                    }                    
+                })
             }
                  
             
@@ -696,8 +710,8 @@ extension MainViewController {
     
     private func setHouseDatasWithLuxePlusData() -> [HouseViewData] {
         
-        let luxeData = mainView.mainViewDatas.filter{$0.cellStyle == .luxe}.map{$0.data as! [HouseLuxeDataInList]}.first ?? []
-        let plusData = mainView.mainViewDatas.filter{$0.cellStyle == .plus}.map{$0.data as! [HousePlusDataInList]}.first ?? []
+        let luxeData = mainView.mainViewDatas.filter{$0.cellStyle == .luxe}.map{$0.data as! [HouseDataInList]}.first ?? []  // HouseLuxeDataInList
+        let plusData = mainView.mainViewDatas.filter{$0.cellStyle == .plus}.map{$0.data as! [HouseDataInList]}.first ?? []  // HousePlusDataInList
         
         let houseviewDataIntroLabel = HouseViewData(
             data: [HouseIntroLabelDataInList(intro: "여행 날짜와 게스트 인원수를 입력하면 1박당 총 요금을 확인할 수 있습니다. 관광세가 추가로 부과될 수 있습니다.")],

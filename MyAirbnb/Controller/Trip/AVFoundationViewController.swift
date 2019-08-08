@@ -11,43 +11,43 @@ import AVFoundation
 
 class AVFoundationViewController: UIViewController {
 
-    let videoData: [[String: String]] = [
-        ["image": "adventure",
-         "videoUrl": "https://a0.muscache.com/v/c9/10/c910f424-fd69-5640-bbe4-38eae799716c/c910f424fd695640bbe438eae799716c_1500k_1.mp4",
-         "category": "어드벤처",
-         "title": "갈라파고스 슬로푸드 사파리",
-         "hostName": "Jill & Javier",
-         "desc": "Island hop around Galapagos for wild, up-close encounters and local food.",
-        ],
-        ["image": "kayak",
-         "videoUrl": "http://tetris.dicemono.xyz/test.mp4",
-         "category": "어드벤처",
-         "title": "카약을 타고 만나는 스웨덴의 다양한 섬",
-         "hostName": "Helena",
-         "desc": "Island hop around Galapagos for wild, up-close encounters and local food.",
-        ],
-        ["image": "boxer",
-         "videoUrl": "http://tetris.dicemono.xyz/test.mp4",
-         "category": "복싱",
-         "title": "세계 챔피언 '파이어'와 함께 권투하기",
-         "hostName": "Keisher",
-         "desc": "Island hop around Galapagos for wild, up-close encounters and local food.",
-        ],
-        ["image": "concert",
-         "videoUrl": "http://tetris.dicemono.xyz/test.mp4",
-         "category": "콘서트",
-         "title": "워털루의 숨겨진 재즈 클럽",
-         "hostName": "Theo And Jannine",
-         "desc": "Island hop around Galapagos for wild, up-close encounters and local food.",
-        ],
-        ["image": "lp",
-         "videoUrl": "http://tetris.dicemono.xyz/test.mp4",
-         "category": "역사 투어",
-         "title": "LP판의 마스터",
-         "hostName": "DJ Jigüe",
-         "desc": "Island hop around Galapagos for wild, up-close encounters and local food.",
-        ]
-    ]
+//    let videoData: [[String: String]] = [
+//        ["image": "adventure",
+//         "videoUrl": "https://a0.muscache.com/v/c9/10/c910f424-fd69-5640-bbe4-38eae799716c/c910f424fd695640bbe438eae799716c_1500k_1.mp4",
+//         "category": "어드벤처",
+//         "title": "갈라파고스 슬로푸드 사파리",
+//         "hostName": "Jill & Javier",
+//         "desc": "Island hop around Galapagos for wild, up-close encounters and local food.",
+//        ],
+//        ["image": "kayak",
+//         "videoUrl": "http://tetris.dicemono.xyz/test.mp4",
+//         "category": "어드벤처",
+//         "title": "카약을 타고 만나는 스웨덴의 다양한 섬",
+//         "hostName": "Helena",
+//         "desc": "Island hop around Galapagos for wild, up-close encounters and local food.",
+//        ],
+//        ["image": "boxer",
+//         "videoUrl": "http://tetris.dicemono.xyz/test.mp4",
+//         "category": "복싱",
+//         "title": "세계 챔피언 '파이어'와 함께 권투하기",
+//         "hostName": "Keisher",
+//         "desc": "Island hop around Galapagos for wild, up-close encounters and local food.",
+//        ],
+//        ["image": "concert",
+//         "videoUrl": "http://tetris.dicemono.xyz/test.mp4",
+//         "category": "콘서트",
+//         "title": "워털루의 숨겨진 재즈 클럽",
+//         "hostName": "Theo And Jannine",
+//         "desc": "Island hop around Galapagos for wild, up-close encounters and local food.",
+//        ],
+//        ["image": "lp",
+//         "videoUrl": "http://tetris.dicemono.xyz/test.mp4",
+//         "category": "역사 투어",
+//         "title": "LP판의 마스터",
+//         "hostName": "DJ Jigüe",
+//         "desc": "Island hop around Galapagos for wild, up-close encounters and local food.",
+//        ]
+//    ]
     
     let topView = TableviewTopView()
     
@@ -65,8 +65,10 @@ class AVFoundationViewController: UIViewController {
     }
     
     var cells = [VideoCollectionViewCell]()
+    var representationTripArray = [RepresentationTrip5]()
     
     private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,6 +76,7 @@ class AVFoundationViewController: UIViewController {
         
         configure()
         autoLayout()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -162,7 +165,7 @@ class AVFoundationViewController: UIViewController {
 
 extension AVFoundationViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return videoData.count
+        return representationTripArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -170,7 +173,10 @@ extension AVFoundationViewController: UICollectionViewDataSource {
         
         cell.delegate = self
         cell.index = indexPath.row
-        cell.setting(data: videoData[indexPath.row])
+//        cell.setting(data: videoData[indexPath.row])
+        cell.setting(representationData: representationTripArray[indexPath.row])
+        cell.data = representationTripArray[indexPath.row]
+        let representationUrl = 
         cells.append(cell)
         
         return cell
@@ -199,11 +205,19 @@ extension AVFoundationViewController: UICollectionViewDelegate {
 // MARK: - VideoCollectionViewCellDelegate
 
 extension AVFoundationViewController: VideoCollectionViewCellDelegate {
-    func pushView() {
+//    func pushView() {
+//        cells.forEach { $0.endAnimate() }
+//
+//        let videosDetailVC = VideosDetailViewController()
+//        videosDetailVC.adventureDetailUrl = representationTripArray
+//        navigationController?.pushViewController(videosDetailVC, animated: true)
+//    }
+    
+    func pushView(url: String) {
         cells.forEach { $0.endAnimate() }
         
         let videosDetailVC = VideosDetailViewController()
-        
+        videosDetailVC.adventureDetailUrl = url
         navigationController?.pushViewController(videosDetailVC, animated: true)
     }
 }

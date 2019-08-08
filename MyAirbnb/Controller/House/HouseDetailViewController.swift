@@ -133,7 +133,7 @@ class HouseDetailViewController: UIViewController {
     
     private func setBottomViewData() {
         guard let data = houseDetailData else { return }
-        print("🔴🔴🔴 SetBottomViewData: ", data)
+//        print("🔴🔴🔴 SetBottomViewData: ", data)
         bottomView.price = data.price
         bottomView.rate = data.drawStarsWithHouseRate()
         bottomView.rateCount = data.reservations.count
@@ -193,8 +193,6 @@ class HouseDetailViewController: UIViewController {
             self.houseDetailData = result
             self.cellCountAfterDataRoad = 8 + 1
             let imageStringArray = [result.host[2] ?? "default", result.image, result.image1, result.image2, result.image3, result.image4]
-            print("🔸🔸🔸 image: ", imageStringArray[0] ?? "")
-            
             
             for i in 0..<imageStringArray.count{
                 guard let url = URL(string: imageStringArray[i] ?? "") else { print("houseDetail getServerData imageUrl convert failed"); continue }
@@ -347,6 +345,8 @@ extension HouseDetailViewController: UITableViewDelegate, UITableViewDataSource 
             
         case 8:
             let reviewTableCell = tableView.dequeueReusableCell(withIdentifier: HouseDetailReviewTableCell.identifier, for: indexPath) as! HouseDetailReviewTableCell
+            reviewTableCell.setData(review: data.reviews)
+            reviewTableCell.reviewsArray = data.reviews
             reviewTableCell.hideSeparator()
             reviewTableCell.delegate = self
             return reviewTableCell
@@ -380,8 +380,14 @@ extension HouseDetailViewController: UITableViewDelegate, UITableViewDataSource 
 // MARK: - HouseDetailReviewTableCellDelegate
 
 extension HouseDetailViewController: HouseDetailReviewTableCellDelegate {
-    func presentReviewVC() {
+//    func presentReviewVC() {
+//        let reviewVC = HouseReviewViewController()
+//        present(reviewVC, animated: true)
+//    }
+    
+    func presentReviewVC(reviews: [[String]]) {
         let reviewVC = HouseReviewViewController()
+        reviewVC.reviewsArray = reviews
         present(reviewVC, animated: true)
     }
 }

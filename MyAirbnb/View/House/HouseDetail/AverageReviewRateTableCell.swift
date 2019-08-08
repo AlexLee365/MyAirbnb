@@ -96,6 +96,10 @@ class AverageReviewRateTableCell: UITableViewCell {
             }
         }
     }
+    
+    func setData(reviewCount: Int) {
+        titleLabel.text = "후기 \(reviewCount)개"
+    }
 }
 
 class ReviewRatingView: UIView {

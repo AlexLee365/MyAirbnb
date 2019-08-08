@@ -288,8 +288,8 @@ class HouseDetailCalendarViewController: UIViewController {
     
     private func setUnAvailableDates() {
         let reservationsString = houseDetailData?.reservations ?? []
-        print("--------------------------[Set Unavailable Dates]--------------------------")
-        print(reservationsString)
+//        print("--------------------------[Set Unavailable Dates]--------------------------")
+//        print(reservationsString)
         
         for reservation in reservationsString {
             
@@ -338,15 +338,25 @@ class HouseDetailCalendarViewController: UIViewController {
             return
         }
         
-        guard let tabbarVC = presentingViewController as? TabbarController
-            , let naviVC = tabbarVC.viewControllers?.first as? UINavigationController else { print("‼️ : "); return }
-        
-        for vc in naviVC.viewControllers {
-            guard let houseDetailVC = vc as? HouseDetailViewController else { continue }
+        if let tabbarVC = presentingViewController as? TabbarController,
+            let naviVC = tabbarVC.viewControllers?.first as? UINavigationController,
+            let houseDetailVC = naviVC.viewControllers.last as? HouseDetailViewController {
+            
             houseDetailVC.selectedFilterInfo.0 = selectedDatesArray
             houseDetailVC.isDateSelected = true
             dismiss(animated: true)
         }
+    
+        if let tabbarVC = presentingViewController as? TabbarController,
+            let naviVC = tabbarVC.viewControllers?[1] as? UINavigationController,
+            let houseDetailVC = naviVC.viewControllers.last as? HouseDetailViewController {
+            
+            houseDetailVC.selectedFilterInfo.0 = selectedDatesArray
+            houseDetailVC.isDateSelected = true
+            dismiss(animated: true)
+        }
+
+        print("‼️ HouseDetailCalendarVC tabbar naviVC convert error / saveBtn Failed ")
     }
     
     private func setCalendar() {
@@ -424,7 +434,7 @@ extension HouseDetailCalendarViewController: FSCalendarDelegate, FSCalendarDataS
     }
     
     func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at monthPosition: FSCalendarMonthPosition) {
-        print("willDisplay cell date: ", date)
+//        print("willDisplay cell date: ", date)
         
         dateFormatter.dateFormat = "MM-dd"
         let dateString = dateFormatter.string(from: date)

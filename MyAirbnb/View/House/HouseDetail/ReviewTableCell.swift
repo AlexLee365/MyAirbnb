@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 class ReviewTableCell: UITableViewCell {
     static let identifier = "ReviewTableCell"
@@ -31,7 +32,7 @@ class ReviewTableCell: UITableViewCell {
     
     let dateLabel: UILabel = {
         let label = UILabel()
-        label.text = "2019년 3월"
+        label.text = "2019년 8월"
         label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
         label.font = UIFont(name: "AirbnbCerealApp-Book", size: 15)
         return label
@@ -91,5 +92,13 @@ class ReviewTableCell: UITableViewCell {
             make.trailing.equalTo(-20)
             make.bottom.equalTo(-20)
         }
+    }
+    
+    func setData(review: [String]) {
+        if let url = URL(string: review[1]) {
+            userProfileImage.kf.setImage(with: url)
+        }
+        userNameLabel.text = review[0]
+        reviewLabel.text = review[2]
     }
 }

@@ -13,7 +13,7 @@ class FourSquareCollectCell: UICollectionViewCell {
     static let identifier = "FourSquareCollectCell"
     
     let mainImageView = UIImageView()
-    let likeBtn = UIButton()
+    let likeBtn = LikeButton(contentID: 0, contentType: .room)
     
     let detailLabel = UILabel()
     let houseNameLabel = UILabel()
@@ -43,10 +43,10 @@ class FourSquareCollectCell: UICollectionViewCell {
         
         mainImageView.addSubview(likeBtn)
         likeBtn.translatesAutoresizingMaskIntoConstraints = false
-        likeBtn.topAnchor.constraint(equalTo: mainImageView.topAnchor, constant: 5).isActive = true
-        likeBtn.trailingAnchor.constraint(equalTo: mainImageView.trailingAnchor, constant: -5).isActive = true
-        likeBtn.widthAnchor.constraint(equalToConstant: 16).isActive = true
-        likeBtn.heightAnchor.constraint(equalToConstant: 16).isActive = true
+        likeBtn.topAnchor.constraint(equalTo: mainImageView.topAnchor, constant: 0).isActive = true
+        likeBtn.trailingAnchor.constraint(equalTo: mainImageView.trailingAnchor, constant: -2).isActive = true
+        likeBtn.widthAnchor.constraint(equalToConstant: 28).isActive = true
+        likeBtn.heightAnchor.constraint(equalToConstant: 28).isActive = true
         
         self.addSubview(detailLabel)
         detailLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -79,8 +79,10 @@ class FourSquareCollectCell: UICollectionViewCell {
         mainImageView.layer.masksToBounds = true
         mainImageView.layer.cornerRadius = 2
         mainImageView.image = UIImage(named: "roomImage")
+        mainImageView.isUserInteractionEnabled = true
         
         likeBtn.setImage(UIImage(named: "heart"), for: .normal)
+        likeBtn.imageEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         
         detailLabel.text = "저택전체 ・ 이아(OIA)"
         detailLabel.font = .systemFont(ofSize: 8, weight: .bold)
@@ -114,6 +116,7 @@ class FourSquareCollectCell: UICollectionViewCell {
         ratingAndHostInfoLabel.text = "\(houseData.reservations) ・ \(houseData.superHost ?? "일반 호스트")"
         guard let url = URL(string: houseData.image) else { print("‼️ url convert error "); return }
         mainImageView.kf.setImage(with: url)
+        likeBtn.resetContentIDAndTypeAndHouseData(contentID: houseData.id, contentType: .room, houseData: houseData)
     }
     
     

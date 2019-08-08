@@ -43,7 +43,7 @@ class VideosDetailTableCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont(name: "AirbnbCerealApp-Book", size: 17.5)
         label.textColor = .white
-        label.text = "Island hop around Galapagos for wild, up-close encounters and local food."
+//        label.text = "Island hop around Galapagos for wild, up-close encounters and local food."
         label.numberOfLines = 0
         label.setLineSpacing(lineSpacing: 4.0)
         return label
@@ -189,7 +189,12 @@ class VideosDetailTableCell: UITableViewCell {
         flag = true
         
         titleLabel.text = tripDetail.name
-        regionLabel.text = tripDetail.state
+        regionLabel.text = "\(tripDetail.state.name), \(tripDetail.state.country)"
+        
+        for i in tripDetail.additional {
+            shortIntroLabel.text = i.additionalDescription
+        }
+        
         infoCategoryViewArray[0].descLabel.text = "\(tripDetail.durationTime)일"
         infoCategoryViewArray[1].descLabel.text = tripDetail.strength
         infoCategoryViewArray[2].descLabel.text = tripDetail.language

@@ -67,9 +67,26 @@ class PlaceTableViewCell: UITableViewCell {
         mapView.addGestureRecognizer(mapViewTapGesture)
         contentView.addSubview(mapView)
         
-        let address = "Itaewon, 한남동, 용산구"
-        getLocationFromAddress(address: address)
+//        let address = "Itaewon, 한남동, 용산구"
+//        getLocationFromAddress(address: address)
+        
+//        let location = CLLocation(latitude: 37.504996, longitude: 127.038098)
+//        centerMapOnLocation(location: location)
     }
+    
+//    let regionRadius: CLLocationDistance = 1000
+    
+    func centerMapOnLocation(location: CLLocation) {
+        currentCoordinate = location.coordinate
+        let span = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
+        let coordinateRegion = MKCoordinateRegion(center: location.coordinate, span: span)
+        
+//        let coordinateRegion = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: regionRadius, longitudinalMeters: regionRadius))
+        
+        mapView.setRegion(coordinateRegion, animated: true)
+        self.drawCircleInMap(centerCoordinate: coordinateRegion.center)
+    }
+   
     
     @objc private func mapViewDidTap(_ sender: UITapGestureRecognizer) {
         notiCenter.post(name: .mapViewDidTapInHouseDetailView, object: nil, userInfo: ["coordinate": currentCoordinate])
@@ -92,31 +109,34 @@ class PlaceTableViewCell: UITableViewCell {
     }
     
     
-    private func getLocationFromAddress(address: String) {
-        geocoder.geocodeAddressString(address) { (placeMark, error) in
-            
-            guard let coordinate = placeMark?.first?.location?.coordinate
-                else { print("주소변환실패!"); return }
-            
-            self.currentCoordinate = coordinate
-            
-            let span = MKCoordinateSpan(latitudeDelta: 0.075, longitudeDelta: 0.075)
-            let region = MKCoordinateRegion(center: coordinate, span: span)
-            self.mapView.setRegion(region, animated: true)
-            self.drawCircleInMap(centerCoordinate: region.center)
-            //            let pin = PlusHouseAnnotation(coordinate: coordinate)
-            //            self.mapView.addAnnotation(pin)
-        }
-    }
+//    private func getLocationFromAddress(address: String) {
+//        geocoder.geocodeAddressString(address) { (placeMark, error) in
+//
+//            guard let coordinate = placeMark?.first?.location?.coordinate
+//                else { print("주소변환실패!"); return }
+//
+//            self.currentCoordinate = coordinate
+//
+//            let span = MKCoordinateSpan(latitudeDelta: 0.075, longitudeDelta: 0.075)
+//            let region = MKCoordinateRegion(center: coordinate, span: span)
+//            self.mapView.setRegion(region, animated: true)
+//            self.drawCircleInMap(centerCoordinate: region.center)
+//            //            let pin = PlusHouseAnnotation(coordinate: coordinate)
+//            //            self.mapView.addAnnotation(pin)
+//        }
+//    }
     
     private func drawCircleInMap(centerCoordinate: CLLocationCoordinate2D) {
         let center = centerCoordinate
-        let circle = MKCircle(center: center, radius: 600)
+        let circle = MKCircle(center: center, radius: 200)
         mapView.addOverlay(circle)
     }
     
     func setData(placeInfoData: TripDetail) {
         introLabel.text = placeInfoData.placeInfo
+        
+        let location = CLLocation(latitude: placeInfoData.latitude, longitude: placeInfoData.longitude)
+        centerMapOnLocation(location: location)
     }
 }
 
@@ -149,7 +169,7 @@ extension PlaceTableViewCell: MKMapViewDelegate {
             let renderer = MKCircleRenderer(overlay: circle)
             renderer.strokeColor = StandardUIValue.shared.colorBlueGreen
             renderer.lineWidth = 2
-            renderer.fillColor = UIColor(red:0.09, green:0.51, blue:0.54, alpha:0.4)
+            renderer.fillColor = UIColor(red:0.09, green:0.51, blue:0.54, alpha:0.3)
             return renderer
         }
         

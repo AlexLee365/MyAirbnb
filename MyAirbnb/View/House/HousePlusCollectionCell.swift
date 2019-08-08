@@ -7,12 +7,13 @@
 //
 
 import UIKit
+import Kingfisher
 
 class HousePlusCollectionCell: UICollectionViewCell {
     static let identifier = "HousePlusCollectionCell"
     
     let mainImageView = UIImageView()
-    let likeBtn = UIButton()
+    let likeBtn = LikeButton(contentID: 0, contentType: .room)
     
     let houseGradeImageView = UIImageView()
     let dateAndGuestLabel = UILabel()
@@ -45,10 +46,10 @@ class HousePlusCollectionCell: UICollectionViewCell {
         
         mainImageView.addSubview(likeBtn)
         likeBtn.translatesAutoresizingMaskIntoConstraints = false
-        likeBtn.topAnchor.constraint(equalTo: mainImageView.topAnchor, constant: 5).isActive = true
+        likeBtn.topAnchor.constraint(equalTo: mainImageView.topAnchor, constant: 2).isActive = true
         likeBtn.trailingAnchor.constraint(equalTo: mainImageView.trailingAnchor, constant: -5).isActive = true
-        likeBtn.widthAnchor.constraint(equalToConstant: 16).isActive = true
-        likeBtn.heightAnchor.constraint(equalToConstant: 16).isActive = true
+        likeBtn.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        likeBtn.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
         self.addSubview(firstStackView)
         firstStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -84,8 +85,10 @@ class HousePlusCollectionCell: UICollectionViewCell {
         mainImageView.image = UIImage(named: "houseSample")
         mainImageView.layer.masksToBounds = true
         mainImageView.layer.cornerRadius = 3
+        mainImageView.isUserInteractionEnabled = true
         
         likeBtn.setImage(UIImage(named: "heart"), for: .normal)
+        likeBtn.imageEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         
         firstStackView.axis = .horizontal
         firstStackView.alignment = .leading
@@ -119,12 +122,16 @@ class HousePlusCollectionCell: UICollectionViewCell {
         ratingAndHostInfoLabel.textColor = #colorLiteral(red: 0.3221844435, green: 0.3202747703, blue: 0.3236560524, alpha: 1)
     }
     
-    func setData(plusHouseData: HousePlusDataInList) {
-        mainImageView.image = plusHouseData.houseMainImage
-        dateAndGuestLabel.text = "검증됨 ・ \(plusHouseData.houseLocation)"
-        houseNameLabel.text = plusHouseData.houseName
+    func setData(plusHouseData: HouseDataInList) {  // HOusePlusDataInList
+        if let url = URL(string: plusHouseData.image) {
+            mainImageView.kf.setImage(with: url)
+        }
+        
+        dateAndGuestLabel.text = "검증됨 ・ \(plusHouseData.state)"
+        houseNameLabel.text = plusHouseData.title
         ratingImageLabel.text = plusHouseData.drawStarsWithHouseRate()
-        ratingAndHostInfoLabel.text = "\(plusHouseData.houseRateCount) ・ 슈퍼호스트"
+        ratingAndHostInfoLabel.text = "\(plusHouseData.reservations) ・ 슈퍼호스트"
+        likeBtn.resetContentIDAndTypeAndHouseData(contentID: plusHouseData.id, contentType: .room, houseData: plusHouseData)
     }
 }
 

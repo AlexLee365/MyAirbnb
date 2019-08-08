@@ -151,7 +151,8 @@ class TripInfoCollectionViewCell: UICollectionViewCell {
     }
     
     func setData(recommendedTripData: BestTrip) {
-        imageView.image = UIImage(named: "bathbomb")
+        let imageUrl = URL(string: recommendedTripData.image1 ?? "")
+        imageView.kf.setImage(with: imageUrl)
         
         if recommendedTripData.detailCategory != "" {
             categoryLabel.text = recommendedTripData.detailCategory
@@ -165,7 +166,7 @@ class TripInfoCollectionViewCell: UICollectionViewCell {
             var text = ""
             
             for i in 0..<recommendedTripData.provides.count {
-                text += "\(recommendedTripData.provides[i] ?? ""), "
+                text += "\(recommendedTripData.provides[i]), "
             }
             text.removeLast()
             text.removeLast()
@@ -175,7 +176,7 @@ class TripInfoCollectionViewCell: UICollectionViewCell {
             descLabel.text = "\(recommendedTripData.durationTime)시간"
         }
         
-        languageLabel.text = "\(recommendedTripData.language)로 진행"
+        languageLabel.text = recommendedTripData.language
 
         if recommendedTripData.ratingScore > 0.0 {
             starImage.image = UIImage(named: "star")

@@ -12,7 +12,7 @@ class HouseLuxeCollectCell: UICollectionViewCell {
     static let identifier = "HouseLuxeCollectCell"
     
     let mainImageView = UIImageView()
-    let likeBtn = UIButton()
+    let likeBtn = LikeButton(contentID: 0, contentType: .room)
     
     let houseGradeImageView = UIImageView()
     let dateAndGuestLabel = UILabel()
@@ -37,14 +37,14 @@ class HouseLuxeCollectCell: UICollectionViewCell {
         mainImageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         mainImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         mainImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        mainImageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.55).isActive = true
+        mainImageView.heightAnchor.constraint(equalTo: mainImageView.widthAnchor, multiplier: 0.62).isActive = true
         
         mainImageView.addSubview(likeBtn)
         likeBtn.translatesAutoresizingMaskIntoConstraints = false
-        likeBtn.topAnchor.constraint(equalTo: mainImageView.topAnchor, constant: 5).isActive = true
+        likeBtn.topAnchor.constraint(equalTo: mainImageView.topAnchor, constant: 2).isActive = true
         likeBtn.trailingAnchor.constraint(equalTo: mainImageView.trailingAnchor, constant: -5).isActive = true
-        likeBtn.widthAnchor.constraint(equalToConstant: 16).isActive = true
-        likeBtn.heightAnchor.constraint(equalToConstant: 16).isActive = true
+        likeBtn.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        likeBtn.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
         contentView.addSubview(firstStackView)
         firstStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -72,8 +72,10 @@ class HouseLuxeCollectCell: UICollectionViewCell {
         mainImageView.layer.masksToBounds = true
         mainImageView.layer.cornerRadius = 2
         mainImageView.image = UIImage(named: "luxeSample")
+        mainImageView.isUserInteractionEnabled = true
         
         likeBtn.setImage(UIImage(named: "heart"), for: .normal)
+        likeBtn.imageEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         
         firstStackView.axis = .horizontal
         firstStackView.alignment = .leading
@@ -97,7 +99,7 @@ class HouseLuxeCollectCell: UICollectionViewCell {
         
     }
     
-    func setData(luxeHouseData: HouseLuxeDataInList) {
+    func setData(luxeHouseData: HouseDataInList) {
 //        mainImageView.image = luxeHouseData.houseMainImage
 //        dateAndGuestLabel.text = "검증됨 ・ \(luxeHouseData.houseLocation)"
 //        houseNameLabel.text = luxeHouseData.houseName
@@ -106,5 +108,6 @@ class HouseLuxeCollectCell: UICollectionViewCell {
         houseNameLabel.text = luxeHouseData.title
         guard let url = URL(string: luxeHouseData.image) else { return }
         mainImageView.kf.setImage(with: url)
+        likeBtn.resetContentIDAndTypeAndHouseData(contentID: luxeHouseData.id, contentType: .room, houseData: luxeHouseData)
     }
 }

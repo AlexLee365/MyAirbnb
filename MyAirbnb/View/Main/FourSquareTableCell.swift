@@ -35,7 +35,6 @@ class FourSquareTableCell: UITableViewCell {
     
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
-        print("🔴🔴🔴 normalHouseDataArray: ", normalHouseDataArray)
         print("DataCount: ", normalHouseDataArray.count)
     }
     

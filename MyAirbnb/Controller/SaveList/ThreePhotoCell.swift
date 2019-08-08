@@ -79,6 +79,8 @@ class ThreePhotoCell: UITableViewCell {
     }
     
     private func setupConfigure() {
+        self.selectionStyle = .none
+        
         firstImage.contentMode = .scaleAspectFill
         firstImage.clipsToBounds = true
         secondImage.contentMode = .scaleAspectFill
