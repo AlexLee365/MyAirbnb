@@ -9,20 +9,21 @@
 import UIKit
 import AVFoundation
 import MapKit
+import Kingfisher
 
 class VideosDetailViewController: UIViewController {
     
-    let videoData: [[String: String]] = [
-        ["image": "adventure",
-         "videoUrl": "http://tetris.dicemono.xyz/test.mp4"
-        ]
-    ]
+//    let videoData: [[String: String]] = [
+//        ["image": "adventure",
+//         "videoUrl": "http://tetris.dicemono.xyz/test.mp4"
+//        ]
+//    ]
     
     let tempView = UIView()
     let videoImageView = UIImageView()
     let videoView = UIView()
     
-    var player: AVPlayer!
+    var player: AVPlayer?
     
     let tableView: UITableView = {
         let tableView = UITableView()
@@ -86,20 +87,27 @@ class VideosDetailViewController: UIViewController {
     }()
 
     
-    let scheduleImages = ["schedule1", "schedule2", "schedule3"]
-    let contentsArray = [("Lake Crescent & the Pacific Coast", "Ferry across the Puget Sound. Walk Marymere Falls & Ruby Beach. Coastal campfire & dinner!"), ("Hoh Rainforest & Vanishing Silence", "Hike along the pristine Hoh River. Discover silence in the giant trees of Hoh Rainforest!"), ("Hike Hurricane Ridge", "Climb to Hurricane Ridge and explore new heights in the panoramic Olympic Mountain range.")]
-    
-    let imageCollectionArray = ["videoDetailImage1", "videoDetailImage2", "videoDetailImage3", "videoDetailImage4", "videoDetailImage5", "videoDetailImage6", "videoDetailImage7"]
+//    let scheduleImages = ["schedule1", "schedule2", "schedule3"]
+//    let contentsArray = [("Lake Crescent & the Pacific Coast", "Ferry across the Puget Sound. Walk Marymere Falls & Ruby Beach. Coastal campfire & dinner!"), ("Hoh Rainforest & Vanishing Silence", "Hike along the pristine Hoh River. Discover silence in the giant trees of Hoh Rainforest!"), ("Hike Hurricane Ridge", "Climb to Hurricane Ridge and explore new heights in the panoramic Olympic Mountain range.")]
+//    
+//    let imageCollectionArray = ["videoDetailImage1", "videoDetailImage2", "videoDetailImage3", "videoDetailImage4", "videoDetailImage5", "videoDetailImage6", "videoDetailImage7"]
     
     
     let notiCenter = NotificationCenter.default
+    let kingfisher = ImageDownloader.default
     
     var adventureDetailUrl = ""
+    var adventureAdditionalArray = [AdventureAdditional]()
     
     let netWork = NetworkCommunicator()
     let jsonDecoder = JSONDecoder()
+    
     var tripDetailData: TripDetailData?
+    var additionalData: Additional?
+    var scheduleDataArray = [AdditionalSchedule]()
+    
     var numberOfCell = 0
+    var imageArray = [UIImage]()
     
     
     override func viewDidLoad() {
@@ -109,7 +117,11 @@ class VideosDetailViewController: UIViewController {
         setAutolayout()
         
         addNotificationObserver()
-        getServerData()
+        getServerData {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
     }
         
     override func viewWillAppear(_ animated: Bool) {
@@ -132,7 +144,11 @@ class VideosDetailViewController: UIViewController {
         tempView.addSubview(videoView)
         tempView.addSubview(videoImageView)
         
-        setting(data: videoData[0])
+//        setting(data: videoData[0])
+        
+        if !adventureAdditionalArray.isEmpty {
+            setting(data: adventureAdditionalArray[0])
+        }
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -201,14 +217,33 @@ class VideosDetailViewController: UIViewController {
     func startAnimate() {
         UIView.animate(withDuration: 0.7, delay: 0.7, options: [], animations: {
             self.videoImageView.alpha = 0
-            self.player.play()
+            self.player?.play()
             self.view.layoutIfNeeded()
         })
     }
     
     
-    func setting(data: [String: String]) {
-        let url = URL(string: data["videoUrl"]!)
+//    func setting(data: [String: String]) {
+//        let url = URL(string: data["videoUrl"]!)
+//        let playerItem = AVPlayerItem(url: url!)
+//        player = AVPlayer(playerItem: playerItem)
+//
+//        let playerLayer = AVPlayerLayer(player: player)
+//
+//        let tempSize = CGSize(width: view.frame.width, height: 500)
+//
+//        playerLayer.frame = CGRect(origin: .zero, size: tempSize)
+//        playerLayer.videoGravity = .resizeAspectFill
+//        videoView.layer.addSublayer(playerLayer)
+//
+//        videoImageView.image = UIImage(named: data["image"]!)
+//        videoImageView.frame = CGRect(origin: .zero, size: tempSize)
+//    }
+    
+//    func setting(data: [String: String]) {
+    func setting(data: AdventureAdditional) {
+//        let url = URL(string: data["videoUrl"]!)
+        let url = URL(string: data.media)
         let playerItem = AVPlayerItem(url: url!)
         player = AVPlayer(playerItem: playerItem)
         
@@ -220,7 +255,9 @@ class VideosDetailViewController: UIViewController {
         playerLayer.videoGravity = .resizeAspectFill
         videoView.layer.addSublayer(playerLayer)
         
-        videoImageView.image = UIImage(named: data["image"]!)
+//        videoImageView.image = UIImage(named: data["image"]!)
+        let imageUrl = URL(string: data.image1 ?? "")
+        videoImageView.kf.setImage(with: imageUrl)
         videoImageView.frame = CGRect(origin: .zero, size: tempSize)
     }
     
@@ -241,7 +278,7 @@ class VideosDetailViewController: UIViewController {
         navigationController?.pushViewController(mapVC, animated: true)
     }
     
-    func getServerData() {
+    func getServerData(completion: @escaping () -> ()) {
         let urlString = adventureDetailUrl
         
         netWork.getJsonObjectFromAPI(urlString: urlString, urlForSpecificProcessing: nil) { (json, success) in
@@ -262,7 +299,24 @@ class VideosDetailViewController: UIViewController {
             }
             
             self.tripDetailData = result
-            self.numberOfCell = 7 + self.scheduleImages.count
+//            self.numberOfCell = 7 + self.scheduleImages.count
+
+            if !(result.tripDetail.additional[0]?.additionalSchedule.isEmpty ?? true) {
+                self.numberOfCell = 7 + (result.tripDetail.additional[0]?.additionalSchedule.count ?? 0)
+            } else {
+                self.numberOfCell = 7
+            }
+            
+            self.additionalData = result.tripDetail.additional[0]
+            self.scheduleDataArray = result.tripDetail.additional.compactMap{$0}[0].additionalSchedule.compactMap{$0}
+            
+            
+            
+            self.scheduleDataArray.reverse()
+            
+            let imageStringArray = [self.additionalData?.image1, self.additionalData?.image2, self.additionalData?.image3, self.additionalData?.image4, self.additionalData?.image5, self.additionalData?.image6, self.additionalData?.image7]
+            
+            
             
             let priceString = String(result.tripDetail.price).limitFractionDigits()
             
@@ -316,14 +370,10 @@ extension VideosDetailViewController: UITableViewDataSource {
             
         case 2:
             let imageCollectionCell = tableView.dequeueReusableCell(withIdentifier: ImagesCollectionTableCell.identifier, for: indexPath) as! ImagesCollectionTableCell
-            
-            imageCollectionCell.firstImage.image = UIImage(named: imageCollectionArray[indexPath.row - 2])
-            imageCollectionCell.secondImage.image = UIImage(named: imageCollectionArray[indexPath.row - 1])
-            imageCollectionCell.thirdImage.image = UIImage(named: imageCollectionArray[indexPath.row])
-            imageCollectionCell.fourthImage.image = UIImage(named: imageCollectionArray[indexPath.row + 1])
-            imageCollectionCell.fifthImage.image = UIImage(named: imageCollectionArray[indexPath.row + 2])
-            imageCollectionCell.sixthImage.image = UIImage(named: imageCollectionArray[indexPath.row + 3])
-            imageCollectionCell.seventhImage.image = UIImage(named: imageCollectionArray[indexPath.row + 4])
+
+            if let data = additionalData {
+                imageCollectionCell.setData(tripAdditionalData: data)
+            }
             
             return imageCollectionCell
             
@@ -339,25 +389,29 @@ extension VideosDetailViewController: UITableViewDataSource {
             cell.selectionStyle = .none
             return cell
             
-        case 5...(scheduleImages.count + 4):
+//        case 5...(scheduleImages.count + 4):
+        case 5..<((scheduleDataArray.count) + 5):
+            
             let tripScheduleCell = tableView.dequeueReusableCell(withIdentifier: TripScheduleTableCell.identifier, for: indexPath) as! TripScheduleTableCell
-            tripScheduleCell.dayLabel.text = "\(indexPath.row - 4)일차"
-            tripScheduleCell.programImage.image = UIImage(named: scheduleImages[indexPath.row - 5])
-            tripScheduleCell.titleLabel.text = contentsArray[indexPath.row - 5].0
-            tripScheduleCell.descLabel.text = contentsArray[indexPath.row - 5].1
-            tripScheduleCell.tripTotalDays = contentsArray.count
-            tripScheduleCell.currentIndex = indexPath.row
+            tripScheduleCell.setData(additionalScheduleData: scheduleDataArray[indexPath.row - 5])
+            
+//            tripScheduleCell.dayLabel.text = "\(indexPath.row - 4)일차"
+//            tripScheduleCell.programImage.image = UIImage(named: scheduleImages[indexPath.row - 5])
+//            tripScheduleCell.titleLabel.text = contentsArray[indexPath.row - 5].0
+//            tripScheduleCell.descLabel.text = contentsArray[indexPath.row - 5].1
+//            tripScheduleCell.tripTotalDays = contentsArray.count
+//            tripScheduleCell.currentIndex = indexPath.row
             
             return tripScheduleCell
         
-        case (scheduleImages.count + 5):
+        case (scheduleDataArray.count + 5):
             let hostCell = tableView.dequeueReusableCell(withIdentifier: VideoHostInfoTableCell.identifier, for: indexPath) as! VideoHostInfoTableCell
             
             hostCell.setData(tripData: tripDetails)
             
             return hostCell
             
-        case (scheduleImages.count + 6):
+        case (scheduleDataArray.count + 6):
             let visitingPlaceCell = tableView.dequeueReusableCell(withIdentifier: VisitingPlaceTableCell.identifier, for: indexPath) as! VisitingPlaceTableCell
             
             visitingPlaceCell.setData(tripData: tripDetails)
@@ -373,6 +427,21 @@ extension VideosDetailViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 
 extension VideosDetailViewController: UITableViewDelegate {
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        switch indexPath.row {
+//        case 0:
+//        case 1:
+//        case 2:
+//        case 3:
+//        case 4:
+//        case 5:
+//            
+//        default:
+//            <#code#>
+//        }
+//    }
+    
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) else { return }
         

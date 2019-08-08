@@ -192,7 +192,7 @@ class VideosDetailTableCell: UITableViewCell {
         regionLabel.text = "\(tripDetail.state.name), \(tripDetail.state.country)"
         
         for i in tripDetail.additional {
-            shortIntroLabel.text = i.additionalDescription
+            shortIntroLabel.text = i?.additionalDescription
         }
         
         infoCategoryViewArray[0].descLabel.text = "\(tripDetail.durationTime)일"

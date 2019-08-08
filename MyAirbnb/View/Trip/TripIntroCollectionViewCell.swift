@@ -73,7 +73,11 @@ class TripIntroCollectionViewCell: UICollectionViewCell {
     }
     
     func setData(representTripData: RepresentationTrip5) {
-        imageView.image = UIImage(named: "adventure")
+//        imageView.image = UIImage(named: "adventure")
+        guard !representTripData.additional.isEmpty else { return }
+        
+        let imageUrl = URL(string: representTripData.additional[0].image1 ?? "")
+        imageView.kf.setImage(with: imageUrl)
         categoryLabel.text = representTripData.category
         hostNameLabel.text = representTripData.host.username
         titleLabel.text = representTripData.name

@@ -350,7 +350,7 @@ extension SeoulRecommendedDetailViewController: UITableViewDataSource {
             guard let tripReviewData = tripDetailData?.tripDetail.tripReviews else {return UITableViewCell()}
             guard !tripReviewData.isEmpty else { return UITableViewCell() }
             
-            reviewCell.setData(tripReviewData: tripReviewData[indexPath.row - 6], tripData: tripDetail)
+            reviewCell.setData(tripReviewData: tripReviewData.compactMap{$0}[indexPath.row - 6], tripData: tripDetail)
             reviewCell.delegate = self
             
             return reviewCell
@@ -478,7 +478,7 @@ extension SeoulRecommendedDetailViewController: TripDetailReviewTableCellDelegat
     func presentTripDetailReviewVC() {
         let reviewVC = TripDetailReviewViewController()
         reviewVC.reviewCount = tripDetailData?.tripDetail.tripReviews.count ?? 0
-        reviewVC.reviewArray = tripDetailData?.tripDetail.tripReviews ?? []
+        reviewVC.reviewArray = tripDetailData?.tripDetail.tripReviews.compactMap{$0} ?? []
         present(reviewVC, animated: true)
     }
 }

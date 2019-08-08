@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 class TripScheduleTableCell: UITableViewCell {
     static let identifier = "TripScheduleTableCell"
@@ -141,5 +142,16 @@ class TripScheduleTableCell: UITableViewCell {
             make.centerY.equalTo(dayLabel.snp.centerY)
             make.width.height.equalTo(6)
         }
+    }
+    
+    func setData(additionalScheduleData: AdditionalSchedule) {
+            dayLabel.text = "\(additionalScheduleData.day)일차 · \(additionalScheduleData.day)번째 액티비티"
+            
+            let imageUrl = URL(string: additionalScheduleData.image1)
+            programImage.kf.setImage(with: imageUrl)
+            
+            titleLabel.text = ""
+            descLabel.text = additionalScheduleData.additionalScheduleDescription
+//        }
     }
 }

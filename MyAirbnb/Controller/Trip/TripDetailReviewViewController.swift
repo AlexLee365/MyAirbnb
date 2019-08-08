@@ -92,7 +92,7 @@ extension TripDetailReviewViewController: UITableViewDataSource {
             let reviewTableCell = tableView.dequeueReusableCell(withIdentifier: ReviewTableCell.identifier, for: indexPath) as! ReviewTableCell
             
             reviewTableCell.userProfileImage.image = UIImage(named: "userProfileImage")
-            reviewTableCell.userNameLabel.text = reviewArray[indexPath.row - 1].userSet
+            reviewTableCell.userNameLabel.text = reviewArray[indexPath.row - 1].userSet.username
             
             let dateformatter = DateFormatter()
             dateformatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
@@ -101,7 +101,7 @@ extension TripDetailReviewViewController: UITableViewDataSource {
             let reviewDate = Calendar.current.dateComponents([.year, .month], from: date)
             
             reviewTableCell.dateLabel.text = "\(reviewDate.year ?? 0)년 \(reviewDate.month ?? 0)월"
-            reviewTableCell.reviewLabel.text = reviewArray[indexPath.row - 1].tripReviewDescription
+            reviewTableCell.reviewLabel.text = reviewArray[indexPath.row - 1].reviewDesc
 
             reviewTableCell.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
             
