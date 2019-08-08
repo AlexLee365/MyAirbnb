@@ -62,7 +62,7 @@ class ItemsProvidedTableCell: UITableViewCell {
         switch item {
         case "음료":
             imageString = "trip_drinksIcon"
-        case "티켓":
+        case "입장권 1매":
             imageString = "trip_ticketIcon"
         case "장비":
             imageString = "trip_toolsIcon"
