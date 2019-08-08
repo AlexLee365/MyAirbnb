@@ -121,9 +121,9 @@ class WorldAdventureTableCell: UITableViewCell {
         }
         
         let cellWidth = (UIScreen.main.bounds.width - 40 - 13) / 2
-        let cellHeight = cellWidth * 1.9
+        let cellHeight = cellWidth * 1.85
         
-        let collectionHeight = cellHeight + 15 + 5
+        let collectionHeight = (cellHeight * 2) + 30 + 10
         
         collectionView.snp.makeConstraints { (make) in
             make.top.equalTo(descLabel.snp.bottom).offset(10)
@@ -138,13 +138,13 @@ class WorldAdventureTableCell: UITableViewCell {
 
 extension WorldAdventureTableCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return globalAdventureDataArray.count
+        return 4
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let adventureCell = collectionView.dequeueReusableCell(withReuseIdentifier: WorldAdventureCollectionCell.identifier, for: indexPath) as! WorldAdventureCollectionCell
 
-        adventureCell.setData(worldAdventureData: globalAdventureDataArray[indexPath.row], state: "")
+        adventureCell.setData(worldAdventureData: globalAdventureDataArray[indexPath.row])
         
         return adventureCell
     }
@@ -168,7 +168,7 @@ extension WorldAdventureTableCell: UICollectionViewDelegateFlowLayout {
         let horizontalSpacing = itemSpacing + horizontalInset
         
         let cellWidth: CGFloat = ((collectionView.frame.width - horizontalSpacing) / UI.itemsInLine)
-        let cellHeight = cellWidth * 1.9
+        let cellHeight = cellWidth * 1.85
         
         let roundedWidth = cellWidth.rounded(.down)
         let roundedHeight = cellHeight.rounded(.down)

@@ -45,8 +45,6 @@ struct BestTrip: Codable {
     }
 }
 
-
-
 // MARK: - StateDetail
 struct StateDetail: Codable {
     let name: String

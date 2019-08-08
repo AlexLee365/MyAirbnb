@@ -653,7 +653,6 @@
 		4353B8EB22D085D3004BD807 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				8D4FDB0722FC3DC300E31CF5 /* SaveList */,
 				4353B8EF22D22782004BD807 /* SearchBarView.swift */,
 				4353BA3022DD7F41004BD807 /* SearchBarTableView.swift */,
 				43F5AA8622EB2683007511E1 /* SearchBarTableCell.swift */,
@@ -666,6 +665,7 @@
 				4353B8F522D3274E004BD807 /* Main */,
 				8D0D792122DB020600F61F0B /* House */,
 				8D51902D22E82C41009D6792 /* Message */,
+				8D4FDB0722FC3DC300E31CF5 /* SaveList */,
 			);
 			path = View;
 			sourceTree = "<group>";

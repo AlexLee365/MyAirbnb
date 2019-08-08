@@ -53,19 +53,15 @@ class SeoulRecommendTableViewCell: UITableViewCell {
         
         contentView.addSubview(scrollView)
         
-//        createScrollViews()
-        
-        scrollingTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(scrollAutomatically(_:)), userInfo: nil, repeats: true)
+        scrollingTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(scrollAutomatically(_:)), userInfo: nil, repeats: true)
     }
     
+    
     var setLayout = false
+    
     override func layoutSubviews() {
         if setLayout == false {
-            print("🔵🔵🔵 tableCell Frame: ", self.frame)
-//            tempHeight = self.frame.height
-            
             createScrollViews()
-            
             setLayout = true
         }
     }
@@ -155,6 +151,7 @@ class SeoulRecommendTableViewCell: UITableViewCell {
         }
     }
     
+    // 자동 스크롤
     @objc private func scrollAutomatically(_ sender: Timer) {
         let totalPossibleOffset = CGFloat(images.count - 1) * UIScreen.main.bounds.size.width
         if offSet == totalPossibleOffset {

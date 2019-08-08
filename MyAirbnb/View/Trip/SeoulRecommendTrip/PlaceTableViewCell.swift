@@ -70,8 +70,8 @@ class PlaceTableViewCell: UITableViewCell {
 //        let address = "Itaewon, 한남동, 용산구"
 //        getLocationFromAddress(address: address)
         
-        let location = CLLocation(latitude: 37.504996, longitude: 127.038098)
-        centerMapOnLocation(location: location)
+//        let location = CLLocation(latitude: 37.504996, longitude: 127.038098)
+//        centerMapOnLocation(location: location)
     }
     
 //    let regionRadius: CLLocationDistance = 1000
@@ -134,6 +134,9 @@ class PlaceTableViewCell: UITableViewCell {
     
     func setData(placeInfoData: TripDetail) {
         introLabel.text = placeInfoData.placeInfo
+        
+        let location = CLLocation(latitude: placeInfoData.latitude, longitude: placeInfoData.longitude)
+        centerMapOnLocation(location: location)
     }
 }
 
@@ -166,7 +169,7 @@ extension PlaceTableViewCell: MKMapViewDelegate {
             let renderer = MKCircleRenderer(overlay: circle)
             renderer.strokeColor = StandardUIValue.shared.colorBlueGreen
             renderer.lineWidth = 2
-            renderer.fillColor = UIColor(red:0.09, green:0.51, blue:0.54, alpha:0.4)
+            renderer.fillColor = UIColor(red:0.09, green:0.51, blue:0.54, alpha:0.3)
             return renderer
         }
         
