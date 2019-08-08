@@ -338,15 +338,25 @@ class HouseDetailCalendarViewController: UIViewController {
             return
         }
         
-        guard let tabbarVC = presentingViewController as? TabbarController
-            , let naviVC = tabbarVC.viewControllers?.first as? UINavigationController else { print("‼️ : "); return }
-        
-        for vc in naviVC.viewControllers {
-            guard let houseDetailVC = vc as? HouseDetailViewController else { continue }
+        if let tabbarVC = presentingViewController as? TabbarController,
+            let naviVC = tabbarVC.viewControllers?.first as? UINavigationController,
+            let houseDetailVC = naviVC.viewControllers.last as? HouseDetailViewController {
+            
             houseDetailVC.selectedFilterInfo.0 = selectedDatesArray
             houseDetailVC.isDateSelected = true
             dismiss(animated: true)
         }
+    
+        if let tabbarVC = presentingViewController as? TabbarController,
+            let naviVC = tabbarVC.viewControllers?[1] as? UINavigationController,
+            let houseDetailVC = naviVC.viewControllers.last as? HouseDetailViewController {
+            
+            houseDetailVC.selectedFilterInfo.0 = selectedDatesArray
+            houseDetailVC.isDateSelected = true
+            dismiss(animated: true)
+        }
+
+        print("‼️ HouseDetailCalendarVC tabbar naviVC convert error / saveBtn Failed ")
     }
     
     private func setCalendar() {

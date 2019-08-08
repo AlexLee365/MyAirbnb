@@ -6,13 +6,13 @@
 //  Copyright © 2019 Alex Lee. All rights reserved.
 //
 
-import Foundation
 import UIKit
+import Kingfisher
 
 class OnePhotoCell: UITableViewCell {
     static let identifier = "OnePhotoCell"
     
-    let nationNameLable = UILabel()
+    let nationNameLabel = UILabel()
     let descriptionLable = UILabel()
     let firstImage = UIImageView()
     
@@ -43,37 +43,42 @@ class OnePhotoCell: UITableViewCell {
         firstImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -(sideMargin)).isActive = true
         firstImage.heightAnchor.constraint(equalToConstant: imageHeight).isActive = true
         
-        contentView.addSubview(nationNameLable)
-        nationNameLable.translatesAutoresizingMaskIntoConstraints = false
-        nationNameLable.topAnchor.constraint(equalTo: firstImage.bottomAnchor, constant: 20).isActive = true
-        nationNameLable.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
-        nationNameLable.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20).isActive = true
+        contentView.addSubview(nationNameLabel)
+        nationNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        nationNameLabel.topAnchor.constraint(equalTo: firstImage.bottomAnchor, constant: 20).isActive = true
+        nationNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
+        nationNameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20).isActive = true
         
         contentView.addSubview(descriptionLable)
         descriptionLable.translatesAutoresizingMaskIntoConstraints = false
         descriptionLable.topAnchor.constraint(equalTo: firstImage.bottomAnchor, constant: 20).isActive = true
-        descriptionLable.leadingAnchor.constraint(equalTo: nationNameLable.trailingAnchor, constant: 10).isActive = true
+        descriptionLable.leadingAnchor.constraint(equalTo: nationNameLabel.trailingAnchor, constant: 10).isActive = true
         descriptionLable.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20).isActive = true
         
     }
     
     private func setupConfigure() {
         self.selectionStyle = .none
+        self.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         
         firstImage.contentMode = .scaleAspectFill
         firstImage.clipsToBounds = true
         
-        nationNameLable.font = UIFont.systemFont(ofSize: 13, weight: UIFont.Weight.medium)
-        nationNameLable.textAlignment = .left
-        nationNameLable.sizeToFit()
+        nationNameLabel.font = UIFont.systemFont(ofSize: 13, weight: UIFont.Weight.medium)
+        nationNameLabel.textAlignment = .left
+        nationNameLabel.sizeToFit()
         
         descriptionLable.font = UIFont.systemFont(ofSize: 13, weight: UIFont.Weight.light)
         descriptionLable.textAlignment = .left
         descriptionLable.sizeToFit()
     }
     
-    func setData(onePhotoData: OnePhoto) {
-        firstImage.image = onePhotoData.firstImage
+    func setData(wishlist: WishList) {
+        if let url = URL(string: wishlist.image) {
+            firstImage.kf.setImage(with: url)
+        }
+        nationNameLabel.text = wishlist.title
+        descriptionLable.text = "숙소 \(wishlist.roomsNumber)개"
     }
 }
 

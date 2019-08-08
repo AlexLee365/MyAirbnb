@@ -36,13 +36,43 @@ class FavoriteHouseDetailViewController: UIViewController {
         return tableView
     }()
     
+    let netWork = NetworkCommunicator()
+    
+    var wishListID = 0
+    var cellCount = 0
+    var wishListDetailData: WishListDetail?
+    var roomsVaildArray = [RoomsValid]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
         setAutolayout()
+        print("🔴🔴🔴 id: ", wishListID)
+        
+        let urlString = netWork.basicUrlString + "/wishlists/\(wishListID)/"
+        netWork.getServerDataWithToken(urlString: urlString) { (result) in
+            switch result {
+            case .success(let value):
+                guard let wishDetail = try? JSONDecoder().decode(WishListDetail.self, from: value) else{ print("‼️ wishListDetail decoding error "); return }
+                self.wishListDetailData = wishDetail
+                self.roomsVaildArray = wishDetail.roomsValid
+                self.cellCount = 2 + self.roomsVaildArray.count
+                
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+                
+            case .failure(let error):
+                print("‼️ wishListDetail Data server failed: ", error.localizedDescription)
+            }
+        }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
+        tabBarController?.tabBar.isHidden = false
+    }
 
     // MARK: - Properties
     
@@ -51,8 +81,10 @@ class FavoriteHouseDetailViewController: UIViewController {
         view.addSubview(topView)
         
         tableView.dataSource = self
-//        tableView.delegate = self
+        tableView.delegate = self
         view.addSubview(tableView)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveNotification(_:)), name: .moveToHouseDetailVCFromFavoriteList, object: nil)
     }
     
     private func setAutolayout() {
@@ -68,6 +100,20 @@ class FavoriteHouseDetailViewController: UIViewController {
             make.leading.bottom.trailing.equalTo(view.safeAreaLayoutGuide)
         }
     }
+    
+    @objc func receiveNotification(_ sender: Notification) {
+        guard let userInfo = sender.userInfo as? [String: Any]
+            , let roomID = userInfo["roomID"] as? Int
+            , let type = userInfo["type"] as? String
+            , let name = userInfo["houseName"] as? String
+            else { print("moveToHouseDetailViewFromFavoriteList noti error"); return }
+        
+        let houseDetailVC = HouseDetailViewController()
+        houseDetailVC.roomID = roomID
+        houseDetailVC.nameLabelPlaceholder = name
+        houseDetailVC.typeLablePlaceholder = type
+        navigationController?.pushViewController(houseDetailVC, animated: true)
+    }
 }
 
 
@@ -81,9 +127,9 @@ extension FavoriteHouseDetailViewController: TableviewTopViewDelegate {
 }
 
 // MARK: - UITableViewDataSource
-extension FavoriteHouseDetailViewController: UITableViewDataSource {
+extension FavoriteHouseDetailViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return cellCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -91,13 +137,32 @@ extension FavoriteHouseDetailViewController: UITableViewDataSource {
         case 0:
             let titleCell = tableView.dequeueReusableCell(withIdentifier: SaveDetailTitleTableCell.identifier, for: indexPath) as! SaveDetailTitleTableCell
             titleCell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            titleCell.setData(state: wishListDetailData?.title ?? "", guestNum: wishListDetailData?.guestNumber ?? 0)
+            
             return titleCell
+        
         case 1:
-            let noOfLikeListCell = tableView.dequeueReusableCell(withIdentifier: NoOfLikeListTableCell.identifier, for: indexPath)
+            let noOfLikeListCell = tableView.dequeueReusableCell(withIdentifier: NoOfLikeListTableCell.identifier, for: indexPath) as! NoOfLikeListTableCell
+            noOfLikeListCell.setData(availableReservationCount: roomsVaildArray.count)
+            
             return noOfLikeListCell
+            
         default:
             let likeListCell = tableView.dequeueReusableCell(withIdentifier: LikeListTableCell.identifier, for: indexPath) as! LikeListTableCell
+            likeListCell.setData(wishListData: roomsVaildArray[indexPath.row - 2])
+            likeListCell.wishListDetailData = roomsVaildArray[indexPath.row - 2]
+            
             return likeListCell
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row >= 2 {
+            let houseDetailVC = HouseDetailViewController()
+            houseDetailVC.roomID = roomsVaildArray[indexPath.row - 2].id
+            houseDetailVC.nameLabelPlaceholder = roomsVaildArray[indexPath.row - 2].title
+            houseDetailVC.typeLablePlaceholder = roomsVaildArray[indexPath.row - 2].roomType
+            navigationController?.pushViewController(houseDetailVC, animated: true)
         }
     }
 }

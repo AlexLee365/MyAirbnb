@@ -65,7 +65,7 @@ class SaveDetailTitleTableCell: UITableViewCell {
     
     private func setAutolayout() {
         titleLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(25)
+            make.top.equalTo(15)
             make.leading.equalTo(20)
             make.width.equalToSuperview().multipliedBy(0.7)
         }
@@ -82,5 +82,10 @@ class SaveDetailTitleTableCell: UITableViewCell {
             make.width.equalTo(100)
             make.bottom.equalTo(-20)
         }
+    }
+    
+    func setData(state: String, guestNum: Int) {
+        titleLabel.text = state
+        subInfoLabel.text = "모든 날짜 · 게스트 \(guestNum)명 · 비공개"
     }
 }

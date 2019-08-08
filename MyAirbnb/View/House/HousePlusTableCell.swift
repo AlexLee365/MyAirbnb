@@ -16,7 +16,7 @@ class HousePlusTableCell: UITableViewCell {
         static let linesOnScreen: CGFloat = 1
         static let lineSpacing: CGFloat = 13.0
         static let itemSpacing: CGFloat = 0
-        static let edgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 0)
+        static let edgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
         static let nextOffset: CGFloat = UIScreen.main.bounds.width * 0.3
     }
     

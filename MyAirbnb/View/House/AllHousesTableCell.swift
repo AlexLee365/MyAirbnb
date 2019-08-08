@@ -172,12 +172,28 @@ class AllHousesTableCell: UITableViewCell {
         houseNameLabel.text = houseData.title
         ratingImageLabel.text = houseData.drawStarsWithHouseRate()
         ratingAndHostInfoLabel.text = "\(houseData.reservations) ・ \(houseData.superHost ?? "일반 호스트")"
-        imageStringArray = [houseData.image, houseData.image1, houseData.image2, houseData.image3, houseData.image4]
         likeBtn.resetContentIDAndTypeAndHouseData(contentID: houseData.id, contentType: .room, houseData: houseData)
 
-        guard let url = URL(string: imageStringArray.first ?? "") else { print("‼️ setData url convert error "); return }
-        imageViewArray.first?.kf.setImage(with: url)
-        downLoadAllImages()
+        if let url = URL(string: houseData.image) {
+            imageViewArray[0].kf.setImage(with: url)
+        }
+        if let url = URL(string: houseData.image1) {
+            imageViewArray[1].kf.setImage(with: url)
+        }
+        if let url = URL(string: houseData.image2) {
+            imageViewArray[2].kf.setImage(with: url)
+        }
+        if let url = URL(string: houseData.image3) {
+            imageViewArray[3].kf.setImage(with: url)
+        }
+        if let url = URL(string: houseData.image4) {
+            imageViewArray[4].kf.setImage(with: url)
+        }
+        
+//        imageStringArray = [houseData.image, houseData.image1, houseData.image2, houseData.image3, houseData.image4]
+//        guard let url = URL(string: imageStringArray.first ?? "") else { print("‼️ setData url convert error "); return }
+//        imageViewArray.first?.kf.setImage(with: url)
+//        downLoadAllImages()
     }
 }
 

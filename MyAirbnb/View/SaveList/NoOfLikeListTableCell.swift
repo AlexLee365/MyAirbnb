@@ -32,8 +32,6 @@ class NoOfLikeListTableCell: UITableViewCell {
     }
     
     
-    // MARK: - Properties
-    
     private func configure() {
         self.selectionStyle = .none
         
@@ -43,7 +41,11 @@ class NoOfLikeListTableCell: UITableViewCell {
     private func setAutolayout() {
         label.snp.makeConstraints { (make) in
             make.top.leading.equalTo(20)
-            make.bottom.equalTo(20)
+            make.bottom.equalTo(-20)
         }
+    }
+    
+    func setData(availableReservationCount: Int) {
+        label.text = "예약 가능 숙소 \(availableReservationCount)개"
     }
 }

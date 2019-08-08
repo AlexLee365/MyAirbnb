@@ -42,10 +42,11 @@ class TitleCell: UITableViewCell {
         titleLabel.font = UIFont.systemFont(ofSize: 27, weight: .bold)
         titleLabel.textAlignment = .left
         titleLabel.sizeToFit()
+        titleLabel.text = "저장목록"
         
     }
     
-    func setData(titleTextData: TitleText) {
-        titleLabel.text = titleTextData.title
-    }
+//    func setData(titleTextData: TitleText) {
+//        titleLabel.text = titleTextData.title
+//    }
 }

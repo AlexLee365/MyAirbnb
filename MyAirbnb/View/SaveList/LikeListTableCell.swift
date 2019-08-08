@@ -71,6 +71,10 @@ class LikeListTableCell: UITableViewCell {
         return label
     }()
     
+    var imageViewArray = [UIImageView]()
+    let notiCenter = NotificationCenter.default
+    
+    var wishListDetailData: RoomsValid?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -82,9 +86,6 @@ class LikeListTableCell: UITableViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
-    // MARK: - Properties
     
     private func configure() {
         self.selectionStyle = .none
@@ -168,36 +169,44 @@ class LikeListTableCell: UITableViewCell {
             let uiView = AllHousesScrollImageView(frame: tempFrame)
             
             scrollView.addSubview(uiView)
-//            imageViewArray.append(uiView.imageView)
+            imageViewArray.append(uiView.imageView)
         }
         scrollView.contentSize = CGSize(width: ((frame.size.width - 40) * CGFloat(imageSamples.count)), height: tempHeight-5)
-//        scrollView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(scrollViewDidTapGesture(_:))))
+        scrollView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(scrollViewDidTapGesture(_:))))
     }
     
-//    @objc private func scrollViewDidTapGesture(_ sender: UITapGestureRecognizer) {
-//        guard let houseVC = self.superview?.superview as? HouseView else { print("‼️ : "); return }
-//        
-//        notiCenter.post(name: .moveToHouseDetailView, object: nil,
-//                        userInfo: ["roomID": houseData?.id,
-//                                   "type": houseData?.roomType,
-//                                   "houseName": houseData?.title,
-//                                   SingletonCommonData.notiKeySearchBarUseCase: houseVC.useCase.0,
-//                                   SingletonCommonData.notiKeySearchBarInController: houseVC.useCase.1])
-//    }
+    @objc private func scrollViewDidTapGesture(_ sender: UITapGestureRecognizer) {
+        
+        notiCenter.post(name: .moveToHouseDetailVCFromFavoriteList, object: nil,
+                        userInfo: ["roomID": wishListDetailData?.id ?? 0,
+                                   "type": wishListDetailData?.roomType ?? "",
+                                   "houseName": wishListDetailData?.title ?? ""] )
+    }
     
-//    func setData(houseData: HouseDataInList) {
-//        self.houseData = houseData
-//        houseTypeLabel.text = "\(houseData.roomType) ・ \(houseData.state)"
-//        houseNameLabel.text = houseData.title
-//        ratingImageLabel.text = houseData.drawStarsWithHouseRate()
-//        ratingAndHostInfoLabel.text = "\(houseData.reservations) ・ \(houseData.superHost ?? "일반 호스트")"
-//        imageStringArray = [houseData.image, houseData.image1, houseData.image2, houseData.image3, houseData.image4]
-//        likeBtn.resetContentIDAndTypeAndHouseData(contentID: houseData.id, contentType: .room, houseData: houseData)
-//
-//        guard let url = URL(string: imageStringArray.first ?? "") else { print("‼️ setData url convert error "); return }
-//        imageViewArray.first?.kf.setImage(with: url)
-//        downLoadAllImages()
-//    }
+    func setData(wishListData: RoomsValid) {
+        houseTypeLabel.text = "\(wishListData.roomType) ・ 침대 \(wishListData.bedroom)개"
+        houseNameLabel.text = wishListData.title
+        
+        priceLabel.text = "₩\(String(wishListData.price).limitFractionDigits()) / 박"
+        ratingImageLabel.text = wishListData.drawStarsWithHouseRate()
+        ratingAndHostInfoLabel.text = "\(wishListData.reservations) ・ \(wishListData.superHost ?? "일반 호스트")"
+        
+        if let url = URL(string: wishListData.image) {
+            imageViewArray[0].kf.setImage(with: url)
+        }
+        if let url = URL(string: wishListData.image1) {
+            imageViewArray[1].kf.setImage(with: url)
+        }
+        if let url = URL(string: wishListData.image2) {
+            imageViewArray[2].kf.setImage(with: url)
+        }
+        if let url = URL(string: wishListData.image3) {
+            imageViewArray[3].kf.setImage(with: url)
+        }
+        if let url = URL(string: wishListData.image4) {
+            imageViewArray[4].kf.setImage(with: url)
+        }
+    }
 }
 
 
