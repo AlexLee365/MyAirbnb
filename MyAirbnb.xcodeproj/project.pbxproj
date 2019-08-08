@@ -212,6 +212,9 @@
 		8D4FDAE022FA9D2200E31CF5 /* HouseReservationCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDADF22FA9D2200E31CF5 /* HouseReservationCompleteViewController.swift */; };
 		8D4FDB0422FAB67000E31CF5 /* ConfirmedTitleTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDB0322FAB67000E31CF5 /* ConfirmedTitleTableCell.swift */; };
 		8D4FDB0622FAB69100E31CF5 /* PaymentOverviewTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDB0522FAB69100E31CF5 /* PaymentOverviewTableCell.swift */; };
+		8D4FDB0B22FC3ED700E31CF5 /* SaveDetailTitleTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDB0A22FC3ED700E31CF5 /* SaveDetailTitleTableCell.swift */; };
+		8D4FDB0F22FC46E800E31CF5 /* LikeListTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDB0E22FC46E800E31CF5 /* LikeListTableCell.swift */; };
+		8D4FDB1122FC4A1300E31CF5 /* NoOfLikeListTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4FDB1022FC4A1300E31CF5 /* NoOfLikeListTableCell.swift */; };
 		8D518FEC22DF280B009D6792 /* InstantBookTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D518FEB22DF280B009D6792 /* InstantBookTableCell.swift */; };
 		8D518FEE22E06F29009D6792 /* QualifiedHouseTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D518FED22E06F29009D6792 /* QualifiedHouseTableCell.swift */; };
 		8D518FF022E07769009D6792 /* PriceRangeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D518FEF22E07769009D6792 /* PriceRangeTableCell.swift */; };
@@ -476,6 +479,9 @@
 		8D4FDADF22FA9D2200E31CF5 /* HouseReservationCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseReservationCompleteViewController.swift; sourceTree = "<group>"; };
 		8D4FDB0322FAB67000E31CF5 /* ConfirmedTitleTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmedTitleTableCell.swift; sourceTree = "<group>"; };
 		8D4FDB0522FAB69100E31CF5 /* PaymentOverviewTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentOverviewTableCell.swift; sourceTree = "<group>"; };
+		8D4FDB0A22FC3ED700E31CF5 /* SaveDetailTitleTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveDetailTitleTableCell.swift; sourceTree = "<group>"; };
+		8D4FDB0E22FC46E800E31CF5 /* LikeListTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeListTableCell.swift; sourceTree = "<group>"; };
+		8D4FDB1022FC4A1300E31CF5 /* NoOfLikeListTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoOfLikeListTableCell.swift; sourceTree = "<group>"; };
 		8D518FEB22DF280B009D6792 /* InstantBookTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstantBookTableCell.swift; sourceTree = "<group>"; };
 		8D518FED22E06F29009D6792 /* QualifiedHouseTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QualifiedHouseTableCell.swift; sourceTree = "<group>"; };
 		8D518FEF22E07769009D6792 /* PriceRangeTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceRangeTableCell.swift; sourceTree = "<group>"; };
@@ -647,6 +653,7 @@
 		4353B8EB22D085D3004BD807 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8D4FDB0722FC3DC300E31CF5 /* SaveList */,
 				4353B8EF22D22782004BD807 /* SearchBarView.swift */,
 				4353BA3022DD7F41004BD807 /* SearchBarTableView.swift */,
 				43F5AA8622EB2683007511E1 /* SearchBarTableCell.swift */,
@@ -945,6 +952,16 @@
 			path = LuxeHouse;
 			sourceTree = "<group>";
 		};
+		8D4FDB0722FC3DC300E31CF5 /* SaveList */ = {
+			isa = PBXGroup;
+			children = (
+				8D4FDB0A22FC3ED700E31CF5 /* SaveDetailTitleTableCell.swift */,
+				8D4FDB1022FC4A1300E31CF5 /* NoOfLikeListTableCell.swift */,
+				8D4FDB0E22FC46E800E31CF5 /* LikeListTableCell.swift */,
+			);
+			path = SaveList;
+			sourceTree = "<group>";
+		};
 		8D518FEA22DF27DA009D6792 /* FilterRemains */ = {
 			isa = PBXGroup;
 			children = (
@@ -1163,6 +1180,7 @@
 				8D518FF622E1A3AB009D6792 /* CheckboxTableCell.swift in Sources */,
 				8D51904722EAAE56009D6792 /* MapTableCell.swift in Sources */,
 				8D0D793922DC9A2900F61F0B /* VideosDetailViewController.swift in Sources */,
+				8D4FDB1122FC4A1300E31CF5 /* NoOfLikeListTableCell.swift in Sources */,
 				202B9A5722F9942C0085F770 /* FavoriteViewData.swift in Sources */,
 				8D0D78B022D48AE500F61F0B /* TopScrollView.swift in Sources */,
 				8D0D787222D0810300F61F0B /* SpecialTripTableViewCell.swift in Sources */,
@@ -1295,10 +1313,12 @@
 				8D4FDADC22FA251600E31CF5 /* BillsTableCell.swift in Sources */,
 				20C2D0BC22F06DF5001D813F /* InputEmailViewController.swift in Sources */,
 				8D4FDAC822F88D9A00E31CF5 /* EachRowTableCell.swift in Sources */,
+				8D4FDB0B22FC3ED700E31CF5 /* SaveDetailTitleTableCell.swift in Sources */,
 				8D4FDA5F22F30D1500E31CF5 /* CautionTableCell.swift in Sources */,
 				8D51907A22EED888009D6792 /* ProgramDescriptionTableCell.swift in Sources */,
 				8D518FF822E1A57E009D6792 /* HouseTypeTableCell.swift in Sources */,
 				4353B8F022D22782004BD807 /* SearchBarView.swift in Sources */,
+				8D4FDB0F22FC46E800E31CF5 /* LikeListTableCell.swift in Sources */,
 				4342405122FA03BF001B8AB6 /* LuxeDetailInclusionInfoTableCell.swift in Sources */,
 				8D4FDA7F22F4040200E31CF5 /* CouponApplyViewController.swift in Sources */,
 				8D4FDA3822F0249700E31CF5 /* WorldAdventureTableCell.swift in Sources */,
