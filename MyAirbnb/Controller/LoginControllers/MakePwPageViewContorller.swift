@@ -249,7 +249,7 @@ extension MakePwPageViewContorller: KeyboardTopViewNextBtnDelegate {
 
         
         loginPost(username: username, email: email, password: password, firstName: firstName, lastName: lastName)
-        makeAlert(title: "Message", message: "로그인 성공하였습니다.")
+        makeAlert(title: "Message", message: "회원가입 성공하였습니다.")
     }
     
     

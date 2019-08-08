@@ -12,6 +12,7 @@ class FavoriteHouseListViewController: UIViewController {
     
     //    let mainTableView = FavoriteHouseListView()
     let favoriteTableView = UITableView()
+    let placeHolderView = UIView()
     
     let notiCenter = NotificationCenter.default
     let netWork = NetworkCommunicator()
@@ -23,6 +24,7 @@ class FavoriteHouseListViewController: UIViewController {
         super.viewDidLoad()
         setupLayout()
         configureViewsOptions()
+        setPlaceHolderView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -37,11 +39,23 @@ class FavoriteHouseListViewController: UIViewController {
                 self.wishListArray = wishlist
                 self.cellNumber = wishlist.count + 1
                 
+
                 DispatchQueue.main.async {
                     self.favoriteTableView.reloadData()
                 }
             case .failure(let error):
                 print("‼️ FavoriteHouseListVC WishList get Method Failed: ", error.localizedDescription)
+            }
+            
+            DispatchQueue.main.async {
+                if self.wishListArray.count == 0 {
+                    self.favoriteTableView.isHidden = true
+                    self.placeHolderView.isHidden = false
+                } else {
+                    self.favoriteTableView.isHidden = false
+                    self.placeHolderView.isHidden = true
+                    self.view.sendSubviewToBack(self.placeHolderView)
+                }
             }
         }
     }
@@ -68,7 +82,79 @@ class FavoriteHouseListViewController: UIViewController {
         favoriteTableView.register(ThreePhotoCell.self, forCellReuseIdentifier: ThreePhotoCell.identifier)
         favoriteTableView.contentInsetAdjustmentBehavior = .never
         favoriteTableView.rowHeight = UITableView.automaticDimension
+        
+        placeHolderView.isHidden = true
     }
+    
+    private func setPlaceHolderView() {
+        view.addSubview(placeHolderView)
+        placeHolderView.snp.makeConstraints { (make) in
+            make.top.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        let titleLabel = UILabel()
+        placeHolderView.addSubview(titleLabel)
+        titleLabel.snp.makeConstraints { (make) in
+            make.leading.equalTo(20)
+            make.top.equalTo(48)
+        }
+        
+        titleLabel.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
+        titleLabel.font = UIFont.systemFont(ofSize: 27, weight: .bold)
+        titleLabel.textAlignment = .left
+        titleLabel.sizeToFit()
+        titleLabel.text = "저장목록"
+        
+        let subtitleLabel = UILabel()
+        placeHolderView.addSubview(subtitleLabel)
+        subtitleLabel.snp.makeConstraints { (make) in
+            make.leading.equalTo(20)
+            make.top.equalTo(titleLabel.snp.bottom).offset(60)
+            make.trailing.equalTo(-20)
+        }
+        
+        subtitleLabel.text = "매일 매일이 모험으로 가득한 것은 아니지만 다음 모험에 대한 계획을 세울 수는 있죠. 마음에 드는 집의 하트를 탭해서 저장하세요."
+        subtitleLabel.numberOfLines = 0
+        subtitleLabel.font = .systemFont(ofSize: 16, weight: .regular)
+        subtitleLabel.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
+        subtitleLabel.setLineSpacing(lineSpacing: 6, lineHeightMultiple: 1)
+        
+     
+        let searchBtn = UIButton()
+        placeHolderView.addSubview(searchBtn)
+        searchBtn.snp.makeConstraints { (make) in
+            make.leading.equalTo(20)
+            make.trailing.equalTo(-20)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-15)
+            make.height.equalTo(50)
+        }
+        
+        searchBtn.backgroundColor = StandardUIValue.shared.colorPink
+        searchBtn.setTitle("숙소 검색", for: .normal)
+        searchBtn.setTitleColor(.white, for: .normal)
+        searchBtn.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
+        searchBtn.layer.cornerRadius = 5
+        searchBtn.layer.masksToBounds = true
+//        searchBtn.addTarget(self, action: #selector(searchBtnDidTap), for: .touchUpInside)
+        
+        let separatorLineView = UIView()
+        placeHolderView.addSubview(separatorLineView)
+        separatorLineView.snp.makeConstraints { (make) in
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(1)
+            make.bottom.equalTo(searchBtn.snp.top).offset(-15)
+        }
+        separatorLineView.backgroundColor = #colorLiteral(red: 0.8374180198, green: 0.8374378085, blue: 0.8374271393, alpha: 1)
+    }
+    
+//    @objc private func searchBtnDidTap() {
+//        if let tabbarVC = tabBarController {
+//            tabbarVC.selectedIndex = 0
+//
+//
+//            tabbarVC.show(tabbarVC, sender: nil)
+//        }
+//    }
 }
 
 extension FavoriteHouseListViewController: UITableViewDelegate, UITableViewDataSource {
