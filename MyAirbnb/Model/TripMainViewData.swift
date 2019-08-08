@@ -40,13 +40,27 @@ struct MainCategory: Codable {
 
 // MARK: - RepresentationTrip5
 struct RepresentationTrip5: Codable {
+    let name, category, image1: String
+    let url: String
+    let host: Host
+    let additional: [AdventureAdditional]
+    
+    enum CodingKeys: String, CodingKey {
+        case name, category
+        case image1 = "image_1"
+        case url, host, additional
+    }
+}
+
+// MARK: - Additional
+struct AdventureAdditional: Codable {
     let trip: Int
     let media: String
-    let representationTrip5Description, image1: String
+    let additionalDescription, image1: String
     
     enum CodingKeys: String, CodingKey {
         case trip, media
-        case representationTrip5Description = "description"
+        case additionalDescription = "description"
         case image1 = "image_1"
     }
 }

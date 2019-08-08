@@ -74,8 +74,8 @@ class TripIntroCollectionViewCell: UICollectionViewCell {
     
     func setData(representTripData: RepresentationTrip5) {
         imageView.image = UIImage(named: "adventure")
-        categoryLabel.text = "어드벤처"
-        hostNameLabel.text = "Jill & Javier"
-        titleLabel.text = "갈라파고스 슬로푸드 사파리"
+        categoryLabel.text = representTripData.category
+        hostNameLabel.text = representTripData.host.username
+        titleLabel.text = representTripData.name
     }
 }
