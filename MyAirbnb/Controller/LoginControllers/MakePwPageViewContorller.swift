@@ -187,6 +187,7 @@ class MakePwPageViewContorller: UIViewController {
         inputPwTxtField.textColor = .white
         inputPwTxtField.textAlignment = .left
         inputPwTxtField.backgroundColor = .clear
+        inputPwTxtField.isSecureTextEntry = true
         
         underLine.backgroundColor = .white
     }

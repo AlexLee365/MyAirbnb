@@ -16,7 +16,7 @@ class ProfileInfoTableCell: UITableViewCell {
     let myNameLabel: UILabel = {
         let label = UILabel()
         label.text = SingletonCommonData.shared.userInfo?.username ?? "Doyeong"
-        label.font = UIFont.boldSystemFont(ofSize: 30)
+        label.font = UIFont.boldSystemFont(ofSize: 29)
         label.textColor = #colorLiteral(red: 0.1298420429, green: 0.1298461258, blue: 0.1298439503, alpha: 1)
         return label
     }()
@@ -109,7 +109,7 @@ class ProfileInfoTableCell: UITableViewCell {
     
     private func setAutolayout() {
         myNameLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(70)
+            make.top.equalTo(48)
             make.leading.equalTo(20)
         }
         
