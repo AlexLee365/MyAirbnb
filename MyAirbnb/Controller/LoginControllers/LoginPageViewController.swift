@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginPageViewController: UIViewController {
+class LoginPageViewController: UIViewController { 
     
     let loginScrollView = UIScrollView()
     
