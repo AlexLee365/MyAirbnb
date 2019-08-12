@@ -8,7 +8,7 @@
 
 import UIKit
 import SnapKit
-
+ 
 class LuxeDetailIntroTableCell: UITableViewCell {
     static let identifier = "LuxeDetailIntroTableCell"
     
