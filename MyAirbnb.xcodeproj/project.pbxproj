@@ -34,7 +34,6 @@
 		4313F08822E5DE0A003BB3D1 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4313F08722E5DE0A003BB3D1 /* MapViewController.swift */; };
 		4313F08A22E81A67003BB3D1 /* NetworkCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4313F08922E81A67003BB3D1 /* NetworkCommunicator.swift */; };
 		4313F09222E83FA2003BB3D1 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4313F09122E83FA2003BB3D1 /* LaunchScreenViewController.swift */; };
-		4313F09422E8478E003BB3D1 /* MainViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4313F09322E8478E003BB3D1 /* MainViewData.swift */; };
 		4342404122F96140001B8AB6 /* LuxeDetailIntroTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4342404022F96140001B8AB6 /* LuxeDetailIntroTableCell.swift */; };
 		4342404322F9CEAE001B8AB6 /* LuxeDetailImagesTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4342404222F9CEAE001B8AB6 /* LuxeDetailImagesTableCell.swift */; };
 		4342404522F9D5B3001B8AB6 /* LuxeDetailBedRoomsTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4342404422F9D5B3001B8AB6 /* LuxeDetailBedRoomsTableCell.swift */; };
@@ -139,7 +138,6 @@
 		8D0D78B222D4B71500F61F0B /* TableviewTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D78B122D4B71500F61F0B /* TableviewTopView.swift */; };
 		8D0D78B622D6060600F61F0B /* HostIntroTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D78B522D6060600F61F0B /* HostIntroTableViewCell.swift */; };
 		8D0D78DA22D74BDC00F61F0B /* PlaceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D78D922D74BDC00F61F0B /* PlaceTableViewCell.swift */; };
-		8D0D78DE22D864F700F61F0B /* SpecialTripDetailData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D78DD22D864F700F61F0B /* SpecialTripDetailData.swift */; };
 		8D0D792322DB02D900F61F0B /* HouseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D792222DB02D900F61F0B /* HouseViewController.swift */; };
 		8D0D792522DB29B200F61F0B /* HouseLuxeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D792422DB29B200F61F0B /* HouseLuxeTableCell.swift */; };
 		8D0D792722DB328900F61F0B /* HousePlusTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D792622DB328900F61F0B /* HousePlusTableCell.swift */; };
@@ -282,15 +280,14 @@
 		4313F08722E5DE0A003BB3D1 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		4313F08922E81A67003BB3D1 /* NetworkCommunicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCommunicator.swift; sourceTree = "<group>"; };
 		4313F09122E83FA2003BB3D1 /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
-		4313F09322E8478E003BB3D1 /* MainViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewData.swift; sourceTree = "<group>"; };
-		4342404022F96140001B8AB6 /* LuxeDetailIntroTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LuxeDetailIntroTableCell.swift; path = MyAirbnb/Model/LuxeDetailIntroTableCell.swift; sourceTree = SOURCE_ROOT; };
-		4342404222F9CEAE001B8AB6 /* LuxeDetailImagesTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LuxeDetailImagesTableCell.swift; path = MyAirbnb/Model/LuxeDetailImagesTableCell.swift; sourceTree = SOURCE_ROOT; };
-		4342404422F9D5B3001B8AB6 /* LuxeDetailBedRoomsTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LuxeDetailBedRoomsTableCell.swift; path = MyAirbnb/Model/LuxeDetailBedRoomsTableCell.swift; sourceTree = SOURCE_ROOT; };
-		4342404622F9D959001B8AB6 /* LuxeDetailBedroomsCollectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LuxeDetailBedroomsCollectCell.swift; path = MyAirbnb/Model/LuxeDetailBedroomsCollectCell.swift; sourceTree = SOURCE_ROOT; };
-		4342404822F9E40A001B8AB6 /* LuxeDetailMoreInfoTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LuxeDetailMoreInfoTableCell.swift; path = MyAirbnb/Model/LuxeDetailMoreInfoTableCell.swift; sourceTree = SOURCE_ROOT; };
-		4342404A22F9E819001B8AB6 /* LuxeDetailBasicServiceTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LuxeDetailBasicServiceTableCell.swift; path = MyAirbnb/Model/LuxeDetailBasicServiceTableCell.swift; sourceTree = SOURCE_ROOT; };
-		4342404E22F9E8AD001B8AB6 /* LuxeDetailServicesCollectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LuxeDetailServicesCollectCell.swift; path = MyAirbnb/Model/LuxeDetailServicesCollectCell.swift; sourceTree = SOURCE_ROOT; };
-		4342405022FA03BF001B8AB6 /* LuxeDetailInclusionInfoTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LuxeDetailInclusionInfoTableCell.swift; path = MyAirbnb/Model/LuxeDetailInclusionInfoTableCell.swift; sourceTree = SOURCE_ROOT; };
+		4342404022F96140001B8AB6 /* LuxeDetailIntroTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LuxeDetailIntroTableCell.swift; path = MyAirbnb/View/LuxeHouse/LuxeDetailIntroTableCell.swift; sourceTree = SOURCE_ROOT; };
+		4342404222F9CEAE001B8AB6 /* LuxeDetailImagesTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LuxeDetailImagesTableCell.swift; path = MyAirbnb/View/LuxeHouse/LuxeDetailImagesTableCell.swift; sourceTree = SOURCE_ROOT; };
+		4342404422F9D5B3001B8AB6 /* LuxeDetailBedRoomsTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LuxeDetailBedRoomsTableCell.swift; path = MyAirbnb/View/LuxeHouse/LuxeDetailBedRoomsTableCell.swift; sourceTree = SOURCE_ROOT; };
+		4342404622F9D959001B8AB6 /* LuxeDetailBedroomsCollectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LuxeDetailBedroomsCollectCell.swift; path = MyAirbnb/View/LuxeHouse/LuxeDetailBedroomsCollectCell.swift; sourceTree = SOURCE_ROOT; };
+		4342404822F9E40A001B8AB6 /* LuxeDetailMoreInfoTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LuxeDetailMoreInfoTableCell.swift; path = MyAirbnb/View/LuxeHouse/LuxeDetailMoreInfoTableCell.swift; sourceTree = SOURCE_ROOT; };
+		4342404A22F9E819001B8AB6 /* LuxeDetailBasicServiceTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LuxeDetailBasicServiceTableCell.swift; path = MyAirbnb/View/LuxeHouse/LuxeDetailBasicServiceTableCell.swift; sourceTree = SOURCE_ROOT; };
+		4342404E22F9E8AD001B8AB6 /* LuxeDetailServicesCollectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LuxeDetailServicesCollectCell.swift; path = MyAirbnb/View/LuxeHouse/LuxeDetailServicesCollectCell.swift; sourceTree = SOURCE_ROOT; };
+		4342405022FA03BF001B8AB6 /* LuxeDetailInclusionInfoTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LuxeDetailInclusionInfoTableCell.swift; path = MyAirbnb/View/LuxeHouse/LuxeDetailInclusionInfoTableCell.swift; sourceTree = SOURCE_ROOT; };
 		4353B8CE22CF51F6004BD807 /* MyAirbnb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyAirbnb.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4353B8D122CF51F6004BD807 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4353B8DB22CF51F9004BD807 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -408,7 +405,6 @@
 		8D0D78B122D4B71500F61F0B /* TableviewTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableviewTopView.swift; sourceTree = "<group>"; };
 		8D0D78B522D6060600F61F0B /* HostIntroTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostIntroTableViewCell.swift; sourceTree = "<group>"; };
 		8D0D78D922D74BDC00F61F0B /* PlaceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceTableViewCell.swift; sourceTree = "<group>"; };
-		8D0D78DD22D864F700F61F0B /* SpecialTripDetailData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialTripDetailData.swift; sourceTree = "<group>"; };
 		8D0D792222DB02D900F61F0B /* HouseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseViewController.swift; sourceTree = "<group>"; };
 		8D0D792422DB29B200F61F0B /* HouseLuxeTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseLuxeTableCell.swift; sourceTree = "<group>"; };
 		8D0D792622DB328900F61F0B /* HousePlusTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HousePlusTableCell.swift; sourceTree = "<group>"; };
@@ -654,14 +650,13 @@
 				43F5AA8622EB2683007511E1 /* SearchBarTableCell.swift */,
 				4399345422E9831600FAE15C /* BottomInfoView.swift */,
 				43E8B86822FC0CD000741B95 /* LikeButton.swift */,
-				8D0D787322D0898200F61F0B /* Trip */,
-				8D51903522E97D52009D6792 /* PlusHouse */,
-				8D4FDA9622F812D800E31CF5 /* LuxeHouse */,
-				208BC8F222E08C6900EBDDBA /* Login */,
 				4353B8F522D3274E004BD807 /* Main */,
 				8D0D792122DB020600F61F0B /* House */,
-				8D51902D22E82C41009D6792 /* Message */,
+				8D51903522E97D52009D6792 /* PlusHouse */,
+				43E8B873230148F300741B95 /* LuxeHouse */,
+				8D0D787322D0898200F61F0B /* Trip */,
 				8D4FDB0722FC3DC300E31CF5 /* SaveList */,
+				208BC8F222E08C6900EBDDBA /* Login */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -671,26 +666,11 @@
 			children = (
 				4353B90322D484FA004BD807 /* StandardUIValue.swift */,
 				438BDDA422F2C76000944276 /* SingletonCommonData.swift */,
-				4313F09322E8478E003BB3D1 /* MainViewData.swift */,
-				43F5AA8E22F00055007511E1 /* HouseDatasInList.swift */,
-				2005512E22FC5D2C00DFCD48 /* ButtonColorExtension.swift */,
-				2005512A22FC10E000DFCD48 /* Validation.swift */,
-				4399347422E9B12700FAE15C /* HouseDetailData.swift */,
-				8D4FDA9022F4552000E31CF5 /* TripMainViewData.swift */,
-				8D4FDACF22F984E400E31CF5 /* AllTripData.swift */,
-				8D4FDA9222F4646B00E31CF5 /* StateDetailData.swift */,
-				8D4FDA9422F6D84E00E31CF5 /* TripDetailData.swift */,
-				8D0D78A022D4598200F61F0B /* TripIntroData.swift */,
-				8D0D78A222D459AC00F61F0B /* SpecialTripData.swift */,
-				8D0D78A422D459C900F61F0B /* SeoulRecommendedTripData.swift */,
-				8D0D78AD22D485B000F61F0B /* SeoulRecommendDetailData.swift */,
-				8D0D78A622D459E200F61F0B /* TodaySeoulExperienceData.swift */,
-				8D0D78DD22D864F700F61F0B /* SpecialTripDetailData.swift */,
-				8D51902922E5B7DD009D6792 /* CheckBoxData.swift */,
-				204E909F22F2B14B000E195F /* GetToken.swift */,
-				206C998722E5B451002D3D55 /* KeyboardNotiCenter.swift */,
 				4313F08922E81A67003BB3D1 /* NetworkCommunicator.swift */,
-				20272A0822EECA9A00848BC5 /* LoginPost.swift */,
+				43E8B8712301452400741B95 /* House */,
+				43E8B86F2301382F00741B95 /* Trip */,
+				43E8B87023013A3800741B95 /* Login */,
+				8D51902922E5B7DD009D6792 /* CheckBoxData.swift */,
 				43B2549E22F7E9FB00FDBDC7 /* UserInfo.swift */,
 				43B254A022F7F45200FDBDC7 /* ChatRoom.swift */,
 				8D4FDABF22F88C3200E31CF5 /* MyPageData.swift */,
@@ -797,6 +777,58 @@
 				8D4FDADD22FA29CE00E31CF5 /* BillsViewController.swift */,
 			);
 			path = Travel;
+			sourceTree = "<group>";
+		};
+		43E8B86F2301382F00741B95 /* Trip */ = {
+			isa = PBXGroup;
+			children = (
+				8D4FDA9022F4552000E31CF5 /* TripMainViewData.swift */,
+				8D4FDACF22F984E400E31CF5 /* AllTripData.swift */,
+				8D4FDA9222F4646B00E31CF5 /* StateDetailData.swift */,
+				8D4FDA9422F6D84E00E31CF5 /* TripDetailData.swift */,
+				8D0D78A022D4598200F61F0B /* TripIntroData.swift */,
+				8D0D78A222D459AC00F61F0B /* SpecialTripData.swift */,
+				8D0D78A422D459C900F61F0B /* SeoulRecommendedTripData.swift */,
+				8D0D78AD22D485B000F61F0B /* SeoulRecommendDetailData.swift */,
+				8D0D78A622D459E200F61F0B /* TodaySeoulExperienceData.swift */,
+			);
+			path = Trip;
+			sourceTree = "<group>";
+		};
+		43E8B87023013A3800741B95 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				20272A0822EECA9A00848BC5 /* LoginPost.swift */,
+				206C998722E5B451002D3D55 /* KeyboardNotiCenter.swift */,
+				204E909F22F2B14B000E195F /* GetToken.swift */,
+				2005512E22FC5D2C00DFCD48 /* ButtonColorExtension.swift */,
+				2005512A22FC10E000DFCD48 /* Validation.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		43E8B8712301452400741B95 /* House */ = {
+			isa = PBXGroup;
+			children = (
+				43F5AA8E22F00055007511E1 /* HouseDatasInList.swift */,
+				4399347422E9B12700FAE15C /* HouseDetailData.swift */,
+			);
+			path = House;
+			sourceTree = "<group>";
+		};
+		43E8B873230148F300741B95 /* LuxeHouse */ = {
+			isa = PBXGroup;
+			children = (
+				4342404022F96140001B8AB6 /* LuxeDetailIntroTableCell.swift */,
+				4342404222F9CEAE001B8AB6 /* LuxeDetailImagesTableCell.swift */,
+				4342404422F9D5B3001B8AB6 /* LuxeDetailBedRoomsTableCell.swift */,
+				4342404622F9D959001B8AB6 /* LuxeDetailBedroomsCollectCell.swift */,
+				4342404822F9E40A001B8AB6 /* LuxeDetailMoreInfoTableCell.swift */,
+				4342404A22F9E819001B8AB6 /* LuxeDetailBasicServiceTableCell.swift */,
+				4342404E22F9E8AD001B8AB6 /* LuxeDetailServicesCollectCell.swift */,
+				4342405022FA03BF001B8AB6 /* LuxeDetailInclusionInfoTableCell.swift */,
+			);
+			path = LuxeHouse;
 			sourceTree = "<group>";
 		};
 		43F5AA8A22EE9EB5007511E1 /* Message */ = {
@@ -952,21 +984,6 @@
 			path = TripSearchMain;
 			sourceTree = "<group>";
 		};
-		8D4FDA9622F812D800E31CF5 /* LuxeHouse */ = {
-			isa = PBXGroup;
-			children = (
-				4342404022F96140001B8AB6 /* LuxeDetailIntroTableCell.swift */,
-				4342404222F9CEAE001B8AB6 /* LuxeDetailImagesTableCell.swift */,
-				4342404422F9D5B3001B8AB6 /* LuxeDetailBedRoomsTableCell.swift */,
-				4342404622F9D959001B8AB6 /* LuxeDetailBedroomsCollectCell.swift */,
-				4342404822F9E40A001B8AB6 /* LuxeDetailMoreInfoTableCell.swift */,
-				4342404A22F9E819001B8AB6 /* LuxeDetailBasicServiceTableCell.swift */,
-				4342404E22F9E8AD001B8AB6 /* LuxeDetailServicesCollectCell.swift */,
-				4342405022FA03BF001B8AB6 /* LuxeDetailInclusionInfoTableCell.swift */,
-			);
-			path = LuxeHouse;
-			sourceTree = "<group>";
-		};
 		8D4FDB0722FC3DC300E31CF5 /* SaveList */ = {
 			isa = PBXGroup;
 			children = (
@@ -991,13 +1008,6 @@
 				8D51902522E5B54D009D6792 /* CheckboxContainerView.swift */,
 			);
 			path = FilterRemains;
-			sourceTree = "<group>";
-		};
-		8D51902D22E82C41009D6792 /* Message */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Message;
 			sourceTree = "<group>";
 		};
 		8D51903222E96F94009D6792 /* House */ = {
@@ -1246,7 +1256,6 @@
 				8D4FDA0C22EF4F5A00E31CF5 /* InfoCategoryView.swift in Sources */,
 				4342404122F96140001B8AB6 /* LuxeDetailIntroTableCell.swift in Sources */,
 				8D4FDA7122F3601200E31CF5 /* AddPaymentTableCell.swift in Sources */,
-				8D0D78DE22D864F700F61F0B /* SpecialTripDetailData.swift in Sources */,
 				8D4FDAD222FA07E300E31CF5 /* PlannedHouseTableCell.swift in Sources */,
 				4353BA2122DC40B5004BD807 /* FSCalendarCell.m in Sources */,
 				4353BA3522DDB7DA004BD807 /* FilterRemainsViewController.swift in Sources */,
@@ -1310,7 +1319,6 @@
 				4342404922F9E40A001B8AB6 /* LuxeDetailMoreInfoTableCell.swift in Sources */,
 				8D0D78AC22D47AA700F61F0B /* InfoView.swift in Sources */,
 				8D4FDACC22F8A46600E31CF5 /* MaxGuestTableCell.swift in Sources */,
-				4313F09422E8478E003BB3D1 /* MainViewData.swift in Sources */,
 				8D51903422E96FE8009D6792 /* PlusViewController.swift in Sources */,
 				8D4FDA7522F367CA00E31CF5 /* SelectPayMethodViewController.swift in Sources */,
 				8D51904122E9CCCD009D6792 /* FacilityTableCell.swift in Sources */,
