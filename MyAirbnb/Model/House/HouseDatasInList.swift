@@ -145,7 +145,7 @@ struct UsersLikeHouseList {
 //}
 
 
-// 기존 플로스숙소 가데이터 구조체
+// 기존 플러스숙소 가데이터 구조체
 //struct HousePlusDataInList: MainViewDataProtocol, HouseViewDataProtocol {
 //    let houseMainImage: UIImage?
 //    let houseImageString: [String]

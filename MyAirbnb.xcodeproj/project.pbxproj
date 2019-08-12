@@ -656,7 +656,6 @@
 				43E8B873230148F300741B95 /* LuxeHouse */,
 				8D0D787322D0898200F61F0B /* Trip */,
 				8D4FDB0722FC3DC300E31CF5 /* SaveList */,
-				8D51902D22E82C41009D6792 /* Message */,
 				208BC8F222E08C6900EBDDBA /* Login */,
 			);
 			path = View;
@@ -1009,13 +1008,6 @@
 				8D51902522E5B54D009D6792 /* CheckboxContainerView.swift */,
 			);
 			path = FilterRemains;
-			sourceTree = "<group>";
-		};
-		8D51902D22E82C41009D6792 /* Message */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Message;
 			sourceTree = "<group>";
 		};
 		8D51903222E96F94009D6792 /* House */ = {
