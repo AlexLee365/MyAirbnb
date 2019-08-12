@@ -638,17 +638,10 @@
 				43F5AA8B22EE9EFE007511E1 /* Main */,
 				8D51903222E96F94009D6792 /* House */,
 				8D51907222ED5FD8009D6792 /* Trip */,
-				2080604222DDE6C5008672D9 /* LoginControllers */,
-				43F5AA8A22EE9EB5007511E1 /* Message */,
 				202B9A5122F993890085F770 /* SaveList */,
-				43E8B84822FAC20D00741B95 /* PlannedTravelViewController.swift */,
-				8D4FDAD322FA0AE200E31CF5 /* PlannedTripTitleTableCell.swift */,
-				8D4FDAD122FA07E200E31CF5 /* PlannedHouseTableCell.swift */,
-				8D4FDAD522FA0F3A00E31CF5 /* SaveDetailViewController.swift */,
-				8D4FDADD22FA29CE00E31CF5 /* BillsViewController.swift */,
-				8D4FDAD722FA168F00E31CF5 /* HouseInfoTableCell.swift */,
-				8D4FDAD922FA200200E31CF5 /* HostAndHouseTypeTableCell.swift */,
-				8D4FDADB22FA251600E31CF5 /* BillsTableCell.swift */,
+				43E8B86E230134D000741B95 /* Travel */,
+				43F5AA8A22EE9EB5007511E1 /* Message */,
+				2080604222DDE6C5008672D9 /* LoginControllers */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -791,10 +784,26 @@
 			path = HouseDetail;
 			sourceTree = "<group>";
 		};
+		43E8B86E230134D000741B95 /* Travel */ = {
+			isa = PBXGroup;
+			children = (
+				43E8B84822FAC20D00741B95 /* PlannedTravelViewController.swift */,
+				8D4FDAD322FA0AE200E31CF5 /* PlannedTripTitleTableCell.swift */,
+				8D4FDAD122FA07E200E31CF5 /* PlannedHouseTableCell.swift */,
+				8D4FDAD522FA0F3A00E31CF5 /* SaveDetailViewController.swift */,
+				8D4FDAD722FA168F00E31CF5 /* HouseInfoTableCell.swift */,
+				8D4FDAD922FA200200E31CF5 /* HostAndHouseTypeTableCell.swift */,
+				8D4FDADB22FA251600E31CF5 /* BillsTableCell.swift */,
+				8D4FDADD22FA29CE00E31CF5 /* BillsViewController.swift */,
+			);
+			path = Travel;
+			sourceTree = "<group>";
+		};
 		43F5AA8A22EE9EB5007511E1 /* Message */ = {
 			isa = PBXGroup;
 			children = (
 				8D51902B22E81811009D6792 /* MessageViewController.swift */,
+				8D51902E22E82C8F009D6792 /* MsgListTableCell.swift */,
 				8D51903022E8472A009D6792 /* ChatRoomViewController.swift */,
 				438BDDA822F32F2300944276 /* ChatTableViewCell.swift */,
 				438BDDA922F32F2300944276 /* ChatTableViewCell.xib */,
@@ -987,7 +996,6 @@
 		8D51902D22E82C41009D6792 /* Message */ = {
 			isa = PBXGroup;
 			children = (
-				8D51902E22E82C8F009D6792 /* MsgListTableCell.swift */,
 			);
 			path = Message;
 			sourceTree = "<group>";
