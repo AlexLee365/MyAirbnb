@@ -30,9 +30,7 @@ class LaunchScreenViewController: UIViewController {
         startAnimation()
         
         createCategoryData()
-//        createPlusHouseData()
         createFullImageHouseData()
-//        createLuxeHouseData()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
             self.getEntireServerData {
@@ -80,7 +78,7 @@ class LaunchScreenViewController: UIViewController {
     }
     
     private func configureViewsOptions() {
-         print("🔵🔵🔵 UserID: \(UserDefaults.standard.string(forKey: SingletonCommonData.userDefaultIDKey) ?? "") / UserNumber: \(UserDefaults.standard.integer(forKey: SingletonCommonData.userDefaultIDNumber)) / UserToekn: \(UserDefaults.standard.string(forKey: SingletonCommonData.userDefaultTokenKey) ?? "")")
+        print("🔵🔵🔵 UserID: \(UserDefaults.standard.string(forKey: SingletonCommonData.userDefaultIDKey) ?? "") / UserNumber: \(UserDefaults.standard.integer(forKey: SingletonCommonData.userDefaultIDNumber)) / UserToekn: \(UserDefaults.standard.string(forKey: SingletonCommonData.userDefaultTokenKey) ?? "")")
         
         view.backgroundColor = .white
         backgroundGrayView.backgroundColor = #colorLiteral(red: 0.7848168612, green: 0.7801527381, blue: 0.7884028554, alpha: 0.3912403682)
@@ -88,8 +86,6 @@ class LaunchScreenViewController: UIViewController {
         
         logoImageView.image = UIImage(named: "launchLogoImage")
         logoImageView.contentMode = .scaleAspectFit
-        
-     
     }
     
     private func startAnimation() {
@@ -138,43 +134,6 @@ extension LaunchScreenViewController {
         mainViewDataArray.append(MainViewData(data: categoryDataArray, cellStyle: .category))
     }
     
-//    private func createPlusHouseData() {
-//        let imageArray = ["plusHouseSample1", "plusHouseSample2", "plusHouseSample3", "plusHouseSample4", "plusHouseSample5"]
-//        let housePlusDataArray: [HousePlusDataInList] = [
-//            HousePlusDataInList(houseMainImage: UIImage(named: imageArray[0]),
-//                                houseImageString: imageArray,
-//                                houseLocation: "아테네",
-//                                houseName: "Stay on a Working Flower Farm in a Modern Home",
-//                                houseTotalRate: 5,
-//                                houseRateCount: 65),
-//            HousePlusDataInList(houseMainImage: UIImage(named: imageArray[1]),
-//                                houseImageString: imageArray,
-//                                houseLocation: "멕시코시티",
-//                                houseName: "Elegant Art Deco Home with Garden in Condesa",
-//                                houseTotalRate: 3.5,
-//                                houseRateCount: 30),
-//            HousePlusDataInList(houseMainImage: UIImage(named: imageArray[2]),
-//                                houseImageString: imageArray,
-//                                houseLocation: "오스틴",
-//                                houseName: "Historic Casa Cartel - Austin Villa with Courtyard Pool",
-//                                houseTotalRate: 4.3,
-//                                houseRateCount: 103),
-//            HousePlusDataInList(houseMainImage: UIImage(named: imageArray[3]),
-//                                houseImageString: imageArray,
-//                                houseLocation: "ToberMory",
-//                                houseName: "Unique and Secluded AirShip with breathtaking Highland Views",
-//                                houseTotalRate: 4.6,
-//                                houseRateCount: 99),
-//            HousePlusDataInList(houseMainImage: UIImage(named: imageArray[4]),
-//                                houseImageString: imageArray,
-//                                houseLocation: "조슈아 트리",
-//                                houseName: "Dome in the Desert in Joshua Tree",
-//                                houseTotalRate: 3.2,
-//                                houseRateCount: 49),
-//        ]
-//        mainViewDataArray.append(MainViewData(data: housePlusDataArray, cellStyle: .plus))
-//    }
-    
     private func createFullImageHouseData() {
         let fullImageHouseData = [
             HouseFullImagDataInList(title: "계획을 전혀 세우지않고도\n완벽한 여행을 즐기는 법", image: UIImage(named: "MainFullImage"))
@@ -182,35 +141,7 @@ extension LaunchScreenViewController {
         mainViewDataArray.append(MainViewData(data: fullImageHouseData, cellStyle: .fullImage))
     }
     
-//    private func createLuxeHouseData() {
-//        let imageArray = ["luxeHouseSample1", "luxeHouseSample2", "luxeHouseSample3", "luxeHouseSample4", "luxeHouseSample5"]
-//        let luxeHouseData = [
-//            HouseLuxeDataInList(houseMainImage: UIImage(named: imageArray[0]),
-//                                houseImageString: imageArray,
-//                                houseLocation: "우븟",
-//                                houseName: "Villa Kelusa Modern thatch-roofed estate overlokking jungle"),
-//            HouseLuxeDataInList(houseMainImage: UIImage(named: imageArray[1]),
-//                                houseImageString: imageArray,
-//                                houseLocation: "The BIGHT",
-//                                houseName: "Atelier House Gated modern villa above the sea"),
-//            HouseLuxeDataInList(houseMainImage: UIImage(named: imageArray[2]),
-//                                houseImageString: imageArray,
-//                                houseLocation: "PUNTA MITA",
-//                                houseName: "Casa Koko Contemporary craft architecture on the beach"),
-//            HouseLuxeDataInList(houseMainImage: UIImage(named: imageArray[3]),
-//                                houseImageString: imageArray,
-//                                houseLocation: "MONTEGO FREEPORT",
-//                                houseName: "Afimi Jamaican Villa Rental"),
-//            HouseLuxeDataInList(houseMainImage: UIImage(named: imageArray[4]),
-//                                houseImageString: imageArray,
-//                                houseLocation: "EL JOBO",
-//                                houseName: "Su Casa Contemporary villa above Playa Rajada"),
-//        ]
-//        mainViewDataArray.append(MainViewData(data: luxeHouseData, cellStyle: .luxe))
-//    }
-    
-    
-    
+
     // =================================== Get ServerData Functions ===================================
     private func getEntireServerData(completion: @escaping () -> ()) {
         let dispatchGroup = DispatchGroup()
@@ -426,34 +357,6 @@ extension LaunchScreenViewController {
     
     private func getUsersChatRoomsData(completion: @escaping (Result<Any?, netWorkError>) -> ()) {
         SingletonCommonData.shared.userChatRoomsArray.removeAll()
-//        guard let userInfo = SingletonCommonData.shared.userInfo else { print("‼️ getUserChatRoomsData userInfo convert error "); return }
-//        guard userInfo.reservations.count > 0 else { completion(.failure(.badUrl)); return }
-//        for (index, room) in userInfo.reservations.enumerated() {
-//            guard let chatRoomArray = room?.values
-//                , let chatRoom = chatRoomArray.first else {
-//                    print("‼️ : ")
-//                    return
-//            }
-//
-//            let urlString = netWork.basicUrlString + "/chat/\(chatRoom.id)"
-//
-//            netWork.getServerDataWithToken(urlString: urlString) { (result) in
-//                switch result {
-//                case .success(let value):
-//                    guard let chatRoomData = try? self.jsonDecoder.decode(ChatRoom.self, from: value) else {
-//                        print("‼️ chatRoomData decoding error ");
-//                        completion(.failure(.decodingError))
-//                        return
-//                    }
-//                    SingletonCommonData.shared.userChatRoomsArray.append(chatRoomData)
-//                    (index == userInfo.reservations.count - 1) ? completion(.success(nil)) : ()       // 마지막 인덱스까지 for문이 돌면 success or failtur completion
-//                case .failure(let error):
-//                    print("‼️ chatroom getServerData error: ", error.localizedDescription)
-//                    (index == userInfo.reservations.count - 1) ? completion(.failure(error)) : ()
-//                }
-//            }
-//        }
-        
         
         let urlString = netWork.basicUrlString + "/chat/"
         netWork.getServerDataWithToken(urlString: urlString) { (result) in
@@ -472,9 +375,5 @@ extension LaunchScreenViewController {
             }
         }
     }
-    
-    
-    
-    
     
 }

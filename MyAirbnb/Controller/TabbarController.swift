@@ -15,8 +15,6 @@ class TabbarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-       
-
         setSeparateLine()
         setTabbarItems()
     }
@@ -90,7 +88,6 @@ class TabbarController: UITabBarController {
              NSAttributedString.Key.font : tabTextFont]
             , for: .normal)
         tapApperance.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : selectedColor], for: .selected)
-        
     }
     
     var frameSet = false

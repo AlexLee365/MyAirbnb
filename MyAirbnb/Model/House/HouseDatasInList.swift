@@ -144,6 +144,34 @@ struct UsersLikeHouseList {
 //    let houseName: String
 //}
 
+// 가데이터 생성 부분
+//    private func createLuxeHouseData() {
+//        let imageArray = ["luxeHouseSample1", "luxeHouseSample2", "luxeHouseSample3", "luxeHouseSample4", "luxeHouseSample5"]
+//        let luxeHouseData = [
+//            HouseLuxeDataInList(houseMainImage: UIImage(named: imageArray[0]),
+//                                houseImageString: imageArray,
+//                                houseLocation: "우븟",
+//                                houseName: "Villa Kelusa Modern thatch-roofed estate overlokking jungle"),
+//            HouseLuxeDataInList(houseMainImage: UIImage(named: imageArray[1]),
+//                                houseImageString: imageArray,
+//                                houseLocation: "The BIGHT",
+//                                houseName: "Atelier House Gated modern villa above the sea"),
+//            HouseLuxeDataInList(houseMainImage: UIImage(named: imageArray[2]),
+//                                houseImageString: imageArray,
+//                                houseLocation: "PUNTA MITA",
+//                                houseName: "Casa Koko Contemporary craft architecture on the beach"),
+//            HouseLuxeDataInList(houseMainImage: UIImage(named: imageArray[3]),
+//                                houseImageString: imageArray,
+//                                houseLocation: "MONTEGO FREEPORT",
+//                                houseName: "Afimi Jamaican Villa Rental"),
+//            HouseLuxeDataInList(houseMainImage: UIImage(named: imageArray[4]),
+//                                houseImageString: imageArray,
+//                                houseLocation: "EL JOBO",
+//                                houseName: "Su Casa Contemporary villa above Playa Rajada"),
+//        ]
+//        mainViewDataArray.append(MainViewData(data: luxeHouseData, cellStyle: .luxe))
+//    }
+
 
 // 기존 플러스숙소 가데이터 구조체
 //struct HousePlusDataInList: MainViewDataProtocol, HouseViewDataProtocol {
@@ -174,3 +202,41 @@ struct UsersLikeHouseList {
 //        return String(repeating: "★", count: starCount)
 //    }
 //}
+
+// 가데이터 생성 부분
+//    private func createPlusHouseData() {
+//        let imageArray = ["plusHouseSample1", "plusHouseSample2", "plusHouseSample3", "plusHouseSample4", "plusHouseSample5"]
+//        let housePlusDataArray: [HousePlusDataInList] = [
+//            HousePlusDataInList(houseMainImage: UIImage(named: imageArray[0]),
+//                                houseImageString: imageArray,
+//                                houseLocation: "아테네",
+//                                houseName: "Stay on a Working Flower Farm in a Modern Home",
+//                                houseTotalRate: 5,
+//                                houseRateCount: 65),
+//            HousePlusDataInList(houseMainImage: UIImage(named: imageArray[1]),
+//                                houseImageString: imageArray,
+//                                houseLocation: "멕시코시티",
+//                                houseName: "Elegant Art Deco Home with Garden in Condesa",
+//                                houseTotalRate: 3.5,
+//                                houseRateCount: 30),
+//            HousePlusDataInList(houseMainImage: UIImage(named: imageArray[2]),
+//                                houseImageString: imageArray,
+//                                houseLocation: "오스틴",
+//                                houseName: "Historic Casa Cartel - Austin Villa with Courtyard Pool",
+//                                houseTotalRate: 4.3,
+//                                houseRateCount: 103),
+//            HousePlusDataInList(houseMainImage: UIImage(named: imageArray[3]),
+//                                houseImageString: imageArray,
+//                                houseLocation: "ToberMory",
+//                                houseName: "Unique and Secluded AirShip with breathtaking Highland Views",
+//                                houseTotalRate: 4.6,
+//                                houseRateCount: 99),
+//            HousePlusDataInList(houseMainImage: UIImage(named: imageArray[4]),
+//                                houseImageString: imageArray,
+//                                houseLocation: "조슈아 트리",
+//                                houseName: "Dome in the Desert in Joshua Tree",
+//                                houseTotalRate: 3.2,
+//                                houseRateCount: 49),
+//        ]
+//        mainViewDataArray.append(MainViewData(data: housePlusDataArray, cellStyle: .plus))
+//    }
