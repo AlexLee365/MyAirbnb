@@ -60,19 +60,19 @@ class ItemsProvidedTableCell: UITableViewCell {
         var imageString = ""
         
         switch item {
-        case "음료":
+        case let x where x.contains("음료"):
             imageString = "trip_drinksIcon"
-        case "입장권 1매":
+        case let x where x.contains("입장권"):
             imageString = "trip_ticketIcon"
-        case "장비":
+        case let x where x.contains("장비"):
             imageString = "trip_toolsIcon"
-        case "생수":
+        case let x where x.contains("생수"):
             imageString = "trip_drinksIcon"
-        case "음식":
+        case let x where x.contains("음식"):
             imageString = "trip_snacksIcon"
-        case "간식":
+        case let x where x.contains("간식"):
             imageString = "trip_snacksIcon"
-        case "교통편":
+        case let x where x.contains("교통편"):
             imageString = "trip_transportIcon"
         default: break
         }
@@ -111,10 +111,6 @@ class ItemsProvidedTableCell: UITableViewCell {
             contentView.addSubview(labelConfigArray[i].1)
             contentView.addSubview(labelConfigArray[i].2)
             
-//            labelConfigArray[i].0.backgroundColor = .blue
-//            labelConfigArray[i].1.backgroundColor = .red
-//            labelConfigArray[i].2.backgroundColor = .yellow
-            
             labelConfigArray[i].0.snp.makeConstraints { (make) in
                 make.leading.equalTo(20)
             }
@@ -127,6 +123,7 @@ class ItemsProvidedTableCell: UITableViewCell {
             labelConfigArray[i].2.snp.makeConstraints { (make) in
                 make.top.equalTo(labelConfigArray[i].0.snp.bottom).offset(5)
                 make.leading.equalTo(labelConfigArray[i].0.snp.leading)
+                make.trailing.equalTo(-20)
             }
             
             switch i {
@@ -162,6 +159,9 @@ class ItemsProvidedTableCell: UITableViewCell {
                 labelConfigArray[i].1.image =
                     configureImageForItem(item: itemProvidedData.provides[i]?.provideSet ?? "")
                 labelConfigArray[i].2.text = itemProvidedData.provides[i]?.provideDescription
+    
+//                let a = itemProvidedData.provides[i]?.provideSet
+//                print("text: ", a, "  textLength: ", a?.count)
             }
         }
     }
