@@ -70,7 +70,7 @@ class CheckboxTableCell: UITableViewCell {
         title.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 28).isActive = true
         title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
         
-        seeAllBtn.translatesAutoresizingMaskIntoConstraints = false
+//        seeAllBtn.translatesAutoresizingMaskIntoConstraints = false
         seeAllBtn.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20).isActive = true
         seeAllBtn.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
         seeAllBtn.heightAnchor.constraint(equalToConstant: 35).isActive = true
@@ -97,6 +97,9 @@ class CheckboxTableCell: UITableViewCell {
     
     private func makeContainerViews(checkBoxData: CheckBoxData, viewsCount: Int) {
         print("makeContainerViews")
+        checkBoxViewArray.forEach{
+            $0.removeFromSuperview()
+        }
         checkBoxViewArray.removeAll()
         for index in 0..<viewsCount {
             print("for문 ", index)
@@ -109,7 +112,8 @@ class CheckboxTableCell: UITableViewCell {
             checkBoxViewArray.append(customView)
             
             contentView.addSubview(customView)
-
+            
+            
             customView.translatesAutoresizingMaskIntoConstraints = false
             customView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
             customView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20).isActive = true
