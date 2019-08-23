@@ -82,7 +82,6 @@ class LikeButton: UIButton {
     
     
     private func postAndDeleteRoomLikeData(httpMethod: String) {
-        
         let userToken = UserDefaults.standard.string(forKey: SingletonCommonData.userDefaultTokenKey) ?? ""
         let urlString = netWork.basicUrlString + "/rooms/like/\(contentID)" + ((httpMethod == "POST") ? "/" : "")
         

@@ -699,39 +699,39 @@
 		4353B9FD22DC40B5004BD807 /* FSCalendar */ = {
 			isa = PBXGroup;
 			children = (
-				4353BA2E22DC5149004BD807 /* Objc-Bridge-Header.h */,
-				4353B9FE22DC40B5004BD807 /* FSCalendarCollectionView.m */,
-				4353B9FF22DC40B5004BD807 /* FSCalendarWeekdayView.h */,
-				4353BA0022DC40B5004BD807 /* FSCalendarCollectionViewLayout.h */,
-				4353BA0122DC40B5004BD807 /* FSCalendarDelegationProxy.m */,
-				4353BA0222DC40B5004BD807 /* FSCalendarExtensions.h */,
-				4353BA0322DC40B5004BD807 /* FSCalendarDelegationFactory.m */,
-				4353BA0422DC40B5004BD807 /* FSCalendarSeparatorDecorationView.h */,
-				4353BA0522DC40B5004BD807 /* FSCalendarCalculator.h */,
-				4353BA0622DC40B5004BD807 /* FSCalendarHeaderView.h */,
-				4353BA0722DC40B5004BD807 /* FSCalendarConstants.h */,
-				4353BA0822DC40B5004BD807 /* FSCalendarAppearance.h */,
-				4353BA0922DC40B5004BD807 /* FSCalendarTransitionCoordinator.h */,
-				4353BA0A22DC40B5004BD807 /* FSCalendarCell.m */,
-				4353BA0B22DC40B5004BD807 /* FSCalendarStickyHeader.m */,
-				4353BA0C22DC40B5004BD807 /* FSCalendar.m */,
-				4353BA0D22DC40B5004BD807 /* FSCalendarCollectionViewLayout.m */,
-				4353BA0E22DC40B5004BD807 /* FSCalendarWeekdayView.m */,
-				4353BA0F22DC40B5004BD807 /* FSCalendarCollectionView.h */,
-				4353BA1022DC40B5004BD807 /* FSCalendarDynamicHeader.h */,
-				4353BA1122DC40B5004BD807 /* FSCalendarSeparatorDecorationView.m */,
-				4353BA1222DC40B5004BD807 /* FSCalendarDelegationFactory.h */,
-				4353BA1322DC40B5004BD807 /* FSCalendarExtensions.m */,
-				4353BA1422DC40B5004BD807 /* FSCalendarDelegationProxy.h */,
-				4353BA1522DC40B5004BD807 /* FSCalendarConstants.m */,
-				4353BA1622DC40B5004BD807 /* FSCalendarCalculator.m */,
-				4353BA1722DC40B5004BD807 /* FSCalendarHeaderView.m */,
-				4353BA1822DC40B5004BD807 /* FSCalendarStickyHeader.h */,
 				4353BA1922DC40B5004BD807 /* FSCalendar.h */,
-				4353BA1A22DC40B5004BD807 /* FSCalendarCell.h */,
-				4353BA1B22DC40B5004BD807 /* FSCalendarTransitionCoordinator.m */,
-				4353BA1C22DC40B5004BD807 /* Info.plist */,
+				4353BA0C22DC40B5004BD807 /* FSCalendar.m */,
+				4353BA0822DC40B5004BD807 /* FSCalendarAppearance.h */,
 				4353BA1D22DC40B5004BD807 /* FSCalendarAppearance.m */,
+				4353BA0522DC40B5004BD807 /* FSCalendarCalculator.h */,
+				4353BA1622DC40B5004BD807 /* FSCalendarCalculator.m */,
+				4353BA1A22DC40B5004BD807 /* FSCalendarCell.h */,
+				4353BA0A22DC40B5004BD807 /* FSCalendarCell.m */,
+				4353BA0F22DC40B5004BD807 /* FSCalendarCollectionView.h */,
+				4353B9FE22DC40B5004BD807 /* FSCalendarCollectionView.m */,
+				4353BA0022DC40B5004BD807 /* FSCalendarCollectionViewLayout.h */,
+				4353BA0D22DC40B5004BD807 /* FSCalendarCollectionViewLayout.m */,
+				4353BA0722DC40B5004BD807 /* FSCalendarConstants.h */,
+				4353BA1522DC40B5004BD807 /* FSCalendarConstants.m */,
+				4353BA1222DC40B5004BD807 /* FSCalendarDelegationFactory.h */,
+				4353BA0322DC40B5004BD807 /* FSCalendarDelegationFactory.m */,
+				4353BA1422DC40B5004BD807 /* FSCalendarDelegationProxy.h */,
+				4353BA0122DC40B5004BD807 /* FSCalendarDelegationProxy.m */,
+				4353BA1022DC40B5004BD807 /* FSCalendarDynamicHeader.h */,
+				4353BA0222DC40B5004BD807 /* FSCalendarExtensions.h */,
+				4353BA1322DC40B5004BD807 /* FSCalendarExtensions.m */,
+				4353BA0622DC40B5004BD807 /* FSCalendarHeaderView.h */,
+				4353BA1722DC40B5004BD807 /* FSCalendarHeaderView.m */,
+				4353BA0422DC40B5004BD807 /* FSCalendarSeparatorDecorationView.h */,
+				4353BA1122DC40B5004BD807 /* FSCalendarSeparatorDecorationView.m */,
+				4353BA1822DC40B5004BD807 /* FSCalendarStickyHeader.h */,
+				4353BA0B22DC40B5004BD807 /* FSCalendarStickyHeader.m */,
+				4353BA0922DC40B5004BD807 /* FSCalendarTransitionCoordinator.h */,
+				4353BA1B22DC40B5004BD807 /* FSCalendarTransitionCoordinator.m */,
+				4353B9FF22DC40B5004BD807 /* FSCalendarWeekdayView.h */,
+				4353BA0E22DC40B5004BD807 /* FSCalendarWeekdayView.m */,
+				4353BA1C22DC40B5004BD807 /* Info.plist */,
+				4353BA2E22DC5149004BD807 /* Objc-Bridge-Header.h */,
 			);
 			path = FSCalendar;
 			sourceTree = "<group>";
@@ -1572,13 +1572,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = G4MM77V7NH;
+				DEVELOPMENT_TEAM = 5AVJM299X4;
 				INFOPLIST_FILE = MyAirbnb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = kr.doyeong.MyAirbnb;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.AlexLee0427.MyAirbnb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "./FSCalendar/Objc-Bridge-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -1592,13 +1592,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = G4MM77V7NH;
+				DEVELOPMENT_TEAM = 5AVJM299X4;
 				INFOPLIST_FILE = MyAirbnb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = kr.doyeong.MyAirbnb;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.AlexLee0427.MyAirbnb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "./FSCalendar/Objc-Bridge-Header.h";
 				SWIFT_VERSION = 5.0;

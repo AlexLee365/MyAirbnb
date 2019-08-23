@@ -103,20 +103,27 @@ class LaunchScreenViewController: UIViewController {
     
     private func reArrangeMainViewDataArray() {
         var newArrangedArray = [MainViewData]()
-        guard let categoryData = ( mainViewDataArray.filter { $0.cellStyle == .category}.map{$0.data}.first ) as? [Category]
-            , let plusHouseData = ( mainViewDataArray.filter { $0.cellStyle == .plus}.map{$0.data}.first ) as? [HouseDataInList]
-            , let fullImageData = ( mainViewDataArray.filter { $0.cellStyle == .fullImage}.map{$0.data}.first ) as? [HouseFullImagDataInList]
-            , let luxeHouseData = ( mainViewDataArray.filter { $0.cellStyle == .luxe}.map{$0.data}.first ) as? [HouseDataInList]
-            , let normalHouseData = ( mainViewDataArray.filter { $0.cellStyle == .fourSquare}.map{$0.data}.first ) as? [HouseDataInList] else {
+        guard let categoryData
+            = ( mainViewDataArray.filter{ $0.cellStyle == .category }.flatMap{ $0.data } ) as? [Category]
+            , let plusHouseData
+            = ( mainViewDataArray.filter{ $0.cellStyle == .plus }.flatMap{ $0.data } ) as? [HouseDataInList]
+            , let fullImageData
+            = ( mainViewDataArray.filter{ $0.cellStyle == .fullImage }.flatMap{ $0.data } ) as? [HouseFullImagDataInList]
+            , let luxeHouseData
+            = ( mainViewDataArray.filter{ $0.cellStyle == .luxe }.flatMap{ $0.data } ) as? [HouseDataInList]
+            , let normalHouseData
+            = ( mainViewDataArray.filter{ $0.cellStyle == .fourSquare }.flatMap{ $0.data } ) as? [HouseDataInList] else {
                 print("‼️ reArrangeMainViewDataArray convert ")
                 return
         }
         
-        newArrangedArray.append(MainViewData(data: categoryData, cellStyle: .category))
-        newArrangedArray.append(MainViewData(data: plusHouseData, cellStyle: .plus))
-        newArrangedArray.append(MainViewData(data: fullImageData, cellStyle: .fullImage))
-        newArrangedArray.append(MainViewData(data: luxeHouseData, cellStyle: .luxe))
-        newArrangedArray.append(MainViewData(data: normalHouseData, cellStyle: .fourSquare))
+        newArrangedArray = [
+            MainViewData(data: categoryData, cellStyle: .category),
+            MainViewData(data: plusHouseData, cellStyle: .plus),
+            MainViewData(data: fullImageData, cellStyle: .fullImage),
+            MainViewData(data: luxeHouseData, cellStyle: .luxe),
+            MainViewData(data: normalHouseData, cellStyle: .fourSquare)
+        ]
         
         mainViewDataArray = newArrangedArray
     }
@@ -150,8 +157,6 @@ extension LaunchScreenViewController {
         dispatchGroup.enter()
         globalQueue.async {
             print("🔸🔸🔸 group getServerHouseData statrted ")
-        
-            
             self.getServerHouseData(completion: { (houseArray) in
                 self.mainViewDataArray.append(MainViewData(data: houseArray, cellStyle: .fourSquare))
                 print("🔸🔸🔸 gorup getServerHouseData Finished ")
@@ -188,9 +193,6 @@ extension LaunchScreenViewController {
                     SingletonCommonData.shared.userInfo = value
                     SingletonCommonData.shared.usersLikeRoomNumbersArray = value.likes.compactMap{$0}
                     print("🔸🔸🔸 getLoginedUserData finished ")
-                    print("🔵🔵🔵 로그인한 유저정보: ", value)
-                    
-                    
                     dispatchGroup.leave()
                     
                 case .failure(let error):
@@ -203,19 +205,17 @@ extension LaunchScreenViewController {
         
         dispatchGroup.notify(queue: globalQueue) {
             print("🔸🔸🔸 All downloading finisehd ")
-            completion()
+            completion()    // 애니메이션 종료 후 MainVC로 이동
             
             // 숙소 데이터를 우선적으로 다운 후에 완료시 기타 부가 데이터 다운시작
             print("🔸🔸🔸 After LaunchScreen Downloading started ")
             self.getUsersChatRoomsData(completion: { (result) in
                 switch result {
                 case .success(_):
-//                    print("🔵🔵🔵 chatroomData Array: ", SingletonCommonData.shared.userChatRoomsArray)
                     print("🔸🔸🔸 getUsersChatRoomsData finished ")
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                    DispatchQueue.main.async {
                         NotificationCenter.default.post(name: .downloadingMessagesDataFinished, object: nil)
-                    })
+                    }
                     
                 case .failure(let error):
                     print("‼️", error.localizedDescription)

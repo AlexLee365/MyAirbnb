@@ -11,7 +11,7 @@ import Foundation
 protocol MainViewDataProtocol {}
 protocol HouseViewDataProtocol {}
 
-struct MainViewData: MainViewDataProtocol {
+struct MainViewData {
     var data: [MainViewDataProtocol]
     var cellStyle: CellStyle
     
@@ -20,7 +20,7 @@ struct MainViewData: MainViewDataProtocol {
     }
 }
 
-struct HouseViewData: HouseViewDataProtocol {
+struct HouseViewData {
     var data: [HouseViewDataProtocol]
     var cellStyle: CellStyle
     
@@ -38,8 +38,7 @@ struct Category: MainViewDataProtocol {
 struct HouseDataInList: Codable, MainViewDataProtocol, HouseViewDataProtocol {
     let id: Int
     let host, title: String
-    let image, image1, image2, image3: String
-    let image4: String
+    let image, image1, image2, image3, image4: String
     let price: Int
     let houseDescription, roomType, space: String
     let totalRating: Double

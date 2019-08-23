@@ -66,11 +66,11 @@ class ChatTableViewCell: UITableViewCell {
 //        messageInfoLabel.font = .systemFont(ofSize: 13, weight: .regular)
         messageInfoLabel.font = UIFont(name: StandardUIValue.shared.airbnbMediumFontString, size: 13)
         
-        myImageView.contentMode = .scaleAspectFit
+        myImageView.contentMode = .scaleAspectFill
         myImageView.layer.cornerRadius = 20
         myImageView.clipsToBounds = true
         
-        hostImageView.contentMode = .scaleAspectFit
+        hostImageView.contentMode = .scaleAspectFill
         hostImageView.layer.cornerRadius = 20
         hostImageView.clipsToBounds = true
     }

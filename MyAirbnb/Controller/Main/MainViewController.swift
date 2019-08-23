@@ -609,7 +609,7 @@ extension MainViewController {
                 
             }
             
-            self.navigationController?.pushViewController(houseDetailVC, animated: false)
+            self.navigationController?.pushViewController(houseDetailVC, animated: true)
             
         // 숙소 Plus 상세VC 로 이동
         case Notification.Name.moveToPlusHouseDetailView:
