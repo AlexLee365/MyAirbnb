@@ -8,8 +8,8 @@
 
 import Foundation
 
-protocol MainViewDataProtocol {}
 protocol HouseViewDataProtocol {}
+protocol MainViewDataProtocol {}
 
 struct MainViewData {
     var data: [MainViewDataProtocol]

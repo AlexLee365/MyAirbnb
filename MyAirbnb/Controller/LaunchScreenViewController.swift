@@ -103,16 +103,11 @@ class LaunchScreenViewController: UIViewController {
     
     private func reArrangeMainViewDataArray() {
         var newArrangedArray = [MainViewData]()
-        guard let categoryData
-            = ( mainViewDataArray.filter{ $0.cellStyle == .category }.flatMap{ $0.data } ) as? [Category]
-            , let plusHouseData
-            = ( mainViewDataArray.filter{ $0.cellStyle == .plus }.flatMap{ $0.data } ) as? [HouseDataInList]
-            , let fullImageData
-            = ( mainViewDataArray.filter{ $0.cellStyle == .fullImage }.flatMap{ $0.data } ) as? [HouseFullImagDataInList]
-            , let luxeHouseData
-            = ( mainViewDataArray.filter{ $0.cellStyle == .luxe }.flatMap{ $0.data } ) as? [HouseDataInList]
-            , let normalHouseData
-            = ( mainViewDataArray.filter{ $0.cellStyle == .fourSquare }.flatMap{ $0.data } ) as? [HouseDataInList] else {
+        guard let categoryData = ( mainViewDataArray.filter{ $0.cellStyle == .category }.flatMap{ $0.data } ) as? [Category]
+            , let plusHouseData = ( mainViewDataArray.filter{ $0.cellStyle == .plus }.flatMap{ $0.data } ) as? [HouseDataInList]
+            , let fullImageData = ( mainViewDataArray.filter{ $0.cellStyle == .fullImage }.flatMap{ $0.data } ) as? [HouseFullImagDataInList]
+            , let luxeHouseData = ( mainViewDataArray.filter{ $0.cellStyle == .luxe }.flatMap{ $0.data } ) as? [HouseDataInList]
+            , let normalHouseData = ( mainViewDataArray.filter{ $0.cellStyle == .fourSquare }.flatMap{ $0.data } ) as? [HouseDataInList] else {
                 print("‼️ reArrangeMainViewDataArray convert ")
                 return
         }
@@ -156,7 +151,7 @@ extension LaunchScreenViewController {
 
         dispatchGroup.enter()
         globalQueue.async {
-            print("🔸🔸🔸 group getServerHouseData statrted ")
+            print("🔸🔸🔸 group getServerHouseData Statrted ")
             self.getServerHouseData(completion: { (houseArray) in
                 self.mainViewDataArray.append(MainViewData(data: houseArray, cellStyle: .fourSquare))
                 print("🔸🔸🔸 gorup getServerHouseData Finished ")
@@ -166,33 +161,33 @@ extension LaunchScreenViewController {
         
         dispatchGroup.enter()
         globalQueue.async {
-            print("🔸🔸🔸 gorup getServerLuxeData Finished ")
+            print("🔸🔸🔸 group getServerLuxeData Statrted ")
             self.getServerLuxeData(completion: { (luxeHouseArray) in
                 self.mainViewDataArray.append(MainViewData(data: luxeHouseArray, cellStyle: .luxe))
-                print("🔸🔸🔸 gorup getServerLuxeData Finished ")
+                print("🔸🔸🔸 group getServerLuxeData Finished ")
                 dispatchGroup.leave()
             })
         }
         
         dispatchGroup.enter()
         globalQueue.async {
-            print("🔸🔸🔸 gorup getServerPlusHouseData Finished ")
+            print("🔸🔸🔸 group getServerPlusHouseData Statrted ")
             self.getServerPlusHouseData(completion: { (plusHouseArray) in
                 self.mainViewDataArray.append(MainViewData(data: plusHouseArray, cellStyle: .plus))
-                print("🔸🔸🔸 gorup getServerPlusHouseData Finished ")
+                print("🔸🔸🔸 group getServerPlusHouseData Finished ")
                 dispatchGroup.leave()
             })
         }
         
         dispatchGroup.enter()
         globalQueue.async {
-            print("🔸🔸🔸 getLoginedUserData started ")
+            print("🔸🔸🔸 getLoginedUserData Statrted ")
             self.getLoginedUserData(completion: { (result) in
                 switch result {
                 case .success(let value):
                     SingletonCommonData.shared.userInfo = value
                     SingletonCommonData.shared.usersLikeRoomNumbersArray = value.likes.compactMap{$0}
-                    print("🔸🔸🔸 getLoginedUserData finished ")
+                    print("🔸🔸🔸 getLoginedUserData Finished ")
                     dispatchGroup.leave()
                     
                 case .failure(let error):

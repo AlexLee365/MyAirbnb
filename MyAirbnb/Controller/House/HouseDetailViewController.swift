@@ -43,27 +43,41 @@ class HouseDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setAutoLayout()
-        self.configureViewsOptions()
-        self.addNotificationObserver()
+        self.setAutoLayout()                 // 오토레이아웃 설정
+        self.configureViewsOptions()         // 뷰들 설정값 지정
+        self.addNotificationObserver()       // NotificationCenter addObserver
+        self.setPlaceholderView()            // PlaceHolderView 생성
+        self.showIdicator()                  // Indicator Animation 시작
         
-        self.setPlaceholderView()
-        self.showIdicator()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0) {
-            self.getServerData {
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                    self.setBottomViewData()
-                    UIView.animate(withDuration: 0.5, animations: {
-                        self.view.bringSubviewToFront(self.tableView)
-                        self.view.bringSubviewToFront(self.bottomView)
-                        self.tableView.alpha = 1
-                        self.bottomView.alpha = 1
-                    })
-                    self.stopIndicator()
-                }
+        self.getServerData {                 // 서버 API호출 종료 후
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.setBottomViewData()
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.view.bringSubviewToFront(self.tableView)
+                    self.view.bringSubviewToFront(self.bottomView)
+                    self.tableView.alpha = 1
+                    self.bottomView.alpha = 1
+                })
+                self.stopIndicator()
             }
         }
+        
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0) {
+//            self.getServerData {             // 서버 API호출 종료 후
+//                DispatchQueue.main.async {
+//                    self.tableView.reloadData()
+//                    self.setBottomViewData()
+//                    UIView.animate(withDuration: 0.5, animations: {
+//                        self.view.bringSubviewToFront(self.tableView)
+//                        self.view.bringSubviewToFront(self.bottomView)
+//                        self.tableView.alpha = 1
+//                        self.bottomView.alpha = 1
+//                    })
+//                    self.stopIndicator()
+//                }
+//            }
+//        }
         
     }
     

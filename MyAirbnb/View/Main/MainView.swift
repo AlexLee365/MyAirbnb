@@ -73,9 +73,8 @@ extension MainView: UITableViewDelegate, UITableViewDataSource {
         switch houseData.cellStyle {
         case .category:
             if let categoryData = houseData.data as? [Category] {
-                 let CategoryCell =
-                    tableView.dequeueReusableCell(withIdentifier: MainCategoryTableCell.identifier, for: indexPath)
-                        as! MainCategoryTableCell
+                 let CategoryCell
+                    = tableView.dequeueReusableCell(withIdentifier: MainCategoryTableCell.identifier, for: indexPath) as! MainCategoryTableCell
                 CategoryCell.categoryDataArray = categoryData
 
                 return CategoryCell
@@ -85,9 +84,8 @@ extension MainView: UITableViewDelegate, UITableViewDataSource {
         
         case .plus:
             if let plusHouseData = houseData.data as? [HouseDataInList] {
-                let recommendHoseCell =
-                    tableView.dequeueReusableCell(withIdentifier: MainRecommendHouseTableCell.identifier, for: indexPath)
-                        as! MainRecommendHouseTableCell
+                let recommendHoseCell
+                    = tableView.dequeueReusableCell(withIdentifier: MainRecommendHouseTableCell.identifier, for: indexPath) as! MainRecommendHouseTableCell
                 recommendHoseCell.plusHouseDataArray = plusHouseData
                 
                 return recommendHoseCell

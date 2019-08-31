@@ -11,6 +11,7 @@ import UIKit
 enum LikeButtonContentType {
     case room
     case trip
+    case restuarant
 }
 
 class LikeButton: UIButton {
@@ -22,9 +23,6 @@ class LikeButton: UIButton {
         }
     }
     var contentType: LikeButtonContentType
-    
-    var houseData: HouseDataInList?
-    
     let netWork = NetworkCommunicator()
     
     override init(frame: CGRect) {
@@ -73,6 +71,8 @@ class LikeButton: UIButton {
         }
         
     }
+    
+    var houseData: HouseDataInList?
     
     func resetContentIDAndTypeAndHouseData(contentID: Int, contentType: LikeButtonContentType, houseData: HouseDataInList) {
         self.contentID = contentID
