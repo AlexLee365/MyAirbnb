@@ -19,6 +19,5 @@
   - 숙소 호스트와 사용자 간 실시간 메세지 기능
   - FSCalendar 오픈소스 캘린더 UI 및 기능 개선
 - 사용 기술 & 라이브러리: Swift, FSCalender 오픈소스, Starscream, Kingfisher, NVActivityIndicatorView, Snapkit,                                                         AVFoundation, GitHub, Slack, Zenhub
-- Github Link: https://github.com/AlexLee365/MyAirbnb
 - 시연 영상: https://www.youtube.com/watch?v=K0blwUTsPTI
 
